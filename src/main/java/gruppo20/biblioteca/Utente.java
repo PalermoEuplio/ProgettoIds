@@ -15,11 +15,6 @@ public class Utente {
     private String nome;
     private String cognome;
     private String matricola;
-
-    @Override
-    public String toString() {
-        return "Nome=" + nome + ", cognome=" + cognome + ", matricola=" + matricola + ", mail=" + mail + '}';
-    }
     private String mail;
 
     /**
@@ -68,6 +63,9 @@ public class Utente {
         return mail;
     }
     
-    
+    @Override
+    public String toString() {
+        return "Nome=" + nome + ", cognome=" + cognome + ", matricola=" + matricola + ", mail=" + mail + '}';
+    }
     
 }

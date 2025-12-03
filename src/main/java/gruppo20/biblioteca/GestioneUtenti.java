@@ -17,13 +17,13 @@ public class GestioneUtenti {
     private TreeSet<Utente> anagrafica = new TreeSet<>();
     
     public boolean aggiungiUtente(Utente u){
-        return false;
+        
     }
     public boolean eliminazioneUtente(Utente u){
-        return false;
+        
     }
     public boolean modificaUtente(Utente u){
-        return false;
+        
     }
 
     @Override
