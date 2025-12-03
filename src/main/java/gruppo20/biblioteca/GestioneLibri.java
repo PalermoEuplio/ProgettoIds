@@ -28,18 +28,21 @@ public class GestioneLibri implements Comparable<Libro> {
         
     }
     
-    public void cercaTitolo(String titolo){
+    public Libro cercaTitolo(String titolo){
         
     }
     
-    public void cercaAutori(String[] autori){
+    public Libro cercaAutori(String[] autori){
         
     }
     
-    public void cercaIsbn(int isbn){
+    public Libro cercaIsbn(int isbn){
         
     }
     
+    public void modificaLibro(){
+        
+    }
     
     
     public int compareTo(Libro l){
