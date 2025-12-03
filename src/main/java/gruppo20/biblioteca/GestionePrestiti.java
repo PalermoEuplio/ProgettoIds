@@ -9,11 +9,12 @@ import java.util.*;
  * @author Osv
  */
 public class GestionePrestiti {
-    private TreeSet<Prestito> Prestiti = new TreeSet<Prestito>;
+    private TreeSet<Prestito> Prestiti;
     private final String nome;
    
     public GestionePrestiti(String nome){
         this.nome = nome;
+        this.Prestiti = new TreeSet<>();
     }
     //restituisce direttamente una stringa con la libreria
     public String getPrestiti() {

@@ -37,6 +37,7 @@ public class Prestito {
         if(dataEffettivaRestituzione!=null) return dataEffettivaRestituzione.toString();
         else return "Non ancora restituito";
     }
-    
+
+    //TODO: implementare interfaccia comparable
 
 }
