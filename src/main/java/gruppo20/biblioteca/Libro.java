@@ -54,7 +54,7 @@ public class Libro {
     
 
     public String getTitolo() {
-        return Titolo;
+        return titolo;
     }
 
     public String[] getAutori() {

@@ -24,19 +24,19 @@ public class GestioneLibri implements Comparable<Libro> {
         
     }
     
-    public boolean rimozioneLibro(Libro l){
+    public boolean eliminazioneLibro(Libro l){
         
     }
     
-    public Libro cercaTitolo(String titolo){
+    public Libro ricercaTitolo(String titolo){
         
     }
     
-    public Libro cercaAutori(String[] autori){
+    public Libro ricercaAutori(String[] autori){
         
     }
     
-    public Libro cercaIsbn(int isbn){
+    public Libro ricercaIsbn(int isbn){
         
     }
     
