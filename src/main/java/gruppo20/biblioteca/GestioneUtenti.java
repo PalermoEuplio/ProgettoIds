@@ -16,10 +16,10 @@ public class GestioneUtenti {
      */
     private TreeSet<Utente> anagrafica = new TreeSet<>();
     
-    public boolean addUtente(Utente u){
+    public boolean aggiungiUtente(Utente u){
         return false;
     }
-    public boolean rimuoviUtente(Utente u){
+    public boolean eliminazioneUtente(Utente u){
         return false;
     }
     public boolean modificaUtente(Utente u){
