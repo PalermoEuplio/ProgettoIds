@@ -21,7 +21,7 @@ public class GestioneLibri implements Comparable<Libro> {
     }
     
     public boolean aggiungiLibro(Libro l){
-        return libri.add(l);
+        
     }
     
     public boolean rimozioneLibro(Libro l){
@@ -46,7 +46,10 @@ public class GestioneLibri implements Comparable<Libro> {
         
     }
     
-    
+    @Override
+    public String toString(){
+        
+    }
     
     
     
