@@ -36,5 +36,5 @@ public class GestionePrestiti {
     public boolean hasPrestito (Prestito p){
         return Prestiti.contains(p);
     }
-    
+      
 }
