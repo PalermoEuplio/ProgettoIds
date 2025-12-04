@@ -8,11 +8,11 @@ import java.util.*;
  *
  * @author Osv
  */
-public class GestionePrestiti {
+public class Prestiti {
     private TreeSet<Prestito> Prestiti;
     private final String nome;
    
-    public GestionePrestiti(String nome){
+    public Prestiti(String nome){
         this.nome = nome;
         this.Prestiti = new TreeSet<>();
     }

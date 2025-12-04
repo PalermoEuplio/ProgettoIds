@@ -11,40 +11,43 @@ import java.util.*;
  *
  * @author giuli
  */
-public class GestioneLibri implements Comparable<Libro> {
+public class Libreria implements Comparable<Libro>,Gestione<Libro> {
     
     
     private TreeSet<Libro> libri;
     
-    public GestioneLibri(){
+    public Libreria(){
         libri = new TreeSet<>();
     }
     
-    public boolean aggiungiLibro(Libro l){
+    @Override
+    public boolean aggiungi(Libro l){
         
     }
     
-    public boolean eliminazioneLibro(Libro l){
+    @Override
+    public boolean elimina(Libro l){
         
     }
     
-    public Libro ricercaTitolo(String titolo){
+    @Override
+    public boolean modifica(Libro l){
+        
+    }   
+    
+    public Libro ricerca(String titolo){
         
     }
     
-    public Libro ricercaAutori(String[] autori){
+    public Libro ricerca(String[] autori){
         
     }
     
-    public Libro ricercaIsbn(int isbn){
+    public Libro ricerca(int isbn){
         
     }
     
-    public void modificaLibro(){
-        
-    }
-    
-    
+    @Override
     public int compareTo(Libro l){
         
     }

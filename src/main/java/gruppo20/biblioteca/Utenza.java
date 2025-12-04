@@ -10,7 +10,7 @@ import java.util.TreeSet;
  *Classe per la gestione dell'utenza
  * @author Riccardo
  */
-public class GestioneUtenti {
+public class Utenza {
     /**
      * Struttura dati che contiene gli utenti
      * TreeSet
@@ -20,7 +20,7 @@ public class GestioneUtenti {
      * Costruttore gestione utenti
      * Iniziallizza la struttura
      */
-    public GestioneUtenti() {
+    public Utenza() {
         this.anagrafica = new TreeSet<Utente>();
     }    
     
