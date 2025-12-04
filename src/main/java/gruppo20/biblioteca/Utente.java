@@ -8,9 +8,9 @@ package gruppo20.biblioteca;
  *Classe Utente
  * Identifica l'entità utente e i suoi attributi
  * 
- * @author Riccardo
+ * @author Riccardo 
  */
-public class Utente {
+public class Utente implements Comparable<Utente>{
     
     private String nome;
     private String cognome;
@@ -20,10 +20,10 @@ public class Utente {
     /**
     *Costruttore Utente
     *Necessita come parametri
-     * @param nome
-     * @param cognome
-     * @param matricola
     * 
+     * @param nome il nome utente
+     * @param cognome il cognome utente
+     * @param matricola la matricola utente
     */
     public Utente(String nome, String cognome, String matricola) {
         this.nome = nome;
@@ -66,6 +66,11 @@ public class Utente {
     @Override
     public String toString() {
         return "Nome=" + nome + ", cognome=" + cognome + ", matricola=" + matricola + ", mail=" + mail + '}';
+    }
+
+    @Override
+    public int compareTo(Utente o) {
+        return this.getNome().compareTo(o.getNome());
     }
     
 }

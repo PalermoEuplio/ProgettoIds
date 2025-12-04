@@ -14,16 +14,35 @@ public class GestioneUtenti {
      * Struttura dati che contiene gli utenti
      * TreeSet
      */
-    private TreeSet<Utente> anagrafica = new TreeSet<>();
+    private TreeSet<Utente> anagrafica;
     
+    public GestioneUtenti() {
+        this.anagrafica = new TreeSet<Utente>();
+    }    
+    
+    /**
+    *Aggiunge un un utente all'anagrafica
+     * @param u utente da aggiungere all'anagrafica
+    *@return restituisce true se l'utente è stato inserito
+    * false se invece non è stato inserito o è già presente 
+    *in anagrafica 
+    */    
     public boolean aggiungiUtente(Utente u){
-        
+        return anagrafica.add(u);
     }
+    
+    /**
+     * Elimina l'utente se presente
+     * @param u utente da eliminare
+     * @return restituisce true se elimina l'utente
+     * false se è già presente
+     */
     public boolean eliminazioneUtente(Utente u){
-        
+        return anagrafica.remove(u);
     }
     public boolean modificaUtente(Utente u){
         
+        return false;
     }
 
     @Override
