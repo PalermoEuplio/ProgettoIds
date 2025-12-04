@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package gruppo20.biblioteca;
+import java.util.Iterator;
 import java.util.TreeSet;
 
 /**
@@ -15,7 +16,10 @@ public class GestioneUtenti {
      * TreeSet
      */
     private TreeSet<Utente> anagrafica;
-    
+    /**
+     * Costruttore gestione utenti
+     * Iniziallizza la struttura
+     */
     public GestioneUtenti() {
         this.anagrafica = new TreeSet<Utente>();
     }    
@@ -40,14 +44,26 @@ public class GestioneUtenti {
     public boolean eliminazioneUtente(Utente u){
         return anagrafica.remove(u);
     }
-    public boolean modificaUtente(Utente u){
-        
+    public boolean modificaUtente(Utente u,Utente modified){
+        if(anagrafica.contains(u)){
+            anagrafica.remove(u);
+            anagrafica.add(modified);
+            return true;
+        }
         return false;
     }
 
     @Override
     public String toString() {
-        return "GestioneUtenti{" + "anagrafica=" + anagrafica + '}';
+        //da correggere
+        StringBuilder s = new StringBuilder();
+        for(Utente u : anagrafica){
+            s.append(u.getNome()).append(" ").append(u.getCognome()).append(" ");
+            s.append(u.getMatricola()).append(" ").append(" ").append(u.getMail());
+            s.append("\n");
+
+        }
+        return s.toString();
     }
     
     
