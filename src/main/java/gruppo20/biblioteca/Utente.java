@@ -24,11 +24,13 @@ public class Utente implements Comparable<Utente>{
      * @param nome il nome utente
      * @param cognome il cognome utente
      * @param matricola la matricola utente
+     * @param mail
     */
-    public Utente(String nome, String cognome, String matricola) {
+    public Utente(String nome, String cognome, String matricola, String mail) {
         this.nome = nome;
         this.cognome = cognome;
         this.matricola = matricola;
+        this.mail=mail;
     }
 
     public void setNome(String nome) {
