@@ -1,12 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package gruppo20.biblioteca;
 
 /**
- *
- * @author Osv
+ * @brief Questo file contiene l'implementazione dell'interfaccia Gestione.
+ * @author Gruppo20
  */
 public interface Gestione<T> {
     boolean aggiungi(T o);

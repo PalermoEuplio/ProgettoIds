@@ -1,16 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package gruppo20.biblioteca;
 import java.util.Iterator;
 import java.util.TreeSet;
 
 /**
- *Classe per la gestione dell'utenza
- * @author Riccardo
+ * @brief Questo file contiene l'implementazione della classe Utenza.
+ * @author Gruppo20
  */
-public class Utenza {
+
+public class Utenza implements Gestione<Utente>{
     /**
      * Struttura dati che contiene gli utenti
      * TreeSet
@@ -25,32 +23,52 @@ public class Utenza {
     }    
     
     /**
-    *Aggiunge un un utente all'anagrafica
-     * @param u utente da aggiungere all'anagrafica
-    *@return restituisce true se l'utente è stato inserito
-    * false se invece non è stato inserito o è già presente 
-    *in anagrafica 
-    */    
-    public boolean aggiungiUtente(Utente u){
+    *Aggiunge un utente all'anagrafica.
+    * 
+    * Parametro in ingresso:
+    *   @param u utente da aggiungere all'anagrafica.
+    * 
+    *   @return restituisce true se l'utente è stato inserito. 
+    *           false se invece non è stato inserito o è già presente in anagrafica. 
+    */  
+    @Override
+    public boolean aggiungi(Utente u){
         return anagrafica.add(u);
     }
     
     /**
-     * Elimina l'utente se presente
-     * @param u utente da eliminare
-     * @return restituisce true se elimina l'utente
-     * false se è già presente
+     * @brief Elimina l'utente.
+     * Se l'utente è presente effettua l'eliminazione.
+     * 
+     * Parametro in ingresso:
+     *  @param u utente da eliminare
+     * 
+     *  @return restituisce true se elimina l'utente. false se non è già presente.
      */
-    public boolean eliminazioneUtente(Utente u){
+    @Override
+    public boolean elimina(Utente u){
         return anagrafica.remove(u);
     }
-    public boolean modificaUtente(Utente u,Utente modified){
-        if(anagrafica.contains(u)){
+    
+     /**
+     * @brief Modifica l'utente.
+     * Se l'utente è presente effettua la modifica di uno o più suoi dati.
+     * 
+     * Parametro in ingresso:
+     *  @param u utente da modificare
+     * 
+     *  @return restituisce true se la modifica dell'utente è avvenuta correttamente.
+     *          false se l'utente non è presente.
+     */
+    
+    @Override
+    public boolean modifica(Utente u){
+        /*if(anagrafica.contains(u)){
             anagrafica.remove(u);
             anagrafica.add(modified);
             return true;
         }
-        return false;
+        return false;*/
     }
 
     @Override

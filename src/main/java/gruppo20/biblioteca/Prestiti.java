@@ -1,36 +1,47 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package gruppo20.biblioteca;
 import java.util.*;
 /**
- *
- * @author Osv
+ * @brief Questo file contiene l'implementazione della classe Prestiti.
+ * @author Gruppo20
  */
 public class Prestiti {
     private TreeSet<Prestito> Prestiti;
-    private final String nome;
    
-    public Prestiti(String nome){
-        this.nome = nome;
+    public Prestiti(){
         this.Prestiti = new TreeSet<>();
     }
+    
     //restituisce direttamente una stringa con la libreria
     public String getPrestiti() {
         return Prestiti.toString();//fare override toString
     }
-
-    public String getNome() {
-        return nome;
+    
+    /**
+    *@brief Aggiunge un prestito.
+    * 
+    * Parametro in ingresso:
+    *   @param p prestito da dover aggiungere.
+    * 
+    *   @return restituisce true se il prestito è stato inserito. 
+    *           false se invece non è stato inserito o è già presente. 
+    */  
+    public boolean aggiungiPrestito (Prestito p){
+        return Prestiti.add(p);
     }
     
-    public void addPrestito (Prestito p){
-        Prestiti.add(p);
-    }
-    
-    public void delPrestito (Prestito p){
-        Prestiti.remove(p);
+    /**
+    *@brief elimina un prestito.
+    *Se il prestito esiste, ne effettua l'eliminazione.
+    * 
+    * Parametro in ingresso:
+    *   @param p prestito da dover eliminare.
+    * 
+    *   @return restituisce true se il prestito è stato eliminato. 
+    *           false se invece non è presente.
+    */  
+    public boolean eliminaPrestito (Prestito p){
+        return Prestiti.remove(p);
     }
 
     public boolean hasPrestito (Prestito p){

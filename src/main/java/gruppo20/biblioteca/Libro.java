@@ -1,16 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gruppo20.biblioteca;
 
 import java.time.*;
 import java.util.*;
 
 /**
- *
- * @author giuli
+ * @brief Questo file contiene l'implementazione dell'oggetto Libro.
+ * @author Gruppo20
  */
 public class Libro {
     
@@ -20,6 +15,16 @@ public class Libro {
     private LocalDate date;
     private int nCopie;
     private int isbn;
+    
+    /**
+     * Costruttore Libro
+     * Parametri in ingresso 
+     *  @param titolo il titolo del libro.
+     *  @param autori gli autori del libro. Il cognome e il nome.
+     *  @param date la data di pubblicazione del libro.
+     *  @param nCopie il numero delle copie presenti in biblioteca.
+     *  @param isbn il codice identificativo ISBN del libro.
+    */
 
     public Libro(String titolo, String[] autori, LocalDate date, int nCopie, int isbn) {
         this.titolo = titolo;
