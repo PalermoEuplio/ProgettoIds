@@ -10,7 +10,7 @@ import gruppo20.biblioteca.model.*;
  *
  * @author euppa
  */
-public class FileController {
+public class EsempioAccessFile {
     
     /**
     *@brief Si occupa della gestione dell'input nel file.
@@ -109,7 +109,7 @@ public class FileController {
         
     }
     
-    public ?? leggiFile(String nomeFile){   
+    public ?? EsempioAccessFileng nomeFile){   
     } 
     
 }

@@ -55,7 +55,7 @@ public class Libro implements Comparable<Libro> {
     }
 
     public void setIsbn(Isbn isbn) {
-        this.isbn.setIsbn(isbn.getIsbn());
+        this.isbn.setIsbn(isbn.toString());
     }
     
     

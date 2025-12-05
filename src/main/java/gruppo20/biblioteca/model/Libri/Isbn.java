@@ -18,10 +18,6 @@ public class Isbn {
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }  
-    
-    public String getIsbn() {
-        return isbn;
-    }
         
     @Override
     public boolean equals(Object o){
@@ -29,6 +25,10 @@ public class Isbn {
         Isbn isbn = (Isbn) o;        
         if(this.isbn.equals(isbn.getIsbn())) return true;
         else return false;
+    }
+    @Override
+    public String toString(){
+        return isbn;
     }
     
 }
