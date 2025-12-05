@@ -5,10 +5,9 @@
 package gruppo20.biblioteca;
 
 /**
- *Classe Utente
+ * @brief Questo file contiene l'implementazione dell'oggetto Utente.
  * Identifica l'entità utente e i suoi attributi
- * 
- * @author Riccardo 
+ * @author Gruppo20
  */
 public class Utente implements Comparable<Utente>{
     
@@ -18,13 +17,12 @@ public class Utente implements Comparable<Utente>{
     private String mail;
 
     /**
-    *Costruttore Utente
-    *Necessita come parametri
-    * 
-     * @param nome il nome utente
-     * @param cognome il cognome utente
-     * @param matricola la matricola utente
-     * @param mail
+     * Costruttore Utente
+     * Necessita come parametri in ingresso 
+     *   @param nome il nome utente
+     *   @param cognome il cognome utente
+     *   @param matricola la matricola utente
+     *   @param mail
     */
     public Utente(String nome, String cognome, String matricola, String mail) {
         this.nome = nome;
