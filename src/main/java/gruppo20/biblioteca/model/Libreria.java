@@ -6,7 +6,7 @@ import java.util.*;
  * @brief Questo file contiene l'implementazione della classe Libreria.
  * @author Gruppo20
  */
-public class Libreria implements Comparable<Libro>,Gestione<Libro> {
+public class Libreria implements Gestione<Libro> {
     
     
     private TreeSet<Libro> libri;
@@ -27,6 +27,7 @@ public class Libreria implements Comparable<Libro>,Gestione<Libro> {
     */  
     @Override
     public boolean aggiungi(Libro l){
+        return libri.add(l);
         
     }
     
@@ -44,7 +45,7 @@ public class Libreria implements Comparable<Libro>,Gestione<Libro> {
     
     @Override
     public boolean elimina(Libro l){
-        
+        return libri.remove(l);
     }
     
        /**
@@ -52,14 +53,29 @@ public class Libreria implements Comparable<Libro>,Gestione<Libro> {
      * Se il libro è presente effettua la modifica di uno o più suoi dati.
      * 
      * Parametro in ingresso:
-     *  @param l libro da modificare.
+     *  @param l1 libro originale da modificare.
+     *  @param l2 libro aggiornato da inserire nell'albero
      * 
      *  @return restituisce true se la modifica del libro è avvenuta correttamente.
      *          false se il libro non è presente.
      */
     
-    public boolean modifica(Libro l){
+    public boolean modifica(Libro l1, Libro l2){
         
+        Iterator i = libri.iterator();
+        
+        while(i.hasNext()){
+            Libro x = (Libro) i.next();
+            if(x.equals(l1)){
+                x.setTitolo(l2.getTitolo());
+                x.setAnno(l2.getAnno());
+                x.setAutori(l2.getAutori());
+                x.setIsbn(l2.getIsbn());
+                x.setNCopie(l2.getNCopie());
+                return true;
+            }
+        }
+        return false;
     }   
     
     /**
@@ -72,8 +88,13 @@ public class Libreria implements Comparable<Libro>,Gestione<Libro> {
      * @return i dati del libro se è presente nella libreria.
      *         null se il libro non è stato trovato.
      */
-    public Libro ricerca(String titolo){
+    public Libro ricercaT(String titolo){
+         for(Libro l : libri){
+             if(l.getTitolo().compareTo(titolo)==0)
+                 return l;
+         }
         
+        return null;
     }
     
     /**
@@ -86,8 +107,13 @@ public class Libreria implements Comparable<Libro>,Gestione<Libro> {
      * @return i dati del libro se è presente nella libreria.
      *         null se il libro non è stato trovato.
      */
-    public Libro ricerca(String[] autori){
+    public Libro ricercaA(String autori){
+        for(Libro l : libri){
+             if(l.getTitolo().compareTo(autori)==0)
+                 return l;
+         }
         
+        return null;
     }
     
     /**
@@ -100,20 +126,22 @@ public class Libreria implements Comparable<Libro>,Gestione<Libro> {
      * @return i dati del libro se è presente nella libreria.
      *         null se il libro non è stato trovato.
      */
-    public Libro ricerca(int isbn){
+    public Libro ricercaI(int isbn){
+        for(Libro l : libri){
+             if(l.getIsbn()==isbn)
+                 return l;
+         }
         
-    }
-    
-    @Override
-    public int compareTo(Libro l){
-        
+        return null;
     }
     
     @Override
     public String toString(){
+        StringBuffer buffer = new StringBuffer();
         
+        for(Libro l : libri){
+            buffer.append("\n"+l);
+        }
+        return buffer.toString();
     }
-    
-    
-    
 }

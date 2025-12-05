@@ -7,11 +7,11 @@ import java.util.*;
  * @brief Questo file contiene l'implementazione dell'oggetto Libro.
  * @author Gruppo20
  */
-public class Libro {
+public class Libro implements Comparable<Libro> {
     
     
     private String titolo;
-    private String[] autori;
+    private String autori;
     private LocalDate annoPublicazione;
     private int nCopie;
     private int isbn;
@@ -21,12 +21,12 @@ public class Libro {
      * Parametri in ingresso 
      *  @param titolo il titolo del libro.
      *  @param autori gli autori del libro. Il cognome e il nome.
-     *  @param date la data di pubblicazione del libro.
+     *  @param annoPublicazione la data di pubblicazione del libro.
      *  @param nCopie il numero delle copie presenti in biblioteca.
      *  @param isbn il codice identificativo ISBN del libro.
     */
 
-    public Libro(String titolo, String[] autori, LocalDate annoPublicazione, int nCopie, int isbn) {
+    public Libro(String titolo, String autori, LocalDate annoPublicazione, int nCopie, int isbn) {
         this.titolo = titolo;
         this.autori=autori;
         this.annoPublicazione = annoPublicazione;
@@ -40,7 +40,7 @@ public class Libro {
         this.titolo = titolo;
     }
 
-    public void setAutori(String[] autori) {
+    public void setAutori(String autori) {
         this.autori = autori;
     }
 
@@ -48,7 +48,7 @@ public class Libro {
         this.annoPublicazione = anno;
     }
 
-    public void setnCopie(int nCopie) {
+    public void setNCopie(int nCopie) {
         this.nCopie = nCopie;
     }
 
@@ -62,7 +62,7 @@ public class Libro {
         return titolo;
     }
 
-    public String[] getAutori() {
+    public String getAutori() {
         return autori;
     }
 
@@ -70,12 +70,31 @@ public class Libro {
         return annoPublicazione;
     }
 
-    public int getnCopie() {
+    public int getNCopie() {
         return nCopie;
     }
 
     public int getIsbn() {
         return isbn;
+    }
+    
+    @Override
+    public boolean equals(Object o){
+        Libro l = (Libro) o;
+        
+        if(!(o instanceof Libro) || o==null)
+            return false;
+ 
+        if(this.titolo.compareTo(l.getTitolo())==1 && this.annoPublicazione.compareTo(l.getAnno())==1 && this.isbn==l.getIsbn() 
+                && this.nCopie==l.getNCopie() && this.autori.compareTo(l.getAutori())==1)
+            return true;
+        
+        return false;
+    }
+    
+    @Override
+    public int compareTo(Libro l){
+        return this.getTitolo().compareTo(l.getTitolo());
     }
     
     
