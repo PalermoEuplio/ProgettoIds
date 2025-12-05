@@ -16,10 +16,10 @@ public class ControllerFile<T extends FileFormat>{
     private boolean chiuso = false;
     
     
-    public ControllerFile(String filePath,HashSet<T> set) throws IOException{
+    public ControllerFile(String filePath,HashSet<T> set, T t) throws IOException{
         this.filePath=filePath;
         this.file = new RandomAccessFile(filePath, "rw");
-        this.carica(set);
+        this.carica(set,t);
     }
     
     public void aggiungi(T t) throws IOException{
@@ -31,7 +31,7 @@ public class ControllerFile<T extends FileFormat>{
     public void elimina(T t) throws IOException{
         checkChiuso(); //controllo che il file non sia già chiuso
         file.seek(0);
-        long target;
+        long target = 0;
         StringBuilder builder = new StringBuilder();
         String[] buffer;
         //cerco il record nel file e salvo l'offset
@@ -60,7 +60,7 @@ public class ControllerFile<T extends FileFormat>{
         checkChiuso(); //controllo che il file non sia già chiuso
         file.seek(0);
         
-        long target;
+        long target = 0;
         StringBuilder builder = new StringBuilder();
         String[] buffer;
         
@@ -95,10 +95,11 @@ public class ControllerFile<T extends FileFormat>{
     }
     
     //carica il file nella struttura interna del programma, in questo caso HashSet
-    public String[] carica(HashSet<T> set) throws IOException{
+    //par ragioni di necessità passo un oggetto t, altrimenti non so come usare deFileFormat,
+    //non posso dichiararlo statico nell'interfaccia e non posso costruirlo generico, sarebbe un bagno di sangue
+    public void carica(HashSet<T> set, T t) throws IOException{
         checkChiuso();
         
-        T t;
         StringBuilder builder = new StringBuilder();
         String[] buffer;
         
@@ -109,7 +110,7 @@ public class ControllerFile<T extends FileFormat>{
         buffer = builder.toString().split("\n");
         
         for(String s : buffer){
-            set.add(t.deFileFormat(s));
+            set.add((T) t.deFileFormat(s));
         }
         
     }

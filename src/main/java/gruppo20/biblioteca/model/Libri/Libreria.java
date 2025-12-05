@@ -4,6 +4,7 @@ package gruppo20.biblioteca.model.Libri;
 import gruppo20.biblioteca.controller.ControllerFile;
 import gruppo20.biblioteca.model.Gestione;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.*;
 /**
  * @brief Questo file contiene l'implementazione della classe Libreria.
@@ -15,7 +16,7 @@ public class Libreria implements Gestione<Libro> {
     
     public Libreria(String filePath) throws IOException{
         libreria = new HashSet<>();
-        file = new ControllerFile<>(filePath,libreria);
+        file = new ControllerFile<>(filePath,libreria, new Libro(null,null,null,0,null));
 
         
     }
