@@ -14,7 +14,7 @@ public class Libro implements Comparable<Libro> {
     private ArrayList<Autore> autori;
     private LocalDate annoPublicazione;
     private int nCopie;
-    private Isbn isbn;
+    private String isbn;
     
     /**
      * Costruttore Libro
@@ -26,7 +26,7 @@ public class Libro implements Comparable<Libro> {
      *  @param isbn il codice identificativo ISBN del libro.
     */
 
-    public Libro(String titolo, Autore[] autori, LocalDate annoPublicazione, int nCopie, Isbn isbn) {
+    public Libro(String titolo, Autore[] autori, LocalDate annoPublicazione, int nCopie, String isbn) {
         this.autori = new ArrayList<>();
         this.autori.addAll(Arrays.asList(autori));        
         this.titolo = titolo;
@@ -54,8 +54,8 @@ public class Libro implements Comparable<Libro> {
         this.nCopie = nCopie;
     }
 
-    public void setIsbn(Isbn isbn) {
-        this.isbn.setIsbn(isbn.toString());
+    public void setIsbn(String isbn) {
+        this.isbn=isbn;
     }
     
     
@@ -76,19 +76,29 @@ public class Libro implements Comparable<Libro> {
         return nCopie;
     }
 
-    public Isbn getIsbn() {
+    public String getIsbn() {
         return isbn;
+    }
+    
+    public String fileFormat(){
+        StringBuilder builder = new StringBuilder();
+        builder.append(titolo + "§");
+        for(int i=0;i<autori.size();i++){
+                builder.append(autori.get(i)+"§");
+            }
+        builder.append(annoPublicazione + "§" + nCopie + "§" + isbn);
+        
+        return builder.toString();        
     }
     
     @Override
     public boolean equals(Object o){
-        Libro l = (Libro) o;
-        
         if(!(o instanceof Libro) || o==null)
             return false;
- 
-        return this.titolo.equals(l.getTitolo()) && this.annoPublicazione.equals(l.getAnno()) && this.isbn==l.getIsbn() 
-                && this.autori.equals(l.getAutori());
+        
+        Libro l = (Libro) o;
+        
+        return this.titolo.equals(l.getTitolo()) && this.annoPublicazione.equals(l.getAnno()) && this.isbn.equals(l.getIsbn()) && this.autori.equals(l.getAutori());
     }
     
     @Override
@@ -96,25 +106,29 @@ public class Libro implements Comparable<Libro> {
         return this.getTitolo().compareTo(l.getTitolo());
     }
     
+    @Override
+    public int hashCode(){
+        return Integer.parseInt(isbn)*31;
+    }
     
     @Override
     public String toString() {
         
-        StringBuilder buffer = new StringBuilder();
-        buffer.append("Titolo: " + titolo + "; ");
+        StringBuilder builder = new StringBuilder();
+        builder.append("Titolo: " + titolo + "; ");
         
         if(autori.size()>1){
-            buffer.append("Autori: ");
+            builder.append("Autori: ");
             int i;
             for(i=0;i<autori.size()-1;i++){
-                buffer.append(autori.get(i)+", ");
+                builder.append(autori.get(i)+", ");
             }
-            buffer.append(autori.get(++i));
+            builder.append(autori.get(++i));
             
-        }   else buffer.append("Autori: " + autori);
-        buffer.append("; Data publiczione: " + annoPublicazione + "; NumeroCopie: " + nCopie + "; Isbn: " + isbn);
+        }   else builder.append("Autori: " + autori);
+        builder.append("; Data publiczione: " + annoPublicazione + "; NumeroCopie: " + nCopie + "; Isbn: " + isbn);
         
-        return buffer.toString();
+        return builder.toString();
     } 
     
 }

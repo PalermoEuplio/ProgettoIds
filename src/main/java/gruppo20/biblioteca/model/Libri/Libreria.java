@@ -8,12 +8,11 @@ import java.util.*;
  * @author Gruppo20
  */
 public class Libreria implements Gestione<Libro> {
-    
-    
-    private TreeSet<Libro> libri;
+    private HashSet<Libro> libreria;
+    private String nome;
     
     public Libreria(){
-        libri = new TreeSet<>();
+        libreria = new HashSet<>();
     }
    /**
     *@brief Aggiunge un libro alla libreria.
@@ -28,7 +27,7 @@ public class Libreria implements Gestione<Libro> {
     */  
     @Override
     public boolean aggiungi(Libro l){
-        return libri.add(l);
+        return libreria.add(l);
         
     }
     
@@ -46,7 +45,7 @@ public class Libreria implements Gestione<Libro> {
     
     @Override
     public boolean elimina(Libro l){
-        return libri.remove(l);
+        return libreria.remove(l);
     }
     
        /**
@@ -63,84 +62,19 @@ public class Libreria implements Gestione<Libro> {
     
     public boolean modifica(Libro l1, Libro l2){
         
-        Iterator i = libri.iterator();
-        
-        while(i.hasNext()){
-            Libro x = (Libro) i.next();
-            if(x.equals(l1)){
-                x.setTitolo(l2.getTitolo());
-                x.setAnno(l2.getAnno());
-                x.setAutori(l2.getAutori());
-                x.setIsbn(l2.getIsbn());
-                x.setNCopie(l2.getNCopie());
-                return true;
-            }
+        if(libreria.contains(l1)){
+            libreria.add(l2);
+            libreria.remove(l1);
+            return true;
         }
-        return false;
+        else return false;
     }   
-    
-    /**
-     * @brief Ricerca di un libro per titolo.
-     * Ricerca il libro che ha per titolo quello inserito.
-     * se il libro è presente in libreria allora restituirà i suoi dati.
-     * non restituirà nulla nel caso in cui il libro non è presente in libreria.
-     * 
-     * @param titolo il titolo del libro da ricercare.
-     * @return i dati del libro se è presente nella libreria.
-     *         null se il libro non è stato trovato.
-     */
-    public Libro ricercaT(String titolo){
-         for(Libro l : libri){
-             if(l.getTitolo().compareTo(titolo)==0)
-                 return l;
-         }
-        
-        return null;
-    }
-    
-    /**
-     * @brief Ricerca di un libro per autori.
-     * Ricerca il libro che ha per autori quelli inseriti.
-     * se il libro è presente in libreria allora restituirà i suoi dati.
-     * non restituirà nulla nel caso in cui il libro non è presente in libreria.
-     * 
-     * @param autori gli autori del libro da ricercare.
-     * @return i dati del libro se è presente nella libreria.
-     *         null se il libro non è stato trovato.
-     */
-    public Libro ricercaA(String autori){
-        for(Libro l : libri){
-             if(l.getTitolo().compareTo(autori)==0)
-                 return l;
-         }
-        
-        return null;
-    }
-    
-    /**
-     * @brief Ricerca di un libro per isbn.
-     * Ricerca il libro che ha per isbn quello inserito.
-     * se il libro è presente in libreria allora restituirà i suoi dati.
-     * non restituirà nulla nel caso in cui il libro non è presente in libreria.
-     * 
-     * @param isbn il codice identificativo isbn del libro da ricercare.
-     * @return i dati del libro se è presente nella libreria.
-     *         null se il libro non è stato trovato.
-     */
-    public Libro ricercaI(int isbn){
-        for(Libro l : libri){
-             if(l.getIsbn()==isbn)
-                 return l;
-         }
-        
-        return null;
-    }
     
     @Override
     public String toString(){
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         
-        for(Libro l : libri){
+        for(Libro l : libreria){
             buffer.append("\n"+l);
         }
         return buffer.toString();

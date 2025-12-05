@@ -23,7 +23,7 @@ public class Isbn {
     public boolean equals(Object o){
         if(o==null || !(o instanceof Isbn))return false;
         Isbn isbn = (Isbn) o;        
-        if(this.isbn.equals(isbn.getIsbn())) return true;
+        if(this.isbn.equals(isbn.toString())) return true;
         else return false;
     }
     @Override
