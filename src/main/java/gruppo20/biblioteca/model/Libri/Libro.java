@@ -32,10 +32,7 @@ public class Libro implements Comparable<Libro> {
         this.titolo = titolo;
         this.annoPublicazione = annoPublicazione;
         this.nCopie = nCopie;
-        this.isbn = isbn;
-        
-
-        
+        this.isbn = isbn;    
     }
     
     
@@ -79,7 +76,7 @@ public class Libro implements Comparable<Libro> {
         return nCopie;
     }
 
-    public int getIsbn() {
+    public Isbn getIsbn() {
         return isbn;
     }
     
@@ -105,7 +102,22 @@ public class Libro implements Comparable<Libro> {
     
     @Override
     public String toString() {
-        return "Titolo=" + titolo + ", autori=" + autori + ", data publiczione=" + annoPublicazione + ", nCopie=" + nCopie + ", isbn=" + isbn;
+        
+        StringBuilder buffer = new StringBuilder();
+        buffer.append("Titolo: " + titolo + "; ");
+        
+        if(autori.size()>1){
+            buffer.append("Autori: ");
+            int i;
+            for(i=0;i<autori.size()-1;i++){
+                buffer.append(autori.get(i)+", ");
+            }
+            buffer.append(autori.get(++i));
+            
+        }   else buffer.append("Autori: " + autori);
+        buffer.append("; Data publiczione: " + annoPublicazione + "; NumeroCopie: " + nCopie + "; Isbn: " + isbn);
+        
+        return buffer.toString();
     } 
     
 }
