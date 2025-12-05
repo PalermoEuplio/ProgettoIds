@@ -1,5 +1,5 @@
 
-package gruppo20.biblioteca;
+package gruppo20.biblioteca.model;
 
 import java.util.*;
 /**
@@ -58,7 +58,6 @@ public class Libreria implements Comparable<Libro>,Gestione<Libro> {
      *          false se il libro non è presente.
      */
     
-    @Override
     public boolean modifica(Libro l){
         
     }   

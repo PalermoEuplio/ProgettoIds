@@ -1,5 +1,5 @@
 
-package gruppo20.biblioteca;
+package gruppo20.biblioteca.model;
 import java.time.LocalDate;
 /**
  * @brief Questo file contiene l'implementazione dell'oggetto Libro.

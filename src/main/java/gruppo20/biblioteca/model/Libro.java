@@ -1,4 +1,4 @@
-package gruppo20.biblioteca;
+package gruppo20.biblioteca.model;
 
 import java.time.*;
 import java.util.*;
@@ -12,7 +12,7 @@ public class Libro {
     
     private String titolo;
     private String[] autori;
-    private LocalDate date;
+    private LocalDate annoPublicazione;
     private int nCopie;
     private int isbn;
     
@@ -26,10 +26,10 @@ public class Libro {
      *  @param isbn il codice identificativo ISBN del libro.
     */
 
-    public Libro(String titolo, String[] autori, LocalDate date, int nCopie, int isbn) {
+    public Libro(String titolo, String[] autori, LocalDate annoPublicazione, int nCopie, int isbn) {
         this.titolo = titolo;
         this.autori=autori;
-        this.date = date;
+        this.annoPublicazione = annoPublicazione;
         this.nCopie = nCopie;
         this.isbn = isbn;
     }
@@ -44,8 +44,8 @@ public class Libro {
         this.autori = autori;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setAnno(LocalDate anno) {
+        this.annoPublicazione = anno;
     }
 
     public void setnCopie(int nCopie) {
@@ -66,8 +66,8 @@ public class Libro {
         return autori;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getAnno() {
+        return annoPublicazione;
     }
 
     public int getnCopie() {
@@ -81,7 +81,7 @@ public class Libro {
     
     @Override
     public String toString() {
-        return "Titolo=" + titolo + ", autori=" + autori + ", date=" + date + ", nCopie=" + nCopie + ", isbn=" + isbn;
+        return "Titolo=" + titolo + ", autori=" + autori + ", data publiczione=" + annoPublicazione + ", nCopie=" + nCopie + ", isbn=" + isbn;
     } 
     
 }

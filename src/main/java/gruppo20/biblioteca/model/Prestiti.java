@@ -1,11 +1,11 @@
 
-package gruppo20.biblioteca;
+package gruppo20.biblioteca.model;
 import java.util.*;
 /**
  * @brief Questo file contiene l'implementazione della classe Prestiti.
  * @author Gruppo20
  */
-public class Prestiti {
+public class Prestiti implements Gestione<Prestito> {
     private TreeSet<Prestito> Prestiti;
    
     public Prestiti(){
@@ -25,8 +25,9 @@ public class Prestiti {
     * 
     *   @return restituisce true se il prestito è stato inserito. 
     *           false se invece non è stato inserito o è già presente. 
-    */  
-    public boolean aggiungiPrestito (Prestito p){
+    */ 
+    @Override
+    public boolean aggiungi (Prestito p){
         return Prestiti.add(p);
     }
     
@@ -39,8 +40,9 @@ public class Prestiti {
     * 
     *   @return restituisce true se il prestito è stato eliminato. 
     *           false se invece non è presente.
-    */  
-    public boolean eliminaPrestito (Prestito p){
+    */ 
+    @Override
+    public boolean elimina (Prestito p){
         return Prestiti.remove(p);
     }
 

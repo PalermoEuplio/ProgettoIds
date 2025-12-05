@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="ProgettoIds">
+  <ClassDiagramComponents>
+    <Class name="ProgettoController" package="gruppo20.biblioteca.controller" visibility="public" xPosition="20.0" yPosition="381.0">
+      <Fields>
+        <Field name="nome" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="scriviFile" returnType="void" visibility="public">
+          <Argument type="String" name="nomeFile"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Libreria" package="gruppo20.biblioteca.model" visibility="public" xPosition="614.0" yPosition="1057.0">
+      <Fields>
+        <Field name="libri" type="TreeSet&lt;Libro&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="aggiungi" returnType="boolean" visibility="public">
+          <Argument type="Libro" name="l"/>
+        </Method>
+        <Method name="elimina" returnType="boolean" visibility="public">
+          <Argument type="Libro" name="l"/>
+        </Method>
+        <Method name="modifica" returnType="boolean" visibility="public">
+          <Argument type="Libro" name="l"/>
+        </Method>
+        <Method name="ricerca" returnType="Libro" visibility="public">
+          <Argument type="String" name="titolo"/>
+        </Method>
+        <Method name="ricerca" returnType="Libro" visibility="public">
+          <Argument type="String[]" name="autori"/>
+        </Method>
+        <Method name="ricerca" returnType="Libro" visibility="public">
+          <Argument type="int" name="isbn"/>
+        </Method>
+        <Method name="compareTo" returnType="int" visibility="public">
+          <Argument type="Libro" name="l"/>
+        </Method>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Libro" package="gruppo20.biblioteca.model" visibility="public" xPosition="1018.0" yPosition="991.0">
+      <Fields>
+        <Field name="titolo" type="String" visibility="private"/>
+        <Field name="autori" type="String[]" visibility="private"/>
+        <Field name="annoPublicazione" type="LocalDate" visibility="private"/>
+        <Field name="nCopie" type="int" visibility="private"/>
+        <Field name="isbn" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="titolo"/>
+          <Argument type="String[]" name="autori"/>
+          <Argument type="LocalDate" name="date"/>
+          <Argument type="int" name="nCopie"/>
+          <Argument type="int" name="isbn"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="setTitolo" returnType="void" visibility="public">
+          <Argument type="String" name="titolo"/>
+        </Method>
+        <Method name="setAutori" returnType="void" visibility="public">
+          <Argument type="String[]" name="autori"/>
+        </Method>
+        <Method name="setAnno" returnType="void" visibility="public">
+          <Argument type="LocalDate" name="anno"/>
+        </Method>
+        <Method name="setnCopie" returnType="void" visibility="public">
+          <Argument type="int" name="nCopie"/>
+        </Method>
+        <Method name="setIsbn" returnType="void" visibility="public">
+          <Argument type="int" name="isbn"/>
+        </Method>
+        <Method name="getTitolo" returnType="String" visibility="public"/>
+        <Method name="getAutori" returnType="String[]" visibility="public"/>
+        <Method name="getAnno" returnType="LocalDate" visibility="public"/>
+        <Method name="getnCopie" returnType="int" visibility="public"/>
+        <Method name="getIsbn" returnType="int" visibility="public"/>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Main" package="gruppo20.biblioteca.model" visibility="public" xPosition="20.0" yPosition="722.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="start" returnType="void" visibility="public">
+          <Argument type="Stage" name="primaryStage"/>
+        </Method>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Prestiti" package="gruppo20.biblioteca.model" visibility="public" xPosition="620.0" yPosition="709.0">
+      <Fields>
+        <Field name="Prestiti" type="TreeSet&lt;Prestito&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getPrestiti" returnType="String" visibility="public"/>
+        <Method name="aggiungi" returnType="boolean" visibility="public">
+          <Argument type="Prestito" name="p"/>
+        </Method>
+        <Method name="elimina" returnType="boolean" visibility="public">
+          <Argument type="Prestito" name="p"/>
+        </Method>
+        <Method name="hasPrestito" returnType="boolean" visibility="public">
+          <Argument type="Prestito" name="p"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Prestito" package="gruppo20.biblioteca.model" visibility="public" xPosition="1015.0" yPosition="627.0">
+      <Fields>
+        <Field name="dataPrestito" type="LocalDate" visibility="private" isFinal="true"/>
+        <Field name="dataRestituzione" type="LocalDate" visibility="private" isFinal="true"/>
+        <Field name="dataEffettivaRestituzione" type="LocalDate" visibility="private"/>
+        <Field name="libroPrestato" type="Libro" visibility="private" isFinal="true"/>
+        <Field name="utente" type="Utente" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="LocalDate" name="dataPrestito"/>
+          <Argument type="Libro" name="libroPrestato"/>
+          <Argument type="Utente" name="utente"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="setDataEffettivaRestituzione" returnType="void" visibility="public">
+          <Argument type="LocalDate" name="dataEffettivaRestituzione"/>
+        </Method>
+        <Method name="getDataPrestito" returnType="LocalDate" visibility="public"/>
+        <Method name="getDataRestituzione" returnType="LocalDate" visibility="public"/>
+        <Method name="getDataEffettivaRestituzione" returnType="String" visibility="public"/>
+        <Method name="getLibroPrestato" returnType="Libro" visibility="public"/>
+        <Method name="getUtente" returnType="Utente" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Utente" package="gruppo20.biblioteca.model" visibility="public" xPosition="1024.0" yPosition="204.0">
+      <Fields>
+        <Field name="nome" type="String" visibility="private"/>
+        <Field name="cognome" type="String" visibility="private"/>
+        <Field name="matricola" type="String" visibility="private"/>
+        <Field name="mail" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="nome"/>
+          <Argument type="String" name="cognome"/>
+          <Argument type="String" name="matricola"/>
+          <Argument type="String" name="mail"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="setNome" returnType="void" visibility="public">
+          <Argument type="String" name="nome"/>
+        </Method>
+        <Method name="setCognome" returnType="void" visibility="public">
+          <Argument type="String" name="cognome"/>
+        </Method>
+        <Method name="setMatricola" returnType="void" visibility="public">
+          <Argument type="String" name="matricola"/>
+        </Method>
+        <Method name="setMail" returnType="void" visibility="public">
+          <Argument type="String" name="mail"/>
+        </Method>
+        <Method name="getNome" returnType="String" visibility="public"/>
+        <Method name="getCognome" returnType="String" visibility="public"/>
+        <Method name="getMatricola" returnType="String" visibility="public"/>
+        <Method name="getMail" returnType="String" visibility="public"/>
+        <Method name="toString" returnType="String" visibility="public"/>
+        <Method name="compareTo" returnType="int" visibility="public">
+          <Argument type="Utente" name="o"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Utenza" package="gruppo20.biblioteca.model" visibility="public" xPosition="611.0" yPosition="324.0">
+      <Fields>
+        <Field name="anagrafica" type="TreeSet&lt;Utente&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="aggiungi" returnType="boolean" visibility="public">
+          <Argument type="Utente" name="u"/>
+        </Method>
+        <Method name="elimina" returnType="boolean" visibility="public">
+          <Argument type="Utente" name="u"/>
+        </Method>
+        <Method name="modifica" returnType="boolean" visibility="public">
+          <Argument type="Utente" name="u"/>
+        </Method>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Interface name="Gestione" package="gruppo20.biblioteca.model" visibility="public" xPosition="313.0" yPosition="727.0">
+      <Methods>
+        <Method name="aggiungi" returnType="boolean" visibility="package">
+          <Argument type="T" name="o"/>
+        </Method>
+        <Method name="elimina" returnType="boolean" visibility="package">
+          <Argument type="T" name="o"/>
+        </Method>
+      </Methods>
+    </Interface>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <UseRelation source="gruppo20.biblioteca.model.Prestito" target="gruppo20.biblioteca.model.Utente" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="libri" source="gruppo20.biblioteca.model.Libreria" target="gruppo20.biblioteca.model.Libro" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="TreeSet&lt;Libro&gt;"/>
+    <UseRelation source="gruppo20.biblioteca.model.Libreria" target="gruppo20.biblioteca.model.Libro" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="gruppo20.biblioteca.model.Utenza" target="gruppo20.biblioteca.model.Utente" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="libroPrestato" source="gruppo20.biblioteca.model.Prestito" target="gruppo20.biblioteca.model.Libro" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="gruppo20.biblioteca.model.Prestito" target="gruppo20.biblioteca.model.Libro" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="gruppo20.biblioteca.model.Prestiti" target="gruppo20.biblioteca.model.Prestito" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="gruppo20.biblioteca.model.Libreria" target="gruppo20.biblioteca.model.Gestione"/>
+    <HasRelation name="anagrafica" source="gruppo20.biblioteca.model.Utenza" target="gruppo20.biblioteca.model.Utente" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="TreeSet&lt;Utente&gt;"/>
+    <UseRelation source="gruppo20.biblioteca.model.Utente" target="gruppo20.biblioteca.model.Utente" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="gruppo20.biblioteca.model.Prestiti" target="gruppo20.biblioteca.model.Gestione"/>
+    <HasRelation name="Prestiti" source="gruppo20.biblioteca.model.Prestiti" target="gruppo20.biblioteca.model.Prestito" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="TreeSet&lt;Prestito&gt;"/>
+    <HasRelation name="utente" source="gruppo20.biblioteca.model.Prestito" target="gruppo20.biblioteca.model.Utente" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="gruppo20.biblioteca.model.Utenza" target="gruppo20.biblioteca.model.Gestione"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

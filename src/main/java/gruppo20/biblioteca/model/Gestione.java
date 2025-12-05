@@ -1,5 +1,5 @@
 
-package gruppo20.biblioteca;
+package gruppo20.biblioteca.model;
 
 /**
  * @brief Questo file contiene l'implementazione dell'interfaccia Gestione.
@@ -7,7 +7,5 @@ package gruppo20.biblioteca;
  */
 public interface Gestione<T> {
     boolean aggiungi(T o);
-    boolean elimina(T o);
-    boolean modifica(T o);
-    
+    boolean elimina(T o); 
 }
