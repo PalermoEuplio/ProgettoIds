@@ -1,4 +1,4 @@
-package gruppo20.biblioteca.model;
+package gruppo20.biblioteca.model.Libri;
 
 import java.time.*;
 import java.util.*;
@@ -11,10 +11,10 @@ public class Libro implements Comparable<Libro> {
     
     
     private String titolo;
-    private String autori;
+    private ArrayList<Autore> autori;
     private LocalDate annoPublicazione;
     private int nCopie;
-    private int isbn;
+    private Isbn isbn;
     
     /**
      * Costruttore Libro
@@ -26,12 +26,16 @@ public class Libro implements Comparable<Libro> {
      *  @param isbn il codice identificativo ISBN del libro.
     */
 
-    public Libro(String titolo, String autori, LocalDate annoPublicazione, int nCopie, int isbn) {
+    public Libro(String titolo, Autore[] autori, LocalDate annoPublicazione, int nCopie, Isbn isbn) {
+        this.autori = new ArrayList<>();
+        this.autori.addAll(Arrays.asList(autori));        
         this.titolo = titolo;
-        this.autori=autori;
         this.annoPublicazione = annoPublicazione;
         this.nCopie = nCopie;
         this.isbn = isbn;
+        
+
+        
     }
     
     
@@ -40,8 +44,9 @@ public class Libro implements Comparable<Libro> {
         this.titolo = titolo;
     }
 
-    public void setAutori(String autori) {
-        this.autori = autori;
+    public void setAutori(Autore[] autori) {
+        this.autori.clear();
+        this.autori.addAll(Arrays.asList(autori));  
     }
 
     public void setAnno(LocalDate anno) {
@@ -52,8 +57,8 @@ public class Libro implements Comparable<Libro> {
         this.nCopie = nCopie;
     }
 
-    public void setIsbn(int isbn) {
-        this.isbn = isbn;
+    public void setIsbn(Isbn isbn) {
+        this.isbn.setIsbn(isbn.getIsbn());
     }
     
     
@@ -62,7 +67,7 @@ public class Libro implements Comparable<Libro> {
         return titolo;
     }
 
-    public String getAutori() {
+    public ArrayList<Autore> getAutori() {
         return autori;
     }
 
@@ -85,11 +90,11 @@ public class Libro implements Comparable<Libro> {
         if(!(o instanceof Libro) || o==null)
             return false;
  
-        if(this.titolo.compareTo(l.getTitolo())==1 && this.annoPublicazione.compareTo(l.getAnno())==1 && this.isbn==l.getIsbn() 
-                && this.nCopie==l.getNCopie() && this.autori.compareTo(l.getAutori())==1)
+        if(this.titolo.equals(l.getTitolo()) && this.annoPublicazione.equals(l.getAnno()) && this.isbn==l.getIsbn() 
+            && this.autori.equals(l.getAutori()))
             return true;
         
-        return false;
+        else return false;
     }
     
     @Override

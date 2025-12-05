@@ -1,6 +1,7 @@
 
-package gruppo20.biblioteca.model;
+package gruppo20.biblioteca.model.Libri;
 
+import gruppo20.biblioteca.model.Gestione;
 import java.util.*;
 /**
  * @brief Questo file contiene l'implementazione della classe Libreria.

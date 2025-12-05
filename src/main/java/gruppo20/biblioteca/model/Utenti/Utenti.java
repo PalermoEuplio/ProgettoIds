@@ -1,5 +1,6 @@
 
-package gruppo20.biblioteca.model;
+package gruppo20.biblioteca.model.Utenti;
+import gruppo20.biblioteca.model.Gestione;
 import java.util.Iterator;
 import java.util.TreeSet;
 
@@ -8,7 +9,7 @@ import java.util.TreeSet;
  * @author Gruppo20
  */
 
-public class Utenza implements Gestione<Utente>{
+public class Utenti implements Gestione<Utente>{
     /**
      * Struttura dati che contiene gli utenti
      * TreeSet
@@ -18,7 +19,7 @@ public class Utenza implements Gestione<Utente>{
      * Costruttore gestione utenti
      * Iniziallizza la struttura
      */
-    public Utenza() {
+    public Utenti() {
         this.anagrafica = new TreeSet<Utente>();
     }    
     

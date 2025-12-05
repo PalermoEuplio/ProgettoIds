@@ -1,5 +1,6 @@
 
-package gruppo20.biblioteca.model;
+package gruppo20.biblioteca.model.Prestiti;
+import gruppo20.biblioteca.model.Gestione;
 import java.util.*;
 /**
  * @brief Questo file contiene l'implementazione della classe Prestiti.
