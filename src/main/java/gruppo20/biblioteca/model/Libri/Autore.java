@@ -38,6 +38,7 @@ public class Autore {
         Autore a = (Autore) o;
         return this.cognome.equals(a.getCognome()) && this.nome.equals(a.getNome());
     }
+    
     @Override
     public String toString(){
         return nome+" "+cognome;

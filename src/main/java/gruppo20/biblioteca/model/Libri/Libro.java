@@ -87,11 +87,8 @@ public class Libro implements Comparable<Libro> {
         if(!(o instanceof Libro) || o==null)
             return false;
  
-        if(this.titolo.equals(l.getTitolo()) && this.annoPublicazione.equals(l.getAnno()) && this.isbn==l.getIsbn() 
-            && this.autori.equals(l.getAutori()))
-            return true;
-        
-        else return false;
+        return this.titolo.equals(l.getTitolo()) && this.annoPublicazione.equals(l.getAnno()) && this.isbn==l.getIsbn() 
+                && this.autori.equals(l.getAutori());
     }
     
     @Override
