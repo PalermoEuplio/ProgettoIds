@@ -31,7 +31,7 @@ public class Autore {
     public String getCognome() {
         return cognome;
     }
-    
+    //converte una stringa "nome cognome" in un oggetto Autore
     public static Autore convert(String s){
             s = s.trim();
             String[] parts = s.split(" ");
