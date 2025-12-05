@@ -23,7 +23,7 @@ public class Main extends Application {
     public void start(Stage primaryStage){
         
         //Aggiungere chiamate al view e controller
-        new LibreriaController();
+        new ControllerLibreria();
         
     }
     

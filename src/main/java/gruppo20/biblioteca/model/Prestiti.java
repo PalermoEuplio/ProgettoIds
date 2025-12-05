@@ -44,6 +44,7 @@ public class Prestiti implements Gestione<Prestito> {
     @Override
     public boolean elimina (Prestito p){
         return Prestiti.remove(p);
+        
     }
 
     public boolean hasPrestito (Prestito p){

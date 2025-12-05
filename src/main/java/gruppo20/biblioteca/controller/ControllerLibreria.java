@@ -11,11 +11,11 @@ import gruppo20.biblioteca.model.*;
  *
  * @author euppa
  */
-public class LibreriaController {
+public class ControllerLibreria {
     
     
     //Costruttore con chiamate alle funzioni di gestione dell'interfaccia
-    public LibreriaController(){
+    public ControllerLibreria(){
     }
     
     

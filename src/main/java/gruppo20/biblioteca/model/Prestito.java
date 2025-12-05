@@ -5,9 +5,10 @@ import java.time.LocalDate;
  * @brief Questo file contiene l'implementazione dell'oggetto Libro.
  * @author Gruppo20
  */
-public class Prestito {
+public class Prestito implements Comparable<Prestito>{
+    private final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private final LocalDate dataPrestito;
-    private final LocalDate dataRestituzione;
+    private final static int tempoPrestito = 1; //quanto tempo deve durare il prestito
     private LocalDate dataEffettivaRestituzione;
     private final Libro libroPrestato; 
     private final Utente utente;
@@ -25,7 +26,6 @@ public class Prestito {
     public Prestito(LocalDate dataPrestito, Libro libroPrestato, Utente utente){
         this.dataEffettivaRestituzione = null;
         this.dataPrestito = dataPrestito;
-        this.dataRestituzione = dataPrestito.plusMonths(1);
         this.libroPrestato = libroPrestato;
         this.utente = utente;
     }
@@ -39,12 +39,12 @@ public class Prestito {
     }
 
     public LocalDate getDataRestituzione() {
-        return dataRestituzione;
+        return dataPrestito.plusMonths(tempoPrestito);
     }
     //controlla se il libro è stato già consegnato, in caso lo sia restituisce il quando
-    public String getDataEffettivaRestituzione() {
-        if(dataEffettivaRestituzione!=null) return dataEffettivaRestituzione.toString();
-        else return "Non ancora restituito";
+    public LocalDate getDataEffettivaRestituzione() throws NullPointerException{
+        if(dataEffettivaRestituzione!=null) return dataEffettivaRestituzione;
+        else throw new NullPointerException("Non ancora restituito");
     }
     
     public Libro getLibroPrestato() {
@@ -54,6 +54,20 @@ public class Prestito {
     public Utente getUtente() {
         return utente;
     }
-    //TODO: implementare interfaccia comparable
+    
+    @Override
+    public boolean equals(Object o){
+        if(o==null || !(o instanceof Prestito))return false;
+        Prestito p = (Prestito) o;
+        return dataPrestito.equals(p.getDataPrestito()) && libroPrestato.equals(p.getLibroPrestato()) && utente.equals(p.getUtente());
+    }
+    
+    @Override
+    public int compareTo(Prestito p){
+        if(this.equals(p)) return 0;
+        else if (this.dataPrestito.isBefore(p.getDataPrestito())) return -1;
+        else return 1;
+        
+    }
 
 }
