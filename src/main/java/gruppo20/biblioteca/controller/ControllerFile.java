@@ -1,16 +1,14 @@
 package gruppo20.biblioteca.controller;
 
+import gruppo20.biblioteca.model.FileFormat;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.HashSet;
 
 /**
  *
  * @author Osv
  */
-
-interface FileFormat{
-    String fileFormat();
-}
 
 public class ControllerFile<T extends FileFormat>{
     private final String filePath;
@@ -18,9 +16,10 @@ public class ControllerFile<T extends FileFormat>{
     private boolean chiuso = false;
     
     
-    public ControllerFile(String filePath) throws IOException{
+    public ControllerFile(String filePath,HashSet<T> set) throws IOException{
         this.filePath=filePath;
         this.file = new RandomAccessFile(filePath, "rw");
+        this.carica(set);
     }
     
     public void aggiungi(T t) throws IOException{
@@ -96,14 +95,23 @@ public class ControllerFile<T extends FileFormat>{
     }
     
     //carica il file nella struttura interna del programma, in questo caso HashSet
-    public String[] carica() throws IOException{
+    public String[] carica(HashSet<T> set) throws IOException{
         checkChiuso();
+        
+        T t;
         StringBuilder builder = new StringBuilder();
+        String[] buffer;
+        
         file.seek(0);
         while(file.getFilePointer()<file.length()){
             builder.append(file.readUTF()+"\n");
         }
-        return builder.toString().split("\n");
+        buffer = builder.toString().split("\n");
+        
+        for(String s : buffer){
+            set.add(t.deFileFormat(s));
+        }
+        
     }
     //controlla se il file è chiuso
     public void chiudi() throws IOException {

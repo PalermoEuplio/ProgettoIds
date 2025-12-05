@@ -31,6 +31,15 @@ public class Autore {
     public String getCognome() {
         return cognome;
     }
+    
+    public static Autore convert(String s){
+            s = s.trim();
+            String[] parts = s.split(" ");
+            if (parts.length != 2) {
+                throw new IllegalArgumentException("Formato autore non valido: " + s);
+            }
+            return new Autore(parts[0],parts[1]);
+    }
 
     @Override
     public boolean equals(Object o) {

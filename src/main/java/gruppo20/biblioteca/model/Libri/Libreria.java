@@ -1,7 +1,9 @@
 
 package gruppo20.biblioteca.model.Libri;
 
+import gruppo20.biblioteca.controller.ControllerFile;
 import gruppo20.biblioteca.model.Gestione;
+import java.io.IOException;
 import java.util.*;
 /**
  * @brief Questo file contiene l'implementazione della classe Libreria.
@@ -9,10 +11,13 @@ import java.util.*;
  */
 public class Libreria implements Gestione<Libro> {
     private HashSet<Libro> libreria;
-    private String nome;
+    private ControllerFile<Libro> file;
     
-    public Libreria(){
+    public Libreria(String filePath) throws IOException{
         libreria = new HashSet<>();
+        file = new ControllerFile<>(filePath,libreria);
+
+        
     }
    /**
     *@brief Aggiunge un libro alla libreria.
@@ -26,9 +31,19 @@ public class Libreria implements Gestione<Libro> {
     *           false se invece non è stato inserito. 
     */  
     @Override
-    public boolean aggiungi(Libro l){
-        return libreria.add(l);
+    public boolean aggiungi(Libro l2) throws IOException{
+        if(libreria.contains(l2)){
+            for(Libro l1 : libreria){
+                if(l2.equals(l1)){
+                    l2.setNCopie(l2.getNCopie()+l1.getNCopie());
+                    file.aggiungi(l2);
+                    return this.modifica(l1, l2);
+                }
+            }
+            
+        }
         
+        return libreria.add(l2);
     }
     
        /**
@@ -44,7 +59,8 @@ public class Libreria implements Gestione<Libro> {
     
     
     @Override
-    public boolean elimina(Libro l){
+    public boolean elimina(Libro l) throws IOException{
+        file.elimina(l);
         return libreria.remove(l);
     }
     
@@ -60,9 +76,10 @@ public class Libreria implements Gestione<Libro> {
      *          false se il libro non è presente.
      */
     
-    public boolean modifica(Libro l1, Libro l2){
+    public boolean modifica(Libro l1, Libro l2)throws IOException{
         
         if(libreria.contains(l1)){
+            file.modifica(l1, l2);
             libreria.add(l2);
             libreria.remove(l1);
             return true;
