@@ -202,6 +202,12 @@
           <Argument type="Utente" name="u"/>
         </Method>
         <Method name="toString" returnType="String" visibility="public"/>
+        <Method name="ricercaM" returnType="Utente" visibility="public">
+          <Argument type="String" name="matricola"/>
+        </Method>
+        <Method name="ricercaC" returnType="Utente" visibility="public">
+          <Argument type="String" name="cognome"/>
+        </Method>
       </Methods>
     </Class>
     <Interface name="Gestione" package="gruppo20.biblioteca.model" visibility="public" xPosition="313.0" yPosition="727.0">
@@ -216,19 +222,19 @@
     </Interface>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
-    <UseRelation source="gruppo20.biblioteca.model.Prestito" target="gruppo20.biblioteca.model.Utente" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="libri" source="gruppo20.biblioteca.model.Libreria" target="gruppo20.biblioteca.model.Libro" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="TreeSet&lt;Libro&gt;"/>
-    <UseRelation source="gruppo20.biblioteca.model.Libreria" target="gruppo20.biblioteca.model.Libro" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="gruppo20.biblioteca.model.Utenza" target="gruppo20.biblioteca.model.Utente" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="libroPrestato" source="gruppo20.biblioteca.model.Prestito" target="gruppo20.biblioteca.model.Libro" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="gruppo20.biblioteca.model.Prestito" target="gruppo20.biblioteca.model.Libro" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="gruppo20.biblioteca.model.Prestiti" target="gruppo20.biblioteca.model.Prestito" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="gruppo20.biblioteca.model.Libreria" target="gruppo20.biblioteca.model.Gestione"/>
-    <HasRelation name="anagrafica" source="gruppo20.biblioteca.model.Utenza" target="gruppo20.biblioteca.model.Utente" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="TreeSet&lt;Utente&gt;"/>
-    <UseRelation source="gruppo20.biblioteca.model.Utente" target="gruppo20.biblioteca.model.Utente" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="gruppo20.biblioteca.model.Prestiti" target="gruppo20.biblioteca.model.Gestione"/>
     <HasRelation name="Prestiti" source="gruppo20.biblioteca.model.Prestiti" target="gruppo20.biblioteca.model.Prestito" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="TreeSet&lt;Prestito&gt;"/>
-    <HasRelation name="utente" source="gruppo20.biblioteca.model.Prestito" target="gruppo20.biblioteca.model.Utente" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="gruppo20.biblioteca.model.Prestiti" target="gruppo20.biblioteca.model.Prestito" sourceCardinality="1..1" targetCardinality="1..1"/>
     <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="gruppo20.biblioteca.model.Utenza" target="gruppo20.biblioteca.model.Gestione"/>
+    <HasRelation name="anagrafica" source="gruppo20.biblioteca.model.Utenza" target="gruppo20.biblioteca.model.Utente" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="TreeSet&lt;Utente&gt;"/>
+    <UseRelation source="gruppo20.biblioteca.model.Prestito" target="gruppo20.biblioteca.model.Utente" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="utente" source="gruppo20.biblioteca.model.Prestito" target="gruppo20.biblioteca.model.Utente" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="libri" source="gruppo20.biblioteca.model.Libreria" target="gruppo20.biblioteca.model.Libro" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="TreeSet&lt;Libro&gt;"/>
+    <UseRelation source="gruppo20.biblioteca.model.Utenza" target="gruppo20.biblioteca.model.Utente" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="gruppo20.biblioteca.model.Utente" target="gruppo20.biblioteca.model.Utente" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="gruppo20.biblioteca.model.Libreria" target="gruppo20.biblioteca.model.Gestione"/>
+    <UseRelation source="gruppo20.biblioteca.model.Prestito" target="gruppo20.biblioteca.model.Libro" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="libroPrestato" source="gruppo20.biblioteca.model.Prestito" target="gruppo20.biblioteca.model.Libro" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="gruppo20.biblioteca.model.Libreria" target="gruppo20.biblioteca.model.Libro" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="gruppo20.biblioteca.model.Prestiti" target="gruppo20.biblioteca.model.Gestione"/>
   </ClassDiagramRelations>
 </ClassDiagram>
