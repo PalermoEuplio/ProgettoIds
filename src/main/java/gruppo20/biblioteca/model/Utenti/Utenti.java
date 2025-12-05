@@ -65,40 +65,7 @@ public class Utenti implements Gestione<Utente>{
     
     
     public boolean modifica(Utente u){
-        /*if(anagrafica.contains(u)){
-            anagrafica.remove(u);
-            anagrafica.add(modified);
-            return true;
-        }
-        return false;*/
-    }
-    
-     /**
-     * @brief Ricerca di un utente per cognome.
-     * Ricerca l'utente che ha per cognome quello inserito.
-     * se l'utente è presente, è stato precedentemente registrato, allora restituirà i suoi dati.
-     * non restituirà nulla nel caso in cui l'utente non è presente.
-     * 
-     * @param cognome il cognome dell'utente da ricercare.
-     * @return i dati dell'utente se è presente nella lista utenti.
-     *         null se l'utente non è stato trovato.
-     */
-    public Utente ricercaC(String cognome){
-        
-    }
-    
-     /**
-     * @brief Ricerca di un utente per cognome.
-     * Ricerca l'utente che ha per cognome quello inserito.
-     * se l'utente è presente, è stato precedentemente registrato, allora restituirà i suoi dati.
-     * non restituirà nulla nel caso in cui l'utente non è presente.
-     * 
-     * @param matricola la matricola dell'utente da ricercare.
-     * @return i dati dell'utente se è presente nella lista utenti.
-     *         null se l'utente non è stato trovato.
-     */
-    public Utente ricercaM(String matricola){
-        
+      
     }
 
 
