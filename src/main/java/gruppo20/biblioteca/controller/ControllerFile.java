@@ -56,7 +56,7 @@ public class ControllerFile<T extends FileFormat>{
             file.writeUTF(line);
         }
     }
-    
+    //stesso discorso, non controlla che il record sia effettivamente presente
     public void modifica(T t1, T t2) throws IOException{
         checkChiuso(); //controllo che il file non sia già chiuso
         file.seek(0);
