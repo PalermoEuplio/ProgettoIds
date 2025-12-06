@@ -8,6 +8,6 @@ package gruppo20.biblioteca.controller;
  *
  * @author Osv
  */
-public class ControllerUtenza {
+public class ControllerUtenti {
     
 }

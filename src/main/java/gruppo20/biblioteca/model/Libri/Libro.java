@@ -1,5 +1,5 @@
 package gruppo20.biblioteca.model.Libri;
-
+import gruppo20.biblioteca.model.FileFormat;
 import java.time.*;
 import java.util.*;
 
@@ -7,7 +7,7 @@ import java.util.*;
  * @brief Questo file contiene l'implementazione dell'oggetto Libro.
  * @author Gruppo20
  */
-public class Libro implements Comparable<Libro> {
+public class Libro implements Comparable<Libro>,FileFormat<Libro>{
     
     
     private String titolo;
@@ -26,9 +26,9 @@ public class Libro implements Comparable<Libro> {
      *  @param isbn il codice identificativo ISBN del libro.
     */
 
-    public Libro(String titolo, Autore[] autori, LocalDate annoPublicazione, int nCopie, String isbn) {
+    public Libro(String titolo, String autori, LocalDate annoPublicazione, int nCopie, String isbn) {
         this.autori = new ArrayList<>();
-        this.autori.addAll(Arrays.asList(autori));        
+        this.setAutori(autori);        
         this.titolo = titolo;
         this.annoPublicazione = annoPublicazione;
         this.nCopie = nCopie;
@@ -41,9 +41,15 @@ public class Libro implements Comparable<Libro> {
         this.titolo = titolo;
     }
 
-    public void setAutori(Autore[] autori) {
+    public void setAutori(String autori) {
         this.autori.clear();
-        this.autori.addAll(Arrays.asList(autori));  
+
+        String[] buffer = autori.split(",");
+
+        for (String s : buffer) {
+            this.autori.add(Autore.convert(s));
+        }
+
     }
 
     public void setAnno(LocalDate anno) {
@@ -80,6 +86,7 @@ public class Libro implements Comparable<Libro> {
         return isbn;
     }
     
+    
     public String fileFormat(){
         StringBuilder builder = new StringBuilder();
         builder.append(titolo + "§");
@@ -89,6 +96,13 @@ public class Libro implements Comparable<Libro> {
         builder.append(annoPublicazione + "§" + nCopie + "§" + isbn);
         
         return builder.toString();        
+    }
+    
+    @Override
+    public Libro deFileFormat(String record){
+        String[] parts = record.split("§");
+        return new Libro(parts[0],parts[1],LocalDate.parse(parts[2]),Integer.parseInt(parts[3]),parts[4]);
+    
     }
     
     @Override
