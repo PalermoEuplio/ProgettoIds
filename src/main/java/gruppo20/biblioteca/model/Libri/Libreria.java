@@ -11,8 +11,16 @@ import java.util.*;
  * @author Gruppo20
  */
 public class Libreria implements Gestione<Libro> {
-    private HashSet<Libro> libreria;
+    /**
+     * @brief Insieme dei libri presenti in libreria.
+     * Si utilizza un HashSet per garantire l'unicità dei libri.
+     */
+    private HashSet<Libro> libreria; 
+    /**
+     * @brief Controller per la gestione del file associato ai libri.
+     */
     private ControllerFile<Libro> file;
+    
     
     public Libreria(String filePath) throws IOException{
         libreria = new HashSet<>();
@@ -88,6 +96,14 @@ public class Libreria implements Gestione<Libro> {
         else return false;
     }   
     
+    /**
+     * @brief Restituisce una rappresentazione testuale della libreria.
+     * Il metodo crea una stringa contenente la lista di tutti i libri della libreria.
+     * Ogni elemento su una nuova linea.
+     * Per ogni elemento viene utilizzato il metodo toString() della classe Libro.
+     * 
+     * @return Stringa che contiene tutti i libri della libreria.
+     */
     @Override
     public String toString(){
         StringBuilder buffer = new StringBuilder();
