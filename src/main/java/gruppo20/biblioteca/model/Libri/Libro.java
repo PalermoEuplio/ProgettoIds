@@ -25,6 +25,7 @@ public class Libro implements Comparable<Libro>,FileFormat<Libro>{
         this.isbn = isbn;    
     }
     
+    //ma i metodi setter vengono effettivamente usati?, ho usato solo setAutori per comodità
     public void setTitolo(String titolo) {
         this.titolo = titolo;
     }

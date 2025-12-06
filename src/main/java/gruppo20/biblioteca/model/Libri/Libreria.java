@@ -6,6 +6,8 @@ import gruppo20.biblioteca.model.Gestione;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  * @brief Questo file contiene l'implementazione della classe Libreria.
  * @author Gruppo20
@@ -22,9 +24,13 @@ public class Libreria implements Gestione<Libro> {
     private ControllerFile<Libro> file;
     
     
-    public Libreria(String filePath) throws IOException{
+    public Libreria(String filePath){
         libreria = new HashSet<>();
-        file = new ControllerFile<>(filePath,libreria, new Libro(null,null,null,0,null));
+        try {
+            file = new ControllerFile<>(filePath,libreria, new Libro(null,null,null,0,null));
+        } catch (IOException ex) {
+            System.out.println("Errore IO apertura libreria");
+        }
 
         
     }
@@ -40,19 +46,31 @@ public class Libreria implements Gestione<Libro> {
     *           false se invece non è stato inserito. 
     */  
     @Override
-    public boolean aggiungi(Libro l2) throws IOException{
+    public boolean aggiungi(Libro l2){
         if(libreria.contains(l2)){
-            for(Libro l1 : libreria){
+            for(Libro l1 : libreria){ //da rifare con iterator?
                 if(l2.equals(l1)){
                     l2.setNCopie(l2.getNCopie()+l1.getNCopie());
-                    file.aggiungi(l2);
+                    try{
+                        file.elimina(l1);
+                        file.aggiungi(l2);
+                        }
+                    catch(IOException e){System.out.println("Errore IO aggiunta libro già presente");}
+    
                     return this.modifica(l1, l2);
                 }
             }
             
         }
-        
-        return libreria.add(l2);
+        else{
+            try {
+                file.aggiungi(l2);
+            } catch (IOException ex) {
+                System.out.println("Errore IO aggiunta libro non presente");;
+            }
+            return libreria.add(l2);
+        }
+        return false;
     }
     
        /**
@@ -68,32 +86,42 @@ public class Libreria implements Gestione<Libro> {
     
     
     @Override
-    public boolean elimina(Libro l) throws IOException{
-        file.elimina(l);
-        return libreria.remove(l);
+    public boolean elimina(Libro l){
+        if (libreria.remove(l)) {
+            try {
+                file.elimina(l);
+            } catch (IOException ex) {
+                System.out.println("Errore IO elimina libro");
+            }
+            return true;
+        }
+        return false;
     }
     
        /**
      * @brief Modifica Libro.
-     * Se il libro è presente effettua la modifica di uno o più suoi dati.
+     * Se il libro è presente effettua la modifica.
      * 
      * Parametro in ingresso:
      *  @param l1 libro originale da modificare.
-     *  @param l2 libro aggiornato da inserire nell'albero
+     *  @param l2 libro aggiornato da inserire.
      * 
      *  @return restituisce true se la modifica del libro è avvenuta correttamente.
      *          false se il libro non è presente.
      */
     
-    public boolean modifica(Libro l1, Libro l2)throws IOException{
+    public boolean modifica(Libro l1, Libro l2){
         
         if(libreria.contains(l1)){
-            file.modifica(l1, l2);
-            libreria.add(l2);
+            try {
+                file.modifica(l1, l2);
+            } catch (IOException ex) {
+                System.out.println("Errore IO modifica libro");
+            }
             libreria.remove(l1);
-            return true;
+            return libreria.add(l2);
         }
-        else return false;
+        return false;
     }   
     
     /**
@@ -106,11 +134,11 @@ public class Libreria implements Gestione<Libro> {
      */
     @Override
     public String toString(){
-        StringBuilder buffer = new StringBuilder();
+        StringBuilder builder = new StringBuilder();
         
         for(Libro l : libreria){
-            buffer.append("\n"+l);
+            builder.append(l+"\n");
         }
-        return buffer.toString();
+        return builder.toString();
     }
 }

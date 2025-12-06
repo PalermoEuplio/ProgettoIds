@@ -108,7 +108,7 @@ public class Utenti implements Gestione<Utente>{
         StringBuilder s = new StringBuilder();
         for(Utente u : anagrafica){
             s.append(u.getNome()).append(" ").append(u.getCognome()).append(" ");
-            s.append(u.getMatricola()).append(" ").append(" ").append(u.getMail());
+            s.append(u.getMatricola()).append(" ").append(" ").append(u.getEmail());
             s.append("\n");
 
         }

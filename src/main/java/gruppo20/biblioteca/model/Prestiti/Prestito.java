@@ -1,14 +1,15 @@
 
 package gruppo20.biblioteca.model.Prestiti;
+import gruppo20.biblioteca.model.FileFormat;
 import gruppo20.biblioteca.model.Libri.Libro;
 import gruppo20.biblioteca.model.Utenti.Utente;
 import java.time.LocalDate;
+import java.time.Month;
 /**
  * @brief Questo file contiene l'implementazione dell'oggetto Libro.
  * @author Gruppo20
  */
-public class Prestito implements Comparable<Prestito>{
-    private final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+public class Prestito implements Comparable<Prestito>,FileFormat<Prestito>{
     private final LocalDate dataPrestito;
     private final static int tempoPrestito = 1; //quanto tempo deve durare il prestito
     private LocalDate dataEffettivaRestituzione;
@@ -25,8 +26,14 @@ public class Prestito implements Comparable<Prestito>{
      * @param libroPrestato le informazioni del libro preso in prestito.
      * @param utente le informazioni dell'utente che ha effettuato il prestito.
     */
-    public Prestito(LocalDate dataPrestito, Libro libroPrestato, Utente utente){
-        this.dataEffettivaRestituzione = null;
+    public Prestito(LocalDate dataPrestito,LocalDate dataEffettivaRestituzione, Libro libroPrestato, Utente utente){
+        
+        if (dataEffettivaRestituzione == null || dataEffettivaRestituzione.equals(LocalDate.of(0, 1, 1))) { 
+            this.dataEffettivaRestituzione = LocalDate.of(0, 1, 1);
+        } 
+        else {
+            this.dataEffettivaRestituzione = dataEffettivaRestituzione;
+        }
         this.dataPrestito = dataPrestito;
         this.libroPrestato = libroPrestato;
         this.utente = utente;
@@ -44,9 +51,9 @@ public class Prestito implements Comparable<Prestito>{
         return dataPrestito.plusMonths(tempoPrestito);
     }
     //controlla se il libro è stato già consegnato, in caso lo sia restituisce il quando
-    public LocalDate getDataEffettivaRestituzione() throws NullPointerException{
-        if(dataEffettivaRestituzione!=null) return dataEffettivaRestituzione;
-        else throw new NullPointerException("Non ancora restituito");
+    public LocalDate getDataEffettivaRestituzione() throws IllegalStateException{
+        if(!dataEffettivaRestituzione.equals(LocalDate.of(0000,01,01))) return dataEffettivaRestituzione;
+        else throw new IllegalStateException("Errore, libro non ancora restituito");
     }
     
     public Libro getLibroPrestato() {
@@ -55,6 +62,22 @@ public class Prestito implements Comparable<Prestito>{
 
     public Utente getUtente() {
         return utente;
+    }
+    
+    @Override
+    public String fileFormat(){
+        StringBuilder builder = new StringBuilder();
+        builder.append(dataPrestito+"§§"+dataEffettivaRestituzione+"§§"+libroPrestato+"§§"+utente);
+        return builder.toString();
+    }
+    
+    @Override
+    public Prestito deFileFormat(String record){
+        Libro l = new Libro(null,null,null,0,null);
+        Utente u = new Utente(null,null,null,null);
+        String[] parts = record.split("§§");
+        return new Prestito(LocalDate.parse(parts[0]),LocalDate.parse(parts[1]),l.deFileFormat(parts[2]),u.deFileFormat(parts[3]));
+    
     }
     
     @Override
