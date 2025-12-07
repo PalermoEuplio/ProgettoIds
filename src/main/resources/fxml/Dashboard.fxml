@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane id="AnchorPane" prefHeight="800.0" prefWidth="1100.0" styleClass="parent" stylesheets="@StyleSheets.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gruppo20.biblioteca.controller.ControllerDashboard">
@@ -18,97 +19,117 @@
          <children>
             <AnchorPane prefHeight="800.0" prefWidth="315.0" styleClass="side" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="785.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <AnchorPane layoutX="15.0" layoutY="234.0" onMouseDragOver="-fx-background-color: #cfc6c6;" prefHeight="62.0" prefWidth="200.0" styleClass="home" AnchorPane.bottomAnchor="504.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="234.0">
-                     <children>
-                        <FontAwesomeIconView fill="WHITE" glyphName="HOME" layoutX="51.0" layoutY="40.0" size="30" text="" wrappingWidth="30.0" />
-                        <Label alignment="CENTER" layoutX="111.0" layoutY="12.0" prefHeight="27.0" prefWidth="121.0" text="Dashboard" textFill="WHITE">
-                           <font>
-                              <Font size="25.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="15.0" layoutY="464.0" onMouseDragOver="-fx-background-color: #cfc6c6;" prefHeight="62.0" prefWidth="283.0" styleClass="home" AnchorPane.rightAnchor="15.0">
-                     <children>
-                        <Label alignment="CENTER" layoutX="131.0" layoutY="15.0" text="Utenti" textFill="WHITE">
-                           <font>
-                              <Font size="25.0" />
-                           </font>
-                        </Label>
-                        <FontAwesomeIconView fill="WHITE" glyphName="USER" layoutX="48.0" layoutY="41.0" size="30" wrappingWidth="14.0" />
-                     </children>
-                  </AnchorPane>
                   <ImageView fitHeight="124.0" fitWidth="131.0" layoutX="97.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" styleClass="image" AnchorPane.leftAnchor="97.0" AnchorPane.rightAnchor="94.0">
                      <image>
                         <Image url="@../logo_standard.png" />
                      </image>
                   </ImageView>
-                  <AnchorPane layoutX="15.0" layoutY="346.0" onMouseDragOver="-fx-background-color: #cfc6c6;" prefHeight="62.0" prefWidth="281.0" styleClass="home" AnchorPane.rightAnchor="15.0">
+                  <VBox layoutX="15.0" layoutY="227.0" prefHeight="466.0" prefWidth="288.0" spacing="58.0" AnchorPane.bottomAnchor="115.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="227.0">
                      <children>
-                        <FontAwesomeIconView fill="WHITE" glyphName="BOOK" layoutX="46.0" layoutY="43.0" size="30" text="" wrappingWidth="30.0" />
-                        <Label alignment="CENTER" layoutX="132.0" layoutY="13.0" text="Libreria" textFill="WHITE">
-                           <font>
-                              <Font size="25.0" />
-                           </font>
-                        </Label>
+                        <AnchorPane onMouseClicked="pageDashboard" onMouseDragOver="-fx-background-color: #cfc6c6;" prefHeight="62.0" prefWidth="283.0" styleClass="home">
+                           <children>
+                              <FontAwesomeIconView fill="WHITE" glyphName="HOME" layoutX="51.0" layoutY="40.0" size="30" text="" wrappingWidth="30.0" />
+                              <Label alignment="CENTER" layoutX="111.0" layoutY="12.0" prefHeight="27.0" prefWidth="121.0" text="Dashboard" textFill="WHITE">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane onMouseClicked="pageUtenti" onMouseDragOver="-fx-background-color: #cfc6c6;" prefHeight="62.0" prefWidth="283.0" styleClass="home">
+                           <children>
+                              <Label alignment="CENTER" layoutX="131.0" layoutY="15.0" text="Utenti" textFill="WHITE">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Label>
+                              <FontAwesomeIconView fill="WHITE" glyphName="USER" layoutX="48.0" layoutY="41.0" size="30" wrappingWidth="14.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane onMouseClicked="pageLibreria" onMouseDragOver="-fx-background-color: #cfc6c6;" prefHeight="62.0" prefWidth="281.0" styleClass="home">
+                           <children>
+                              <FontAwesomeIconView fill="WHITE" glyphName="BOOK" layoutX="46.0" layoutY="43.0" size="30" text="" wrappingWidth="30.0" />
+                              <Label alignment="CENTER" layoutX="132.0" layoutY="13.0" text="Libreria" textFill="WHITE">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane onMouseClicked="pagePrestiti" onMouseDragOver="-fx-background-color: #cfc6c6;" prefHeight="62.0" prefWidth="283.0" styleClass="home">
+                           <children>
+                              <Label alignment="CENTER" layoutX="111.0" layoutY="13.0" prefHeight="36.0" prefWidth="97.0" text="Prestiti" textFill="WHITE">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Label>
+                              <FontAwesomeIconView fill="WHITE" glyphName="ARCHIVE" layoutX="42.0" layoutY="41.0" size="30" />
+                           </children>
+                        </AnchorPane>
                      </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="15.0" layoutY="582.0" onMouseDragOver="-fx-background-color: #cfc6c6;" prefHeight="62.0" prefWidth="283.0" styleClass="home" AnchorPane.rightAnchor="15.0">
-                     <children>
-                        <Label alignment="CENTER" layoutX="111.0" layoutY="13.0" prefHeight="36.0" prefWidth="97.0" text="Prestiti" textFill="WHITE">
-                           <font>
-                              <Font size="25.0" />
-                           </font>
-                        </Label>
-                        <FontAwesomeIconView fill="WHITE" glyphName="ARCHIVE" layoutX="42.0" layoutY="41.0" size="30" />
-                     </children>
-                  </AnchorPane>
+                  </VBox>
                </children>
             </AnchorPane>
-            <TableView layoutX="398.0" layoutY="362.0" prefHeight="333.0" prefWidth="583.0" styleClass="table">
-              <columns>
-                <TableColumn prefWidth="124.0" text="C1" />
-                <TableColumn minWidth="0.0" prefWidth="152.0" text="C2" />
-              </columns>
-            </TableView>
-            <Label layoutX="398.0" layoutY="280.0" prefHeight="82.0" prefWidth="420.0" styleClass="scritta" text="Pannello delle scadenze ??">
-               <font>
-                  <Font size="32.0" />
-               </font>
-            </Label>
-            <HBox alignment="CENTER_LEFT" layoutX="363.0" layoutY="79.0" prefHeight="95.0" prefWidth="703.0" styleClass="scrittatop">
+            <AnchorPane layoutX="318.0" onMouseClicked="dashboard" prefHeight="799.0" prefWidth="785.0">
                <children>
-                  <AnchorPane prefHeight="95.0" prefWidth="701.0">
+                  <AnchorPane prefHeight="68.0" prefWidth="480.0">
                      <children>
-                        <Label layoutX="33.0" layoutY="23.0" prefHeight="53.0" prefWidth="124.0" text="DashBoard">
+                        <FontAwesomeIconView glyphName="COPYRIGHT" layoutX="14.0" layoutY="41.0" size="20" text="" wrappingWidth="20.285714149475098" />
+                        <Separator layoutX="34.0" layoutY="15.0" orientation="VERTICAL" prefHeight="40.0" prefWidth="17.0" />
+                        <Label layoutX="52.0" layoutY="20.0" text="2025">
                            <font>
-                              <Font size="25.0" />
+                              <Font name="System Bold Italic" size="20.0" />
                            </font>
                         </Label>
-                        <Separator layoutX="126.0" layoutY="32.0" orientation="VERTICAL" prefHeight="40.0" prefWidth="86.0" />
-                        <Label layoutX="212.0" layoutY="25.0" prefHeight="53.0" prefWidth="363.0" text="Benvenuto alla biblioteca Universitaria">
+                        <Separator layoutX="99.0" layoutY="14.0" orientation="VERTICAL" prefHeight="40.0" prefWidth="19.0" />
+                        <Label layoutX="118.0" layoutY="19.0" prefHeight="30.0" prefWidth="98.0" text="Gruppo 20">
                            <font>
-                              <Font size="21.0" />
+                              <Font name="System Bold Italic" size="20.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="575.0" layoutY="36.0" prefHeight="31.0" prefWidth="127.0" text="Data e Orario">
+                        <Separator layoutX="223.0" layoutY="15.0" orientation="VERTICAL" prefHeight="40.0" prefWidth="17.0" />
+                        <Label layoutX="240.0" layoutY="19.0" prefHeight="30.0" prefWidth="59.0" text="Unisa">
                            <font>
-                              <Font size="18.0" />
+                              <Font name="System Bold Italic" size="20.0" />
                            </font>
                         </Label>
                      </children>
                   </AnchorPane>
-               </children>
-            </HBox>
-            <AnchorPane layoutX="372.0" layoutY="741.0" prefHeight="68.0" prefWidth="480.0">
-               <children>
-                  <FontAwesomeIconView glyphName="COPYRIGHT" layoutX="14.0" layoutY="42.0" size="20" text="" wrappingWidth="21.285714149475098" />
-                  <Separator layoutX="14.0" layoutY="14.0" orientation="VERTICAL" prefHeight="40.0" prefWidth="86.0" />
-                  <Label layoutX="86.0" layoutY="26.0" text="2025" />
-                  <Separator layoutX="86.0" layoutY="15.0" orientation="VERTICAL" prefHeight="40.0" prefWidth="86.0" />
-                  <Label layoutX="158.0" layoutY="27.0" prefHeight="17.0" prefWidth="85.0" text="Gruppo 20" />
-                  <Separator layoutX="197.0" layoutY="23.0" orientation="VERTICAL" prefHeight="40.0" prefWidth="86.0" />
-                  <Label layoutX="269.0" layoutY="24.0" prefHeight="28.0" prefWidth="48.0" text="Unisa" />
+                  <HBox alignment="CENTER_LEFT" prefHeight="95.0" prefWidth="703.0" styleClass="scrittatop">
+                     <children>
+                        <AnchorPane prefHeight="95.0" prefWidth="701.0">
+                           <children>
+                              <Label layoutX="33.0" layoutY="23.0" prefHeight="53.0" prefWidth="124.0" text="DashBoard">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Label>
+                              <Separator layoutX="126.0" layoutY="32.0" orientation="VERTICAL" prefHeight="40.0" prefWidth="86.0" />
+                              <Label layoutX="212.0" layoutY="25.0" prefHeight="53.0" prefWidth="363.0" text="Benvenuto alla biblioteca Universitaria">
+                                 <font>
+                                    <Font size="21.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="575.0" layoutY="36.0" prefHeight="31.0" prefWidth="127.0" text="Data e Orario">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+                  <TableView layoutX="33.0" layoutY="-42.0" prefHeight="333.0" prefWidth="583.0" styleClass="table">
+                    <columns>
+                      <TableColumn minWidth="0.0" prefWidth="152.0" text="C2" />
+                      <TableColumn prefWidth="124.0" text="C1" />
+                    </columns>
+                  </TableView>
+                  <Label prefHeight="82.0" prefWidth="420.0" styleClass="scritta" text="Pannello delle scadenze ??">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
          </children>

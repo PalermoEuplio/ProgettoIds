@@ -11,6 +11,7 @@ import javafx.scene.*;
 import javafx.stage.*;
 import static javafx.application.Application.launch;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 
 /**
  * @brief Questo file contiene l'implementazione del Main.
@@ -18,13 +19,15 @@ import javafx.application.Application;
  */
 
 public class Main extends Application {
-    
+        
     @Override
-    public void start(Stage primaryStage){
+    public void start(Stage stage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Dashboard.fxml"));
         
-        //Aggiungere chiamate al view e controller
-        new ControllerLibreria();
+        Scene scene = new Scene(root);
         
+        stage.setScene(scene);
+        stage.show();
     }
     
     

@@ -5,10 +5,68 @@
  */
 package gruppo20.biblioteca.controller;
 
+import java.awt.event.*;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+
 /**
  *
  * @author euppa
  */
-public class ControllerDashboard {
+public class ControllerDashboard implements Initializable {
+    
+    @FXML
+    private AnchorPane ap;
+    
+    @FXML
+    private BorderPane bp;
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb){
+        //Todo
+    }
+    
+    @FXML
+    private void dashboard(MouseEvent event){   
+        bp.setCenter(ap);
+    }
+    
+    @FXML
+    private void pageUtenti(MouseEvent event) throws IOException{ 
+        loadPage("pageUtenti");
+    }
+    
+    @FXML
+    private void pageLibreria(MouseEvent event) throws IOException{   
+        loadPage("pageLibreria");
+    }
+    
+    @FXML
+    private void pagePrestiti(MouseEvent event) throws IOException{ 
+        loadPage("pagePrestiti");
+    }
+    
+    private void loadPage(String page) throws IOException{
+        Parent root=null;
+        
+        try{
+            root = FXMLLoader.load(getClass().getResource("/fxml/"+page+".fxml"));
+        } catch (IOException ex){
+            Logger.getLogger(ControllerDashboard.class.getName()).log(Level.SEVERE,null,ex);
+        }
+        
+        bp.setCenter(root);
+    }
+    
+    
     
 }
