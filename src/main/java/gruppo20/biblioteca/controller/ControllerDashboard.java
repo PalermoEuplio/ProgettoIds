@@ -5,18 +5,12 @@
  */
 package gruppo20.biblioteca.controller;
 
-import java.awt.event.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 
 /**
  *
@@ -59,7 +53,7 @@ public class ControllerDashboard implements Initializable {
         Parent root=null;
         
         try{
-            root = FXMLLoader.load(getClass().getResource("/resources/fxml/"+page+".fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/"+page+".fxml"));
         } catch (IOException ex){
             Logger.getLogger(ControllerDashboard.class.getName()).log(Level.SEVERE,null,ex);
         }
