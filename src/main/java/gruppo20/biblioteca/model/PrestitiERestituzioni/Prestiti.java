@@ -23,22 +23,7 @@ public class Prestiti extends GestioneSet<Prestito> {
             System.out.println("Errore IO apertura libreria");
         }
     }
-    //metodo per restituire, false se non è contenuto il prestito, true se riesce a restituirlo
-    public boolean Restituisci(Prestito p){
-        if(listPrestiti.contains(p)){
-            Iterator<Prestito> it = listPrestiti.iterator();
-            while(it.hasNext()){
-                Prestito pAp = it.next(); //variabile di appoggio
-                if(p.equals(pAp)){
-                    p.setRestituzione(LocalDate.now());
-                    return modifica(pAp, p);
-                }
-            }
-            
-        }
-        return false;
-    }
-    //overload per specificare la data di restituzione
+
     public boolean Restituisci(Prestito p,LocalDate dataRestituzione){
         if(listPrestiti.contains(p)){
             Iterator<Prestito> it = listPrestiti.iterator();
