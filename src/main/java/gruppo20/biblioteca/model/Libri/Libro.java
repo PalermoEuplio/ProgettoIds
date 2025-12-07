@@ -1,10 +1,10 @@
 package gruppo20.biblioteca.model.Libri;
-import gruppo20.biblioteca.model.FileFormat;
+import gruppo20.biblioteca.model.Utility.FileFormat;
 import java.time.*;
 import java.util.*;
 
 /**
- * @brief Questo file contiene l'implementazione dell'oggetto Libro.
+ * @brief Questo file contiene l'implementazione della classe Libro.
  * @author Gruppo20
  */
 public class Libro implements Comparable<Libro>,FileFormat<Libro>{
@@ -135,7 +135,7 @@ public class Libro implements Comparable<Libro>,FileFormat<Libro>{
      * @brief Confronta due libri utilizzando il titolo.
      * 
      * @param l Libro da confrontare.
-     * @return 
+     * @return 0 se sono uguali, -1 se è precedente, 1 se è successivo.
      */
     @Override
     public int compareTo(Libro l){

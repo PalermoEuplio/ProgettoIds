@@ -1,46 +1,26 @@
 
-package gruppo20.biblioteca.model;
+package gruppo20.biblioteca.model.Utility;
 
-import gruppo20.biblioteca.controller.ControllerFile;
 import gruppo20.biblioteca.model.Libri.Libro;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
 
 /**
- * @brief Questo file contiene l'implementazione dell'interfaccia Gestione.
+ * @brief Questo file contiene l'implementazione della superclasse GestioneSet.
  * @author Gruppo20
  */
 public class GestioneSet<T extends FileFormat> {
     
     public boolean aggiungi(ControllerFile<T> file,HashSet<T> set,T o2){
-        if(set.contains(o2)){
-            if(o2 instanceof Libro){
-                Iterator<T> it = set.iterator();
-                while(it.hasNext()){
-                    T o1 = it.next();
-                    if(o1.equals(o2)){
-                        try{
-                            file.elimina(o1);
-                            file.aggiungi(o2);
-                            }
-                        catch(IOException e){System.out.println("Errore IO aggiunta elemento"+o2);}
+        if(set.contains(o2)) return false;
 
-                        return this.modifica(file,set,o1, o2);
-                    }
-                }
-            }
-            else return false;
+        try {
+            file.aggiungi(o2);
+        } catch (IOException ex) {
+            System.out.println("Errore IO aggiunta "+o2);
         }
-        else{
-            try {
-                file.aggiungi(o2);
-            } catch (IOException ex) {
-                System.out.println("Errore IO aggiunta "+o2);
-            }
-            return set.add(o2);
-        }
-        return false;
+        return set.add(o2);
     }
     
     

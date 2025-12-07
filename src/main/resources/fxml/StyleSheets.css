@@ -9,30 +9,45 @@ and open the template in the editor.
 */
 
 .parent{
-    -fx-background-color: #ffffff;
+    -fx-background-color: linear-gradient(from 45% 50% to 100% 100%, #fbdc9d, #f7ead1);
     -fx-background-radius: 30px;
 }
 
-.logo{
-    -fx-background-color: #ffffb7;
-    -fx-background-radius: 175px;
+.image{
+    -fx-effect: dropshadow(three-pass-box, #FFFFFF, 4, 0, 0, 0);
 }
 
 .scrittatop{
     -fx-background-radius: 15px;
     -fx-background-color: linear-gradient(to right, #376fda, #3b9ad8);
+    -fx-effect: dropshadow(three-pass-box, #000000, 10, 0, 2, 2);
+    -fx-border-color:#d6d6d6;
+    -fx-border-radius:15px;
 }
 .top{
     -fx-background-color: #cfc6c6;
     -fx-background-radius: 15px;
 }
 .side{
-    -fx-background-color: linear-gradient(to bottom, #4650da, #7b82dd);
+    -fx-background-color: linear-gradient(to bottom, #1d4f87, #346baa);
     -fx-background-radius: 15px;
+    -fx-border-color:#000000;
+    -fx-border-radius:15px;
+    -fx-effect: dropshadow(three-pass-box, #000000, 10, 0, 0, 0);
 }
 
 .home{
     -fx-background-color: #000000;
     -fx-background-radius: 20px;
+    -fx-effect: dropshadow(three-pass-box, #FFFFFF, 2, 0, 1, 1);
+    -fx-border-radius:20px;
 }
 
+.table{
+    -fx-background-radius: 20px;
+    -fx-effect: dropshadow(three-pass-box, #000000, 10, 0, 0, 0);
+}
+
+.scritta{
+    -fx-background-color:#376fda;
+}

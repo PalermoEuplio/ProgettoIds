@@ -1,40 +1,51 @@
-
 package gruppo20.biblioteca.model.Utenti;
-import gruppo20.biblioteca.model.GestioneSet;
-import java.util.Iterator;
-import java.util.TreeSet;
+import gruppo20.biblioteca.model.Utility.ControllerFile;
+import gruppo20.biblioteca.model.Utility.GestioneSet;
+import java.io.IOException;
+import java.util.HashSet;
 
 /**
  * @brief Questo file contiene l'implementazione della classe Utenza.
  * @author Gruppo20
  */
 
-public class Utenti implements GestioneSet<Utente>{
+public class Utenti extends GestioneSet<Utente>{
     /**
-     * Struttura dati che contiene gli utenti
-     * TreeSet
+     * @brief Insieme degli utenti presenti nel sistema.
+     * Si utilizza un HashSet per garantire l'unicità degli utenti.
      */
-    private TreeSet<Utente> anagrafica;
+    private HashSet<Utente> listUtenti;
+    
+    /**
+     * @brief Controller per la gestione del file associato ai libri.
+     */
+    private ControllerFile<Utente> file;
+    
     /**
      * Costruttore gestione utenti
      * Iniziallizza la struttura
      */
-    public Utenti() {
-        this.anagrafica = new TreeSet<Utente>();
+    
+    public Utenti(String filePath) {
+        this.listUtenti = new HashSet<>();
+        try {
+            file = new ControllerFile<>(filePath,listUtenti, new Utente(null,null,null,null,0));
+        } catch (IOException ex) {
+            System.out.println("Errore IO apertura lista utenti");
+        }
     }    
     
     /**
     *Aggiunge un utente all'anagrafica.
     * 
     * Parametro in ingresso:
-    *   @param u utente da aggiungere all'anagrafica.
+    *   @param u utente da aggiungere all'listUtenti.
     * 
     *   @return restituisce true se l'utente è stato inserito. 
-    *           false se invece non è stato inserito o è già presente in anagrafica. 
+           false se invece non è stato inserito o è già presente in listUtenti. 
     */  
-    @Override
     public boolean aggiungi(Utente u){
-        return anagrafica.add(u);
+        return super.aggiungi(file, listUtenti, u);
     }
     
     /**
@@ -46,9 +57,9 @@ public class Utenti implements GestioneSet<Utente>{
      * 
      *  @return restituisce true se elimina l'utente. false se non è già presente.
      */
-    @Override
+    
     public boolean elimina(Utente u){
-        return anagrafica.remove(u);
+        return super.elimina(file, listUtenti, u);
     }
     
      /**
@@ -56,28 +67,30 @@ public class Utenti implements GestioneSet<Utente>{
      * Se l'utente è presente effettua la modifica di uno o più suoi dati.
      * 
      * Parametro in ingresso:
-     *  @param u utente da modificare
+     *  @param u1 utente da modificare
+     *  @param u2 utente con modifiche
      * 
      *  @return restituisce true se la modifica dell'utente è avvenuta correttamente.
      *          false se l'utente non è presente.
      */
-    
-    
-    
-    public boolean modifica(Utente u){
-      
+    public boolean modifica(Utente u1,Utente u2){
+        return super.modifica(file, listUtenti, u1, u2);
     }
 
-
+     /**
+     * @brief Restituisce una rappresentazione testuale dell'insieme degli Utenti.
+     * Il metodo crea una stringa contenente la lista di tutti gli utenti presenti nell'anagrafica.
+     * Ogni elemento su una nuova linea.
+     * Per ogni elemento viene utilizzato il metodo toString() della classe Utente.
+     * 
+     * @return Stringa che contiene tutti gli utenti della struttura dati.
+     */
     @Override
     public String toString() {
-        //da correggere
+        //corretto
         StringBuilder s = new StringBuilder();
-        for(Utente u : anagrafica){
-            s.append(u.getNome()).append(" ").append(u.getCognome()).append(" ");
-            s.append(u.getMatricola()).append(" ").append(" ").append(u.getEmail());
-            s.append("\n");
-
+        for(Utente u : listUtenti){            
+            s.append(u.toString()).append("\n");
         }
         return s.toString();
     }

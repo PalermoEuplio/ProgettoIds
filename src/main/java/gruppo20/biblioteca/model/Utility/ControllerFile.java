@@ -1,6 +1,6 @@
-package gruppo20.biblioteca.controller;
+package gruppo20.biblioteca.model.Utility;
 
-import gruppo20.biblioteca.model.FileFormat;
+import gruppo20.biblioteca.model.Utility.FileFormat;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.HashSet;
@@ -55,41 +55,8 @@ public class ControllerFile<T extends FileFormat>{
     }
     //stesso discorso, non controlla che il record sia effettivamente presente
     public void modifica(T t1, T t2) throws IOException{
-        checkChiuso(); //controllo che il file non sia già chiuso
-        file.seek(0);
-        
-        long target = 0;
-        StringBuilder builder = new StringBuilder();
-        String[] buffer;
-        
-        //cerco il record nel file e salvo l'offset
-        while(file.getFilePointer()<file.length()){
-            target = file.getFilePointer();
-            if(file.readUTF().equals(t1.fileFormat())) break;
-        }
-        
-        if(t1.fileFormat().compareTo(t2.fileFormat())==0){
-            file.seek(target);
-            file.writeUTF(t2.fileFormat());
-        }
-        else{
-            //mi sposto all'inizio del record successivo
-            file.seek(target+t1.fileFormat().length()+2);
-            //salvo tutti i record successivi 
-            while(file.getFilePointer()<file.length()){
-                builder.append(file.readUTF()+"\n");
-            }
-
-            file.setLength(target);//così elimino tutto ciò che è successivo al punto in cui iniziava il record da modificare
-            file.seek(file.length());
-            buffer = builder.toString().split("\n"); //splitto i record salvati altrimenti non posso reinserirli correttamente
-
-            //reinserisco il record corretto e quelli successivi
-            file.writeUTF(t2.fileFormat());
-            for(String line : buffer){
-                file.writeUTF(line);
-            }        
-        }
+        elimina(t1);
+        aggiungi(t2);
     }
     
     //carica il file nella struttura interna del programma, in questo caso HashSet
