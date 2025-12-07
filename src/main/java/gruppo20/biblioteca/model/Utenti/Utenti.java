@@ -1,6 +1,6 @@
 
 package gruppo20.biblioteca.model.Utenti;
-import gruppo20.biblioteca.model.Gestione;
+import gruppo20.biblioteca.model.GestioneSet;
 import java.util.Iterator;
 import java.util.TreeSet;
 
@@ -9,7 +9,7 @@ import java.util.TreeSet;
  * @author Gruppo20
  */
 
-public class Utenti implements Gestione<Utente>{
+public class Utenti implements GestioneSet<Utente>{
     /**
      * Struttura dati che contiene gli utenti
      * TreeSet

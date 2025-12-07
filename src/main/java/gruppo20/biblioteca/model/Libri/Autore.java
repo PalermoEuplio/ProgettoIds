@@ -50,6 +50,14 @@ public class Autore {
             }
             return new Autore(parts[0],parts[1]);
     }
+    
+    @Override
+    public int hashCode(){
+        int h = 17;
+        h = h * 31 + nome.hashCode();
+        h = h * 31 + cognome.hashCode();
+        return h;
+    }
 
     /**
      * @brief Verifica l'uguaglianza tra due autori.
@@ -62,7 +70,7 @@ public class Autore {
     public boolean equals(Object o) {
         if(o==null || !(o instanceof Autore))return false;
         Autore a = (Autore) o;
-        return this.cognome.equals(a.getCognome()) && this.nome.equals(a.getNome());
+        return this.nome.equals(a.getCognome()) && this.cognome.equals(a.getNome());
     }
     
     /**

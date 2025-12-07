@@ -17,6 +17,7 @@ public class Utente implements Comparable<Utente>,FileFormat<Utente>{
     private String cognome;
     private String matricola;
     private String email;
+    private int nPrestiti;
 
     /**
      * Costruttore Utente
@@ -31,6 +32,15 @@ public class Utente implements Comparable<Utente>,FileFormat<Utente>{
         this.cognome = cognome;
         this.matricola = matricola;
         this.email=mail;
+        this.nPrestiti = 0;
+    }
+
+    public void setnPrestiti(int nPrestiti) {
+        this.nPrestiti = nPrestiti;
+    }
+
+    public int getnPrestiti() {
+        return nPrestiti;
     }
 
     public void setNome(String nome) {

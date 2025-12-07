@@ -11,13 +11,11 @@ import java.util.HashSet;
  */
 
 public class ControllerFile<T extends FileFormat>{
-    private final String filePath;
     private final RandomAccessFile file;
     private boolean chiuso = false;
     
     
     public ControllerFile(String filePath,HashSet<T> set, T t) throws IOException{
-        this.filePath=filePath;
         this.file = new RandomAccessFile(filePath, "rw");
         this.carica(set,t);
     }

@@ -2,22 +2,22 @@
 package gruppo20.biblioteca.model.Libri;
 
 import gruppo20.biblioteca.controller.ControllerFile;
-import gruppo20.biblioteca.model.Gestione;
+import gruppo20.biblioteca.model.GestioneSet;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
  * @brief Questo file contiene l'implementazione della classe Libreria.
  * @author Gruppo20
  */
-public class Libreria implements Gestione<Libro> {
+public class Libreria extends GestioneSet<Libro> {
     /**
      * @brief Insieme dei libri presenti in libreria.
      * Si utilizza un HashSet per garantire l'unicità dei libri.
      */
-    private HashSet<Libro> libreria; 
+    private HashSet<Libro> listLibreria; 
     /**
      * @brief Controller per la gestione del file associato ai libri.
      */
@@ -25,9 +25,9 @@ public class Libreria implements Gestione<Libro> {
     
     
     public Libreria(String filePath){
-        libreria = new HashSet<>();
+        listLibreria = new HashSet<>();
         try {
-            file = new ControllerFile<>(filePath,libreria, new Libro(null,null,null,0,null));
+            file = new ControllerFile<>(filePath,listLibreria, new Libro(null,null,null,0,null));
         } catch (IOException ex) {
             System.out.println("Errore IO apertura libreria");
         }
@@ -40,37 +40,20 @@ public class Libreria implements Gestione<Libro> {
     * Nel caso in cui il libro è già presente, si andrà a modificare il numero di copie.
     * 
     * Parametro in ingresso:
-    *   @param l libro da aggiungere alla libreria.
+    *   @param l2 libro da aggiungere alla listLibreria.
     * 
     *   @return restituisce true se il libro è stato inserito. 
     *           false se invece non è stato inserito. 
     */  
-    @Override
     public boolean aggiungi(Libro l2){
-        if(libreria.contains(l2)){
-            for(Libro l1 : libreria){ //da rifare con iterator?
+        if(listLibreria.contains(l2)){
+            for(Libro l1 : listLibreria){ 
                 if(l2.equals(l1)){
                     l2.setNCopie(l2.getNCopie()+l1.getNCopie());
-                    try{
-                        file.elimina(l1);
-                        file.aggiungi(l2);
-                        }
-                    catch(IOException e){System.out.println("Errore IO aggiunta libro già presente");}
-    
-                    return this.modifica(l1, l2);
                 }
-            }
-            
+            }  
         }
-        else{
-            try {
-                file.aggiungi(l2);
-            } catch (IOException ex) {
-                System.out.println("Errore IO aggiunta libro non presente");;
-            }
-            return libreria.add(l2);
-        }
-        return false;
+        return super.aggiungi(file, listLibreria, l2);
     }
     
        /**
@@ -85,17 +68,9 @@ public class Libreria implements Gestione<Libro> {
      */
     
     
-    @Override
+
     public boolean elimina(Libro l){
-        if (libreria.remove(l)) {
-            try {
-                file.elimina(l);
-            } catch (IOException ex) {
-                System.out.println("Errore IO elimina libro");
-            }
-            return true;
-        }
-        return false;
+        return super.elimina(file, listLibreria, l);
     }
     
        /**
@@ -111,17 +86,7 @@ public class Libreria implements Gestione<Libro> {
      */
     
     public boolean modifica(Libro l1, Libro l2){
-        
-        if(libreria.contains(l1)){
-            try {
-                file.modifica(l1, l2);
-            } catch (IOException ex) {
-                System.out.println("Errore IO modifica libro");
-            }
-            libreria.remove(l1);
-            return libreria.add(l2);
-        }
-        return false;
+        return super.modifica(file, listLibreria, l1, l2);
     }   
     
     /**
@@ -130,13 +95,13 @@ public class Libreria implements Gestione<Libro> {
      * Ogni elemento su una nuova linea.
      * Per ogni elemento viene utilizzato il metodo toString() della classe Libro.
      * 
-     * @return Stringa che contiene tutti i libri della libreria.
+     * @return Stringa che contiene tutti i libri della listLibreria.
      */
     @Override
     public String toString(){
         StringBuilder builder = new StringBuilder();
         
-        for(Libro l : libreria){
+        for(Libro l : listLibreria){
             builder.append(l+"\n");
         }
         return builder.toString();

@@ -144,7 +144,12 @@ public class Libro implements Comparable<Libro>,FileFormat<Libro>{
     
     @Override
     public int hashCode(){
-        return Integer.parseInt(isbn)*31;
+        int h = 17;
+        h = h * 31 + titolo.hashCode();
+        h = h * 31 + annoPublicazione.hashCode();
+        h = h * 31 + isbn.hashCode();
+        h = h * 31 + autori.hashCode();
+        return h;
     }
     
     /**
