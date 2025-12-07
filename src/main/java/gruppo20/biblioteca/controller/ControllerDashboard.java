@@ -11,6 +11,12 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.fxml.FXMLLoader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,10 +25,10 @@ import javafx.scene.*;
 public class ControllerDashboard implements Initializable {
     
     @FXML
-    private AnchorPane ap;
+    public AnchorPane ap;
     
     @FXML
-    private BorderPane bp;
+    public BorderPane bp;
     
     @Override
     public void initialize(URL url, ResourceBundle rb){

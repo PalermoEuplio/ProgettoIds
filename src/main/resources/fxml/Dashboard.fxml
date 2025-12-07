@@ -15,58 +15,9 @@
 
 <BorderPane id="AnchorPane" fx:id="bp" prefHeight="800.0" prefWidth="1100.0" styleClass="parent" stylesheets="@StyleSheets.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gruppo20.biblioteca.controller.ControllerDashboard">
    <center>
-      <AnchorPane prefHeight="800.0" prefWidth="1092.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="814.0" prefWidth="1148.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane prefHeight="800.0" prefWidth="315.0" styleClass="side" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="785.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <ImageView fitHeight="124.0" fitWidth="131.0" layoutX="97.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" styleClass="image" AnchorPane.leftAnchor="97.0" AnchorPane.rightAnchor="94.0">
-                     <image>
-                        <Image url="@../logo_standard.png" />
-                     </image>
-                  </ImageView>
-                  <VBox layoutX="15.0" layoutY="227.0" prefHeight="466.0" prefWidth="288.0" spacing="58.0" AnchorPane.bottomAnchor="115.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="227.0">
-                     <children>
-                        <AnchorPane onMouseClicked="pageDashboard" onMouseDragOver="-fx-background-color: #cfc6c6;" prefHeight="62.0" prefWidth="283.0" styleClass="home">
-                           <children>
-                              <Label alignment="CENTER" layoutX="111.0" layoutY="12.0" prefHeight="27.0" prefWidth="121.0" text="Dashboard" textFill="WHITE">
-                                 <font>
-                                    <Font size="25.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane onMouseClicked="pageUtenti" onMouseDragOver="-fx-background-color: #cfc6c6;" prefHeight="62.0" prefWidth="283.0" styleClass="home">
-                           <children>
-                              <Label alignment="CENTER" layoutX="131.0" layoutY="15.0" text="Utenti" textFill="WHITE">
-                                 <font>
-                                    <Font size="25.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane onMouseClicked="pageLibreria" onMouseDragOver="-fx-background-color: #cfc6c6;" prefHeight="62.0" prefWidth="281.0" styleClass="home">
-                           <children>
-                              <Label alignment="CENTER" layoutX="132.0" layoutY="13.0" text="Libreria" textFill="WHITE">
-                                 <font>
-                                    <Font size="25.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane onMouseClicked="pagePrestiti" onMouseDragOver="-fx-background-color: #cfc6c6;" prefHeight="62.0" prefWidth="283.0" styleClass="home">
-                           <children>
-                              <Label alignment="CENTER" layoutX="111.0" layoutY="13.0" prefHeight="36.0" prefWidth="97.0" text="Prestiti" textFill="WHITE">
-                                 <font>
-                                    <Font size="25.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                     </children>
-                  </VBox>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="ap" layoutX="376.0" layoutY="83.0" onMouseClicked="pageDashboard" prefHeight="776.0" prefWidth="772.0">
+            <AnchorPane fx:id="ap" layoutX="376.0" layoutY="83.0" onMouseClicked="#pageDashboard" prefHeight="776.0" prefWidth="772.0">
                <children>
                   <AnchorPane prefHeight="68.0" prefWidth="480.0">
                      <children>
@@ -131,4 +82,55 @@
          </children>
       </AnchorPane>
    </center>
+   <left>
+      <AnchorPane prefHeight="800.0" prefWidth="315.0" styleClass="side" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="124.0" fitWidth="131.0" layoutX="97.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" styleClass="image" AnchorPane.leftAnchor="97.0" AnchorPane.rightAnchor="94.0">
+               <image>
+                  <Image url="@../logo_standard.png" />
+               </image>
+            </ImageView>
+            <VBox layoutX="15.0" layoutY="227.0" prefHeight="466.0" prefWidth="288.0" spacing="58.0" AnchorPane.bottomAnchor="115.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="227.0">
+               <children>
+                  <AnchorPane onMouseClicked="#pageDashboard" prefHeight="62.0" prefWidth="283.0" styleClass="home">
+                     <children>
+                        <Label alignment="CENTER" layoutX="111.0" layoutY="12.0" prefHeight="27.0" prefWidth="121.0" text="Dashboard" textFill="WHITE">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane onMouseClicked="#pageUtenti" prefHeight="62.0" prefWidth="283.0" styleClass="home">
+                     <children>
+                        <Label alignment="CENTER" layoutX="131.0" layoutY="15.0" text="Utenti" textFill="WHITE">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane onMouseClicked="#pageLibreria" prefHeight="62.0" prefWidth="281.0" styleClass="home">
+                     <children>
+                        <Label alignment="CENTER" layoutX="132.0" layoutY="13.0" text="Libreria" textFill="WHITE">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane onMouseClicked="#pagePrestiti" prefHeight="62.0" prefWidth="283.0" styleClass="home">
+                     <children>
+                        <Label alignment="CENTER" layoutX="111.0" layoutY="13.0" prefHeight="36.0" prefWidth="97.0" text="Prestiti" textFill="WHITE">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </left>
 </BorderPane>
