@@ -1,6 +1,6 @@
 package gruppo20.biblioteca.model.Utenti;
 import gruppo20.biblioteca.model.GestioneSet;
-import java.util.TreeSet;
+import java.util.HashSet;
 
 /**
  * @brief Questo file contiene l'implementazione della classe Utenza.
@@ -12,13 +12,13 @@ public class Utenti extends GestioneSet<Utente>{
      * Struttura dati che contiene gli utenti
      * TreeSet
      */
-    private TreeSet<Utente> anagrafica;
+    private HashSet<Utente> anagrafica;
     /**
      * Costruttore gestione utenti
      * Iniziallizza la struttura
      */
     public Utenti() {
-        this.anagrafica = new TreeSet<>();
+        this.anagrafica = new HashSet<>();
     }    
     
     /**
