@@ -4,17 +4,20 @@
  */
 package gruppo20.biblioteca.model.Utenti;
 
+import gruppo20.biblioteca.model.FileFormat;
+
 /**
  * @brief Questo file contiene l'implementazione dell'oggetto Utente.
  * Identifica l'entità utente e i suoi attributi
  * @author Gruppo20
  */
-public class Utente implements Comparable<Utente>{
+public class Utente implements Comparable<Utente>,FileFormat<Utente>{
     
     private String nome;
     private String cognome;
     private String matricola;
-    private String mail;
+    private String email;
+    private int nPrestiti;
 
     /**
      * Costruttore Utente
@@ -28,7 +31,16 @@ public class Utente implements Comparable<Utente>{
         this.nome = nome;
         this.cognome = cognome;
         this.matricola = matricola;
-        this.mail=mail;
+        this.email=mail;
+        this.nPrestiti = 0;
+    }
+
+    public void setnPrestiti(int nPrestiti) {
+        this.nPrestiti = nPrestiti;
+    }
+
+    public int getnPrestiti() {
+        return nPrestiti;
     }
 
     public void setNome(String nome) {
@@ -43,8 +55,8 @@ public class Utente implements Comparable<Utente>{
         this.matricola = matricola;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getNome() {
@@ -59,13 +71,26 @@ public class Utente implements Comparable<Utente>{
         return matricola;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
+    }
+    @Override
+    public String fileFormat(){
+        StringBuilder builder = new StringBuilder();
+        builder.append(nome+"§"+cognome+"§"+matricola+"§"+email);
+        return builder.toString();        
+    }
+    
+    @Override
+    public Utente deFileFormat(String record){
+        String[] parts = record.split("§");
+        return new Utente(parts[0],parts[1],parts[2],parts[3]);
+    
     }
     
     @Override
     public String toString() {
-        return "Nome=" + nome + ", cognome=" + cognome + ", matricola=" + matricola + ", mail=" + mail + '}';
+        return "Nome=" + nome + ", cognome=" + cognome + ", matricola=" + matricola + ", mail=" + email + '}';
     }
 
     @Override

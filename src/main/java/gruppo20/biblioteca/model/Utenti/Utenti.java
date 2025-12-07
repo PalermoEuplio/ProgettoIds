@@ -1,6 +1,6 @@
 
 package gruppo20.biblioteca.model.Utenti;
-import gruppo20.biblioteca.model.Gestione;
+import gruppo20.biblioteca.model.GestioneSet;
 import java.util.Iterator;
 import java.util.TreeSet;
 
@@ -9,7 +9,7 @@ import java.util.TreeSet;
  * @author Gruppo20
  */
 
-public class Utenti implements Gestione<Utente>{
+public class Utenti implements GestioneSet<Utente>{
     /**
      * Struttura dati che contiene gli utenti
      * TreeSet
@@ -75,7 +75,7 @@ public class Utenti implements Gestione<Utente>{
         StringBuilder s = new StringBuilder();
         for(Utente u : anagrafica){
             s.append(u.getNome()).append(" ").append(u.getCognome()).append(" ");
-            s.append(u.getMatricola()).append(" ").append(" ").append(u.getMail());
+            s.append(u.getMatricola()).append(" ").append(" ").append(u.getEmail());
             s.append("\n");
 
         }
