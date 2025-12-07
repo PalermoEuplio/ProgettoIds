@@ -5,13 +5,14 @@ import gruppo20.biblioteca.model.Libri.Libro;
 import gruppo20.biblioteca.model.Utenti.Utente;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.temporal.ChronoUnit;
 /**
  * @brief Questo file contiene l'implementazione dell'oggetto Libro.
  * @author Gruppo20
  */
 public class Prestito implements Comparable<Prestito>,FileFormat<Prestito>{
     private final LocalDate dataPrestito;
-    private final static int tempoPrestito = 1; //quanto tempo deve durare il prestito
+    private final static int periodoPrestito = 1; //quanto tempo deve durare il prestito
     private Restituzione restituzione;
     private final Libro libroPrestato; 
     private final Utente utente;
@@ -52,6 +53,14 @@ public class Prestito implements Comparable<Prestito>,FileFormat<Prestito>{
 
     public Utente getUtente() {
         return utente;
+    }
+    //restituisce se è in ritardo
+    public boolean isRitardo(){
+        return dataPrestito.plusMonths(periodoPrestito).isBefore(LocalDate.now());
+    }
+    //restituisce di quanto è in ritardo, da richiamare solo dopo aver certificato il ritardo con isRitardo
+    public int calcRitardo(){
+        return (int) ChronoUnit.DAYS.between(dataPrestito.plusMonths(periodoPrestito),LocalDate.now());
     }
     
     @Override
