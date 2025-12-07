@@ -14,33 +14,14 @@ import java.util.Iterator;
 public class GestioneSet<T extends FileFormat> {
     
     public boolean aggiungi(ControllerFile<T> file,HashSet<T> set,T o2){
-        if(set.contains(o2)){
-            if(o2 instanceof Libro){
-                Iterator<T> it = set.iterator();
-                while(it.hasNext()){
-                    T o1 = it.next();
-                    if(o1.equals(o2)){
-                        try{
-                            file.elimina(o1);
-                            file.aggiungi(o2);
-                            }
-                        catch(IOException e){System.out.println("Errore IO aggiunta elemento"+o2);}
+        if(set.contains(o2)) return false;
 
-                        return this.modifica(file,set,o1, o2);
-                    }
-                }
-            }
-            else return false;
+        try {
+            file.aggiungi(o2);
+        } catch (IOException ex) {
+            System.out.println("Errore IO aggiunta "+o2);
         }
-        else{
-            try {
-                file.aggiungi(o2);
-            } catch (IOException ex) {
-                System.out.println("Errore IO aggiunta "+o2);
-            }
-            return set.add(o2);
-        }
-        return false;
+        return set.add(o2);
     }
     
     

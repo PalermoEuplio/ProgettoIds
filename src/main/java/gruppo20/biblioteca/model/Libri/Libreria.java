@@ -6,6 +6,7 @@ import gruppo20.biblioteca.model.GestioneSet;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -47,9 +48,12 @@ public class Libreria extends GestioneSet<Libro> {
     */  
     public boolean aggiungi(Libro l2){
         if(listLibreria.contains(l2)){
-            for(Libro l1 : listLibreria){ 
+            Iterator<Libro> it = listLibreria.iterator();
+            while(it.hasNext()){
+                Libro l1 = it.next();
                 if(l2.equals(l1)){
                     l2.setNCopie(l2.getNCopie()+l1.getNCopie());
+                    return modifica(l1, l2);
                 }
             }  
         }

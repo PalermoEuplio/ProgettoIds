@@ -35,31 +35,6 @@ public class Prestiti extends GestioneSet<Prestito> {
         }
     }
     
-    
-    /**
-     * @brief Registra la restituzione di un prestito con data odierna.
-     * Il metodo cerca il prestito, se lo trova imposta la data di restituzione a quella odierna.
-     * Se non viene trovato il prestito ritorna false.
-     * 
-     * @param p Prestito da restituire.
-     * @return true se la restituzione è avvenuta, false in caso contrario.
-     */
-    public boolean Restituisci(Prestito p){
-        if(listPrestiti.contains(p)){
-            Iterator<Prestito> it = listPrestiti.iterator();
-            while(it.hasNext()){
-                Prestito pAp = it.next(); //variabile di appoggio
-                if(p.equals(pAp)){
-                    p.setRestituzione(LocalDate.now());
-                    return modifica(pAp, p);
-                }
-            }
-            
-        }
-        return false;
-    }
-    //overload per specificare la data di restituzione
-    
     /**
      * @brief Registra la restituzione di un prestito.
      * Il metodo cerca il prestito, se lo trova imposta la data di restituzione a quella inserita.
