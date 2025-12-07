@@ -2,19 +2,19 @@
 
 <ClassDiagram name="ProgettoIds">
   <ClassDiagramComponents>
-    <Class name="Main" package="gruppo20.biblioteca.model" visibility="public" xPosition="20.0" yPosition="20.0">
+    <Class name="Main" package="gruppo20.biblioteca.model" visibility="public" xPosition="133.0" yPosition="389.0">
       <Fields/>
       <Constructors/>
       <Methods>
-        <Method name="start" returnType="void" visibility="public">
+        <Method name="start" returnType="Stage" visibility="public">
           <Argument type="Stage" name="primaryStage"/>
         </Method>
-        <Method name="main" returnType="void" visibility="public" isStatic="true">
+        <Method name="main" returnType="String" visibility="public" isStatic="true">
           <Argument type="String" name="args"/>
         </Method>
       </Methods>
     </Class>
-    <Class name="Autore" package="gruppo20.biblioteca.model.Libri" visibility="public" xPosition="320.0" yPosition="20.0">
+    <Class name="Autore" package="gruppo20.biblioteca.model.Libri" visibility="public" xPosition="2011.0" yPosition="128.0">
       <Fields>
         <Field name="nome" type="String" visibility="private"/>
         <Field name="cognome" type="String" visibility="private"/>
@@ -26,25 +26,25 @@
         </Constructor>
       </Constructors>
       <Methods>
-        <Method name="setNome" returnType="void" visibility="public">
+        <Method name="setNome" returnType="String" visibility="public">
           <Argument type="String" name="nome"/>
         </Method>
-        <Method name="setCognome" returnType="void" visibility="public">
+        <Method name="setCognome" returnType="String" visibility="public">
           <Argument type="String" name="cognome"/>
         </Method>
         <Method name="getNome" returnType="String" visibility="public"/>
         <Method name="getCognome" returnType="String" visibility="public"/>
-        <Method name="convert" returnType="Autore" visibility="public" isStatic="true">
+        <Method name="convert" returnType="String" visibility="public" isStatic="true">
           <Argument type="String" name="s"/>
         </Method>
         <Method name="hashCode" returnType="int" visibility="public"/>
-        <Method name="equals" returnType="boolean" visibility="public">
+        <Method name="equals" returnType="Object" visibility="public">
           <Argument type="Object" name="o"/>
         </Method>
         <Method name="toString" returnType="String" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Libreria" package="gruppo20.biblioteca.model.Libri" visibility="public" xPosition="620.0" yPosition="20.0">
+    <Class name="Libreria" package="gruppo20.biblioteca.model.Libri" visibility="public" xPosition="707.0" yPosition="389.0">
       <Fields>
         <Field name="listLibreria" type="HashSet&lt;Libro&gt;" visibility="private"/>
         <Field name="file" type="ControllerFile&lt;Libro&gt;" visibility="private"/>
@@ -55,20 +55,20 @@
         </Constructor>
       </Constructors>
       <Methods>
-        <Method name="aggiungi" returnType="boolean" visibility="public">
+        <Method name="aggiungi" returnType="Libro" visibility="public">
           <Argument type="Libro" name="l2"/>
         </Method>
-        <Method name="elimina" returnType="boolean" visibility="public">
+        <Method name="elimina" returnType="Libro" visibility="public">
           <Argument type="Libro" name="l"/>
         </Method>
-        <Method name="modifica" returnType="boolean" visibility="public">
+        <Method name="modifica" returnType="Libro" visibility="public">
           <Argument type="Libro" name="l1"/>
           <Argument type="Libro" name="l2"/>
         </Method>
         <Method name="toString" returnType="String" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Libro" package="gruppo20.biblioteca.model.Libri" visibility="public" xPosition="920.0" yPosition="20.0">
+    <Class name="Libro" package="gruppo20.biblioteca.model.Libri" visibility="public" xPosition="1226.0" yPosition="45.0">
       <Fields>
         <Field name="titolo" type="String" visibility="private"/>
         <Field name="autori" type="ArrayList&lt;Autore&gt;" visibility="private"/>
@@ -86,19 +86,19 @@
         </Constructor>
       </Constructors>
       <Methods>
-        <Method name="setTitolo" returnType="void" visibility="public">
+        <Method name="setTitolo" returnType="String" visibility="public">
           <Argument type="String" name="titolo"/>
         </Method>
-        <Method name="setAutori" returnType="void" visibility="public">
+        <Method name="setAutori" returnType="String" visibility="public">
           <Argument type="String" name="autori"/>
         </Method>
-        <Method name="setAnno" returnType="void" visibility="public">
+        <Method name="setAnno" returnType="LocalDate" visibility="public">
           <Argument type="LocalDate" name="anno"/>
         </Method>
-        <Method name="setNCopie" returnType="void" visibility="public">
+        <Method name="setNCopie" returnType="int" visibility="public">
           <Argument type="int" name="nCopie"/>
         </Method>
-        <Method name="setIsbn" returnType="void" visibility="public">
+        <Method name="setIsbn" returnType="String" visibility="public">
           <Argument type="String" name="isbn"/>
         </Method>
         <Method name="getTitolo" returnType="String" visibility="public"/>
@@ -107,20 +107,20 @@
         <Method name="getNCopie" returnType="int" visibility="public"/>
         <Method name="getIsbn" returnType="String" visibility="public"/>
         <Method name="fileFormat" returnType="String" visibility="public"/>
-        <Method name="deFileFormat" returnType="Libro" visibility="public">
+        <Method name="deFileFormat" returnType="String" visibility="public">
           <Argument type="String" name="record"/>
         </Method>
-        <Method name="equals" returnType="boolean" visibility="public">
+        <Method name="equals" returnType="Object" visibility="public">
           <Argument type="Object" name="o"/>
         </Method>
-        <Method name="compareTo" returnType="int" visibility="public">
+        <Method name="compareTo" returnType="Libro" visibility="public">
           <Argument type="Libro" name="l"/>
         </Method>
         <Method name="hashCode" returnType="int" visibility="public"/>
         <Method name="toString" returnType="String" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Utenti" package="gruppo20.biblioteca.model.Utenti" visibility="public" xPosition="1220.0" yPosition="20.0">
+    <Class name="Utenti" package="gruppo20.biblioteca.model.Utenti" visibility="public" xPosition="695.0" yPosition="1069.0">
       <Fields>
         <Field name="listUtenti" type="HashSet&lt;Utente&gt;" visibility="private"/>
         <Field name="file" type="ControllerFile&lt;Utente&gt;" visibility="private"/>
@@ -131,20 +131,20 @@
         </Constructor>
       </Constructors>
       <Methods>
-        <Method name="aggiungi" returnType="boolean" visibility="public">
+        <Method name="aggiungi" returnType="Utente" visibility="public">
           <Argument type="Utente" name="u"/>
         </Method>
-        <Method name="elimina" returnType="boolean" visibility="public">
+        <Method name="elimina" returnType="Utente" visibility="public">
           <Argument type="Utente" name="u"/>
         </Method>
-        <Method name="modifica" returnType="boolean" visibility="public">
+        <Method name="modifica" returnType="Utente" visibility="public">
           <Argument type="Utente" name="u1"/>
           <Argument type="Utente" name="u2"/>
         </Method>
         <Method name="toString" returnType="String" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Utente" package="gruppo20.biblioteca.model.Utenti" visibility="public" xPosition="1520.0" yPosition="20.0">
+    <Class name="Utente" package="gruppo20.biblioteca.model.Utenti" visibility="public" xPosition="1241.0" yPosition="1172.0">
       <Fields>
         <Field name="nome" type="String" visibility="private"/>
         <Field name="cognome" type="String" visibility="private"/>
@@ -162,20 +162,20 @@
         </Constructor>
       </Constructors>
       <Methods>
-        <Method name="setnPrestiti" returnType="void" visibility="public">
+        <Method name="setnPrestiti" returnType="int" visibility="public">
           <Argument type="int" name="nPrestiti"/>
         </Method>
         <Method name="getnPrestiti" returnType="int" visibility="public"/>
-        <Method name="setNome" returnType="void" visibility="public">
+        <Method name="setNome" returnType="String" visibility="public">
           <Argument type="String" name="nome"/>
         </Method>
-        <Method name="setCognome" returnType="void" visibility="public">
+        <Method name="setCognome" returnType="String" visibility="public">
           <Argument type="String" name="cognome"/>
         </Method>
-        <Method name="setMatricola" returnType="void" visibility="public">
+        <Method name="setMatricola" returnType="String" visibility="public">
           <Argument type="String" name="matricola"/>
         </Method>
-        <Method name="setMail" returnType="void" visibility="public">
+        <Method name="setMail" returnType="String" visibility="public">
           <Argument type="String" name="email"/>
         </Method>
         <Method name="getNome" returnType="String" visibility="public"/>
@@ -183,20 +183,20 @@
         <Method name="getMatricola" returnType="String" visibility="public"/>
         <Method name="getMail" returnType="String" visibility="public"/>
         <Method name="fileFormat" returnType="String" visibility="public"/>
-        <Method name="deFileFormat" returnType="Utente" visibility="public">
+        <Method name="deFileFormat" returnType="String" visibility="public">
           <Argument type="String" name="record"/>
         </Method>
         <Method name="toString" returnType="String" visibility="public"/>
-        <Method name="equals" returnType="boolean" visibility="public">
+        <Method name="equals" returnType="Object" visibility="public">
           <Argument type="Object" name="o"/>
         </Method>
         <Method name="hashCode" returnType="int" visibility="public"/>
-        <Method name="compareTo" returnType="int" visibility="public">
+        <Method name="compareTo" returnType="Utente" visibility="public">
           <Argument type="Utente" name="o"/>
         </Method>
       </Methods>
     </Class>
-    <Class name="Prestito" package="gruppo20.biblioteca.model.PrestitiERestituzioni" visibility="public" xPosition="1820.0" yPosition="20.0">
+    <Class name="Prestito" package="gruppo20.biblioteca.model.PrestitiERestituzioni" visibility="public" xPosition="1275.0" yPosition="660.0">
       <Fields>
         <Field name="dataPrestito" type="LocalDate" visibility="private" isFinal="true"/>
         <Field name="periodoPrestito" type="int" visibility="private" isStatic="true" isFinal="true"/>
@@ -212,7 +212,7 @@
         </Constructor>
       </Constructors>
       <Methods>
-        <Method name="setRestituzione" returnType="void" visibility="public">
+        <Method name="setRestituzione" returnType="LocalDate" visibility="public">
           <Argument type="LocalDate" name="dataRestituzione"/>
         </Method>
         <Method name="getDataPrestito" returnType="LocalDate" visibility="public"/>
@@ -222,19 +222,19 @@
         <Method name="isRitardo" returnType="boolean" visibility="public"/>
         <Method name="calcRitardo" returnType="int" visibility="public"/>
         <Method name="fileFormat" returnType="String" visibility="public"/>
-        <Method name="deFileFormat" returnType="Prestito" visibility="public">
+        <Method name="deFileFormat" returnType="String" visibility="public">
           <Argument type="String" name="record"/>
         </Method>
-        <Method name="equals" returnType="boolean" visibility="public">
+        <Method name="equals" returnType="Object" visibility="public">
           <Argument type="Object" name="o"/>
         </Method>
-        <Method name="compareTo" returnType="int" visibility="public">
+        <Method name="compareTo" returnType="Prestito" visibility="public">
           <Argument type="Prestito" name="p"/>
         </Method>
         <Method name="hashCode" returnType="int" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Prestiti" package="gruppo20.biblioteca.model.PrestitiERestituzioni" visibility="public" xPosition="2120.0" yPosition="20.0">
+    <Class name="Prestiti" package="gruppo20.biblioteca.model.PrestitiERestituzioni" visibility="public" xPosition="643.0" yPosition="745.0">
       <Fields>
         <Field name="maxPrestiti" type="int" visibility="private" isStatic="true" isFinal="true"/>
         <Field name="listPrestiti" type="HashSet&lt;Prestito&gt;" visibility="private"/>
@@ -246,26 +246,26 @@
         </Constructor>
       </Constructors>
       <Methods>
-        <Method name="restituisci" returnType="boolean" visibility="public">
+        <Method name="restituisci" returnType="LocalDate" visibility="public">
           <Argument type="Prestito" name="p"/>
           <Argument type="LocalDate" name="dataRestituzione"/>
         </Method>
-        <Method name="aggiungi" returnType="boolean" visibility="public">
+        <Method name="aggiungi" returnType="Prestito" visibility="public">
           <Argument type="Prestito" name="p"/>
         </Method>
-        <Method name="elimina" returnType="boolean" visibility="public">
+        <Method name="elimina" returnType="Prestito" visibility="public">
           <Argument type="Prestito" name="p"/>
         </Method>
-        <Method name="modifica" returnType="boolean" visibility="public">
+        <Method name="modifica" returnType="Prestito" visibility="public">
           <Argument type="Prestito" name="p1"/>
           <Argument type="Prestito" name="p2"/>
         </Method>
-        <Method name="hasPrestito" returnType="boolean" visibility="public">
+        <Method name="hasPrestito" returnType="Prestito" visibility="public">
           <Argument type="Prestito" name="p"/>
         </Method>
       </Methods>
     </Class>
-    <Class name="Restituzione" package="gruppo20.biblioteca.model.PrestitiERestituzioni" visibility="public" xPosition="20.0" yPosition="420.0">
+    <Class name="Restituzione" package="gruppo20.biblioteca.model.PrestitiERestituzioni" visibility="public" xPosition="2011.0" yPosition="1129.0">
       <Fields>
         <Field name="restituito" type="boolean" visibility="private"/>
         <Field name="dataRestituzione" type="LocalDate" visibility="private"/>
@@ -276,26 +276,26 @@
       <Methods>
         <Method name="isRestituito" returnType="boolean" visibility="public"/>
         <Method name="getRestituzione" returnType="LocalDate" visibility="public"/>
-        <Method name="setRestituzione" returnType="void" visibility="public">
+        <Method name="setRestituzione" returnType="LocalDate" visibility="public">
           <Argument type="LocalDate" name="dataRestituzione"/>
         </Method>
       </Methods>
     </Class>
-    <Class name="GestioneSet" package="gruppo20.biblioteca.model.Utility" visibility="public" xPosition="320.0" yPosition="420.0">
+    <Class name="GestioneSet" package="gruppo20.biblioteca.model.Utility" visibility="public" xPosition="73.0" yPosition="802.0">
       <Fields/>
       <Constructors/>
       <Methods>
-        <Method name="aggiungi" returnType="boolean" visibility="public">
+        <Method name="aggiungi" returnType="T" visibility="public">
           <Argument type="ControllerFile&lt;T&gt;" name="file"/>
           <Argument type="HashSet&lt;T&gt;" name="set"/>
           <Argument type="T" name="o2"/>
         </Method>
-        <Method name="elimina" returnType="boolean" visibility="public">
+        <Method name="elimina" returnType="T" visibility="public">
           <Argument type="ControllerFile&lt;T&gt;" name="file"/>
           <Argument type="HashSet&lt;T&gt;" name="set"/>
           <Argument type="T" name="o"/>
         </Method>
-        <Method name="modifica" returnType="boolean" visibility="public">
+        <Method name="modifica" returnType="T" visibility="public">
           <Argument type="ControllerFile&lt;T&gt;" name="file"/>
           <Argument type="HashSet&lt;T&gt;" name="set"/>
           <Argument type="T" name="o1"/>
@@ -303,15 +303,7 @@
         </Method>
       </Methods>
     </Class>
-    <Interface name="FileFormat" package="gruppo20.biblioteca.model.Utility" visibility="public" xPosition="620.0" yPosition="420.0">
-      <Methods>
-        <Method name="fileFormat" returnType="String" visibility="package"/>
-        <Method name="deFileFormat" returnType="T" visibility="package">
-          <Argument type="String" name="s"/>
-        </Method>
-      </Methods>
-    </Interface>
-    <Class name="ControllerFile" package="gruppo20.biblioteca.model.Utility" visibility="public" xPosition="920.0" yPosition="420.0">
+    <Class name="ControllerFile" package="gruppo20.biblioteca.model.Utility" visibility="public" xPosition="73.0" yPosition="1085.0">
       <Fields>
         <Field name="file" type="RandomAccessFile" visibility="private" isFinal="true"/>
         <Field name="chiuso" type="boolean" visibility="private"/>
@@ -324,17 +316,17 @@
         </Constructor>
       </Constructors>
       <Methods>
-        <Method name="aggiungi" returnType="void" visibility="public">
+        <Method name="aggiungi" returnType="T" visibility="public">
           <Argument type="T" name="t"/>
         </Method>
-        <Method name="elimina" returnType="void" visibility="public">
+        <Method name="elimina" returnType="T" visibility="public">
           <Argument type="T" name="t"/>
         </Method>
-        <Method name="modifica" returnType="void" visibility="public">
+        <Method name="modifica" returnType="T" visibility="public">
           <Argument type="T" name="t1"/>
           <Argument type="T" name="t2"/>
         </Method>
-        <Method name="carica" returnType="void" visibility="public">
+        <Method name="carica" returnType="T" visibility="public">
           <Argument type="HashSet&lt;T&gt;" name="set"/>
           <Argument type="T" name="t"/>
         </Method>
@@ -342,51 +334,64 @@
         <Method name="checkChiuso" returnType="void" visibility="private"/>
       </Methods>
     </Class>
-    <Class name="ControllerPrestiti" package="gruppo20.biblioteca.controller" visibility="public" xPosition="1220.0" yPosition="420.0">
+    <Class name="ControllerPrestiti" package="gruppo20.biblioteca.controller" visibility="public" xPosition="158.0" yPosition="174.0">
       <Fields/>
       <Constructors/>
       <Methods/>
     </Class>
-    <Class name="ControllerUtenti" package="gruppo20.biblioteca.controller" visibility="public" xPosition="1520.0" yPosition="420.0">
+    <Class name="ControllerUtenti" package="gruppo20.biblioteca.controller" visibility="public" xPosition="379.0" yPosition="45.0">
       <Fields/>
       <Constructors/>
       <Methods/>
     </Class>
-    <Class name="ControllerLibreria" package="gruppo20.biblioteca.controller" visibility="public" xPosition="1820.0" yPosition="420.0">
+    <Class name="ControllerLibreria" package="gruppo20.biblioteca.controller" visibility="public" xPosition="158.0" yPosition="39.0">
       <Fields/>
       <Constructors>
         <Constructor visibility="public"/>
       </Constructors>
       <Methods/>
     </Class>
+    <Interface name="FileFormat" package="gruppo20.biblioteca.model.Utility" visibility="public" xPosition="2127.0" yPosition="636.0">
+      <Methods>
+        <Method name="fileFormat" returnType="String" visibility="package"/>
+        <Method name="deFileFormat" returnType="String" visibility="package">
+          <Argument type="String" name="s"/>
+        </Method>
+      </Methods>
+    </Interface>
+    <Class name="ControllerDashboard" package="" visibility="public" xPosition="379.0" yPosition="174.0">
+      <Fields/>
+      <Constructors/>
+      <Methods/>
+    </Class>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
-    <UseRelation source="gruppo20.biblioteca.model.PrestitiERestituzioni.Prestiti" target="gruppo20.biblioteca.model.PrestitiERestituzioni.Prestito" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="gruppo20.biblioteca.model.Libri.Libro" target="gruppo20.biblioteca.model.Libri.Libro" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="gruppo20.biblioteca.model.Utenti.Utente" target="gruppo20.biblioteca.model.Utenti.Utente" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="autori" source="gruppo20.biblioteca.model.Libri.Libro" target="gruppo20.biblioteca.model.Libri.Autore" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;Autore&gt;"/>
-    <UseRelation source="gruppo20.biblioteca.model.PrestitiERestituzioni.Prestito" target="gruppo20.biblioteca.model.Utenti.Utente" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="restituzione" source="gruppo20.biblioteca.model.PrestitiERestituzioni.Prestito" target="gruppo20.biblioteca.model.PrestitiERestituzioni.Restituzione" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="gruppo20.biblioteca.model.Utenti.Utenti" target="gruppo20.biblioteca.model.Utility.GestioneSet"/>
+    <UseRelation source="gruppo20.biblioteca.model.Utenti.Utenti" target="gruppo20.biblioteca.model.Utenti.Utente" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="libroPrestato" source="gruppo20.biblioteca.model.PrestitiERestituzioni.Prestito" target="gruppo20.biblioteca.model.Libri.Libro" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation source="gruppo20.biblioteca.model.PrestitiERestituzioni.Prestito" target="gruppo20.biblioteca.model.PrestitiERestituzioni.Prestito" sourceCardinality="1..1" targetCardinality="1..1"/>
     <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="gruppo20.biblioteca.model.Libri.Libro" target="gruppo20.biblioteca.model.Utility.FileFormat"/>
-    <IsRelation name="is" source="gruppo20.biblioteca.model.Utenti.Utenti" target="gruppo20.biblioteca.model.Utility.GestioneSet"/>
-    <HasRelation name="utente" source="gruppo20.biblioteca.model.PrestitiERestituzioni.Prestito" target="gruppo20.biblioteca.model.Utenti.Utente" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="libroPrestato" source="gruppo20.biblioteca.model.PrestitiERestituzioni.Prestito" target="gruppo20.biblioteca.model.Libri.Libro" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="listUtenti" source="gruppo20.biblioteca.model.Utenti.Utenti" target="gruppo20.biblioteca.model.Utenti.Utente" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashSet&lt;Utente&gt;"/>
     <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="gruppo20.biblioteca.model.Utenti.Utente" target="gruppo20.biblioteca.model.Utility.FileFormat"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="gruppo20.biblioteca.model.PrestitiERestituzioni.Prestito" target="gruppo20.biblioteca.model.Utility.FileFormat"/>
+    <UseRelation source="gruppo20.biblioteca.model.PrestitiERestituzioni.Prestito" target="gruppo20.biblioteca.model.Utenti.Utente" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="file" source="gruppo20.biblioteca.model.Utenti.Utenti" target="gruppo20.biblioteca.model.Utenti.Utente" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
     <HasRelation name="file" source="gruppo20.biblioteca.model.Libri.Libreria" target="gruppo20.biblioteca.model.Libri.Libro" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="gruppo20.biblioteca.model.PrestitiERestituzioni.Prestiti" target="gruppo20.biblioteca.model.PrestitiERestituzioni.Prestito" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="gruppo20.biblioteca.model.Utility.GestioneSet" target="gruppo20.biblioteca.model.Utility.ControllerFile" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="listUtenti" source="gruppo20.biblioteca.model.Utenti.Utenti" target="gruppo20.biblioteca.model.Utenti.Utente" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashSet&lt;Utente&gt;"/>
+    <HasRelation name="autori" source="gruppo20.biblioteca.model.Libri.Libro" target="gruppo20.biblioteca.model.Libri.Autore" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;Autore&gt;"/>
+    <UseRelation source="gruppo20.biblioteca.model.Libri.Libro" target="gruppo20.biblioteca.model.Libri.Autore" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="listPrestiti" source="gruppo20.biblioteca.model.PrestitiERestituzioni.Prestiti" target="gruppo20.biblioteca.model.PrestitiERestituzioni.Prestito" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashSet&lt;Prestito&gt;"/>
+    <UseRelation source="gruppo20.biblioteca.model.Utenti.Utente" target="gruppo20.biblioteca.model.Utenti.Utente" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="listLibreria" source="gruppo20.biblioteca.model.Libri.Libreria" target="gruppo20.biblioteca.model.Libri.Libro" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashSet&lt;Libro&gt;"/>
     <UseRelation source="gruppo20.biblioteca.model.Libri.Autore" target="gruppo20.biblioteca.model.Libri.Autore" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="utente" source="gruppo20.biblioteca.model.PrestitiERestituzioni.Prestito" target="gruppo20.biblioteca.model.Utenti.Utente" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation source="gruppo20.biblioteca.model.Libri.Libreria" target="gruppo20.biblioteca.model.Libri.Libro" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="gruppo20.biblioteca.model.Libri.Libro" target="gruppo20.biblioteca.model.Libri.Libro" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="gruppo20.biblioteca.model.PrestitiERestituzioni.Prestito" target="gruppo20.biblioteca.model.Libri.Libro" sourceCardinality="1..1" targetCardinality="1..1"/>
     <IsRelation name="is" source="gruppo20.biblioteca.model.PrestitiERestituzioni.Prestiti" target="gruppo20.biblioteca.model.Utility.GestioneSet"/>
     <IsRelation name="is" source="gruppo20.biblioteca.model.Libri.Libreria" target="gruppo20.biblioteca.model.Utility.GestioneSet"/>
-    <HasRelation name="listLibreria" source="gruppo20.biblioteca.model.Libri.Libreria" target="gruppo20.biblioteca.model.Libri.Libro" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashSet&lt;Libro&gt;"/>
-    <UseRelation source="gruppo20.biblioteca.model.Libri.Libro" target="gruppo20.biblioteca.model.Libri.Autore" sourceCardinality="1..1" targetCardinality="1..1"/>
     <HasRelation name="file" source="gruppo20.biblioteca.model.PrestitiERestituzioni.Prestiti" target="gruppo20.biblioteca.model.PrestitiERestituzioni.Prestito" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="gruppo20.biblioteca.model.PrestitiERestituzioni.Prestito" target="gruppo20.biblioteca.model.Utility.FileFormat"/>
-    <HasRelation name="listPrestiti" source="gruppo20.biblioteca.model.PrestitiERestituzioni.Prestiti" target="gruppo20.biblioteca.model.PrestitiERestituzioni.Prestito" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashSet&lt;Prestito&gt;"/>
-    <HasRelation name="file" source="gruppo20.biblioteca.model.Utenti.Utenti" target="gruppo20.biblioteca.model.Utenti.Utente" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="gruppo20.biblioteca.model.PrestitiERestituzioni.Prestito" target="gruppo20.biblioteca.model.Libri.Libro" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="gruppo20.biblioteca.model.Utility.GestioneSet" target="gruppo20.biblioteca.model.Utility.ControllerFile" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="gruppo20.biblioteca.model.Utenti.Utenti" target="gruppo20.biblioteca.model.Utenti.Utente" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="restituzione" source="gruppo20.biblioteca.model.PrestitiERestituzioni.Prestito" target="gruppo20.biblioteca.model.PrestitiERestituzioni.Restituzione" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
   </ClassDiagramRelations>
 </ClassDiagram>
