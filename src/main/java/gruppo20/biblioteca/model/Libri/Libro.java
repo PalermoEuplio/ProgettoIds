@@ -7,7 +7,7 @@ import java.util.*;
  * @brief Questo file contiene l'implementazione della classe Libro.
  * @author Gruppo20
  */
-public class Libro implements Comparable<Libro>,FileFormat<Libro>{
+public class Libro implements FileFormat<Libro>{
     
     
     private String titolo; ///< Titolo del libro.
@@ -131,17 +131,6 @@ public class Libro implements Comparable<Libro>,FileFormat<Libro>{
         return this.titolo.equals(l.getTitolo()) && this.annoPublicazione.equals(l.getAnno()) && this.isbn.equals(l.getIsbn()) && this.autori.equals(l.getAutori());
     }
     
-    /**
-     * @brief Confronta due libri utilizzando il titolo.
-     * 
-     * @param l Libro da confrontare.
-     * @return 0 se sono uguali, -1 se è precedente, 1 se è successivo.
-     */
-    @Override
-    public int compareTo(Libro l){
-        return this.getTitolo().compareTo(l.getTitolo());
-    }
-    
     @Override
     public int hashCode(){
         int h = 17;
@@ -151,36 +140,5 @@ public class Libro implements Comparable<Libro>,FileFormat<Libro>{
         h = h * 31 + autori.hashCode();
         return h;
     }
-    
-    /**
-     * @brief Restituisce una rappresentazione testuale del libro.
-     * Il metodo crea una stringa contenente 
-     * Titolo
-     * Autori (separati da virgola se più di uno)
-     * Data di pubblicazione
-     * Numero di copie disponibili
-     * ISBN
-     * 
-     * @return Stringa che contiene tutti i dati del libro.
-     */
-    @Override
-    public String toString() {
-        
-        StringBuilder builder = new StringBuilder();
-        builder.append("Titolo: " + titolo + "; ");
-        
-        if(autori.size()>1){
-            builder.append("Autori: ");
-            int i;
-            for(i=0;i<autori.size()-1;i++){
-                builder.append(autori.get(i)+", ");
-            }
-            builder.append(autori.get(++i));
-            
-        }   else builder.append("Autori: " + autori);
-        builder.append("; Data publiczione: " + annoPublicazione + "; NumeroCopie: " + nCopie + "; Isbn: " + isbn);
-        
-        return builder.toString();
-    } 
     
 }

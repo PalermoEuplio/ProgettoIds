@@ -6,7 +6,7 @@ import gruppo20.biblioteca.model.Utility.FileFormat;
  * Identifica l'entità utente e i suoi attributi
  * @author Gruppo20
  */
-public class Utente implements Comparable<Utente>,FileFormat<Utente>{
+public class Utente implements FileFormat<Utente>{
     
     private String nome; ///< Nome dell'utente.
     private String cognome; ///< Cognome dell'utente.
@@ -89,11 +89,6 @@ public class Utente implements Comparable<Utente>,FileFormat<Utente>{
     }
     
     @Override
-    public String toString() {
-        return "Nome: " + nome + ", cognome: " + cognome + ", matricola: " + matricola + ", mail: " + mail+"\n";
-    }
-    
-    @Override
     public boolean equals(Object o){
         if(!(o instanceof Utente) || o==null)
             return false;
@@ -110,15 +105,6 @@ public class Utente implements Comparable<Utente>,FileFormat<Utente>{
         h = h * 31 + nome.hashCode();
         h = h * 31 + cognome.hashCode();
         return h;
-    }
-
-    
-    /*
-    *Ordinamneto basato sull attributo nome
-    */
-    @Override
-    public int compareTo(Utente o) {
-        return this.getNome().compareTo(o.getNome());
     }
     
 }

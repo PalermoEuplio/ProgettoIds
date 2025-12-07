@@ -4,11 +4,8 @@ package gruppo20.biblioteca.model.Libri;
 import gruppo20.biblioteca.model.Utility.ControllerFile;
 import gruppo20.biblioteca.model.Utility.GestioneSet;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 /**
  * @brief Questo file contiene l'implementazione della classe Libreria.
  * @author Gruppo20
@@ -35,6 +32,13 @@ public class Libreria extends GestioneSet<Libro> {
 
         
     }
+
+    public HashSet<Libro> getListLibreria() {
+        return listLibreria;
+    }
+    
+    
+    
    /**
     *@brief Aggiunge un libro alla libreria.
     *Se il libro non è presente nella libreria, lo aggiunge.

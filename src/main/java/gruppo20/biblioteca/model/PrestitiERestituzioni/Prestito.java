@@ -10,7 +10,7 @@ import java.time.temporal.ChronoUnit;
  * @brief Questo file contiene l'implementazione dell'oggetto Prestito.
  * @author Gruppo20
  */
-public class Prestito implements Comparable<Prestito>,FileFormat<Prestito>{
+public class Prestito implements FileFormat<Prestito>{
     /**
      * @brief Data in cui è stato effettuato il prestito.
      * Il valore è immutabile e viene impostato con la data al momento della creazione del prestito.
@@ -126,20 +126,6 @@ public class Prestito implements Comparable<Prestito>,FileFormat<Prestito>{
         if(o==null || !(o instanceof Prestito))return false;
         Prestito p = (Prestito) o;
         return dataPrestito.equals(p.getDataPrestito()) && libroPrestato.equals(p.getLibroPrestato()) && utente.equals(p.getUtente());
-    }
-    
-    /**
-     * @brief Confronta due prestiti utilizzando la data del prestito.
-     * 
-     * @param p Prestito da confrontare.
-     * @return 0 se sono uguali, -1 se è precedente, 1 se è successivo.
-     */
-    @Override
-    public int compareTo(Prestito p){
-        if(this.equals(p)) return 0;
-        else if (this.dataPrestito.isBefore(p.getDataPrestito())) return -1;
-        else return 1;
-        
     }
     
     @Override

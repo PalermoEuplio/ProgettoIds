@@ -33,7 +33,13 @@ public class Utenti extends GestioneSet<Utente>{
         } catch (IOException ex) {
             System.out.println("Errore IO apertura lista utenti");
         }
-    }    
+    }
+
+    public HashSet<Utente> getListUtenti() {
+        return listUtenti;
+    }
+
+    
     
     /**
     *Aggiunge un utente all'anagrafica.

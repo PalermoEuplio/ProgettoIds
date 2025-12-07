@@ -34,6 +34,12 @@ public class Prestiti extends GestioneSet<Prestito> {
             System.out.println("Errore IO apertura libreria");
         }
     }
+
+    public HashSet<Prestito> getListPrestiti() {
+        return listPrestiti;
+    }
+    
+    
     
     /**
      * @brief Registra la restituzione di un prestito.
