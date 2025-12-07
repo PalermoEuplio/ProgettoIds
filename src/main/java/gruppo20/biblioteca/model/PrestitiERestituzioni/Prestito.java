@@ -43,7 +43,6 @@ public class Prestito implements FileFormat<Prestito>{
     public Prestito(LocalDate dataPrestito, Libro libroPrestato, Utente utente){
         this.restituzione = new Restituzione();
         this.dataPrestito = dataPrestito;
-        libroPrestato.setNCopie(1);
         this.libroPrestato = libroPrestato;
         this.utente = utente;
     }
@@ -87,8 +86,8 @@ public class Prestito implements FileFormat<Prestito>{
     public String fileFormat(){
         StringBuilder builder = new StringBuilder();
         builder.append(dataPrestito+"§§"); 
-        if(restituzione.isRestituito()) builder.append(restituzione.getRestituzione()+"§§"+libroPrestato+"§§"+utente);
-        else builder.append("false"+"§§"+libroPrestato+"§§"+utente);
+        if(restituzione.isRestituito()) builder.append(restituzione.getRestituzione()+"§§"+libroPrestato.fileFormat()+"§§"+utente.fileFormat());
+        else builder.append("false"+"§§"+libroPrestato.fileFormat()+"§§"+utente.fileFormat());
         return builder.toString();
     }
     /**
