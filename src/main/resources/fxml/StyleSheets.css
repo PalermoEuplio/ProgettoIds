@@ -1,0 +1,38 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 6-dic-2025, 12.42.35
+    Author     : euppa
+*/
+
+.parent{
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 30px;
+}
+
+.logo{
+    -fx-background-color: #ffffb7;
+    -fx-background-radius: 175px;
+}
+
+.scrittatop{
+    -fx-background-radius: 15px;
+    -fx-background-color: linear-gradient(to right, #376fda, #3b9ad8);
+}
+.top{
+    -fx-background-color: #cfc6c6;
+    -fx-background-radius: 15px;
+}
+.side{
+    -fx-background-color: linear-gradient(to bottom, #4650da, #7b82dd);
+    -fx-background-radius: 15px;
+}
+
+.home{
+    -fx-background-color: #000000;
+    -fx-background-radius: 20px;
+}
+
