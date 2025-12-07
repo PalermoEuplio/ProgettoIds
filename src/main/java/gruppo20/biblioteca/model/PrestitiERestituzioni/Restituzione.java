@@ -7,11 +7,21 @@ package gruppo20.biblioteca.model.PrestitiERestituzioni;
 import java.time.LocalDate;
 
 /**
- *
- * @author Osv
+ * @brief Questo file contiene l'implementazione della classe Restituzione.
+ * @author Gruppo20
  */
 public class Restituzione {
+    /**
+     * @brief Indica se il libro è stato restituito.
+     * Valore booleano che assume true se la restituzione del libro è avvenuta, 
+     * falso in caso contrario.
+     */
     private boolean restituito = false;
+    /**
+     * @brief Data effettiva di restituzione.
+     * Viene impostata quando il libro è stato restituito.
+     * Se ancora non avviene la restituzione il valore del campo è null.
+     */
     private LocalDate dataRestituzione;
     
     public Restituzione(){

@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 /**
- * @brief Questo file contiene l'implementazione della superclasse Gestione.
+ * @brief Questo file contiene l'implementazione della superclasse GestioneSet.
  * @author Gruppo20
  */
 public class GestioneSet<T extends FileFormat> {

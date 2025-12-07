@@ -7,26 +7,42 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
 /**
- * @brief Questo file contiene l'implementazione dell'oggetto Libro.
+ * @brief Questo file contiene l'implementazione dell'oggetto Prestito.
  * @author Gruppo20
  */
 public class Prestito implements Comparable<Prestito>,FileFormat<Prestito>{
-    private final LocalDate dataPrestito;
-    private final static int periodoPrestito = 1; //quanto tempo deve durare il prestito
+    /**
+     * @brief Data in cui è stato effettuato il prestito.
+     * Il valore è immutabile e viene impostato con la data al momento della creazione del prestito.
+     */
+    private final LocalDate dataPrestito; 
+    /**
+     * @brief Durata del prestito.
+     * Indica per quanto tempo il prestito rimane attivo.
+     * Il valore di default è di 1 mese.
+     */
+    private final static int tempoPrestito = 1;
+    /**
+     * @brief Oggetto che rappresenta lo stato della restituzione del prestito.
+     * Informazioni sulla data di restituzione, se è già avvenuta o meno.
+     */
     private Restituzione restituzione;
+    /**
+     * @brief Libro oggetto del prestito.
+     * Ogni prestito è associato ad un unico libro.
+     * Il libro non può essere modificato dopo la creazione dell'oggetto Prestito.
+     */
     private final Libro libroPrestato; 
+    /**
+     * @brief Utente che effettua il prestito.
+     * Ogni prestito è associato ad un unico utente.
+     * L'utente non può essere modificato dopo la creazione dell'oggetto Prestito.
+     */
     private final Utente utente;
     //inizializza un prestito, possibiità di sceglierne la durata
     //WARNING: LocalDate arrotonda, se si arriva al 31 febbraio potrebbe ad esempio arrotondare per difetto al 28
     //scegliere le opzioni da presentare sull interfaccia
     
-    /**
-     * Costruttore Prestito
-     * Parametri in ingresso 
-     *  @param dataPrestito la data in cui viene inserito il prestito.
-     * @param libroPrestato le informazioni del libro preso in prestito.
-     * @param utente le informazioni dell'utente che ha effettuato il prestito.
-    */
     public Prestito(LocalDate dataPrestito, Libro libroPrestato, Utente utente){
         this.restituzione = new Restituzione();
         this.dataPrestito = dataPrestito;
@@ -63,6 +79,12 @@ public class Prestito implements Comparable<Prestito>,FileFormat<Prestito>{
         return (int) ChronoUnit.DAYS.between(dataPrestito.plusMonths(periodoPrestito),LocalDate.now());
     }
     
+     /**
+     * @brief Converte il prestito in una stringa formattata per la memorizzazione sul file.
+     * La stringa utilizza '§' come carattere di separazione.
+     * 
+     * @return Stringa contenente la rappresentazione serializzata del prestito.
+     */
     @Override
     public String fileFormat(){
         StringBuilder builder = new StringBuilder();
@@ -71,7 +93,13 @@ public class Prestito implements Comparable<Prestito>,FileFormat<Prestito>{
         else builder.append("false"+"§§"+libroPrestato+"§§"+utente);
         return builder.toString();
     }
-    
+    /**
+     * @brief Deformatta, ricostruisce un oggetto Prestito a partire da una stringa formattata.
+     * La stringa deve avere formato coerente con quello profotto da fileFormat.
+     * 
+     * @param record Stringa contenente i campi del prestito serializzati.
+     * @return Oggetto Prestito ottenuto dai dati contenuti in record.
+     */
     @Override
     public Prestito deFileFormat(String record){
         Libro l = new Libro(null,null,null,0,null);
@@ -87,6 +115,14 @@ public class Prestito implements Comparable<Prestito>,FileFormat<Prestito>{
     
     }
     
+     /**
+     * @brief Verifica l'uguaglianza tra due prestiti.
+     * Due libri sono considerati uguali se hanno la stessa data del prestito, 
+     * lo stesso libro prestato e lo stesso utente.
+     * 
+     * @param o Oggetto da confrontare.
+     * @return true se i prestiti sono uguali, false in caso contrario.
+     */
     @Override
     public boolean equals(Object o){
         if(o==null || !(o instanceof Prestito))return false;
@@ -94,6 +130,12 @@ public class Prestito implements Comparable<Prestito>,FileFormat<Prestito>{
         return dataPrestito.equals(p.getDataPrestito()) && libroPrestato.equals(p.getLibroPrestato()) && utente.equals(p.getUtente());
     }
     
+    /**
+     * @brief Confronta due prestiti utilizzando la data del prestito.
+     * 
+     * @param p Prestito da confrontare.
+     * @return 0 se sono uguali, -1 se è precedente, 1 se è successivo.
+     */
     @Override
     public int compareTo(Prestito p){
         if(this.equals(p)) return 0;
