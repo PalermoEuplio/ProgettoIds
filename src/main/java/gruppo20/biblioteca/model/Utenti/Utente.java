@@ -1,9 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package gruppo20.biblioteca.model.Utenti;
-
 import gruppo20.biblioteca.model.FileFormat;
 
 /**
@@ -16,7 +11,7 @@ public class Utente implements Comparable<Utente>,FileFormat<Utente>{
     private String nome;
     private String cognome;
     private String matricola;
-    private String email;
+    private String mail;
     private int nPrestiti;
 
     /**
@@ -31,7 +26,7 @@ public class Utente implements Comparable<Utente>,FileFormat<Utente>{
         this.nome = nome;
         this.cognome = cognome;
         this.matricola = matricola;
-        this.email=mail;
+        this.mail=mail;
         this.nPrestiti = 0;
     }
 
@@ -55,8 +50,8 @@ public class Utente implements Comparable<Utente>,FileFormat<Utente>{
         this.matricola = matricola;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setMail(String email) {
+        this.mail = email;
     }
 
     public String getNome() {
@@ -71,8 +66,8 @@ public class Utente implements Comparable<Utente>,FileFormat<Utente>{
         return matricola;
     }
 
-    public String getEmail() {
-        return email;
+    public String getMail() {
+        return mail;
     }
     @Override
     public String fileFormat(){
@@ -90,9 +85,13 @@ public class Utente implements Comparable<Utente>,FileFormat<Utente>{
     
     @Override
     public String toString() {
-        return "Nome=" + nome + ", cognome=" + cognome + ", matricola=" + matricola + ", mail=" + email + '}';
+        return "Nome: " + nome + ", cognome: " + cognome + ", matricola: " + matricola + ", mail: " + mail+"\n";
     }
 
+    
+    /*
+    *Ordinamneto basato sull attributo nome
+    */
     @Override
     public int compareTo(Utente o) {
         return this.getNome().compareTo(o.getNome());

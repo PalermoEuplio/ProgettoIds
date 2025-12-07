@@ -1,7 +1,5 @@
-
 package gruppo20.biblioteca.model.Utenti;
 import gruppo20.biblioteca.model.GestioneSet;
-import java.util.Iterator;
 import java.util.TreeSet;
 
 /**
@@ -9,7 +7,7 @@ import java.util.TreeSet;
  * @author Gruppo20
  */
 
-public class Utenti implements GestioneSet<Utente>{
+public class Utenti extends GestioneSet<Utente>{
     /**
      * Struttura dati che contiene gli utenti
      * TreeSet
@@ -20,7 +18,7 @@ public class Utenti implements GestioneSet<Utente>{
      * Iniziallizza la struttura
      */
     public Utenti() {
-        this.anagrafica = new TreeSet<Utente>();
+        this.anagrafica = new TreeSet<>();
     }    
     
     /**
@@ -32,7 +30,6 @@ public class Utenti implements GestioneSet<Utente>{
     *   @return restituisce true se l'utente è stato inserito. 
     *           false se invece non è stato inserito o è già presente in anagrafica. 
     */  
-    @Override
     public boolean aggiungi(Utente u){
         return anagrafica.add(u);
     }
@@ -46,7 +43,7 @@ public class Utenti implements GestioneSet<Utente>{
      * 
      *  @return restituisce true se elimina l'utente. false se non è già presente.
      */
-    @Override
+    
     public boolean elimina(Utente u){
         return anagrafica.remove(u);
     }
@@ -69,8 +66,9 @@ public class Utenti implements GestioneSet<Utente>{
             anagrafica.remove(u);
             anagrafica.add(modified);
             return true;
-        }
-        return false;*/
+        }*/
+        //da implementare
+        return false;
     }
     
      /**
@@ -84,7 +82,8 @@ public class Utenti implements GestioneSet<Utente>{
      *         null se l'utente non è stato trovato.
      */
     public Utente ricercaC(String cognome){
-        
+        //da implementare
+        return null;
     }
     
      /**
@@ -98,19 +97,18 @@ public class Utenti implements GestioneSet<Utente>{
      *         null se l'utente non è stato trovato.
      */
     public Utente ricercaM(String matricola){
+        //da implementare
+        return null;
         
     }
 
 
     @Override
     public String toString() {
-        //da correggere
+        //corretto
         StringBuilder s = new StringBuilder();
-        for(Utente u : anagrafica){
-            s.append(u.getNome()).append(" ").append(u.getCognome()).append(" ");
-            s.append(u.getMatricola()).append(" ").append(" ").append(u.getEmail());
-            s.append("\n");
-
+        for(Utente u : anagrafica){            
+            s.append(u.toString()).append("\n");
         }
         return s.toString();
     }
