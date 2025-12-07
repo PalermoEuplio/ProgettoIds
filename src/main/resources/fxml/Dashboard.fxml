@@ -28,7 +28,6 @@
                      <children>
                         <AnchorPane onMouseClicked="pageDashboard" onMouseDragOver="-fx-background-color: #cfc6c6;" prefHeight="62.0" prefWidth="283.0" styleClass="home">
                            <children>
-                              <FontAwesomeIconView fill="WHITE" glyphName="HOME" layoutX="51.0" layoutY="40.0" size="30" text="" wrappingWidth="30.0" />
                               <Label alignment="CENTER" layoutX="111.0" layoutY="12.0" prefHeight="27.0" prefWidth="121.0" text="Dashboard" textFill="WHITE">
                                  <font>
                                     <Font size="25.0" />
@@ -43,12 +42,10 @@
                                     <Font size="25.0" />
                                  </font>
                               </Label>
-                              <FontAwesomeIconView fill="WHITE" glyphName="USER" layoutX="48.0" layoutY="41.0" size="30" wrappingWidth="14.0" />
                            </children>
                         </AnchorPane>
                         <AnchorPane onMouseClicked="pageLibreria" onMouseDragOver="-fx-background-color: #cfc6c6;" prefHeight="62.0" prefWidth="281.0" styleClass="home">
                            <children>
-                              <FontAwesomeIconView fill="WHITE" glyphName="BOOK" layoutX="46.0" layoutY="43.0" size="30" text="" wrappingWidth="30.0" />
                               <Label alignment="CENTER" layoutX="132.0" layoutY="13.0" text="Libreria" textFill="WHITE">
                                  <font>
                                     <Font size="25.0" />
@@ -63,7 +60,6 @@
                                     <Font size="25.0" />
                                  </font>
                               </Label>
-                              <FontAwesomeIconView fill="WHITE" glyphName="ARCHIVE" layoutX="42.0" layoutY="41.0" size="30" />
                            </children>
                         </AnchorPane>
                      </children>

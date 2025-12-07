@@ -36,30 +36,30 @@ public class ControllerDashboard implements Initializable {
     }
     
     @FXML
-    private void dashboard(MouseEvent event){   
+    public void pageDashboard(MouseEvent event){   
         bp.setCenter(ap);
     }
     
     @FXML
-    private void pageUtenti(MouseEvent event) throws IOException{ 
+    public void pageUtenti(MouseEvent event) throws IOException{ 
         loadPage("pageUtenti");
     }
     
     @FXML
-    private void pageLibreria(MouseEvent event) throws IOException{   
+    public void pageLibreria(MouseEvent event) throws IOException{   
         loadPage("pageLibreria");
     }
     
     @FXML
-    private void pagePrestiti(MouseEvent event) throws IOException{ 
+    public void pagePrestiti(MouseEvent event) throws IOException{ 
         loadPage("pagePrestiti");
     }
     
-    private void loadPage(String page) throws IOException{
+    public void loadPage(String page) throws IOException{
         Parent root=null;
         
         try{
-            root = FXMLLoader.load(getClass().getResource("/fxml/"+page+".fxml"));
+            root = FXMLLoader.load(getClass().getResource("/resources/fxml/"+page+".fxml"));
         } catch (IOException ex){
             Logger.getLogger(ControllerDashboard.class.getName()).log(Level.SEVERE,null,ex);
         }
