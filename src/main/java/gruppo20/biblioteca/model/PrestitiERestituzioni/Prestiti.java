@@ -1,7 +1,7 @@
 
 package gruppo20.biblioteca.model.PrestitiERestituzioni;
-import gruppo20.biblioteca.controller.ControllerFile;
-import gruppo20.biblioteca.model.GestioneSet;
+import gruppo20.biblioteca.model.Utility.ControllerFile;
+import gruppo20.biblioteca.model.Utility.GestioneSet;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -38,13 +38,14 @@ public class Prestiti extends GestioneSet<Prestito> {
     /**
      * @brief Registra la restituzione di un prestito.
      * Il metodo cerca il prestito, se lo trova imposta la data di restituzione a quella inserita.
+     * Il numero di prestiti relativo all'utente della restituzione viene decrementato di uno.
      * Se non viene trovato il prestito ritorna false.
      *
      * @param p Prestito da restituire.
      * @param dataRestituzione Data di restituzione.
      * @return true se la restituzione è avvenuta, false in caso contrario.
      */
-    public boolean Restituisci(Prestito p,LocalDate dataRestituzione){
+    public boolean restituisci(Prestito p,LocalDate dataRestituzione){
         if(listPrestiti.contains(p)){
             Iterator<Prestito> it = listPrestiti.iterator();
             while(it.hasNext()){
@@ -62,6 +63,7 @@ public class Prestiti extends GestioneSet<Prestito> {
     
     /**
     *@brief Aggiunge un prestito.
+    * Il metodo controlla che l'utente non abbia più prestiti di quelli consentiti.
     * 
     * Parametro in ingresso:
     *   @param p prestito da dover aggiungere.
@@ -71,12 +73,14 @@ public class Prestiti extends GestioneSet<Prestito> {
     */ 
 
     public boolean aggiungi (Prestito p){
-        if(p.getUtente().getnPrestiti()< maxPrestiti && !listPrestiti.contains(p)){
-            p.getUtente().setnPrestiti(p.getUtente().getnPrestiti()+1);
+        if(!listPrestiti.contains(p)){
             return super.aggiungi(file, listPrestiti, p);
+            
         }
         return false;
+        
     }
+        
     
     /**
     *@brief elimina un prestito.
@@ -108,7 +112,14 @@ public class Prestiti extends GestioneSet<Prestito> {
     public boolean modifica(Prestito p1, Prestito p2){
         return super.modifica(file, listPrestiti, p1, p2);
     }
-
+   /**
+    *@brief Controlla se un prestio è già presente.
+    *
+    *   @param p prestito da dover controllare.
+    * 
+    *   @return restituisce true se il prestito è già presente. 
+    *           false se invece non è presente.
+    */
     public boolean hasPrestito (Prestito p){
         return listPrestiti.contains(p);
     }

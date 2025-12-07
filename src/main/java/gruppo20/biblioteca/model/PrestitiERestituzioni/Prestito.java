@@ -1,6 +1,6 @@
 
 package gruppo20.biblioteca.model.PrestitiERestituzioni;
-import gruppo20.biblioteca.model.FileFormat;
+import gruppo20.biblioteca.model.Utility.FileFormat;
 import gruppo20.biblioteca.model.Libri.Libro;
 import gruppo20.biblioteca.model.Utenti.Utente;
 import java.time.LocalDate;
@@ -21,7 +21,7 @@ public class Prestito implements Comparable<Prestito>,FileFormat<Prestito>{
      * Indica per quanto tempo il prestito rimane attivo.
      * Il valore di default è di 1 mese.
      */
-    private final static int tempoPrestito = 1;
+    private final static int periodoPrestito = 1;
     /**
      * @brief Oggetto che rappresenta lo stato della restituzione del prestito.
      * Informazioni sulla data di restituzione, se è già avvenuta o meno.
@@ -39,13 +39,11 @@ public class Prestito implements Comparable<Prestito>,FileFormat<Prestito>{
      * L'utente non può essere modificato dopo la creazione dell'oggetto Prestito.
      */
     private final Utente utente;
-    //inizializza un prestito, possibiità di sceglierne la durata
-    //WARNING: LocalDate arrotonda, se si arriva al 31 febbraio potrebbe ad esempio arrotondare per difetto al 28
-    //scegliere le opzioni da presentare sull interfaccia
     
     public Prestito(LocalDate dataPrestito, Libro libroPrestato, Utente utente){
         this.restituzione = new Restituzione();
         this.dataPrestito = dataPrestito;
+        libroPrestato.setNCopie(1);
         this.libroPrestato = libroPrestato;
         this.utente = utente;
     }
@@ -103,7 +101,7 @@ public class Prestito implements Comparable<Prestito>,FileFormat<Prestito>{
     @Override
     public Prestito deFileFormat(String record){
         Libro l = new Libro(null,null,null,0,null);
-        Utente u = new Utente(null,null,null,null);
+        Utente u = new Utente(null,null,null,null,0);
         
         String[] parts = record.split("§§");
         

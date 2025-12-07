@@ -1,5 +1,7 @@
 package gruppo20.biblioteca.model.Utenti;
-import gruppo20.biblioteca.model.GestioneSet;
+import gruppo20.biblioteca.model.Utility.ControllerFile;
+import gruppo20.biblioteca.model.Utility.GestioneSet;
+import java.io.IOException;
 import java.util.HashSet;
 
 /**
@@ -10,29 +12,40 @@ import java.util.HashSet;
 public class Utenti extends GestioneSet<Utente>{
     /**
      * @brief Insieme degli utenti presenti nel sistema.
-     * Si utilizza un TreeSet per garantire l'ordinamento degli utenti.
-     * Ordinamento effettuato in base al criterio definito nella classe Utente.
+     * Si utilizza un HashSet per garantire l'unicità degli utenti.
      */
-    private HashSet<Utente> anagrafica;
+    private HashSet<Utente> listUtenti;
+    
+    /**
+     * @brief Controller per la gestione del file associato ai libri.
+     */
+    private ControllerFile<Utente> file;
+    
     /**
      * Costruttore gestione utenti
      * Iniziallizza la struttura
      */
-    public Utenti() {
-        this.anagrafica = new HashSet<>();
+    
+    public Utenti(String filePath) {
+        this.listUtenti = new HashSet<>();
+        try {
+            file = new ControllerFile<>(filePath,listUtenti, new Utente(null,null,null,null,0));
+        } catch (IOException ex) {
+            System.out.println("Errore IO apertura lista utenti");
+        }
     }    
     
     /**
     *Aggiunge un utente all'anagrafica.
     * 
     * Parametro in ingresso:
-    *   @param u utente da aggiungere all'anagrafica.
+    *   @param u utente da aggiungere all'listUtenti.
     * 
     *   @return restituisce true se l'utente è stato inserito. 
-    *           false se invece non è stato inserito o è già presente in anagrafica. 
+           false se invece non è stato inserito o è già presente in listUtenti. 
     */  
     public boolean aggiungi(Utente u){
-        return anagrafica.add(u);
+        return super.aggiungi(file, listUtenti, u);
     }
     
     /**
@@ -46,7 +59,7 @@ public class Utenti extends GestioneSet<Utente>{
      */
     
     public boolean elimina(Utente u){
-        return anagrafica.remove(u);
+        return super.elimina(file, listUtenti, u);
     }
     
      /**
@@ -54,52 +67,15 @@ public class Utenti extends GestioneSet<Utente>{
      * Se l'utente è presente effettua la modifica di uno o più suoi dati.
      * 
      * Parametro in ingresso:
-     *  @param u utente da modificare
+     *  @param u1 utente da modificare
+     *  @param u2 utente con modifiche
      * 
      *  @return restituisce true se la modifica dell'utente è avvenuta correttamente.
      *          false se l'utente non è presente.
      */
-    public boolean modifica(Utente u){
-        /*if(anagrafica.contains(u)){
-            anagrafica.remove(u);
-            anagrafica.add(modified);
-            return true;
-        }*/
-        //da implementare
-        return false;
+    public boolean modifica(Utente u1,Utente u2){
+        return super.modifica(file, listUtenti, u1, u2);
     }
-    
-     /**
-     * @brief Ricerca di un utente per cognome.
-     * Ricerca l'utente che ha per cognome quello inserito.
-     * se l'utente è presente, è stato precedentemente registrato, allora restituirà i suoi dati.
-     * non restituirà nulla nel caso in cui l'utente non è presente.
-     * 
-     * @param cognome il cognome dell'utente da ricercare.
-     * @return i dati dell'utente se è presente nella lista utenti.
-     *         null se l'utente non è stato trovato.
-     */
-    public Utente ricercaC(String cognome){
-        //da implementare
-        return null;
-    }
-    
-     /**
-     * @brief Ricerca di un utente per cognome.
-     * Ricerca l'utente che ha per cognome quello inserito.
-     * se l'utente è presente, è stato precedentemente registrato, allora restituirà i suoi dati.
-     * non restituirà nulla nel caso in cui l'utente non è presente.
-     * 
-     * @param matricola la matricola dell'utente da ricercare.
-     * @return i dati dell'utente se è presente nella lista utenti.
-     *         null se l'utente non è stato trovato.
-     */
-    public Utente ricercaM(String matricola){
-        //da implementare
-        return null;
-        
-    }
-
 
      /**
      * @brief Restituisce una rappresentazione testuale dell'insieme degli Utenti.
@@ -113,7 +89,7 @@ public class Utenti extends GestioneSet<Utente>{
     public String toString() {
         //corretto
         StringBuilder s = new StringBuilder();
-        for(Utente u : anagrafica){            
+        for(Utente u : listUtenti){            
             s.append(u.toString()).append("\n");
         }
         return s.toString();

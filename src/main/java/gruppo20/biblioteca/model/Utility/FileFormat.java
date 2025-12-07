@@ -1,4 +1,4 @@
-package gruppo20.biblioteca.model;
+package gruppo20.biblioteca.model.Utility;
 
 /**
  *
@@ -6,7 +6,6 @@ package gruppo20.biblioteca.model;
  */
 public interface FileFormat<T> {
     //formatta per scrivere i record su file, useremo § come carattere di separazione
-    //
     String fileFormat(); 
     T deFileFormat(String s); //deformatta, operazione inversa di fileFormat
 }

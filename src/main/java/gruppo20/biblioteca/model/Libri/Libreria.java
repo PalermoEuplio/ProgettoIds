@@ -1,8 +1,8 @@
 
 package gruppo20.biblioteca.model.Libri;
 
-import gruppo20.biblioteca.controller.ControllerFile;
-import gruppo20.biblioteca.model.GestioneSet;
+import gruppo20.biblioteca.model.Utility.ControllerFile;
+import gruppo20.biblioteca.model.Utility.GestioneSet;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -60,7 +60,7 @@ public class Libreria extends GestioneSet<Libro> {
         return super.aggiungi(file, listLibreria, l2);
     }
     
-       /**
+    /**
      * @brief Elimina Libro.
      * Se il libro è presente, effettua la sua eliminazione.
      * 
@@ -70,9 +70,6 @@ public class Libreria extends GestioneSet<Libro> {
      *  @return restituisce true se l'eliminazione è avvenuta correttamente.
      *          false se il libro non è presente.
      */
-    
-    
-
     public boolean elimina(Libro l){
         return super.elimina(file, listLibreria, l);
     }

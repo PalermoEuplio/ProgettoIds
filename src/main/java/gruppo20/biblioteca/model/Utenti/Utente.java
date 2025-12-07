@@ -1,5 +1,5 @@
 package gruppo20.biblioteca.model.Utenti;
-import gruppo20.biblioteca.model.FileFormat;
+import gruppo20.biblioteca.model.Utility.FileFormat;
 
 /**
  * @brief Questo file contiene l'implementazione dell'oggetto Utente.
@@ -14,12 +14,12 @@ public class Utente implements Comparable<Utente>,FileFormat<Utente>{
     private String mail; ///< E-mail istituzionale dell'utente.
     private int nPrestiti; ///< Numero dei prestiti attivi dell'utente.
 
-    public Utente(String nome, String cognome, String matricola, String mail) {
+    public Utente(String nome, String cognome, String matricola, String mail, int nPrestiti) {
         this.nome = nome;
         this.cognome = cognome;
         this.matricola = matricola;
         this.mail = mail;
-        this.nPrestiti = 0;
+        this.nPrestiti = nPrestiti;
     }
 
     public void setnPrestiti(int nPrestiti) {
@@ -70,7 +70,7 @@ public class Utente implements Comparable<Utente>,FileFormat<Utente>{
     @Override
     public String fileFormat(){
         StringBuilder builder = new StringBuilder();
-        builder.append(nome+"§"+cognome+"§"+matricola+"§"+mail);
+        builder.append(nome+"§"+cognome+"§"+matricola+"§"+mail+"§"+nPrestiti);
         return builder.toString();        
     }
     
@@ -84,13 +84,32 @@ public class Utente implements Comparable<Utente>,FileFormat<Utente>{
     @Override
     public Utente deFileFormat(String record){
         String[] parts = record.split("§");
-        return new Utente(parts[0],parts[1],parts[2],parts[3]);
+        return new Utente(parts[0],parts[1],parts[2],parts[3],Integer.parseInt(parts[4]));
     
     }
     
     @Override
     public String toString() {
         return "Nome: " + nome + ", cognome: " + cognome + ", matricola: " + matricola + ", mail: " + mail+"\n";
+    }
+    
+    @Override
+    public boolean equals(Object o){
+        if(!(o instanceof Utente) || o==null)
+            return false;
+        
+        Utente u = (Utente) o;
+        
+        return this.nome.equals(u.getNome()) && this.cognome.equals(u.getCognome()) && this.matricola.equals(u.getMatricola());
+    }
+    
+    @Override
+    public int hashCode(){
+        int h = 17;
+        h = h * 31 + matricola.hashCode();
+        h = h * 31 + nome.hashCode();
+        h = h * 31 + cognome.hashCode();
+        return h;
     }
 
     

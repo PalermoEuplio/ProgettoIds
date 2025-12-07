@@ -1,6 +1,6 @@
-package gruppo20.biblioteca.controller;
+package gruppo20.biblioteca.model.Utility;
 
-import gruppo20.biblioteca.model.FileFormat;
+import gruppo20.biblioteca.model.Utility.FileFormat;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.HashSet;

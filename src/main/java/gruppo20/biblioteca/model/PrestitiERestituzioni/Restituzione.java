@@ -27,12 +27,12 @@ public class Restituzione {
     public Restituzione(){
         dataRestituzione = null;
     }
-
+    
     public boolean isRestituito() {
         return restituito;
     }
 
-    public LocalDate getRestituzione() {
+    public LocalDate getRestituzione() throws IllegalStateException{
         if(restituito)
         return dataRestituzione;
         else throw new IllegalStateException("Libro non ancora restituito");
