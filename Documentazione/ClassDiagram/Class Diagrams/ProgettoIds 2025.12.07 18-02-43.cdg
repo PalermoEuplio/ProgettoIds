@@ -14,7 +14,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="Autore" package="gruppo20.biblioteca.model.Libri" visibility="public" xPosition="2011.0" yPosition="128.0">
+    <Class name="Autore" package="gruppo20.biblioteca.model.Libri" visibility="public" xPosition="1672.0" yPosition="303.0">
       <Fields>
         <Field name="nome" type="String" visibility="private"/>
         <Field name="cognome" type="String" visibility="private"/>
@@ -44,7 +44,7 @@
         <Method name="toString" returnType="String" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Libreria" package="gruppo20.biblioteca.model.Libri" visibility="public" xPosition="707.0" yPosition="389.0">
+    <Class name="Libreria" package="gruppo20.biblioteca.model.Libri" visibility="public" xPosition="589.0" yPosition="439.0">
       <Fields>
         <Field name="listLibreria" type="HashSet&lt;Libro&gt;" visibility="private"/>
         <Field name="file" type="ControllerFile&lt;Libro&gt;" visibility="private"/>
@@ -68,7 +68,7 @@
         <Method name="toString" returnType="String" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Libro" package="gruppo20.biblioteca.model.Libri" visibility="public" xPosition="1226.0" yPosition="45.0">
+    <Class name="Libro" package="gruppo20.biblioteca.model.Libri" visibility="public" xPosition="1027.0" yPosition="58.0">
       <Fields>
         <Field name="titolo" type="String" visibility="private"/>
         <Field name="autori" type="ArrayList&lt;Autore&gt;" visibility="private"/>
@@ -120,7 +120,7 @@
         <Method name="toString" returnType="String" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Utenti" package="gruppo20.biblioteca.model.Utenti" visibility="public" xPosition="695.0" yPosition="1069.0">
+    <Class name="Utenti" package="gruppo20.biblioteca.model.Utenti" visibility="public" xPosition="573.0" yPosition="1061.0">
       <Fields>
         <Field name="listUtenti" type="HashSet&lt;Utente&gt;" visibility="private"/>
         <Field name="file" type="ControllerFile&lt;Utente&gt;" visibility="private"/>
@@ -144,7 +144,7 @@
         <Method name="toString" returnType="String" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Utente" package="gruppo20.biblioteca.model.Utenti" visibility="public" xPosition="1241.0" yPosition="1172.0">
+    <Class name="Utente" package="gruppo20.biblioteca.model.Utenti" visibility="public" xPosition="1008.0" yPosition="1129.0">
       <Fields>
         <Field name="nome" type="String" visibility="private"/>
         <Field name="cognome" type="String" visibility="private"/>
@@ -196,7 +196,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="Prestito" package="gruppo20.biblioteca.model.PrestitiERestituzioni" visibility="public" xPosition="1275.0" yPosition="660.0">
+    <Class name="Prestito" package="gruppo20.biblioteca.model.PrestitiERestituzioni" visibility="public" xPosition="1042.0" yPosition="636.0">
       <Fields>
         <Field name="dataPrestito" type="LocalDate" visibility="private" isFinal="true"/>
         <Field name="periodoPrestito" type="int" visibility="private" isStatic="true" isFinal="true"/>
@@ -234,7 +234,7 @@
         <Method name="hashCode" returnType="int" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Prestiti" package="gruppo20.biblioteca.model.PrestitiERestituzioni" visibility="public" xPosition="643.0" yPosition="745.0">
+    <Class name="Prestiti" package="gruppo20.biblioteca.model.PrestitiERestituzioni" visibility="public" xPosition="512.0" yPosition="721.0">
       <Fields>
         <Field name="maxPrestiti" type="int" visibility="private" isStatic="true" isFinal="true"/>
         <Field name="listPrestiti" type="HashSet&lt;Prestito&gt;" visibility="private"/>
@@ -265,7 +265,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="Restituzione" package="gruppo20.biblioteca.model.PrestitiERestituzioni" visibility="public" xPosition="2011.0" yPosition="1129.0">
+    <Class name="Restituzione" package="gruppo20.biblioteca.model.PrestitiERestituzioni" visibility="public" xPosition="1714.0" yPosition="1025.0">
       <Fields>
         <Field name="restituito" type="boolean" visibility="private"/>
         <Field name="dataRestituzione" type="LocalDate" visibility="private"/>
@@ -351,7 +351,7 @@
       </Constructors>
       <Methods/>
     </Class>
-    <Interface name="FileFormat" package="gruppo20.biblioteca.model.Utility" visibility="public" xPosition="2127.0" yPosition="636.0">
+    <Interface name="FileFormat" package="gruppo20.biblioteca.model.Utility" visibility="public" xPosition="1659.0" yPosition="817.0">
       <Methods>
         <Method name="fileFormat" returnType="String" visibility="package"/>
         <Method name="deFileFormat" returnType="String" visibility="package">
