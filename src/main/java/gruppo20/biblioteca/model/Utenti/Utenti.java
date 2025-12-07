@@ -9,14 +9,12 @@ import java.util.TreeSet;
 
 public class Utenti extends GestioneSet<Utente>{
     /**
-     * Struttura dati che contiene gli utenti
-     * TreeSet
+     * @brief Insieme degli utenti presenti nel sistema.
+     * Si utilizza un TreeSet per garantire l'ordinamento degli utenti.
+     * Ordinamento effettuato in base al criterio definito nella classe Utente.
      */
     private TreeSet<Utente> anagrafica;
-    /**
-     * Costruttore gestione utenti
-     * Iniziallizza la struttura
-     */
+
     public Utenti() {
         this.anagrafica = new TreeSet<>();
     }    
@@ -58,9 +56,6 @@ public class Utenti extends GestioneSet<Utente>{
      *  @return restituisce true se la modifica dell'utente è avvenuta correttamente.
      *          false se l'utente non è presente.
      */
-    
-    
-    
     public boolean modifica(Utente u){
         /*if(anagrafica.contains(u)){
             anagrafica.remove(u);
@@ -103,6 +98,14 @@ public class Utenti extends GestioneSet<Utente>{
     }
 
 
+     /**
+     * @brief Restituisce una rappresentazione testuale dell'insieme degli Utenti.
+     * Il metodo crea una stringa contenente la lista di tutti gli utenti presenti nell'anagrafica.
+     * Ogni elemento su una nuova linea.
+     * Per ogni elemento viene utilizzato il metodo toString() della classe Utente.
+     * 
+     * @return Stringa che contiene tutti gli utenti della struttura dati.
+     */
     @Override
     public String toString() {
         //corretto

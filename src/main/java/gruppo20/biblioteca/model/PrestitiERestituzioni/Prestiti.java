@@ -11,10 +11,21 @@ import java.util.Iterator;
  * @author Gruppo20
  */
 public class Prestiti extends GestioneSet<Prestito> {
-    private static final int maxPrestiti = 3;
+    /**
+     * @brief Numero massimo di prestiti attivi che un utente può avere contemporaneamente.
+     */
+    private static final int maxPrestiti = 3; 
+      /**
+     * @brief Insieme dei prestiti attivi.
+     * Si utilizza un HashSet per garantire l'unicità dei prestiti.
+     */
     private HashSet<Prestito> listPrestiti;
+     /**
+     * @brief Controller per la gestione della lettura e scrittura sul file.
+     */
     private ControllerFile<Prestito> file;
    
+    
     public Prestiti(String filePath){
         this.listPrestiti = new HashSet<>();
         try {
@@ -23,7 +34,16 @@ public class Prestiti extends GestioneSet<Prestito> {
             System.out.println("Errore IO apertura libreria");
         }
     }
-    //metodo per restituire, false se non è contenuto il prestito, true se riesce a restituirlo
+    
+    
+    /**
+     * @brief Registra la restituzione di un prestito con data odierna.
+     * Il metodo cerca il prestito, se lo trova imposta la data di restituzione a quella odierna.
+     * Se non viene trovato il prestito ritorna false.
+     * 
+     * @param p Prestito da restituire.
+     * @return true se la restituzione è avvenuta, false in caso contrario.
+     */
     public boolean Restituisci(Prestito p){
         if(listPrestiti.contains(p)){
             Iterator<Prestito> it = listPrestiti.iterator();
@@ -39,6 +59,16 @@ public class Prestiti extends GestioneSet<Prestito> {
         return false;
     }
     //overload per specificare la data di restituzione
+    
+    /**
+     * @brief Registra la restituzione di un prestito.
+     * Il metodo cerca il prestito, se lo trova imposta la data di restituzione a quella inserita.
+     * Se non viene trovato il prestito ritorna false.
+     *
+     * @param p Prestito da restituire.
+     * @param dataRestituzione Data di restituzione.
+     * @return true se la restituzione è avvenuta, false in caso contrario.
+     */
     public boolean Restituisci(Prestito p,LocalDate dataRestituzione){
         if(listPrestiti.contains(p)){
             Iterator<Prestito> it = listPrestiti.iterator();
@@ -89,6 +119,17 @@ public class Prestiti extends GestioneSet<Prestito> {
         
     }
     
+    /**
+     * @brief Modifica del prestito.
+     * Se il prestito è presente effettua la modifica di uno o più suoi dati.
+     * 
+     * Parametro in ingresso:
+     *  @param p1 Prestito da modificare.
+     *  @param p2 Prestito modificato.
+     * 
+     *  @return restituisce true se la modifica del prestito è avvenuta correttamente.
+     *          false se il prestito non è presente.
+     */
     public boolean modifica(Prestito p1, Prestito p2){
         return super.modifica(file, listPrestiti, p1, p2);
     }
