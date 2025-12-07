@@ -1,10 +1,8 @@
 
 package gruppo20.biblioteca.model.Utility;
 
-import gruppo20.biblioteca.model.Libri.Libro;
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.Iterator;
 
 /**
  * @brief Questo file contiene l'implementazione della superclasse GestioneSet.
