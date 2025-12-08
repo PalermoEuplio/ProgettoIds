@@ -34,7 +34,10 @@ public class ControllerPrestiti {
     @FXML
     public void pageDashboard(MouseEvent event) throws IOException{
         
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Dashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Dashboard.fxml"));
+        Parent root = loader.load();
+        ControllerDashboard controller =  loader.getController();
+        controller.setContesto(co);
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -44,8 +47,11 @@ public class ControllerPrestiti {
     
     @FXML
     public void pageUtenti(MouseEvent event) throws IOException{ 
-        
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/pageUtenti.fxml"));
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pageUtenti.fxml"));
+        Parent root = loader.load();
+        ControllerDashboard controller =  loader.getController();
+        controller.setContesto(co);
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -56,7 +62,10 @@ public class ControllerPrestiti {
     @FXML
     public void pageLibreria(MouseEvent event) throws IOException{   
         
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/pageLibreria.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pageLibreria.fxml"));
+        Parent root = loader.load();
+        ControllerDashboard controller =  loader.getController();
+        controller.setContesto(co);
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

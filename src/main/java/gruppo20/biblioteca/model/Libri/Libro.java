@@ -37,14 +37,16 @@ public class Libro implements FileFormat<Libro>{
      * @param autori Stringa contenente gli autori, separati da virgola.
      */
     public void setAutori(String autori) {
-        this.autori.clear();
+        if(autori == null) ;
+        else {
+            this.autori.clear();
 
-        String[] buffer = autori.split(",");
+            String[] buffer = autori.split(",");
 
-        for (String s : buffer) {
-            this.autori.add(Autore.convert(s));
+            for (String s : buffer) {
+                this.autori.add(Autore.convert(s));
+            }
         }
-
     }
 
     public void setAnno(LocalDate anno) {
