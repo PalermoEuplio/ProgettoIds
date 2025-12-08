@@ -13,6 +13,8 @@ import static javafx.application.Application.launch;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 
+
+
 /**
  * @brief Questo file contiene l'implementazione del Main.
  * @author Gruppo20
@@ -25,7 +27,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Dashboard.fxml"));
         
         Scene scene = new Scene(root);
-        
+        stage.setTitle("Biblioteca Universitaria");
         stage.setScene(scene);
         stage.show();
     }

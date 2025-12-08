@@ -10,7 +10,7 @@ and open the template in the editor.
 
 .parent{
     -fx-background-color: linear-gradient(from 45% 50% to 100% 100%, #fbdc9d, #f7ead1);
-    -fx-background-radius: 30px;
+    -fx-background-width: 5px;
 }
 
 .image{
@@ -24,16 +24,10 @@ and open the template in the editor.
     -fx-border-color:#d6d6d6;
     -fx-border-radius:15px;
 }
-.top{
-    -fx-background-color: #cfc6c6;
-    -fx-background-radius: 15px;
-}
 .side{
     -fx-background-color: linear-gradient(to bottom, #1d4f87, #346baa);
-    -fx-background-radius: 15px;
-    -fx-border-color:#000000;
-    -fx-border-radius:15px;
-    -fx-effect: dropshadow(three-pass-box, #000000, 10, 0, 0, 0);
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, #000000, 14, 0, 1, 0);
 }
 
 .home{
@@ -45,9 +39,21 @@ and open the template in the editor.
 
 .table{
     -fx-background-radius: 20px;
+    -fx-effect: dropshadow(three-pass-box, #000000, 10, 0, 1, 1);
+}
+
+.barraRicerca{
+    -fx-background-radius: 20px;
     -fx-effect: dropshadow(three-pass-box, #000000, 10, 0, 0, 0);
 }
 
-.scritta{
-    -fx-background-color:#376fda;
+.bottoni{
+    -fx-effect: dropshadow(three-pass-box, #000000, 5, 0, 1, 1);
+}
+.intestazine{
+    -fx-effect: dropshadow(three-pass-box, #000000, 5, 0, 1, 1);
+    -fx-background-radius: 20px;
+    -fx-background-color: linear-gradient(from 66% 75% to 100% 100%, #f07552, #f0a452);   
+    -fx-border-color:#000000;
+    -fx-border-radius:15px;
 }
