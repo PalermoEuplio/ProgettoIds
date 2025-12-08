@@ -4,12 +4,18 @@
  */
 package gruppo20.biblioteca.controller;
 
+import javafx.scene.control.Button;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 
 /**
  *
@@ -27,7 +33,25 @@ public class ControllerUtenti {
         }
         
         bp.setCenter(root);
-    
+        
     }
+    
+    public ControllerUtenti(){}
+    
+    
+    public void aggiungiUtente(BorderPane bp){
+        
+        Parent root=null;
+        
+        try{
+            root = FXMLLoader.load(getClass().getResource("/fxml/aggiuntaUtente.fxml"));
+        } catch (IOException ex){
+            Logger.getLogger(ControllerDashboard.class.getName()).log(Level.SEVERE,null,ex);
+        }
+        
+        bp.setRight(root);
+    }
+    
+    
     
 }

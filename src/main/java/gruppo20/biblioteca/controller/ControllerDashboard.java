@@ -55,4 +55,21 @@ public class ControllerDashboard implements Initializable {
         new ControllerPrestiti(bp);
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    @FXML
+    public void aggiuntaUtente(MouseEvent event) throws IOException{
+        ControllerUtenti x = new ControllerUtenti();
+        x.aggiungiUtente(bp);
+    }
+    
 }
