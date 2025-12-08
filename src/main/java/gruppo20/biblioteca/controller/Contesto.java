@@ -10,14 +10,27 @@ import gruppo20.biblioteca.model.Utenti.Utenti;
  */
 //Classe contesto del programma, contiene tutti i dati per non avere un overhead inutile
 public class Contesto {
-    public Libreria gestLibreria;
-    public Prestiti gestPrestiti;
-    public Utenti gestUtenti;
+    private final String filePath = "/data/";
+    private Libreria gestLibreria;
+    private Prestiti gestPrestiti;
+    private Utenti gestUtenti;
     
-    public Contesto(String filePath){
+    public Contesto(){
         this.gestLibreria = new Libreria(filePath+"Libreria.txt");
         this.gestPrestiti = new Prestiti(filePath+"Prestiti.txt");
         this.gestUtenti = new Utenti(filePath+"Utenti.txt");
+    }
+
+    public Libreria getGestLibreria() {
+        return gestLibreria;
+    }
+
+    public Prestiti getGestPrestiti() {
+        return gestPrestiti;
+    }
+
+    public Utenti getGestUtenti() {
+        return gestUtenti;
     }
     
     

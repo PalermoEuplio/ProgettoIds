@@ -25,6 +25,12 @@ import javafx.stage.Stage;
  */
 public class ControllerPrestiti {
     
+    private Contesto co;
+    
+    public void setContesto(Contesto co){
+        this.co = co;
+    }
+    
     @FXML
     public void pageDashboard(MouseEvent event) throws IOException{
         

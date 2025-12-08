@@ -31,12 +31,18 @@ import javafx.stage.Stage;
  */
 public class ControllerUtenti extends Dialog<Utente> {
     
+    private Contesto co;
+    
+    public void setContesto(Contesto co){
+        this.co = co;
+    }
+    
     @FXML
     public void pageDashboard(MouseEvent event) throws IOException{
         
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Dashboard.fxml"));
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root,stage.getScene().getWidth(),stage.getScene().getHeight());
         stage.setScene(scene);
         stage.show();
         
@@ -52,7 +58,7 @@ public class ControllerUtenti extends Dialog<Utente> {
         
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/pageLibreria.fxml"));
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root,stage.getScene().getWidth(),stage.getScene().getHeight());
         stage.setScene(scene);
         stage.show();
         
@@ -63,7 +69,7 @@ public class ControllerUtenti extends Dialog<Utente> {
         
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/pagePrestiti.fxml"));
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root,stage.getScene().getWidth(),stage.getScene().getHeight());
         stage.setScene(scene);
         stage.show();
         

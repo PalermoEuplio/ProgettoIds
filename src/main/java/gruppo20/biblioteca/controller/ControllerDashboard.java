@@ -25,11 +25,11 @@ import gruppo20.biblioteca.model.Main;
  */
 public class ControllerDashboard {
     
-    @FXML
-    public AnchorPane ap;
+    private Contesto co;
     
-    @FXML
-    public BorderPane bp;
+    public void setContesto(Contesto co){
+        this.co = co;
+    }
     
     
     @FXML
@@ -42,7 +42,7 @@ public class ControllerDashboard {
         
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/pageUtenti.fxml"));
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root,stage.getScene().getWidth(),stage.getScene().getHeight());
         stage.setScene(scene);
         stage.show();
         
@@ -53,7 +53,7 @@ public class ControllerDashboard {
         
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/pageLibreria.fxml"));
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root,stage.getScene().getWidth(),stage.getScene().getHeight());
         stage.setScene(scene);
         stage.show();
         
@@ -64,7 +64,7 @@ public class ControllerDashboard {
         
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/pagePrestiti.fxml"));
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root,stage.getScene().getWidth(),stage.getScene().getHeight());
         stage.setScene(scene);
         stage.show();
         
