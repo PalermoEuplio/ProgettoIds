@@ -53,7 +53,7 @@ public class ControllerLibreria {
         
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pageUtenti.fxml"));
         Parent root = loader.load();
-        ControllerDashboard controller =  loader.getController();
+        ControllerUtenti controller =  loader.getController();
         controller.setContesto(co);
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root,stage.getScene().getWidth(),stage.getScene().getHeight());
@@ -72,7 +72,7 @@ public class ControllerLibreria {
         
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pagePrestiti.fxml"));
         Parent root = loader.load();
-        ControllerDashboard controller =  loader.getController();
+        ControllerPrestiti controller =  loader.getController();
         controller.setContesto(co);
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root,stage.getScene().getWidth(),stage.getScene().getHeight());

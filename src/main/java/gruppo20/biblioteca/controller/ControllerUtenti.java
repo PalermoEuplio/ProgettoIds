@@ -61,7 +61,7 @@ public class ControllerUtenti extends Dialog<Utente> {
         
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pageLibreria.fxml"));
         Parent root = loader.load();
-        ControllerDashboard controller =  loader.getController();
+        ControllerLibreria controller =  loader.getController();
         controller.setContesto(co);
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root,stage.getScene().getWidth(),stage.getScene().getHeight());
@@ -75,7 +75,7 @@ public class ControllerUtenti extends Dialog<Utente> {
         
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pagePrestiti.fxml"));
         Parent root = loader.load();
-        ControllerDashboard controller =  loader.getController();
+        ControllerPrestiti controller =  loader.getController();
         controller.setContesto(co);
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root,stage.getScene().getWidth(),stage.getScene().getHeight());
