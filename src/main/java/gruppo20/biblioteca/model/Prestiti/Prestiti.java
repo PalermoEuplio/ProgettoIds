@@ -1,5 +1,5 @@
 
-package gruppo20.biblioteca.model.PrestitiERestituzioni;
+package gruppo20.biblioteca.model.Prestiti;
 import gruppo20.biblioteca.model.Utility.ControllerFile;
 import gruppo20.biblioteca.model.Utility.GestioneSet;
 import java.io.IOException;
