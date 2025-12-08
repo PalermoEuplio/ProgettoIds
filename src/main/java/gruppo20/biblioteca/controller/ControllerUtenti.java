@@ -45,12 +45,6 @@ public class ControllerUtenti extends Dialog<Utente> {
     @FXML
     public void pageUtenti(MouseEvent event) throws IOException{ 
         
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/pageUtenti.fxml"));
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        
     }
     
     @FXML
