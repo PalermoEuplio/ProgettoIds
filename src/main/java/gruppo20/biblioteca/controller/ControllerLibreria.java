@@ -6,6 +6,13 @@
 package gruppo20.biblioteca.controller;
 import gruppo20.biblioteca.model.*;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.layout.BorderPane;
+
 
 /**
  *
@@ -13,14 +20,16 @@ import gruppo20.biblioteca.model.*;
  */
 public class ControllerLibreria {
     
-    
-    //Costruttore con chiamate alle funzioni di gestione dell'interfaccia
-    public ControllerLibreria(){
+    public ControllerLibreria(BorderPane bp) throws IOException{
+        Parent root=null;
+        
+        try{
+            root = FXMLLoader.load(getClass().getResource("/fxml/pageLibreria.fxml"));
+        } catch (IOException ex){
+            Logger.getLogger(ControllerDashboard.class.getName()).log(Level.SEVERE,null,ex);
+        }
+        
+        bp.setCenter(root);
     }
-    
-    
-    
-    
-   
     
 }

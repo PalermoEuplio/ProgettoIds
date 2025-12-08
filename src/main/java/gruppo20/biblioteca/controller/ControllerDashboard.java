@@ -33,7 +33,6 @@ public class ControllerDashboard implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb){
-        //Todo
     }
     
     @FXML
@@ -43,31 +42,17 @@ public class ControllerDashboard implements Initializable {
     
     @FXML
     public void pageUtenti(MouseEvent event) throws IOException{ 
-        loadPage("pageUtenti");
+        new ControllerUtenti(bp);
     }
     
     @FXML
     public void pageLibreria(MouseEvent event) throws IOException{   
-        loadPage("pageLibreria");
+        new ControllerLibreria(bp);
     }
     
     @FXML
     public void pagePrestiti(MouseEvent event) throws IOException{ 
-        loadPage("pagePrestiti");
+        new ControllerPrestiti(bp);
     }
-    
-    public void loadPage(String page) throws IOException{
-        Parent root=null;
-        
-        try{
-            root = FXMLLoader.load(getClass().getResource("/fxml/"+page+".fxml"));
-        } catch (IOException ex){
-            Logger.getLogger(ControllerDashboard.class.getName()).log(Level.SEVERE,null,ex);
-        }
-        
-        bp.setCenter(root);
-    }
-    
-    
     
 }

@@ -4,11 +4,30 @@
  */
 package gruppo20.biblioteca.controller;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.layout.BorderPane;
+
 /**
  *
  * @author Osv
  */
 public class ControllerPrestiti {
+    
+    public ControllerPrestiti(BorderPane bp){
+        Parent root=null;
+        
+        try{
+            root = FXMLLoader.load(getClass().getResource("/fxml/pagePrestiti.fxml"));
+        } catch (IOException ex){
+            Logger.getLogger(ControllerDashboard.class.getName()).log(Level.SEVERE,null,ex);
+        }
+        
+        bp.setCenter(root);
+    }
     
     
 }
