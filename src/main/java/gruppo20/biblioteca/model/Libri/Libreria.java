@@ -6,6 +6,8 @@ import gruppo20.biblioteca.model.Utility.GestioneSet;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableSet;
 /**
  * @brief Questo file contiene l'implementazione della classe Libreria.
  * @author Gruppo20
@@ -15,7 +17,7 @@ public class Libreria extends GestioneSet<Libro> {
      * @brief Insieme dei libri presenti in libreria.
      * Si utilizza un HashSet per garantire l'unicità dei libri.
      */
-    private HashSet<Libro> listLibreria; 
+    private ObservableSet<Libro> listLibreria; 
     /**
      * @brief Controller per la gestione del file associato ai libri.
      */
@@ -23,7 +25,7 @@ public class Libreria extends GestioneSet<Libro> {
     
     
     public Libreria(String filePath){
-        listLibreria = new HashSet<>();
+        listLibreria = FXCollections.observableSet(new HashSet<>());
         try {
             file = new ControllerFile<>(filePath,listLibreria, new Libro(null,null,null,0,null));
         } catch (IOException ex) {
@@ -33,7 +35,7 @@ public class Libreria extends GestioneSet<Libro> {
         
     }
 
-    public HashSet<Libro> getListLibreria() {
+    public ObservableSet<Libro> getListLibreria() {
         return listLibreria;
     }
     

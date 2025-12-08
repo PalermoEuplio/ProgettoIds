@@ -3,7 +3,7 @@ package gruppo20.biblioteca.model.Utility;
 import gruppo20.biblioteca.model.Utility.FileFormat;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.HashSet;
+import javafx.collections.ObservableSet;
 
 /**
  *
@@ -15,7 +15,7 @@ public class ControllerFile<T extends FileFormat>{
     private boolean chiuso = false;
     
     
-    public ControllerFile(String filePath,HashSet<T> set, T t) throws IOException{
+    public ControllerFile(String filePath,ObservableSet<T> set, T t) throws IOException{
         this.file = new RandomAccessFile(filePath, "rw");
         this.carica(set,t);
     }
@@ -62,7 +62,7 @@ public class ControllerFile<T extends FileFormat>{
     //carica il file nella struttura interna del programma, in questo caso HashSet
     //par ragioni di necessità passo un oggetto t, altrimenti non so come usare deFileFormat,
     //non posso dichiararlo statico nell'interfaccia e non posso costruirlo generico, sarebbe un bagno di sangue
-    public void carica(HashSet<T> set, T t) throws IOException{
+    public void carica(ObservableSet<T> set, T t) throws IOException{
         checkChiuso();
         
         StringBuilder builder = new StringBuilder();

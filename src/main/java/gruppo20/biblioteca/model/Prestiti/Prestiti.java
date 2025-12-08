@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Iterator;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableSet;
 /**
  * @brief Questo file contiene l'implementazione della classe Prestiti.
  * @author Gruppo20
@@ -19,7 +21,7 @@ public class Prestiti extends GestioneSet<Prestito> {
      * @brief Insieme dei prestiti attivi.
      * Si utilizza un HashSet per garantire l'unicità dei prestiti.
      */
-    private HashSet<Prestito> listPrestiti;
+    private ObservableSet<Prestito> listPrestiti;
      /**
      * @brief Controller per la gestione della lettura e scrittura sul file.
      */
@@ -27,7 +29,7 @@ public class Prestiti extends GestioneSet<Prestito> {
    
     
     public Prestiti(String filePath){
-        this.listPrestiti = new HashSet<>();
+        this.listPrestiti = FXCollections.observableSet(new HashSet<>());
         try {
             file = new ControllerFile<>(filePath,listPrestiti, new Prestito(null,null,null));
         } catch (IOException ex) {
@@ -35,7 +37,7 @@ public class Prestiti extends GestioneSet<Prestito> {
         }
     }
 
-    public HashSet<Prestito> getListPrestiti() {
+    public ObservableSet<Prestito> getListPrestiti() {
         return listPrestiti;
     }
     

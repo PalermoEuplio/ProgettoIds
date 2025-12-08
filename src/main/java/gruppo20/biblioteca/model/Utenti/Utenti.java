@@ -3,6 +3,8 @@ import gruppo20.biblioteca.model.Utility.ControllerFile;
 import gruppo20.biblioteca.model.Utility.GestioneSet;
 import java.io.IOException;
 import java.util.HashSet;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableSet;
 
 /**
  * @brief Questo file contiene l'implementazione della classe Utenza.
@@ -14,7 +16,7 @@ public class Utenti extends GestioneSet<Utente>{
      * @brief Insieme degli utenti presenti nel sistema.
      * Si utilizza un HashSet per garantire l'unicità degli utenti.
      */
-    private HashSet<Utente> listUtenti;
+    private ObservableSet<Utente> listUtenti;
     
     /**
      * @brief Controller per la gestione del file associato ai libri.
@@ -27,7 +29,7 @@ public class Utenti extends GestioneSet<Utente>{
      */
     
     public Utenti(String filePath) {
-        this.listUtenti = new HashSet<>();
+        this.listUtenti = FXCollections.observableSet(new HashSet<>());
         try {
             file = new ControllerFile<>(filePath,listUtenti, new Utente(null,null,null,null,0));
         } catch (IOException ex) {
@@ -35,7 +37,7 @@ public class Utenti extends GestioneSet<Utente>{
         }
     }
 
-    public HashSet<Utente> getListUtenti() {
+    public ObservableSet<Utente> getListUtenti() {
         return listUtenti;
     }
 

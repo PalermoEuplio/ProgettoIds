@@ -3,6 +3,8 @@ package gruppo20.biblioteca.model.Utility;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Observable;
+import javafx.collections.ObservableSet;
 
 /**
  * @brief Questo file contiene l'implementazione della superclasse GestioneSet.
@@ -23,7 +25,7 @@ public class GestioneSet<T extends FileFormat> {
      *  @return restituisce true se l'aggiunta è avvenuta correttamente.
      *          false se l'oggetto è già contenuto.
      */
-    public boolean aggiungi(ControllerFile<T> file,HashSet<T> set,T o2){
+    public boolean aggiungi(ControllerFile<T> file,ObservableSet<T> set,T o2){
         if(set.contains(o2)) return false;
 
         try {
@@ -46,7 +48,7 @@ public class GestioneSet<T extends FileFormat> {
      *  @return restituisce true se l'eliminazione è avvenuta correttamente.
      *          false se l'oggetto non è già contenuto.
      */
-    public boolean elimina(ControllerFile<T> file,HashSet<T> set,T o){
+    public boolean elimina(ControllerFile<T> file,ObservableSet<T> set,T o){
         if (set.remove(o)) {
             try {
                 file.elimina(o);
@@ -70,7 +72,7 @@ public class GestioneSet<T extends FileFormat> {
      *  @return restituisce true se la modifica è avvenuta correttamente.
      *          false se l'oggetto non è già contenuto.
      */
-    public boolean modifica(ControllerFile<T> file,HashSet<T> set,T o1, T o2){
+    public boolean modifica(ControllerFile<T> file,ObservableSet<T> set,T o1, T o2){
         if(set.contains(o1)){
             try {
                 file.modifica(o1, o2);
