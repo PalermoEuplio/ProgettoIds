@@ -9,12 +9,17 @@ import gruppo20.biblioteca.model.*;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 
 /**
@@ -23,19 +28,52 @@ import javafx.scene.layout.BorderPane;
  */
 public class ControllerLibreria {
     
-    public ControllerLibreria(BorderPane bp) throws IOException{
-        Parent root=null;
+    @FXML
+    public void pageDashboard(MouseEvent event) throws IOException{
         
-        try{
-            root = FXMLLoader.load(getClass().getResource("/fxml/pageLibreria.fxml"));
-        } catch (IOException ex){
-            Logger.getLogger(ControllerDashboard.class.getName()).log(Level.SEVERE,null,ex);
-        }
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Dashboard.fxml"));
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
         
-        bp.setCenter(root);
     }
     
-    public ControllerLibreria(){
+    @FXML
+    public void pageUtenti(MouseEvent event) throws IOException{ 
+        
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/pageUtenti.fxml"));
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        
+    }
+    
+    @FXML
+    public void pageLibreria(MouseEvent event) throws IOException{   
+        
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/pageLibreria.fxml"));
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        
+    }
+    
+    @FXML
+    public void pagePrestiti(MouseEvent event) throws IOException{ 
+        
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/pagePrestiti.fxml"));
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        
+    }
+    
+    
+    public void aggiuntaLibro(MouseEvent event) throws IOException{
         
         DialogPane root=null;
         
@@ -47,7 +85,7 @@ public class ControllerLibreria {
         
             Dialog<ButtonType> a = new Dialog<>();
             a.setDialogPane(root);
-            a.setTitle("Inserire nuovo Libro");
+            a.setTitle("Inserire nuovo Utente");
             a.showAndWait();
     }
     

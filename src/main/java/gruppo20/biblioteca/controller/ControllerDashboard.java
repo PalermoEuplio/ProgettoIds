@@ -23,7 +23,7 @@ import gruppo20.biblioteca.model.Main;
  *
  * @author euppa
  */
-public class ControllerDashboard implements Initializable {
+public class ControllerDashboard {
     
     @FXML
     public AnchorPane ap;
@@ -31,10 +31,6 @@ public class ControllerDashboard implements Initializable {
     @FXML
     public BorderPane bp;
     
-    @Override
-    public void initialize(URL url, ResourceBundle rb){
-        
-    }
     
     @FXML
     public void pageDashboard(MouseEvent event) throws IOException{

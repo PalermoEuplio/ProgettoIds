@@ -7,6 +7,8 @@ package gruppo20.biblioteca.controller;
 import gruppo20.biblioteca.model.Utenti.Utente;
 import javafx.scene.control.Dialog;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
@@ -18,7 +20,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
+import javafx.fxml.Initializable;
 import javafx.stage.Stage;
 
 
@@ -29,37 +31,7 @@ import javafx.stage.Stage;
  */
 public class ControllerUtenti extends Dialog<Utente> {
     
-    public ControllerUtenti(BorderPane bp) throws IOException{
-        Parent root=null;
-        
-        try{
-            root = FXMLLoader.load(getClass().getResource("/fxml/pageUtenti.fxml"));
-        } catch (IOException ex){
-            Logger.getLogger(ControllerDashboard.class.getName()).log(Level.SEVERE,null,ex);
-        }
-        
-        bp.setCenter(root);
-        
-    }
-    
-    public void aggiuntaUtente(MouseEvent event) throws IOException{
-        
-        DialogPane root=null;
-        
-            try{
-               root = FXMLLoader.load(getClass().getResource("/fxml/aggiuntaUtente.fxml"));
-            } catch (IOException ex){
-                Logger.getLogger(ControllerDashboard.class.getName()).log(Level.SEVERE,null,ex);
-            }
-        
-            Dialog<ButtonType> a = new Dialog<>();
-            a.setDialogPane(root);
-            a.setTitle("Inserire nuovo Utente");
-            a.showAndWait();
-    }
-    
-    
-       @FXML
+    @FXML
     public void pageDashboard(MouseEvent event) throws IOException{
         
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Dashboard.fxml"));
@@ -104,4 +76,19 @@ public class ControllerUtenti extends Dialog<Utente> {
     }
     
     
+    public void aggiuntaUtente(MouseEvent event) throws IOException{
+        
+        DialogPane root=null;
+        
+            try{
+               root = FXMLLoader.load(getClass().getResource("/fxml/aggiuntaUtente.fxml"));
+            } catch (IOException ex){
+                Logger.getLogger(ControllerDashboard.class.getName()).log(Level.SEVERE,null,ex);
+            }
+        
+            Dialog<ButtonType> a = new Dialog<>();
+            a.setDialogPane(root);
+            a.setTitle("Inserire nuovo Utente");
+            a.showAndWait();
+    }
 }
