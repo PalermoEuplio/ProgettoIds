@@ -13,12 +13,12 @@
 
 <DialogPane prefHeight="300.0" styleClass="pannelloUtenti" stylesheets="@StyleSheets.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <content>
-      <AnchorPane prefHeight="479.0" prefWidth="565.0">
+      <AnchorPane prefHeight="377.0" prefWidth="547.0">
          <children>
             <GridPane layoutY="-1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="358.0" prefWidth="545.0">
                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="268.0" minWidth="10.0" prefWidth="195.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="350.0" minWidth="10.0" prefWidth="350.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="268.0" minWidth="10.0" prefWidth="221.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="350.0" minWidth="10.0" prefWidth="324.0" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints fx:id="gridpannel" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -27,30 +27,30 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label alignment="CENTER" prefHeight="77.0" prefWidth="240.0" text="Nome:">
+                  <Label alignment="CENTER" prefHeight="77.0" prefWidth="240.0" text="Nome Utente:">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="25.0" prefWidth="163.0" promptText="Inserire Nome.." styleClass="barraRicerca" GridPane.columnIndex="1" />
-                  <Label alignment="CENTER" layoutX="10.0" layoutY="22.0" prefHeight="77.0" prefWidth="240.0" text="Cognome:" GridPane.rowIndex="1">
+                  <TextField prefHeight="25.0" prefWidth="163.0" promptText="Inserire Nome Utente.." styleClass="barraRicerca" GridPane.columnIndex="1" />
+                  <Label alignment="CENTER" layoutX="10.0" layoutY="22.0" prefHeight="77.0" prefWidth="240.0" text="ISBN Libro:" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="77.0" prefWidth="240.0" text="Matricola:" GridPane.rowIndex="2">
+                  <Label alignment="CENTER" prefHeight="77.0" prefWidth="240.0" text="Data Prestito:" GridPane.rowIndex="2">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="77.0" prefWidth="240.0" text="Email:" GridPane.rowIndex="3">
+                  <Label alignment="CENTER" prefHeight="77.0" prefWidth="240.0" text="Data restituzione: " GridPane.rowIndex="3">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
                   </Label>
-                  <TextField promptText="Inserire Cognome.." styleClass="barraRicerca" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField promptText="Inserire Matricola.." styleClass="barraRicerca" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField promptText="Inserire L'ISBN del Libro.." styleClass="barraRicerca" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField promptText="Inserire Mail Istituzionale.." styleClass="barraRicerca" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField styleClass="barraRicerca" text="Data Odierna" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </children>

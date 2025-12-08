@@ -13,11 +13,11 @@
    <children>
       <TableView fx:id="tabellaUtenti" layoutX="20.0" layoutY="140.0" prefHeight="388.0" prefWidth="674.0" styleClass="table" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="140.0">
         <columns>
-          <TableColumn editable="false" maxWidth="1.7976931348623157E308" prefWidth="79.0" text="Nome" />
-          <TableColumn editable="false" prefWidth="114.0" text="Cognome" />
-            <TableColumn editable="false" prefWidth="84.0" text="Matricola" />
-            <TableColumn editable="false" prefWidth="170.0" sortable="false" text="Email" />
-            <TableColumn editable="false" prefWidth="164.0" sortable="false" text="Prestiti Attivi" />
+          <TableColumn editable="false" maxWidth="1.7976931348623157E308" prefWidth="97.0" text="Nome" />
+          <TableColumn editable="false" prefWidth="119.0" text="Cognome" />
+            <TableColumn editable="false" prefWidth="114.0" text="Matricola" />
+            <TableColumn editable="false" prefWidth="142.0" sortable="false" text="Email" />
+            <TableColumn editable="false" prefWidth="139.0" sortable="false" text="Prestiti Attivi" />
             <TableColumn editable="false" prefWidth="118.0" resizable="false" sortable="false" text="Operazioni" />
         </columns>
       </TableView>

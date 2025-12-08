@@ -57,3 +57,7 @@ and open the template in the editor.
     -fx-border-color:#000000;
     -fx-border-radius:15px;
 }
+.pannelloUtenti{
+    -fx-background-color: linear-gradient(from 45% 50% to 100% 100%, #fbdc9d, #f7ead1);
+    -fx-background-width: 5px;
+}
