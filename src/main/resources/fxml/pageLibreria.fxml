@@ -32,7 +32,7 @@
                               <Font size="25.0" />
                            </font>
                         </Label>
-                        
+                        <FontIcon iconColor="WHITE" iconLiteral="fa-home" iconSize="35" layoutX="48.0" layoutY="39.0" />
                      </children>
                   </AnchorPane>
                   <AnchorPane onMouseClicked="#pageUtenti" prefHeight="62.0" prefWidth="283.0" styleClass="home">
@@ -42,7 +42,7 @@
                               <Font size="25.0" />
                            </font>
                         </Label>
-                        
+                        <FontIcon iconColor="WHITE" iconLiteral="fa-user" iconSize="35" layoutX="49.0" layoutY="44.0" />
                      </children>
                   </AnchorPane>
                   <AnchorPane onMouseClicked="#pageLibreria" prefHeight="62.0" prefWidth="281.0" styleClass="home">
@@ -52,7 +52,7 @@
                               <Font size="25.0" />
                            </font>
                         </Label>
-                        
+                        <FontIcon iconColor="WHITE" iconLiteral="fa-book" iconSize="35" layoutX="43.0" layoutY="45.0" text="" />
                      </children>
                   </AnchorPane>
                   <AnchorPane onMouseClicked="#pagePrestiti" prefHeight="62.0" prefWidth="283.0" styleClass="home">
@@ -62,14 +62,14 @@
                               <Font size="25.0" />
                            </font>
                         </Label>
-                        
+                        <FontIcon iconColor="WHITE" iconLiteral="fa-archive" iconSize="35" layoutX="41.0" layoutY="46.0" />
                      </children>
                   </AnchorPane>
                </children>
             </VBox>
             <AnchorPane layoutX="32.0" layoutY="710.0" prefHeight="68.0" prefWidth="312.0" AnchorPane.bottomAnchor="22.0">
                <children>
-                  
+                  <FontIcon iconLiteral="fa-copyright" iconSize="25" layoutX="12.0" layoutY="44.0" text="" />
                   <Separator layoutX="34.0" layoutY="14.0" orientation="VERTICAL" prefHeight="40.0" prefWidth="17.0" />
                   <Label layoutX="52.0" layoutY="20.0" styleClass="copyright" text="2025">
                      <font>
@@ -114,7 +114,7 @@
             </Button>
             <Button fx:id="cercaUtenti" layoutX="546.0" layoutY="215.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="45.0" styleClass="bottoni" AnchorPane.leftAnchor="546.0" AnchorPane.rightAnchor="180.0">
                <graphic>
-                  
+
                </graphic>
             </Button>
             
