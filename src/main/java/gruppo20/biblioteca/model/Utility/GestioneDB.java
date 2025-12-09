@@ -26,7 +26,7 @@ public abstract class GestioneDB<T extends FileFormat> {
      *  @return restituisce true se l'aggiunta è avvenuta correttamente.
      *          false se l'oggetto è già contenuto.
      */
-    public abstract boolean aggiungi(T o) throws SQLException;
+    public abstract boolean aggiungi(T o);
     
     /**
      * @brief Elimina oggetto.
@@ -40,7 +40,7 @@ public abstract class GestioneDB<T extends FileFormat> {
      *  @return restituisce true se l'eliminazione è avvenuta correttamente.
      *          false se l'oggetto non è già contenuto.
      */
-    public abstract boolean elimina(T o) throws SQLException;
+    public abstract boolean elimina(T o);
     
     /**
      * @brief Modifica oggetto.

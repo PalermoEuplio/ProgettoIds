@@ -11,14 +11,14 @@ public class Utente implements FileFormat<Utente>{
     private String nome; ///< Nome dell'utente.
     private String cognome; ///< Cognome dell'utente.
     private String matricola; ///< Matricola dell'utente.
-    private String mail; ///< E-mail istituzionale dell'utente.
+    private String eMail; ///< E-mail istituzionale dell'utente.
     private int nPrestiti; ///< Numero dei prestiti attivi dell'utente.
 
-    public Utente(String nome, String cognome, String matricola, String mail, int nPrestiti) {
+    public Utente(String nome, String cognome, String matricola, String eMail, int nPrestiti) {
         this.nome = nome;
         this.cognome = cognome;
         this.matricola = matricola;
-        this.mail = mail;
+        this.eMail = eMail;
         this.nPrestiti = nPrestiti;
     }
 
@@ -42,8 +42,8 @@ public class Utente implements FileFormat<Utente>{
         this.matricola = matricola;
     }
 
-    public void setMail(String email) {
-        this.mail = email;
+    public void seteMail(String email) {
+        this.eMail = email;
     }
 
     public String getNome() {
@@ -58,8 +58,8 @@ public class Utente implements FileFormat<Utente>{
         return matricola;
     }
 
-    public String getMail() {
-        return mail;
+    public String geteMail() {
+        return eMail;
     } 
     /**
      * @brief Converte l'utente in una stringa formattata per la memorizzazione sul file.
@@ -70,7 +70,7 @@ public class Utente implements FileFormat<Utente>{
     @Override
     public String fileFormat(){
         StringBuilder builder = new StringBuilder();
-        builder.append(nome+"§"+cognome+"§"+matricola+"§"+mail+"§"+nPrestiti);
+        builder.append(nome+"§"+cognome+"§"+matricola+"§"+eMail+"§"+nPrestiti);
         return builder.toString();        
     }
     

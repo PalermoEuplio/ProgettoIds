@@ -69,14 +69,18 @@ public class Libreria extends GestioneDB<Libro> {
     *   @return restituisce true se il libro è stato inserito. 
     *           false se invece non è stato inserito. 
     */  
-    public boolean aggiungi(Libro l2) throws SQLException{
+    @Override
+    public boolean aggiungi(Libro l2){
         if(setLibreria.contains(l2)){
             Iterator<Libro> it = setLibreria.iterator();
             while(it.hasNext()){
                 Libro l1 = it.next();
                 if(l2.equals(l1)){
                     l2.setNCopie(l2.getNCopie()+l1.getNCopie());
-                    return modifica(l1, l2);
+                    try{
+                        return modifica(l1, l2);
+                    }
+                    catch(SQLException e){return false;}
                 }
             }
  
@@ -91,6 +95,7 @@ public class Libreria extends GestioneDB<Libro> {
             ps.setString(5, l2.getIsbn());
             ps.executeUpdate();
         }
+        catch(SQLException e){return false;}
         setLibreria.add(l2);
         return true;
         
@@ -106,13 +111,16 @@ public class Libreria extends GestioneDB<Libro> {
      *  @return restituisce true se l'eliminazione è avvenuta correttamente.
      *          false se il libro non è presente.
      */
-    public boolean elimina(Libro l) throws SQLException{
+    @Override
+    public boolean elimina(Libro l){
         String sql = "DELETE FROM libri WHERE isbn = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, l.getIsbn());
             ps.executeUpdate();
-            System.out.println("Libro eliminato: " + l.getIsbn());
+            
         }
+        catch(SQLException e){return false;}
+        setLibreria.remove(l);
         return true;
     }
     
@@ -128,10 +136,24 @@ public class Libreria extends GestioneDB<Libro> {
      *          false se il libro non è presente.
      */
     
+    @Override
     public boolean modifica(Libro l1, Libro l2) throws SQLException{
-        return elimina(l1) && aggiungi(l2);
+        conn.setAutoCommit(false); // inizio transazione
+
+        try {
+                elimina(l1);
+                aggiungi(l2);
+                conn.commit(); // conferma tutte le modifiche
+        } 
+        catch (SQLException e) {
+                conn.rollback(); // annulla tutto se c’è un errore
+                return false;
+        }
+        conn.setAutoCommit(true);
+        return true;
     }
     
+    @Override
     public void carica() throws SQLException{
         String sql = "SELECT isbn, titolo, autori, copie FROM libri";
         try (PreparedStatement ps = conn.prepareStatement(sql);

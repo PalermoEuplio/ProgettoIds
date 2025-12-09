@@ -21,24 +21,24 @@ public class Prestiti extends GestioneDB<Prestito> {
      * @brief Insieme dei prestiti attivi.
      * Si utilizza un HashSet per garantire l'unicità dei prestiti.
      */
-    private ObservableSet<Prestito> listPrestiti;
+    private ObservableSet<Prestito> setPrestiti;
      /**
      * @brief Controller per la gestione della lettura e scrittura sul file.
      */
-    private ControllerFile<Prestito> file;
+
    
     
     public Prestiti(String filePath){
-        this.listPrestiti = FXCollections.observableSet(new HashSet<>());
+        this.setPrestiti = FXCollections.observableSet(new HashSet<>());
         try {
-            file = new ControllerFile<>(filePath,listPrestiti, new Prestito(null,null,null));
+            file = new ControllerFile<>(filePath,setPrestiti, new Prestito(null,null,null));
         } catch (IOException ex) {
             System.out.println("Errore IO apertura libreria");
         }
     }
 
-    public ObservableSet<Prestito> getListPrestiti() {
-        return listPrestiti;
+    public ObservableSet<Prestito> getSetPrestiti() {
+        return setPrestiti;
     }
     
     
@@ -54,8 +54,8 @@ public class Prestiti extends GestioneDB<Prestito> {
      * @return true se la restituzione è avvenuta, false in caso contrario.
      */
     public boolean restituisci(Prestito p,LocalDate dataRestituzione){
-        if(listPrestiti.contains(p)){
-            Iterator<Prestito> it = listPrestiti.iterator();
+        if(setPrestiti.contains(p)){
+            Iterator<Prestito> it = setPrestiti.iterator();
             while(it.hasNext()){
                 Prestito pAp = it.next(); //variabile di appoggio
                 if(p.equals(pAp)){
@@ -81,8 +81,8 @@ public class Prestiti extends GestioneDB<Prestito> {
     */ 
 
     public boolean aggiungi (Prestito p){
-        if(!listPrestiti.contains(p)){
-            return super.aggiungi(file, listPrestiti, p);
+        if(!setPrestiti.contains(p)){
+            return super.aggiungi(file, setPrestiti, p);
             
         }
         return false;
@@ -102,7 +102,7 @@ public class Prestiti extends GestioneDB<Prestito> {
     */ 
 
     public boolean elimina (Prestito p){
-        return super.elimina(file, listPrestiti, p);
+        return super.elimina(file, setPrestiti, p);
         
     }
     
@@ -118,7 +118,7 @@ public class Prestiti extends GestioneDB<Prestito> {
      *          false se il prestito non è presente.
      */
     public boolean modifica(Prestito p1, Prestito p2){
-        return super.modifica(file, listPrestiti, p1, p2);
+        return super.modifica(file, setPrestiti, p1, p2);
     }
    /**
     *@brief Controlla se un prestio è già presente.
@@ -129,7 +129,7 @@ public class Prestiti extends GestioneDB<Prestito> {
     *           false se invece non è presente.
     */
     public boolean hasPrestito (Prestito p){
-        return listPrestiti.contains(p);
+        return setPrestiti.contains(p);
     }
       
 }

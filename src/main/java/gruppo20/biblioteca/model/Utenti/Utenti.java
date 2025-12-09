@@ -1,7 +1,12 @@
 package gruppo20.biblioteca.model.Utenti;
-import gruppo20.biblioteca.model.Utility.ControllerFile;
+
 import gruppo20.biblioteca.model.Utility.GestioneDB;
-import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashSet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
@@ -16,29 +21,38 @@ public class Utenti extends GestioneDB<Utente>{
      * @brief Insieme degli utenti presenti nel sistema.
      * Si utilizza un HashSet per garantire l'unicità degli utenti.
      */
-    private ObservableSet<Utente> listUtenti;
+    private ObservableSet<Utente> setUtenti;
     
     /**
-     * @brief Controller per la gestione del file associato ai libri.
+     * @brief Connessione per la gestione del database locale.
      */
-    private ControllerFile<Utente> file;
+    private Connection conn;
     
-    /**
-     * Costruttore gestione utenti
-     * Iniziallizza la struttura
-     */
-    
-    public Utenti(String filePath) {
-        this.listUtenti = FXCollections.observableSet(new HashSet<>());
-        try {
-            file = new ControllerFile<>(filePath,listUtenti, new Utente(null,null,null,null,0));
-        } catch (IOException ex) {
-            System.out.println("Errore IO apertura lista utenti");
+    public Utenti(String DBPath) throws SQLException{
+        this.setUtenti = FXCollections.observableSet(new HashSet<>());
+        this.conn=DriverManager.getConnection("jdbc:sqlite:"+DBPath);
+        if(!super.tableExists(conn, "utenti")){
+            String sqlLibri = """
+            CREATE TABLE IF NOT EXISTS utenti (
+                nome TEXT,
+                cognome TEXT,
+                matricola TEXT NOT NULL,
+                email TEXT,     
+                prestiti INTEGER,
+
+            );
+        """;
+            try (Statement stmt = conn.createStatement()) {
+            stmt.execute(sqlLibri);
+            }
+        }
+        else{
+            carica();
         }
     }
 
-    public ObservableSet<Utente> getListUtenti() {
-        return listUtenti;
+    public ObservableSet<Utente> getSetUtenti() {
+        return setUtenti;
     }
 
     
@@ -47,13 +61,24 @@ public class Utenti extends GestioneDB<Utente>{
     *Aggiunge un utente all'anagrafica.
     * 
     * Parametro in ingresso:
-    *   @param u utente da aggiungere all'listUtenti.
+    *   @param u utente da aggiungere all'setUtenti.
     * 
     *   @return restituisce true se l'utente è stato inserito. 
-           false se invece non è stato inserito o è già presente in listUtenti. 
+           false se invece non è stato inserito o è già presente in setUtenti. 
     */  
     public boolean aggiungi(Utente u){
-        return super.aggiungi(file, listUtenti, u);
+        String sql = "INSERT INTO utenti (nome, cognome, matricola, emial, prestiti) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, u.getNome());
+            ps.setString(2, u.getCognome());
+            ps.setString(3, u.getMatricola());
+            ps.setString(4, u.geteMail());
+            ps.setInt(5, u.getnPrestiti());
+            ps.executeUpdate();
+        }
+        catch(SQLException e){return false;}
+        setUtenti.add(u);
+        return true;
     }
     
     /**
@@ -67,7 +92,15 @@ public class Utenti extends GestioneDB<Utente>{
      */
     
     public boolean elimina(Utente u){
-        return super.elimina(file, listUtenti, u);
+    String sql = "DELETE FROM utenti WHERE matricola = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, u.getMatricola());
+            ps.executeUpdate();
+            
+        }
+        catch(SQLException e){return false;}
+        setUtenti.remove(u);
+        return true;
     }
     
      /**
@@ -81,8 +114,32 @@ public class Utenti extends GestioneDB<Utente>{
      *  @return restituisce true se la modifica dell'utente è avvenuta correttamente.
      *          false se l'utente non è presente.
      */
-    public boolean modifica(Utente u1,Utente u2){
-        return super.modifica(file, listUtenti, u1, u2);
+    public boolean modifica(Utente u1,Utente u2) throws SQLException{
+        conn.setAutoCommit(false); // inizio transazione
+
+        try {
+                elimina(u1);
+                aggiungi(u2);
+                conn.commit(); // conferma tutte le modifiche
+        } 
+        catch (SQLException e) {
+                conn.rollback(); // annulla tutto se c’è un errore
+                return false;
+        }
+        conn.setAutoCommit(true);
+        return true;
+    }
+    
+    @Override
+    public void carica() throws SQLException{
+        String sql = "SELECT nome, cognome, matricola, email, prestiti FROM utenti";
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            setUtenti.add(new Utente(rs.getString("nome"),rs.getString("cognome"),rs.getString("matricola"),rs.getString("email"),rs.getInt("prestiti")));
+        }
+}
     }
 
      /**
@@ -97,7 +154,7 @@ public class Utenti extends GestioneDB<Utente>{
     public String toString() {
         //corretto
         StringBuilder s = new StringBuilder();
-        for(Utente u : listUtenti){            
+        for(Utente u : setUtenti){            
             s.append(u.toString()).append("\n");
         }
         return s.toString();

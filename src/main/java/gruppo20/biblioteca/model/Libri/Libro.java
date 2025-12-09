@@ -85,22 +85,6 @@ public class Libro implements FileFormat<Libro>{
         return isbn;
     }
     
-    
-    public Map<String, Object> toColumnMap(){
-        Map<String, Object> map = new HashMap<>();
-        map.put("titolo", titolo);
-        
-        map.put("autori", String.join(",", autori.stream().map(Autore::toString).toList()));
-        map.put("anno", annoPublicazione);
-        map.put("copie", nCopie);
-        map.put("isbn", isbn);
-        return map;
-    }
-    
-    public Object getPrimaryKey() {
-    return isbn;
-}
-    
     /**
      * @brief Converte il libro in una stringa formattata per la memorizzazione sul file.
      * La stringa utilizza '§' come carattere di separazione.
