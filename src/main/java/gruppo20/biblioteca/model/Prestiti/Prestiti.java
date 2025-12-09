@@ -50,7 +50,7 @@ public class Prestiti extends GestioneDB<Prestito>{
                 titoloLibro TEXT,
                 isbn TEXT,
                 matricola TEXT,     
-                periodoPrestito INTEGER,
+                periodoPrestito INTEGER
 
             );
         """;

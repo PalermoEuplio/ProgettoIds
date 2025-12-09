@@ -39,7 +39,7 @@ public class Utenti extends GestioneDB<Utente>{
                 cognome TEXT,
                 matricola TEXT NOT NULL,
                 email TEXT,     
-                prestiti INTEGER,
+                prestiti INTEGER
 
             );
         """;
