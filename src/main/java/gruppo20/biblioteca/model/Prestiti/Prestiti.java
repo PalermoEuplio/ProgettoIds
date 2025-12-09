@@ -1,8 +1,15 @@
 
 package gruppo20.biblioteca.model.Prestiti;
-import gruppo20.biblioteca.model.Utility.ControllerFile;
+
+import gruppo20.biblioteca.model.Libri.Libreria;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import gruppo20.biblioteca.model.Utenti.Utenti;
 import gruppo20.biblioteca.model.Utility.GestioneDB;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -12,29 +19,50 @@ import javafx.collections.ObservableSet;
  * @brief Questo file contiene l'implementazione della classe Prestiti.
  * @author Gruppo20
  */
-public class Prestiti extends GestioneDB<Prestito> {
+public class Prestiti extends GestioneDB<Prestito>{
     /**
      * @brief Numero massimo di prestiti attivi che un utente può avere contemporaneamente.
      */
     private static final int maxPrestiti = 3; 
-      /**
+    
+    /**
      * @brief Insieme dei prestiti attivi.
      * Si utilizza un HashSet per garantire l'unicità dei prestiti.
      */
     private ObservableSet<Prestito> setPrestiti;
-     /**
-     * @brief Controller per la gestione della lettura e scrittura sul file.
-     */
 
-   
+    private Utenti gestUtenti;
+    private Libreria gestLibreria;
+
+   private Connection conn;
     
-    public Prestiti(String filePath){
+    public Prestiti(String DBPath,Utenti gestUtenti,Libreria gestLibreria) throws SQLException{
         this.setPrestiti = FXCollections.observableSet(new HashSet<>());
-        try {
-            file = new ControllerFile<>(filePath,setPrestiti, new Prestito(null,null,null));
-        } catch (IOException ex) {
-            System.out.println("Errore IO apertura libreria");
+        this.gestUtenti= gestUtenti;
+        this.gestLibreria = gestLibreria;
+        
+        this.conn=DriverManager.getConnection("jdbc:sqlite:"+DBPath);
+        if(!super.tableExists(conn, "prestiti")){
+            String sqlPrestiti = """
+            CREATE TABLE IF NOT EXISTS prestiti (
+                dataPrestito TEXT,
+                restituzione TEXT,
+                titoloLibro TEXT,
+                isbn TEXT,
+                matricola TEXT,     
+                periodoPrestito INTEGER,
+
+            );
+        """;
+            try (Statement stmt = conn.createStatement()) {
+            stmt.execute(sqlPrestiti);
+            }
         }
+        else{
+            carica();
+        }
+        
+
     }
 
     public ObservableSet<Prestito> getSetPrestiti() {
@@ -60,8 +88,10 @@ public class Prestiti extends GestioneDB<Prestito> {
                 Prestito pAp = it.next(); //variabile di appoggio
                 if(p.equals(pAp)){
                     p.setRestituzione(dataRestituzione);
-                    p.getUtente().setnPrestiti(p.getUtente().getnPrestiti()-1);
-                    return modifica(pAp, p);
+                    gestLibreria.setRestituzione(p.getIsbn());
+                    gestUtenti.setRestituzione(p.getMatricola());
+                    try{return modifica(pAp, p);}
+                    catch(SQLException e) {return false;}
                 }
             }
             
@@ -81,11 +111,21 @@ public class Prestiti extends GestioneDB<Prestito> {
     */ 
 
     public boolean aggiungi (Prestito p){
-        if(!setPrestiti.contains(p)){
-            return super.aggiungi(file, setPrestiti, p);
-            
+        String sql = "INSERT INTO prestiti (dataPrestito, restituzione, titoloLibro, isbn, matricola, periodoPrestito) VALUES (?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, p.getDataPrestito().toString());
+            ps.setString(2, p.getRestituzione());
+            ps.setString(3, p.getTitoloLibro());
+            ps.setString(4, p.getIsbn());
+            ps.setString(5, p.getMatricola());
+            ps.setInt(6, p.getPeriodoPrestito());
+            ps.executeUpdate();
         }
-        return false;
+        catch(SQLException e){return false;}
+        setPrestiti.add(p);
+        gestLibreria.addPrestito(p.getIsbn());
+        gestUtenti.addPrestito(p.getMatricola());
+        return true;
         
     }
         
@@ -102,7 +142,19 @@ public class Prestiti extends GestioneDB<Prestito> {
     */ 
 
     public boolean elimina (Prestito p){
-        return super.elimina(file, setPrestiti, p);
+        String sql = "DELETE FROM prestiti WHERE dataPrestito = ? AND isbn = ? AND matricola = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, p.getDataPrestito().toString());
+            ps.setString(2, p.getIsbn());
+            ps.setString(3, p.getMatricola());
+            ps.executeUpdate();
+            
+        }
+        catch(SQLException e){return false;}
+        setPrestiti.remove(p);
+        gestLibreria.setRestituzione(p.getIsbn());
+        gestUtenti.setRestituzione(p.getMatricola());
+        return true;
         
     }
     
@@ -117,8 +169,39 @@ public class Prestiti extends GestioneDB<Prestito> {
      *  @return restituisce true se la modifica del prestito è avvenuta correttamente.
      *          false se il prestito non è presente.
      */
-    public boolean modifica(Prestito p1, Prestito p2){
-        return super.modifica(file, setPrestiti, p1, p2);
+    public boolean modifica(Prestito p1, Prestito p2) throws SQLException{
+        conn.setAutoCommit(false); // inizio transazione
+        boolean status;
+        try {
+                status = elimina(p1) && aggiungi(p2);
+                conn.commit(); // conferma tutte le modifiche
+        } 
+        catch (SQLException e) {
+                conn.rollback(); // annulla tutto se c’è un errore
+                return false;
+        }
+        conn.setAutoCommit(true);
+        if(!p1.getIsbn().equals(p2.getIsbn())){
+            gestLibreria.setRestituzione(p1.getIsbn());
+            gestLibreria.addPrestito(p2.getIsbn());
+        }
+        if(!p1.getMatricola().equals(p2.getMatricola())){
+            gestUtenti.setRestituzione(p1.getMatricola());
+            gestUtenti.addPrestito(p2.getMatricola());
+        }
+        return status;
+    }
+    
+    @Override
+    public void carica() throws SQLException{
+        String sql = "SELECT dataPrestito, restituzione, titoloLibro, isbn, matricola, periodoPrestito FROM prestiti";
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                setPrestiti.add(new Prestito(LocalDate.parse(rs.getString("dataPrestito")),rs.getString("restituzione"),rs.getString("titoloLibro"),rs.getString("isbn"),rs.getString("matricola"),rs.getInt("periodoPrestito")));
+            }
+        }
     }
    /**
     *@brief Controlla se un prestio è già presente.

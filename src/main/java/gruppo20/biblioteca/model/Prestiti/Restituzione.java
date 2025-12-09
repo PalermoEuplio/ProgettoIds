@@ -24,18 +24,22 @@ public class Restituzione {
      */
     private LocalDate dataRestituzione;
     
-    public Restituzione(){
-        dataRestituzione = null;
+    public Restituzione(String s){
+        if(s.equals("false")) dataRestituzione = null;
+        else {
+            restituito = true;
+            dataRestituzione = LocalDate.parse(s);
+        }
     }
     
     public boolean isRestituito() {
         return restituito;
     }
 
-    public LocalDate getRestituzione() throws IllegalStateException{
+    public String getRestituzione() throws IllegalStateException{
         if(restituito)
-        return dataRestituzione;
-        else throw new IllegalStateException("Libro non ancora restituito");
+        return dataRestituzione.toString();
+        else return "false";
     }
 
     public void setRestituzione(LocalDate dataRestituzione) {

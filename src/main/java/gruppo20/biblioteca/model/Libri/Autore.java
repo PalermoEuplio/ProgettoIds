@@ -46,7 +46,7 @@ public class Autore {
             s = s.trim();
             int idx = s.lastIndexOf(" ");
             
-            return new Autore(s.substring(0, idx),s.substring(idx + " ".length()));
+            return new Autore(s.substring(0, idx).trim(),s.substring(idx + " ".length()).trim());
             
     }
     

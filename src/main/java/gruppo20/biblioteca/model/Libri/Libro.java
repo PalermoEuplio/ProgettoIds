@@ -1,15 +1,14 @@
 package gruppo20.biblioteca.model.Libri;
-import gruppo20.biblioteca.model.Utility.FileFormat;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+
 
 /**
  * @brief Questo file contiene l'implementazione della classe Libro.
  * @author Gruppo20
  */
-public class Libro implements FileFormat<Libro>{
+public class Libro{
     
     
     private String titolo; ///< Titolo del libro.
@@ -83,37 +82,6 @@ public class Libro implements FileFormat<Libro>{
 
     public String getIsbn() {
         return isbn;
-    }
-    
-    /**
-     * @brief Converte il libro in una stringa formattata per la memorizzazione sul file.
-     * La stringa utilizza '§' come carattere di separazione.
-     * 
-     * @return Stringa contenente la rappresentazione serializzata del libro.
-     */
-    public String fileFormat(){
-        StringBuilder builder = new StringBuilder();
-        builder.append(titolo + "§");
-        for(int i=0;i<autori.size();i++){
-                builder.append(autori.get(i)+",");
-            }
-        builder.append(annoPublicazione + "§" + nCopie + "§" + isbn);
-        
-        return builder.toString();        
-    }
-    
-    /**
-     * @brief Deformatta, ricostruisce un oggetto Libro a partire da una stringa formattata.
-     * La stringa deve avere formato coerente con quello profotto da fileFormat.
-     * 
-     * @param record Stringa contenente i campi del libro serializzati.
-     * @return Oggetto Libro ottenuto dai dati contenuti in record.
-     */
-    @Override
-    public Libro deFileFormat(String record){
-        String[] parts = record.split("§");
-        return new Libro(parts[0],parts[1],LocalDate.parse(parts[2]),Integer.parseInt(parts[3]),parts[4]);
-    
     }
     
      /**

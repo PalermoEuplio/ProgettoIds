@@ -4,6 +4,7 @@ import gruppo20.biblioteca.model.Libri.Libreria;
 import gruppo20.biblioteca.model.Prestiti.Prestiti;
 import gruppo20.biblioteca.model.Utenti.Utenti;
 import java.io.File;
+import java.sql.SQLException;
 
 /**
  *
@@ -38,13 +39,15 @@ public class Contesto {
             }
         }
         
-        
+        try{
         this.gestLibreria = new Libreria(Dir.getAbsolutePath()+"/Biblioteca.db");
-        this.gestPrestiti = new Prestiti(Dir.getAbsolutePath()+"/Biblioteca.db");
         this.gestUtenti = new Utenti(Dir.getAbsolutePath()+"/Biblioteca.db");
+        this.gestPrestiti = new Prestiti(Dir.getAbsolutePath()+"/Biblioteca.db", gestUtenti,gestLibreria);
+        }
+        catch(SQLException e ) { throw new RuntimeException("Errore fatale nel caricamento del database", e);}
     }
 
-    public Libreria getGestLibreria() {
+    public Libreria getGestLibreria(){
         return gestLibreria;
     }
 

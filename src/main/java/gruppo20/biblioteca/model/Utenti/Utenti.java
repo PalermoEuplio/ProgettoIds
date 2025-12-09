@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashSet;
+import java.util.Iterator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 
@@ -32,7 +33,7 @@ public class Utenti extends GestioneDB<Utente>{
         this.setUtenti = FXCollections.observableSet(new HashSet<>());
         this.conn=DriverManager.getConnection("jdbc:sqlite:"+DBPath);
         if(!super.tableExists(conn, "utenti")){
-            String sqlLibri = """
+            String sqlUtenti = """
             CREATE TABLE IF NOT EXISTS utenti (
                 nome TEXT,
                 cognome TEXT,
@@ -43,7 +44,7 @@ public class Utenti extends GestioneDB<Utente>{
             );
         """;
             try (Statement stmt = conn.createStatement()) {
-            stmt.execute(sqlLibri);
+            stmt.execute(sqlUtenti);
             }
         }
         else{
@@ -116,10 +117,9 @@ public class Utenti extends GestioneDB<Utente>{
      */
     public boolean modifica(Utente u1,Utente u2) throws SQLException{
         conn.setAutoCommit(false); // inizio transazione
-
+        boolean status;
         try {
-                elimina(u1);
-                aggiungi(u2);
+                status = elimina(u1) && aggiungi(u2);
                 conn.commit(); // conferma tutte le modifiche
         } 
         catch (SQLException e) {
@@ -127,7 +127,7 @@ public class Utenti extends GestioneDB<Utente>{
                 return false;
         }
         conn.setAutoCommit(true);
-        return true;
+        return status;
     }
     
     @Override
@@ -136,10 +136,38 @@ public class Utenti extends GestioneDB<Utente>{
         try (PreparedStatement ps = conn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery()) {
 
-        while (rs.next()) {
-            setUtenti.add(new Utente(rs.getString("nome"),rs.getString("cognome"),rs.getString("matricola"),rs.getString("email"),rs.getInt("prestiti")));
+            while (rs.next()) {
+                setUtenti.add(new Utente(rs.getString("nome"),rs.getString("cognome"),rs.getString("matricola"),rs.getString("email"),rs.getInt("prestiti")));
+            }
         }
-}
+    }
+    
+    public boolean setRestituzione(String matricola){
+    Iterator<Utente> it = setUtenti.iterator();
+    Utente u1;
+        while(it.hasNext()){
+            u1 = it.next();
+            if(matricola.equals(u1.getMatricola())){
+
+                try {return modifica(u1, new Utente(u1.getNome(),u1.getCognome(),matricola,u1.geteMail(),u1.getnPrestiti()-1));}
+                catch(SQLException e){return false;}
+            }
+        }
+    return true;
+    }
+    
+    public boolean addPrestito(String matricola){
+    Iterator<Utente> it = setUtenti.iterator();
+    Utente u1;
+        while(it.hasNext()){
+            u1 = it.next();
+            if(matricola.equals(u1.getMatricola())){
+
+                try {return modifica(u1, new Utente(u1.getNome(),u1.getCognome(),matricola,u1.geteMail(),u1.getnPrestiti()+1));}
+                catch(SQLException e){return false;}
+            }
+        }
+    return true;
     }
 
      /**

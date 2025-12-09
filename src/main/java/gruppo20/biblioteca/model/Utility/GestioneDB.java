@@ -11,7 +11,7 @@ import java.sql.SQLException;
  * @brief Questo file contiene l'implementazione della superclasse GestioneSet.
  * @author Gruppo20
  */
-public abstract class GestioneDB<T extends FileFormat> {
+public abstract class GestioneDB<T> {
     
     /**
      * @brief Aggiungi oggetto.

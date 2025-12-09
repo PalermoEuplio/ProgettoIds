@@ -6,7 +6,7 @@ import gruppo20.biblioteca.model.Utility.FileFormat;
  * Identifica l'entità utente e i suoi attributi
  * @author Gruppo20
  */
-public class Utente implements FileFormat<Utente>{
+public class Utente{
     
     private String nome; ///< Nome dell'utente.
     private String cognome; ///< Cognome dell'utente.
@@ -61,32 +61,6 @@ public class Utente implements FileFormat<Utente>{
     public String geteMail() {
         return eMail;
     } 
-    /**
-     * @brief Converte l'utente in una stringa formattata per la memorizzazione sul file.
-     * La stringa utilizza '§' come carattere di separazione.
-     * 
-     * @return Stringa contenente la rappresentazione serializzata dell'utente.
-     */
-    @Override
-    public String fileFormat(){
-        StringBuilder builder = new StringBuilder();
-        builder.append(nome+"§"+cognome+"§"+matricola+"§"+eMail+"§"+nPrestiti);
-        return builder.toString();        
-    }
-    
-    /**
-     * @brief Deformatta, ricostruisce un oggetto Utente a partire da una stringa formattata.
-     * La stringa deve avere formato coerente con quello profotto da fileFormat.
-     * 
-     * @param record Stringa contenente i campi dell'utente serializzati.
-     * @return Oggetto Utente ottenuto dai dati contenuti in record.
-     */
-    @Override
-    public Utente deFileFormat(String record){
-        String[] parts = record.split("§");
-        return new Utente(parts[0],parts[1],parts[2],parts[3],Integer.parseInt(parts[4]));
-    
-    }
     
     @Override
     public boolean equals(Object o){

@@ -13,7 +13,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
-import org.w3c.dom.ls.LSInput;
+
+
 /**
  * @brief Questo file contiene l'implementazione della classe Libreria.
  * @author Gruppo20
@@ -139,10 +140,9 @@ public class Libreria extends GestioneDB<Libro> {
     @Override
     public boolean modifica(Libro l1, Libro l2) throws SQLException{
         conn.setAutoCommit(false); // inizio transazione
-
+        boolean status;
         try {
-                elimina(l1);
-                aggiungi(l2);
+                status = elimina(l1) && aggiungi(l2);
                 conn.commit(); // conferma tutte le modifiche
         } 
         catch (SQLException e) {
@@ -150,7 +150,7 @@ public class Libreria extends GestioneDB<Libro> {
                 return false;
         }
         conn.setAutoCommit(true);
-        return true;
+        return status;
     }
     
     @Override
@@ -159,12 +159,41 @@ public class Libreria extends GestioneDB<Libro> {
         try (PreparedStatement ps = conn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery()) {
 
-        while (rs.next()) {
-            setLibreria.add(new Libro(rs.getString("titolo"),rs.getString("autori"),
-                    LocalDate.parse(rs.getString("anno")),rs.getInt("copie"),rs.getString("isbn")));
+            while (rs.next()) {
+                setLibreria.add(new Libro(rs.getString("titolo"),rs.getString("autori"),
+                        LocalDate.parse(rs.getString("anno")),rs.getInt("copie"),rs.getString("isbn")));
+            }
         }
-}
     }
+    
+    public boolean setRestituzione(String isbn){
+        Iterator<Libro> it = setLibreria.iterator();
+        Libro l1;
+        while(it.hasNext()){
+            l1 = it.next();
+            if(isbn.equals(l1.getIsbn())){
+                
+                try {return modifica(l1, new Libro(l1.getTitolo(), l1.getAutori(), l1.getAnno(), l1.getNCopie()+1, isbn));}
+                catch(SQLException e){return false;}
+            }
+        }
+        return true;
+    }
+    
+    public boolean addPrestito(String isbn){
+        Iterator<Libro> it = setLibreria.iterator();
+        Libro l1;
+        while(it.hasNext()){
+            l1 = it.next();
+            if(isbn.equals(l1.getIsbn())){
+                
+                try {return modifica(l1, new Libro(l1.getTitolo(), l1.getAutori(), l1.getAnno(), l1.getNCopie()-1, isbn));}
+                catch(SQLException e){return false;}
+            }
+        }
+        return true;
+    }
+    
     
     /**
      * @brief Restituisce una rappresentazione testuale della libreria.
