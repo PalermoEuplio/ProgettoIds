@@ -70,9 +70,7 @@ public class ControllerLibreria {
     }
     
     @FXML
-    public void pageLibreria(MouseEvent event) throws IOException{   
-        
-    }
+    public void pageLibreria(MouseEvent event) throws IOException{}
     
     @FXML
     public void pagePrestiti(MouseEvent event) throws IOException{ 
@@ -89,11 +87,11 @@ public class ControllerLibreria {
     }
     
     
-    @FXML public TextField titoloLibro;
-    @FXML public TextField listaAutori;
-    @FXML public TextField isbn;
-    @FXML public DatePicker annoP;
-    @FXML public TextField NCopie;
+    @FXML private TextField titoloLibro;
+    @FXML private TextField listaAutori;
+    @FXML private TextField isbn;
+    @FXML private DatePicker annoP;
+    @FXML private TextField NCopie;
     
     public void aggiuntaLibro(MouseEvent event) throws IOException {
 
@@ -104,7 +102,7 @@ public class ControllerLibreria {
 
     Dialog<ButtonType> a = new Dialog<>();
     a.setDialogPane(root);
-    a.setTitle("Inserire nuovo Utente");
+    a.setTitle("Inserire nuovo Libro");
 
     a.setOnShown(e -> {
 

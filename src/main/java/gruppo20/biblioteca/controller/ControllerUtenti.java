@@ -8,9 +8,12 @@ import gruppo20.biblioteca.model.Utenti.Utente;
 import javafx.scene.control.Dialog;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -21,7 +24,10 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.fxml.Initializable;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.converter.NumberStringConverter;
 
 
 
@@ -52,9 +58,7 @@ public class ControllerUtenti extends Dialog<Utente> {
     }
     
     @FXML
-    public void pageUtenti(MouseEvent event) throws IOException{ 
-        
-    }
+    public void pageUtenti(MouseEvent event) throws IOException{}
     
     @FXML
     public void pageLibreria(MouseEvent event) throws IOException{   
@@ -85,19 +89,36 @@ public class ControllerUtenti extends Dialog<Utente> {
     }
     
     
+    
+    @FXML private TextField nomeUtente;
+    @FXML private TextField cognomeUtente;
+    @FXML private TextField matricola;
+    @FXML private TextField email;
     public void aggiuntaUtente(MouseEvent event) throws IOException{
         
-        DialogPane root=null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/aggiuntaUtente.fxml"));
+        DialogPane root = loader.load();
+    
+        ControllerUtenti controllerDialog = loader.getController();
+
+        Dialog<ButtonType> a = new Dialog<>();
+        a.setDialogPane(root);
+        a.setTitle("Inserire nuovo Utente");
+
+        a.setOnShown(e -> {
+
+                TextField nomeUtente = controllerDialog.nomeUtente;
+                TextField cognomeUtente = controllerDialog.cognomeUtente;
+                TextField matricola = controllerDialog.matricola;
+                TextField email = controllerDialog.email;
         
-            try{
-               root = FXMLLoader.load(getClass().getResource("/fxml/aggiuntaUtente.fxml"));
-            } catch (IOException ex){
-                Logger.getLogger(ControllerDashboard.class.getName()).log(Level.SEVERE,null,ex);
-            }
         
-            Dialog<ButtonType> a = new Dialog<>();
-            a.setDialogPane(root);
-            a.setTitle("Inserire nuovo Utente");
+                cognomeUtente.disableProperty().bind(nomeUtente.textProperty().isEmpty());
+                matricola.disableProperty().bind(cognomeUtente.textProperty().isEmpty());
+                email.disableProperty().bind(matricola.textProperty().isEmpty());
+                a.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(email.textProperty().isEmpty());
+
+    });
             a.showAndWait();
     }
 }
