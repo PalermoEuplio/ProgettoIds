@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -10,8 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
-<DialogPane prefHeight="300.0" styleClass="pannelloUtenti" stylesheets="@StyleSheets.css" xmlns="http://javafx.com/javafx/23.0.5" xmlns:fx="http://javafx.com/fxml/1">
+<DialogPane prefHeight="300.0" styleClass="pannelloUtenti" stylesheets="@StyleSheets.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gruppo20.biblioteca.controller.ControllerPrestiti">
    <content>
       <AnchorPane prefHeight="377.0" prefWidth="547.0">
          <children>
@@ -32,7 +32,7 @@
                         <Font name="System Bold" size="22.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="25.0" prefWidth="163.0" promptText="Inserire Nome Utente.." styleClass="barraRicerca" GridPane.columnIndex="1" />
+                  <TextField fx:id="nomeUtente" blendMode="DARKEN" prefHeight="25.0" prefWidth="163.0" promptText="Inserire Nome Utente.." styleClass="campiComparsa" GridPane.columnIndex="1" />
                   <Label alignment="CENTER" layoutX="10.0" layoutY="22.0" prefHeight="77.0" prefWidth="240.0" text="ISBN Libro:" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="22.0" />
@@ -48,9 +48,9 @@
                         <Font name="System Bold" size="22.0" />
                      </font>
                   </Label>
-                  <TextField promptText="Inserire L'ISBN del Libro.." styleClass="barraRicerca" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField promptText="Inserire Mail Istituzionale.." styleClass="barraRicerca" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField styleClass="barraRicerca" text="Data Odierna" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="isbn" blendMode="DARKEN" promptText="Inserire L'ISBN del Libro.." styleClass="campiComparsa" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <DatePicker fx:id="annoP" blendMode="DARKEN" prefHeight="25.0" prefWidth="329.0" showWeekNumbers="false" styleClass="campiComparsa" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <DatePicker fx:id="annoR" blendMode="DARKEN" prefHeight="25.0" prefWidth="329.0" showWeekNumbers="false" styleClass="campiComparsa" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                </children>
             </GridPane>
          </children>

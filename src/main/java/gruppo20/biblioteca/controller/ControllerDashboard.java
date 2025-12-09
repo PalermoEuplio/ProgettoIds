@@ -33,9 +33,7 @@ public class ControllerDashboard {
     
     
     @FXML
-    public void pageDashboard(MouseEvent event) throws IOException{
-        
-    }
+    public void pageDashboard(MouseEvent event) throws IOException{}
     
     @FXML
     public void pageUtenti(MouseEvent event) throws IOException{ 
