@@ -116,6 +116,9 @@
                <graphic>
 
                </graphic>
+               <graphic>
+                  <FontIcon iconLiteral="fa-search" iconSize="20" />
+               </graphic>
             </Button>
             <FontIcon iconLiteral="fa-plus" iconSize="18" layoutX="624.0" layoutY="239.0" />
             <Label alignment="TOP_CENTER" layoutX="176.0" layoutY="49.0" prefHeight="59.0" prefWidth="419.0" styleClass="intestazine" text="Sezione Utenti" AnchorPane.topAnchor="74.0">

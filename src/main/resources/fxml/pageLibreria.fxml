@@ -116,6 +116,9 @@
                <graphic>
 
                </graphic>
+               <graphic>
+                  <FontIcon iconLiteral="fa-search" iconSize="20" />
+               </graphic>
             </Button>
             
             <Label alignment="TOP_CENTER" layoutX="176.0" layoutY="74.0" prefHeight="59.0" prefWidth="419.0" styleClass="intestazine" text="Sezione Libreria">
