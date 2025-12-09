@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
@@ -12,6 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <BorderPane id="AnchorPane" fx:id="bp" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="800.0" prefWidth="1100.0" styleClass="parent" stylesheets="@StyleSheets.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gruppo20.biblioteca.controller.ControllerDashboard">
    <center>
@@ -75,7 +75,7 @@
                               <Font size="25.0" />
                            </font>
                         </Label>
-                        <FontAwesomeIconView fill="WHITE" glyphName="HOME" layoutX="46.0" layoutY="39.0" size="30" wrappingWidth="32.85714340209961" />
+                        <FontIcon iconColor="WHITE" iconLiteral="fa-home" iconSize="35" layoutX="48.0" layoutY="39.0" />
                      </children>
                   </AnchorPane>
                   <AnchorPane onMouseClicked="#pageUtenti" prefHeight="62.0" prefWidth="283.0" styleClass="home">
@@ -85,7 +85,7 @@
                               <Font size="25.0" />
                            </font>
                         </Label>
-                        <FontAwesomeIconView fill="WHITE" glyphName="USER" layoutX="46.0" layoutY="41.0" size="30" />
+                        <FontIcon iconColor="WHITE" iconLiteral="fa-user" iconSize="35" layoutX="49.0" layoutY="44.0" />
                      </children>
                   </AnchorPane>
                   <AnchorPane onMouseClicked="#pageLibreria" prefHeight="62.0" prefWidth="281.0" styleClass="home">
@@ -95,7 +95,7 @@
                               <Font size="25.0" />
                            </font>
                         </Label>
-                        <FontAwesomeIconView fill="WHITE" glyphName="BOOK" layoutX="46.0" layoutY="44.0" size="30" />
+                        <FontIcon iconColor="WHITE" iconLiteral="fa-book" iconSize="35" layoutX="43.0" layoutY="45.0" text="" />
                      </children>
                   </AnchorPane>
                   <AnchorPane onMouseClicked="#pagePrestiti" prefHeight="62.0" prefWidth="283.0" styleClass="home">
@@ -105,14 +105,13 @@
                               <Font size="25.0" />
                            </font>
                         </Label>
-                        <FontAwesomeIconView fill="WHITE" glyphName="ARCHIVE" layoutX="46.0" layoutY="41.0" size="30" />
+                        <FontIcon iconColor="WHITE" iconLiteral="fa-archive" iconSize="35" layoutX="41.0" layoutY="46.0" />
                      </children>
                   </AnchorPane>
                </children>
             </VBox>
             <AnchorPane layoutX="32.0" layoutY="710.0" prefHeight="68.0" prefWidth="312.0" AnchorPane.bottomAnchor="22.0">
                <children>
-                  <FontAwesomeIconView glyphName="COPYRIGHT" layoutX="14.0" layoutY="41.0" size="20" text="" wrappingWidth="20.285714149475098" />
                   <Separator layoutX="34.0" layoutY="14.0" orientation="VERTICAL" prefHeight="40.0" prefWidth="17.0" />
                   <Label layoutX="52.0" layoutY="20.0" styleClass="copyright" text="2025">
                      <font>
@@ -131,6 +130,7 @@
                         <Font name="System Bold Italic" size="20.0" />
                      </font>
                   </Label>
+                  <FontIcon iconLiteral="fa-copyright" iconSize="25" layoutX="12.0" layoutY="44.0" text="" />
                </children>
             </AnchorPane>
          </children>
