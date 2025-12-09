@@ -3,6 +3,7 @@ package gruppo20.biblioteca.controller;
 import gruppo20.biblioteca.model.Libri.Libreria;
 import gruppo20.biblioteca.model.Prestiti.Prestiti;
 import gruppo20.biblioteca.model.Utenti.Utenti;
+import java.io.File;
 
 /**
  *
@@ -15,10 +16,33 @@ public class Contesto {
     private Prestiti gestPrestiti;
     private Utenti gestUtenti;
     
+    
     public Contesto(){
-        this.gestLibreria = new Libreria(filePath+"Libreria.txt");
-        this.gestPrestiti = new Prestiti(filePath+"Prestiti.txt");
-        this.gestUtenti = new Utenti(filePath+"Utenti.txt");
+        String userHome = System.getProperty("user.home");
+        String documents;
+
+        // Individua nome corretto della cartella Documents
+        if (System.getProperty("os.name").toLowerCase().contains("win")) {
+            documents = userHome + File.separator + "Documents";
+        } else {
+            // Linux e macOS usano normalmente "Documents"
+            documents = userHome + File.separator + "Documents";
+        }
+        
+        File Dir = new File(documents + File.separator + "Biblioteca");
+        
+        // Creazione della directory (anche annidata)
+        if (!Dir.exists()) {
+            boolean ok = Dir.mkdirs();
+            if (!ok) {
+                System.out.println("Impossibile creare la directory: " + Dir.getAbsolutePath());
+            }
+        }
+        
+        
+        this.gestLibreria = new Libreria(Dir.getAbsolutePath()+"/Libreria.txt");
+        this.gestPrestiti = new Prestiti(Dir.getAbsolutePath()+"/Prestiti.txt");
+        this.gestUtenti = new Utenti(Dir.getAbsolutePath()+"/Utenti.txt");
     }
 
     public Libreria getGestLibreria() {

@@ -44,11 +44,10 @@ public class Autore {
     */
     public static Autore convert(String s){
             s = s.trim();
-            String[] parts = s.split(" ");
-            if (parts.length != 2) {
-                throw new IllegalArgumentException("Formato autore non valido: " + s);
-            }
-            return new Autore(parts[0],parts[1]);
+            int idx = s.lastIndexOf(" ");
+            
+            return new Autore(s.substring(0, idx),s.substring(idx + " ".length()));
+            
     }
     
     @Override

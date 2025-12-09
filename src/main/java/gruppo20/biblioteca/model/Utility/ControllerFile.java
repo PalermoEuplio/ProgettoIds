@@ -65,17 +65,19 @@ public class ControllerFile<T extends FileFormat>{
     public void carica(ObservableSet<T> set, T t) throws IOException{
         checkChiuso();
         
-        StringBuilder builder = new StringBuilder();
-        String[] buffer;
-        
-        file.seek(0);
-        while(file.getFilePointer()<file.length()){
-            builder.append(file.readUTF()+"\n");
-        }
-        buffer = builder.toString().split("\n");
-        
-        for(String s : buffer){
-            set.add((T) t.deFileFormat(s));
+        if(file.length()!=0){
+            StringBuilder builder = new StringBuilder();
+            String[] buffer;
+
+            file.seek(0);
+            while(file.getFilePointer()<file.length()){
+                builder.append(file.readUTF()+"\n");
+            }
+            buffer = builder.toString().split("\n");
+
+            for(String s : buffer){
+                set.add((T) t.deFileFormat(s));
+            }
         }
         
     }

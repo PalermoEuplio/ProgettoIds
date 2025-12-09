@@ -93,7 +93,7 @@ public class Libro implements FileFormat<Libro>{
         StringBuilder builder = new StringBuilder();
         builder.append(titolo + "§");
         for(int i=0;i<autori.size();i++){
-                builder.append(autori.get(i)+"§");
+                builder.append(autori.get(i)+",");
             }
         builder.append(annoPublicazione + "§" + nCopie + "§" + isbn);
         
