@@ -7,6 +7,15 @@ and open the template in the editor.
     Created on : 6-dic-2025, 12.42.35
     Author     : euppa
 */
+@font-face {
+    font-family: "SegoeUI";
+    src: url("/fonts/segoeuithis.ttf"); /* percorso relativo alla risorsa nel JAR */
+}
+
+.root {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px; /* imposta il default che preferisci */
+}
 
 .parent{
     -fx-background-color: linear-gradient(from 45% 50% to 100% 100%, #fbdc9d, #f7ead1);

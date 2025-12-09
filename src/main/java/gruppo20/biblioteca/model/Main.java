@@ -6,7 +6,6 @@
 
 package gruppo20.biblioteca.model;
 import gruppo20.biblioteca.controller.*;
-
 import javafx.scene.*;
 import javafx.stage.*;
 import static javafx.application.Application.launch;
@@ -34,10 +33,9 @@ public class Main extends Application {
         stage.setTitle("Biblioteca Universitaria");
         stage.setScene(scene);
         stage.show();
+
+
     }
-    
-    
-    
     
     
     
