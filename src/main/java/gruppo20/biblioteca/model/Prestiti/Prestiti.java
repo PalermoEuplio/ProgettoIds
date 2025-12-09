@@ -1,4 +1,3 @@
-
 package gruppo20.biblioteca.model.Prestiti;
 
 import gruppo20.biblioteca.model.Libri.Libreria;

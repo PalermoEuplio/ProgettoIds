@@ -1,5 +1,4 @@
 package gruppo20.biblioteca.model.Utenti;
-import gruppo20.biblioteca.model.Utility.FileFormat;
 
 /**
  * @brief Questo file contiene l'implementazione dell'oggetto Utente.

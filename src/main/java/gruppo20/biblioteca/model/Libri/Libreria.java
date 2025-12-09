@@ -1,4 +1,3 @@
-
 package gruppo20.biblioteca.model.Libri;
 
 import gruppo20.biblioteca.model.Utility.GestioneDB;
