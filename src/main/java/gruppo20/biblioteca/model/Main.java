@@ -33,8 +33,6 @@ public class Main extends Application {
         stage.setTitle("Biblioteca Universitaria");
         stage.setScene(scene);
         stage.show();
-
-
     }
     
     

@@ -41,7 +41,7 @@
                               <Font size="25.0" />
                            </font>
                         </Label>
-                        <FontIcon iconColor="WHITE" iconLiteral="fa-user" iconSize="35" layoutX="49.0" layoutY="44.0" />
+                        <FontIcon iconColor="WHITE" iconLiteral="fa-user" iconSize="35" layoutX="53.0" layoutY="44.0" />
                      </children>
                   </AnchorPane>
                   <AnchorPane onMouseClicked="#pageLibreria" prefHeight="62.0" prefWidth="281.0" styleClass="home">
@@ -51,7 +51,7 @@
                               <Font size="25.0" />
                            </font>
                         </Label>
-                        <FontIcon iconColor="WHITE" iconLiteral="fa-book" iconSize="35" layoutX="43.0" layoutY="45.0" text="" />
+                        <FontIcon iconColor="WHITE" iconLiteral="fa-book" iconSize="35" layoutX="51.0" layoutY="44.0" text="" />
                      </children>
                   </AnchorPane>
                   <AnchorPane onMouseClicked="#pagePrestiti" prefHeight="62.0" prefWidth="283.0" styleClass="home">
@@ -61,7 +61,7 @@
                               <Font size="25.0" />
                            </font>
                         </Label>
-                        <FontIcon iconColor="WHITE" iconLiteral="fa-archive" iconSize="35" layoutX="41.0" layoutY="46.0" />
+                        <FontIcon iconColor="WHITE" iconLiteral="fa-archive" iconSize="35" layoutX="50.0" layoutY="46.0" />
                      </children>
                   </AnchorPane>
                </children>
@@ -95,7 +95,7 @@
    <center>
       <AnchorPane fx:id="prestiti" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#pagePrestiti" prefHeight="800.0" prefWidth="771.0" stylesheets="@StyleSheets.css" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="tabellaUtenti" layoutX="20.0" layoutY="271.0" prefHeight="277.0" prefWidth="731.0" styleClass="table" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="259.0">
+            <TableView fx:id="tabellaUtenti" layoutX="20.0" layoutY="271.0" prefHeight="388.0" prefWidth="731.0" styleClass="table" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="259.0">
                <columns>
                   <TableColumn editable="false" maxWidth="1.7976931348623157E308" prefWidth="119.0" text="Data Prestito" />
                   <TableColumn editable="false" prefWidth="147.0" text="Data Scadenza" />
@@ -110,7 +110,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Button>
-            <FontIcon iconLiteral="fa-plus" iconSize="18" layoutX="624.0" layoutY="239.0" />
+            <FontIcon iconLiteral="fa-plus" iconSize="18" layoutX="614.0" layoutY="238.0" />
             <Label alignment="TOP_CENTER" layoutX="176.0" layoutY="71.0" prefHeight="59.0" prefWidth="419.0" styleClass="intestazine" text="Sezione Prestiti" AnchorPane.topAnchor="74.0">
                <font>
                   <Font name="System Bold" size="34.0" />
