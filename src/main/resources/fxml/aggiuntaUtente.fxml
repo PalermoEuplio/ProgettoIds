@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<DialogPane prefHeight="300.0" styleClass="pannelloUtenti" stylesheets="@StyleSheets.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<DialogPane prefHeight="300.0" styleClass="pannelloUtenti" stylesheets="@StyleSheets.css" xmlns="http://javafx.com/javafx/23.0.5" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <AnchorPane prefHeight="479.0" prefWidth="565.0">
          <children>
