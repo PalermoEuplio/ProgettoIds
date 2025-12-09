@@ -1,42 +1,59 @@
 
 package gruppo20.biblioteca.model.Libri;
 
-import gruppo20.biblioteca.model.Utility.ControllerFile;
-import gruppo20.biblioteca.model.Utility.GestioneSet;
-import java.io.IOException;
+import gruppo20.biblioteca.model.Utility.GestioneDB;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Iterator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
+import org.w3c.dom.ls.LSInput;
 /**
  * @brief Questo file contiene l'implementazione della classe Libreria.
  * @author Gruppo20
  */
-public class Libreria extends GestioneSet<Libro> {
+public class Libreria extends GestioneDB<Libro> {
     /**
      * @brief Insieme dei libri presenti in libreria.
      * Si utilizza un HashSet per garantire l'unicità dei libri.
      */
-    private ObservableSet<Libro> listLibreria; 
+    private ObservableSet<Libro> setLibreria; 
     /**
-     * @brief Controller per la gestione del file associato ai libri.
+     * @brief Connessione per la gestione del database locale.
      */
-    private ControllerFile<Libro> file;
+    private Connection conn;
     
-    
-    public Libreria(String filePath){
-        listLibreria = FXCollections.observableSet(new HashSet<>());
-        try {
-            file = new ControllerFile<>(filePath,listLibreria, new Libro(null,null,null,0,null));
-        } catch (IOException ex) {
-            System.out.println("Errore IO apertura libreria");
+    public Libreria(String DBPath) throws SQLException{
+        setLibreria = FXCollections.observableSet(new HashSet<>());
+        this.conn=DriverManager.getConnection("jdbc:sqlite:"+DBPath);
+        if(!super.tableExists(conn, "libri")){
+            String sqlLibri = """
+            CREATE TABLE IF NOT EXISTS libri (
+                titolo TEXT NOT NULL,
+                autori TEXT,
+                anno TEXT,
+                copie INTEGER,
+                isbn TEXT
+            );
+        """;
+            try (Statement stmt = conn.createStatement()) {
+            stmt.execute(sqlLibri);
+            }
         }
-
-        
+        else{
+            carica();
+        }
+       
     }
 
-    public ObservableSet<Libro> getListLibreria() {
-        return listLibreria;
+    public ObservableSet<Libro> getSetLibreria() {
+        return setLibreria;
     }
     
     
@@ -47,23 +64,36 @@ public class Libreria extends GestioneSet<Libro> {
     * Nel caso in cui il libro è già presente, si andrà a modificare il numero di copie.
     * 
     * Parametro in ingresso:
-    *   @param l2 libro da aggiungere alla listLibreria.
+    *   @param l2 libro da aggiungere alla setLibreria.
     * 
     *   @return restituisce true se il libro è stato inserito. 
     *           false se invece non è stato inserito. 
     */  
-    public boolean aggiungi(Libro l2){
-        if(listLibreria.contains(l2)){
-            Iterator<Libro> it = listLibreria.iterator();
+    public boolean aggiungi(Libro l2) throws SQLException{
+        if(setLibreria.contains(l2)){
+            Iterator<Libro> it = setLibreria.iterator();
             while(it.hasNext()){
                 Libro l1 = it.next();
                 if(l2.equals(l1)){
                     l2.setNCopie(l2.getNCopie()+l1.getNCopie());
                     return modifica(l1, l2);
                 }
-            }  
+            }
+ 
         }
-        return super.aggiungi(file, listLibreria, l2);
+        
+        String sql = "INSERT INTO libri (titolo, autori, anno, copie, isbn) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, l2.getTitolo());
+            ps.setString(2, l2.getAutori());
+            ps.setString(3, l2.getAnno().toString());
+            ps.setInt(4, l2.getNCopie());
+            ps.setString(5, l2.getIsbn());
+            ps.executeUpdate();
+        }
+        setLibreria.add(l2);
+        return true;
+        
     }
     
     /**
@@ -76,8 +106,14 @@ public class Libreria extends GestioneSet<Libro> {
      *  @return restituisce true se l'eliminazione è avvenuta correttamente.
      *          false se il libro non è presente.
      */
-    public boolean elimina(Libro l){
-        return super.elimina(file, listLibreria, l);
+    public boolean elimina(Libro l) throws SQLException{
+        String sql = "DELETE FROM libri WHERE isbn = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, l.getIsbn());
+            ps.executeUpdate();
+            System.out.println("Libro eliminato: " + l.getIsbn());
+        }
+        return true;
     }
     
        /**
@@ -92,9 +128,21 @@ public class Libreria extends GestioneSet<Libro> {
      *          false se il libro non è presente.
      */
     
-    public boolean modifica(Libro l1, Libro l2){
-        return super.modifica(file, listLibreria, l1, l2);
-    }   
+    public boolean modifica(Libro l1, Libro l2) throws SQLException{
+        return elimina(l1) && aggiungi(l2);
+    }
+    
+    public void carica() throws SQLException{
+        String sql = "SELECT isbn, titolo, autori, copie FROM libri";
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            setLibreria.add(new Libro(rs.getString("titolo"),rs.getString("autori"),
+                    LocalDate.parse(rs.getString("anno")),rs.getInt("copie"),rs.getString("isbn")));
+        }
+}
+    }
     
     /**
      * @brief Restituisce una rappresentazione testuale della libreria.
@@ -102,13 +150,13 @@ public class Libreria extends GestioneSet<Libro> {
      * Ogni elemento su una nuova linea.
      * Per ogni elemento viene utilizzato il metodo toString() della classe Libro.
      * 
-     * @return Stringa che contiene tutti i libri della listLibreria.
+     * @return Stringa che contiene tutti i libri della setLibreria.
      */
     @Override
     public String toString(){
         StringBuilder builder = new StringBuilder();
         
-        for(Libro l : listLibreria){
+        for(Libro l : setLibreria){
             builder.append(l+"\n");
         }
         return builder.toString();

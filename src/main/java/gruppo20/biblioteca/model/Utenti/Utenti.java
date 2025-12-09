@@ -1,6 +1,6 @@
 package gruppo20.biblioteca.model.Utenti;
 import gruppo20.biblioteca.model.Utility.ControllerFile;
-import gruppo20.biblioteca.model.Utility.GestioneSet;
+import gruppo20.biblioteca.model.Utility.GestioneDB;
 import java.io.IOException;
 import java.util.HashSet;
 import javafx.collections.FXCollections;
@@ -11,7 +11,7 @@ import javafx.collections.ObservableSet;
  * @author Gruppo20
  */
 
-public class Utenti extends GestioneSet<Utente>{
+public class Utenti extends GestioneDB<Utente>{
     /**
      * @brief Insieme degli utenti presenti nel sistema.
      * Si utilizza un HashSet per garantire l'unicità degli utenti.

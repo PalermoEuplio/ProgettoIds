@@ -1,7 +1,7 @@
 
 package gruppo20.biblioteca.model.Prestiti;
 import gruppo20.biblioteca.model.Utility.ControllerFile;
-import gruppo20.biblioteca.model.Utility.GestioneSet;
+import gruppo20.biblioteca.model.Utility.GestioneDB;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -12,7 +12,7 @@ import javafx.collections.ObservableSet;
  * @brief Questo file contiene l'implementazione della classe Prestiti.
  * @author Gruppo20
  */
-public class Prestiti extends GestioneSet<Prestito> {
+public class Prestiti extends GestioneDB<Prestito> {
     /**
      * @brief Numero massimo di prestiti attivi che un utente può avere contemporaneamente.
      */

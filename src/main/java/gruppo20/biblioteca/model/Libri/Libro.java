@@ -2,6 +2,8 @@ package gruppo20.biblioteca.model.Libri;
 import gruppo20.biblioteca.model.Utility.FileFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @brief Questo file contiene l'implementazione della classe Libro.
@@ -67,8 +69,8 @@ public class Libro implements FileFormat<Libro>{
         return titolo;
     }
 
-    public ArrayList<Autore> getAutori() {
-        return autori;
+    public String getAutori() {
+        return String.join(",", autori.stream().map(Autore::toString).toList());
     }
 
     public LocalDate getAnno() {
@@ -82,6 +84,22 @@ public class Libro implements FileFormat<Libro>{
     public String getIsbn() {
         return isbn;
     }
+    
+    
+    public Map<String, Object> toColumnMap(){
+        Map<String, Object> map = new HashMap<>();
+        map.put("titolo", titolo);
+        
+        map.put("autori", String.join(",", autori.stream().map(Autore::toString).toList()));
+        map.put("anno", annoPublicazione);
+        map.put("copie", nCopie);
+        map.put("isbn", isbn);
+        return map;
+    }
+    
+    public Object getPrimaryKey() {
+    return isbn;
+}
     
     /**
      * @brief Converte il libro in una stringa formattata per la memorizzazione sul file.
@@ -130,7 +148,7 @@ public class Libro implements FileFormat<Libro>{
         
         Libro l = (Libro) o;
         
-        return this.titolo.equals(l.getTitolo()) && this.annoPublicazione.equals(l.getAnno()) && this.isbn.equals(l.getIsbn()) && this.autori.equals(l.getAutori());
+        return  this.isbn.equals(l.getIsbn());
     }
     
     @Override

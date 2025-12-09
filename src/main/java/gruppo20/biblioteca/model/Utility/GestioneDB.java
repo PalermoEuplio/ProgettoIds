@@ -1,16 +1,17 @@
 
 package gruppo20.biblioteca.model.Utility;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Observable;
-import javafx.collections.ObservableSet;
 
 /**
  * @brief Questo file contiene l'implementazione della superclasse GestioneSet.
  * @author Gruppo20
  */
-public class GestioneSet<T extends FileFormat> {
+public abstract class GestioneDB<T extends FileFormat> {
     
     /**
      * @brief Aggiungi oggetto.
@@ -25,16 +26,7 @@ public class GestioneSet<T extends FileFormat> {
      *  @return restituisce true se l'aggiunta è avvenuta correttamente.
      *          false se l'oggetto è già contenuto.
      */
-    public boolean aggiungi(ControllerFile<T> file,ObservableSet<T> set,T o2){
-        if(set.contains(o2)) return false;
-
-        try {
-            file.aggiungi(o2);
-        } catch (IOException ex) {
-            System.out.println("Errore IO aggiunta "+o2);
-        }
-        return set.add(o2);
-    }
+    public abstract boolean aggiungi(T o) throws SQLException;
     
     /**
      * @brief Elimina oggetto.
@@ -48,17 +40,8 @@ public class GestioneSet<T extends FileFormat> {
      *  @return restituisce true se l'eliminazione è avvenuta correttamente.
      *          false se l'oggetto non è già contenuto.
      */
-    public boolean elimina(ControllerFile<T> file,ObservableSet<T> set,T o){
-        if (set.remove(o)) {
-            try {
-                file.elimina(o);
-            } catch (IOException ex) {
-                System.out.println("Errore IO elimina "+o);
-            }
-            return true;
-        }
-        return false;
-    }
+    public abstract boolean elimina(T o) throws SQLException;
+    
     /**
      * @brief Modifica oggetto.
      * Se l'oggetto è presente lo elimina.
@@ -72,18 +55,21 @@ public class GestioneSet<T extends FileFormat> {
      *  @return restituisce true se la modifica è avvenuta correttamente.
      *          false se l'oggetto non è già contenuto.
      */
-    public boolean modifica(ControllerFile<T> file,ObservableSet<T> set,T o1, T o2){
-        if(set.contains(o1)){
-            try {
-                file.modifica(o1, o2);
-            } catch (IOException ex) {
-                System.out.println("Errore IO modifica "+ o1);
-            }
-            set.remove(o1);
-            return set.add(o2);
+    public abstract boolean modifica(T o1,T o2) throws SQLException;
+    
+    public abstract void carica() throws SQLException;
+    
+    
+    public boolean tableExists(Connection conn, String tableName) throws SQLException {
+    String sql = "SELECT name FROM sqlite_master WHERE type='table' AND name=?";
+
+    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setString(1, tableName);
+        try (ResultSet rs = ps.executeQuery()) {
+            return rs.next(); // se rs.next() è true, la tabella esiste
         }
-        return false;
     }
+}
     
     
     

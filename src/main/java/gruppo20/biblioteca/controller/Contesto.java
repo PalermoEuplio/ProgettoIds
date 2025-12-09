@@ -11,7 +11,6 @@ import java.io.File;
  */
 //Classe contesto del programma, contiene tutti i dati per non avere un overhead inutile
 public class Contesto {
-    private final String filePath = "/data/";
     private Libreria gestLibreria;
     private Prestiti gestPrestiti;
     private Utenti gestUtenti;
@@ -40,9 +39,9 @@ public class Contesto {
         }
         
         
-        this.gestLibreria = new Libreria(Dir.getAbsolutePath()+"/Libreria.txt");
-        this.gestPrestiti = new Prestiti(Dir.getAbsolutePath()+"/Prestiti.txt");
-        this.gestUtenti = new Utenti(Dir.getAbsolutePath()+"/Utenti.txt");
+        this.gestLibreria = new Libreria(Dir.getAbsolutePath()+"/Biblioteca.db");
+        this.gestPrestiti = new Prestiti(Dir.getAbsolutePath()+"/Biblioteca.db");
+        this.gestUtenti = new Utenti(Dir.getAbsolutePath()+"/Biblioteca.db");
     }
 
     public Libreria getGestLibreria() {
