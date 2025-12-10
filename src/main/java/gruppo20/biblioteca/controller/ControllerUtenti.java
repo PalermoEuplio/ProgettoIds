@@ -1,29 +1,26 @@
 package gruppo20.biblioteca.controller;
 
-import gruppo20.biblioteca.model.Utenti.Utente;
+import gruppo20.biblioteca.model.Utenti.*;
 import javafx.scene.control.Dialog;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.*;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.*;
 import javafx.scene.control.DialogPane;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.fxml.Initializable;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.util.converter.NumberStringConverter;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 
 
@@ -31,12 +28,71 @@ import javafx.util.converter.NumberStringConverter;
  *
  * @author Osv
  */
-public class ControllerUtenti extends Dialog<Utente> {
+public class ControllerUtenti implements Initializable{
     
-    private Contesto co;
+    private Contesto co =new Contesto();
+    @FXML private TableView<Utente> tabellaUtenti;
+    @FXML private TextField nomeUtente;
+    @FXML private TextField cognomeUtente;
+    @FXML private TextField matricola;
+    @FXML private TextField email;
+    
+    
+    @FXML private TableColumn<Utente, String> nome;
+    @FXML private TableColumn<Utente, String> cognome;
+    @FXML private TableColumn<Utente, String> matricola0;
+    @FXML private TableColumn<Utente, String> mail;
+    @FXML private TableColumn<Utente, Integer> nPrestiti;
+    
+    
+    private ControllerUtenti controllerGenitore;
+    private ObservableList<Utente> listaPerTabella;
     
     public void setContesto(Contesto co){
         this.co = co;
+    }
+    
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        
+        
+        String nomeFile = location.getFile();
+        
+        if(nomeFile.endsWith("pageUtenti.fxml")){
+            
+            Utenti u = co.getGestUtenti();
+            ObservableSet<Utente> setUtenti = u.getSetUtenti();
+            tabellaUtenti.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+            
+            
+            if(nome != null) { // Controllo null per evitare errori in altre view che usano questo controller
+            nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+            cognome.setCellValueFactory(new PropertyValueFactory<>("cognome"));
+            matricola0.setCellValueFactory(new PropertyValueFactory<>("matricola"));
+            mail.setCellValueFactory(new PropertyValueFactory<>("mail")); // getter: getMail()
+            nPrestiti.setCellValueFactory(new PropertyValueFactory<>("nPrestiti")); 
+        }
+            
+            
+            
+            listaPerTabella = FXCollections.observableArrayList(setUtenti);
+            
+
+            
+            setUtenti.addListener((SetChangeListener<Utente>) change -> {
+                    if (change.wasAdded()) {
+                        listaPerTabella.add(change.getElementAdded());
+                    }
+                    if (change.wasRemoved()) {
+                        listaPerTabella.remove(change.getElementRemoved());
+                    }
+                });
+            
+            tabellaUtenti.setItems(listaPerTabella);
+            
+        }
+        else if(nomeFile.endsWith("aggiuntaUtente.fxml")){
+        }
     }
     
     @FXML
@@ -86,21 +142,20 @@ public class ControllerUtenti extends Dialog<Utente> {
     
     
     
-    @FXML private TextField nomeUtente;
-    @FXML private TextField cognomeUtente;
-    @FXML private TextField matricola;
-    @FXML private TextField email;
+    
     public void aggiuntaUtente(MouseEvent event) throws IOException{
         
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/aggiuntaUtente.fxml"));
         DialogPane root = loader.load();
     
         ControllerUtenti controllerDialog = loader.getController();
+        controllerDialog.setGenitore(this);
 
         Dialog<ButtonType> a = new Dialog<>();
         a.setDialogPane(root);
         a.setTitle("Inserire nuovo Utente");
 
+        //Handler della pagina in sovrapposizione
         a.setOnShown(e -> {
 
                 TextField nomeUtente = controllerDialog.nomeUtente;
@@ -113,8 +168,53 @@ public class ControllerUtenti extends Dialog<Utente> {
                 matricola.disableProperty().bind(cognomeUtente.textProperty().isEmpty());
                 email.disableProperty().bind(matricola.textProperty().isEmpty());
                 a.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(email.textProperty().isEmpty());
+                
+                a.setResultConverter(dialogButton -> {
+                     if (dialogButton == ButtonType.OK) {
+                            controllerDialog.azioneConferma(); 
+                        return dialogButton;
+                    }
+                    return null;
+                });
 
     });
-            a.showAndWait();
+            
+        java.util.Optional<ButtonType> result = a.showAndWait();
+        
+        // Se l'utente ha premuto OK ed è tornato indietro
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // Forziamo l'aggiornamento della lista della tabella prendendo i dati freschi dal Set
+            if (listaPerTabella != null && co != null) {
+                // Svuota e riempi di nuovo la lista con i dati aggiornati del Set
+                listaPerTabella.setAll(co.getGestUtenti().getSetUtenti());
+                
+                // (Opzionale) Se vuoi essere sicuro che la grafica si ridisegni:
+                tabellaUtenti.refresh(); 
+            }
+        }
+        
+        
+        
+        
+        
+    }
+    
+    public void setGenitore(ControllerUtenti genitore) {
+        this.controllerGenitore = genitore;
+    }
+    
+    @FXML
+    public void azioneConferma() {
+        if (controllerGenitore != null) {
+            // 1. Prendiamo il testo dall'input della Pagina 2
+            String nome = nomeUtente.getText();
+            String cognome = cognomeUtente.getText();
+            String matricola = this.matricola.getText();
+            String mail = email.getText();
+           
+            Utenti u1 = co.getGestUtenti();
+            u1.aggiungi(new Utente(nome,cognome,matricola,mail,0));
+            
+        }
     }
 }

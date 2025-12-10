@@ -45,6 +45,9 @@ and open the template in the editor.
 .table{
     -fx-background-radius: 20px;
     -fx-effect: dropshadow(three-pass-box, #000000, 10, 0, 1, 1);
+    -fx-border-collapse:separate;
+    -fx-border-style:solid;
+    -fx-border-radius:20px;
 }
 
 .barraRicerca{

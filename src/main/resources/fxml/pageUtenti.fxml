@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<BorderPane id="AnchorPane" fx:id="bp" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="800.0" prefWidth="1100.0" styleClass="parent" stylesheets="@StyleSheets.css" xmlns="http://javafx.com/javafx/23.0.5" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gruppo20.biblioteca.controller.ControllerUtenti">
+<BorderPane id="AnchorPane" fx:id="bp" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="800.0" prefWidth="1100.0" styleClass="parent" stylesheets="@StyleSheets.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gruppo20.biblioteca.controller.ControllerUtenti">
    <left>
       <AnchorPane prefHeight="800.0" prefWidth="375.0" styleClass="side" BorderPane.alignment="CENTER">
          <children>
@@ -96,14 +96,13 @@
    <center>
       <AnchorPane fx:id="utenti" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#pageUtenti" prefHeight="800.0" prefWidth="771.0" stylesheets="@StyleSheets.css" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="tabellaUtenti" layoutX="20.0" layoutY="234.0" prefHeight="388.0" prefWidth="674.0" styleClass="table" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="259.0">
+            <TableView fx:id="tabellaUtenti" layoutX="20.0" layoutY="260.0" prefHeight="388.0" prefWidth="674.0" styleClass="table" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="260.0">
               <columns>
-                <TableColumn editable="false" maxWidth="1.7976931348623157E308" prefWidth="97.0" text="Nome" />
-                <TableColumn editable="false" prefWidth="119.0" text="Cognome" />
-                  <TableColumn editable="false" prefWidth="114.0" text="Matricola" />
-                  <TableColumn editable="false" prefWidth="142.0" sortable="false" text="Email" />
-                  <TableColumn editable="false" prefWidth="139.0" sortable="false" text="Prestiti Attivi" />
-                  <TableColumn editable="false" prefWidth="118.0" resizable="false" sortable="false" text="Operazioni" />
+                <TableColumn fx:id="nome" editable="false" maxWidth="1.7976931348623157E308" prefWidth="97.0" text="Nome" />
+                <TableColumn fx:id="cognome" editable="false" prefWidth="119.0" text="Cognome" />
+                  <TableColumn fx:id="matricola0" editable="false" prefWidth="114.0" text="Matricola" />
+                  <TableColumn fx:id="mail" editable="false" prefWidth="142.0" sortable="false" text="Email" />
+                  <TableColumn fx:id="nPrestiti" editable="false" prefWidth="139.0" sortable="false" text="Prestiti Attivi" />
               </columns>
             </TableView>
             <TextField fx:id="barraCercaUtenti" layoutX="20.0" layoutY="190.0" prefHeight="32.0" prefWidth="519.0" promptText="Ricerca per Cognome o Matricola.." styleClass="barraRicerca" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="232.0" AnchorPane.topAnchor="215.0" />

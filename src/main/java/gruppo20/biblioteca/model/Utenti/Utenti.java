@@ -68,13 +68,13 @@ public class Utenti extends GestioneDB<Utente>{
            false se invece non è stato inserito o è già presente in setUtenti. 
     */  
     public boolean aggiungi(Utente u){
-        String sql = "INSERT INTO utenti (nome, cognome, matricola, emial, prestiti) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO utenti (nome, cognome, matricola, email, prestiti) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, u.getNome());
             ps.setString(2, u.getCognome());
             ps.setString(3, u.getMatricola());
-            ps.setString(4, u.geteMail());
-            ps.setInt(5, u.getnPrestiti());
+            ps.setString(4, u.getMail());
+            ps.setInt(5, u.getNPrestiti());
             ps.executeUpdate();
         }
         catch(SQLException e){return false;}
@@ -149,7 +149,7 @@ public class Utenti extends GestioneDB<Utente>{
             u1 = it.next();
             if(matricola.equals(u1.getMatricola())){
 
-                try {return modifica(u1, new Utente(u1.getNome(),u1.getCognome(),matricola,u1.geteMail(),u1.getnPrestiti()-1));}
+                try {return modifica(u1, new Utente(u1.getNome(),u1.getCognome(),matricola,u1.getMail(),u1.getNPrestiti()-1));}
                 catch(SQLException e){return false;}
             }
         }
@@ -163,7 +163,7 @@ public class Utenti extends GestioneDB<Utente>{
             u1 = it.next();
             if(matricola.equals(u1.getMatricola())){
 
-                try {return modifica(u1, new Utente(u1.getNome(),u1.getCognome(),matricola,u1.geteMail(),u1.getnPrestiti()+1));}
+                try {return modifica(u1, new Utente(u1.getNome(),u1.getCognome(),matricola,u1.getMail(),u1.getNPrestiti()+1));}
                 catch(SQLException e){return false;}
             }
         }

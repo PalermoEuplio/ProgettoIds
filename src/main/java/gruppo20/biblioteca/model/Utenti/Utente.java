@@ -10,22 +10,22 @@ public class Utente{
     private String nome; ///< Nome dell'utente.
     private String cognome; ///< Cognome dell'utente.
     private String matricola; ///< Matricola dell'utente.
-    private String eMail; ///< E-mail istituzionale dell'utente.
+    private String mail; ///< E-mail istituzionale dell'utente.
     private int nPrestiti; ///< Numero dei prestiti attivi dell'utente.
 
-    public Utente(String nome, String cognome, String matricola, String eMail, int nPrestiti) {
+    public Utente(String nome, String cognome, String matricola, String mail, int nPrestiti) {
         this.nome = nome;
         this.cognome = cognome;
         this.matricola = matricola;
-        this.eMail = eMail;
+        this.mail = mail;
         this.nPrestiti = nPrestiti;
     }
 
-    public void setnPrestiti(int nPrestiti) {
+    public void setNPrestiti(int nPrestiti) {
         this.nPrestiti = nPrestiti;
     }
 
-    public int getnPrestiti() {
+    public int getNPrestiti() {
         return nPrestiti;
     }
 
@@ -41,8 +41,8 @@ public class Utente{
         this.matricola = matricola;
     }
 
-    public void seteMail(String email) {
-        this.eMail = email;
+    public void seteMail(String mail) {
+        this.mail = mail;
     }
 
     public String getNome() {
@@ -57,8 +57,8 @@ public class Utente{
         return matricola;
     }
 
-    public String geteMail() {
-        return eMail;
+    public String getMail() {
+        return mail;
     } 
     
     @Override

@@ -21,7 +21,7 @@ public abstract class GestioneDB<T> {
      * Parametro in ingresso:
      *  @param file controller del file in cui aggiungere l'oggetto.
      *  @param set HashSet in cui aggiungere l'oggetto.
-     *  @param o2 oggetto da aggiungere.
+     *  @param o oggetto da aggiungere.
      * 
      *  @return restituisce true se l'aggiunta è avvenuta correttamente.
      *          false se l'oggetto è già contenuto.
