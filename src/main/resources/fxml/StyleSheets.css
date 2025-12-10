@@ -42,13 +42,38 @@ and open the template in the editor.
     -fx-border-radius:20px;
 }
 
-.table{
-    -fx-background-radius: 20px;
+.table {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
     -fx-effect: dropshadow(three-pass-box, #000000, 10, 0, 1, 1);
-    -fx-border-collapse:separate;
-    -fx-border-style:solid;
-    -fx-border-radius:20px;
 }
+
+.table .column-header-background {
+    -fx-background-radius: 20 20 0 0;
+    -fx-background-insets: 0;
+}
+
+.table .column-header, 
+.table .filler {
+    -fx-background-color: transparent;
+}
+
+.table .corner {
+    -fx-background-color: transparent;
+}
+.table .table-row-cell {
+    -fx-background-color: transparent;
+}
+
+.table .table-cell {
+    -fx-background-color: transparent;
+}
+.table .filler {
+    -fx-background-color: transparent;
+}
+
 
 .barraRicerca{
     -fx-background-radius: 20px;

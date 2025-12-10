@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.ButtonType?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.DialogPane?>
@@ -32,7 +33,10 @@
                         <Font name="System Bold" size="22.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="nomeUtente" blendMode="DARKEN" prefHeight="25.0" prefWidth="163.0" promptText="Inserire Nome Utente.." styleClass="campiComparsa" GridPane.columnIndex="1" />
+                  <TextField fx:id="nomeUtente" blendMode="DARKEN" prefHeight="25.0" prefWidth="163.0" promptText="Inserire Nome Utente.." styleClass="campiComparsa" GridPane.columnIndex="1">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor></TextField>
                   <Label alignment="CENTER" layoutX="10.0" layoutY="22.0" prefHeight="77.0" prefWidth="240.0" text="ISBN Libro:" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="22.0" />
@@ -48,9 +52,18 @@
                         <Font name="System Bold" size="22.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="isbn" blendMode="DARKEN" promptText="Inserire L'ISBN del Libro.." styleClass="campiComparsa" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <DatePicker fx:id="annoP" blendMode="DARKEN" prefHeight="25.0" prefWidth="329.0" showWeekNumbers="false" styleClass="campiComparsa" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <DatePicker fx:id="annoR" blendMode="DARKEN" prefHeight="25.0" prefWidth="329.0" showWeekNumbers="false" styleClass="campiComparsa" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="isbn" blendMode="DARKEN" promptText="Inserire L'ISBN del Libro.." styleClass="campiComparsa" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor></TextField>
+                  <DatePicker fx:id="annoP" blendMode="DARKEN" prefHeight="25.0" prefWidth="329.0" showWeekNumbers="false" styleClass="campiComparsa" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></DatePicker>
+                  <DatePicker fx:id="annoR" blendMode="DARKEN" prefHeight="25.0" prefWidth="329.0" showWeekNumbers="false" styleClass="campiComparsa" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></DatePicker>
                </children>
             </GridPane>
          </children>
