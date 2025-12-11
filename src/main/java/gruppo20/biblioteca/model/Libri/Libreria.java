@@ -154,7 +154,7 @@ public class Libreria extends GestioneDB<Libro> {
     
     @Override
     public void carica() throws SQLException{
-        String sql = "SELECT titolo, aurtori, anno, copie, isbn FROM libri";
+        String sql = "SELECT isbn, titolo, autori, copie FROM libri";
         try (PreparedStatement ps = conn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery()) {
 
