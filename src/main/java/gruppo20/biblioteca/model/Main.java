@@ -16,7 +16,7 @@ import javafx.fxml.FXMLLoader;
 
 public class Main extends Application {
     
-    private Contesto co = new Contesto();
+    protected static Contesto co = new Contesto();
     
     @Override
     public void start(Stage stage) throws Exception {

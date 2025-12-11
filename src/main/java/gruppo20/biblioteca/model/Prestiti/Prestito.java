@@ -96,6 +96,8 @@ public class Prestito {
      * ritardo.
      *
      * @return numero di giorni di ritardo. 0 se non in ritardo.
+     * Se è restituito restituisce il numero di giorni di ritardo
+     * tra la data di 
      */
     public int calcRitardo() {
         if (!isRitardo()) {
