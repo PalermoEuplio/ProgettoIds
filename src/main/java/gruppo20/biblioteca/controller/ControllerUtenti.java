@@ -1,5 +1,6 @@
 package gruppo20.biblioteca.controller;
 
+import gruppo20.biblioteca.model.Main;
 import gruppo20.biblioteca.model.Utenti.*;
 import javafx.scene.control.Dialog;
 import java.io.IOException;
@@ -64,14 +65,13 @@ public class ControllerUtenti implements Initializable {
     private ControllerUtenti controllerGenitore;
     private ObservableList<Utente> listaPerTabella;
 
-    public void setContesto(Contesto co) {
-        this.co = co;
-    }
+
 
     //Inizializzo la pagina
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        this.co = Main.getContesto();
+        System.out.println("Contesto in Utentio: "+co);
         String nomeFile = location.getFile();
 
         //Verifico di essere nella pagina Principale
