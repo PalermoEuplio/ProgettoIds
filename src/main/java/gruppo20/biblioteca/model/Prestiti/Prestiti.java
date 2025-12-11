@@ -53,11 +53,11 @@ public class Prestiti extends GestioneDB<Prestito> {
             String sqlPrestiti = """
             CREATE TABLE IF NOT EXISTS prestiti (
                 dataPrestito TEXT,
-                restituzione TEXT,
+                dataPrevistaRestituzione TEXT,
+                effettivaRestituzione TEXT,
                 titoloLibro TEXT,
                 isbn TEXT,
-                matricola TEXT,     
-                periodoPrestito INTEGER
+                matricola TEXT
 
             );
         """;
@@ -94,7 +94,7 @@ public class Prestiti extends GestioneDB<Prestito> {
             while (it.hasNext()) {
                 Prestito pAp = it.next(); //variabile di appoggio
                 if (p.equals(pAp)) {
-                    p.setRestituzione(dataRestituzione);
+                    p.setEffettivaRestituzione(dataRestituzione);
                     gestLibreria.addRestituzione(p.getIsbn());
                     gestUtenti.addRestituzione(p.getMatricola());
                     try {
@@ -121,14 +121,14 @@ public class Prestiti extends GestioneDB<Prestito> {
      */
     @Override
     public boolean aggiungi(Prestito p) {
-        String sql = "INSERT INTO prestiti (dataPrestito, restituzione, titoloLibro, isbn, matricola, periodoPrestito) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO prestiti (dataPrestito, dataPrevistaRestituzione, effettivaRestituzione, titoloLibro, isbn, matricola) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, p.getDataPrestito().toString());
-            ps.setString(2, p.getRestituzione());
-            ps.setString(3, p.getTitoloLibro());
-            ps.setString(4, p.getIsbn());
-            ps.setString(5, p.getMatricola());
-            ps.setInt(6, p.getPeriodoPrestito());
+            ps.setString(2, p.getDataPrevistaRestituzione().toString());
+            ps.setString(3, p.getEffettivaRestituzione());
+            ps.setString(4, p.getTitoloLibro());
+            ps.setString(5, p.getIsbn());
+            ps.setString(6, p.getMatricola());
             ps.executeUpdate();
         } catch (SQLException e) {
             return false;
@@ -208,11 +208,11 @@ public class Prestiti extends GestioneDB<Prestito> {
      */
     @Override
     public final void carica() throws SQLException {
-        String sql = "SELECT dataPrestito, restituzione, titoloLibro, isbn, matricola, periodoPrestito FROM prestiti";
+        String sql = "SELECT dataPrestito, dataPrevistaRestituzione, effettivaRestituzione, titoloLibro, isbn, matricola, periodoPrestito FROM prestiti";
         try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                setPrestiti.add(new Prestito(LocalDate.parse(rs.getString("dataPrestito")), rs.getString("restituzione"), rs.getString("titoloLibro"), rs.getString("isbn"), rs.getString("matricola"), rs.getInt("periodoPrestito")));
+                setPrestiti.add(new Prestito(LocalDate.parse(rs.getString("dataPrestito")),LocalDate.parse(rs.getString("dataPrevistaPrestito")), rs.getString("effettivaRestituzione"), rs.getString("titoloLibro"), rs.getString("isbn"), rs.getString("matricola")));
             }
         }
     }

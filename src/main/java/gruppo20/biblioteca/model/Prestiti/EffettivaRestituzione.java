@@ -6,7 +6,7 @@ import java.time.LocalDate;
  * @brief Questo file contiene l'implementazione della classe Restituzione.
  * @author Gruppo20
  */
-public class Restituzione {
+public class EffettivaRestituzione {
 
     /**
      * @brief Indica se il libro è stato restituito. Valore booleano che assume
@@ -18,7 +18,7 @@ public class Restituzione {
      * Viene impostata quando il libro è stato restituito.
      * Se ancora non avviene la restituzione il valore del campo è null.
      */
-    private LocalDate dataRestituzione;
+    private LocalDate dataEffettivaRestituzione;
 
     /**
      * @brief Costruttore dell'oggetto restituzione.
@@ -26,12 +26,13 @@ public class Restituzione {
      * @param s stringa che indica la data effettiva di restituzione. 
      * Se s è false il libro non è stato restituito.
      */
-    public Restituzione(String s) {
+    public EffettivaRestituzione(String s) {
         if (s.equals("false")) {
-            dataRestituzione = null;
-        } else {
+            dataEffettivaRestituzione = null;
+        } 
+        else {
             restituito = true;
-            dataRestituzione = LocalDate.parse(s);
+            dataEffettivaRestituzione = LocalDate.parse(s);
         }
     }
 
@@ -41,9 +42,9 @@ public class Restituzione {
      *
      * @param dataRestituzione data effettiva della restituzione.
      */
-    public void setRestituzione(LocalDate dataRestituzione) {
+    public void setEffettivaRestituzione(LocalDate dataRestituzione) {
         restituito = true;
-        this.dataRestituzione = dataRestituzione;
+        this.dataEffettivaRestituzione = dataRestituzione;
     }
 
     /**
@@ -59,9 +60,9 @@ public class Restituzione {
      * @return Resrtituisce la data di restituzione. La stringa false se non è
      * stato restituito
      */
-    public String getRestituzione() {
+    public String getEffettivaRestituzione() {
         if (restituito) {
-            return dataRestituzione.toString();
+            return dataEffettivaRestituzione.toString();
         } else {
             return "false";
         }

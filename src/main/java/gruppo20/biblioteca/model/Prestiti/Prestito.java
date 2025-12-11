@@ -15,16 +15,15 @@ public class Prestito {
     private final LocalDate dataPrestito;
 
     /**
-     * @brief Durata del prestito. Indica per quanto tempo il prestito non è in
-     * ritardo.
-     */
-    private final int periodoPrestito;
+     * @brief Data di prevista restituzione.
+     */    
+    private final LocalDate dataPrevistaRestituzione;
 
     /**
      * @brief Oggetto che rappresenta lo stato della restituzione del prestito.
      * Informazioni sulla data di restituzione, se è già avvenuta o meno.
      */
-    private final Restituzione restituzione;
+    private final EffettivaRestituzione effettivaRestituzione;
 
     /**
      * @brief Isbn del libro oggetto del prestito. Ogni prestito è associato ad
@@ -44,30 +43,30 @@ public class Prestito {
      */
     private final String matricola;
 
-    public Prestito(LocalDate dataPrestito, String restituzione, String titoloLibro, String isbn, String matricola, int periodoPrestito) {
-        this.restituzione = new Restituzione(restituzione);
+    public Prestito(LocalDate dataPrestito, LocalDate dataPrevistaRestituzione, String effettivaRestituzione, String titoloLibro, String isbn, String matricola) {
+        this.effettivaRestituzione = new EffettivaRestituzione(effettivaRestituzione);
         this.dataPrestito = dataPrestito;
+        this.dataPrevistaRestituzione = dataPrevistaRestituzione;
         this.titoloLibro = titoloLibro;
         this.isbn = isbn;
         this.matricola = matricola;
-        this.periodoPrestito = periodoPrestito;
     }
 
-    //set per inserire la data di restituzione effettiva
-    public void setRestituzione(LocalDate dataRestituzione) {
-        restituzione.setRestituzione(dataRestituzione);
+    //set per inserire la data di effettiva EffettivaRestituzione
+    public void setEffettivaRestituzione(LocalDate dataRestituzione) {
+        effettivaRestituzione.setEffettivaRestituzione(dataRestituzione);
     }
 
+    public LocalDate getDataPrevistaRestituzione() {
+        return dataPrevistaRestituzione;
+    }
+    
     public LocalDate getDataPrestito() {
         return dataPrestito;
     }
 
-    public int getPeriodoPrestito() {
-        return periodoPrestito;
-    }
-
-    public String getRestituzione() {
-        return restituzione.getRestituzione();
+    public String getEffettivaRestituzione() {
+        return effettivaRestituzione.getEffettivaRestituzione();
 
     }
 
@@ -89,7 +88,7 @@ public class Prestito {
      * @return true se è in ritardo. false altrimenti.
      */
     public boolean isRitardo() {
-        return dataPrestito.plusDays(periodoPrestito).isBefore(LocalDate.now());
+        return dataPrevistaRestituzione.isBefore(LocalDate.now());
     }
 
     /**
@@ -102,7 +101,8 @@ public class Prestito {
         if (!isRitardo()) {
             return 0;
         }
-        return (int) ChronoUnit.DAYS.between(dataPrestito.plusDays(periodoPrestito), LocalDate.now());
+        if(effettivaRestituzione.isRestituito()) return (int) ChronoUnit.DAYS.between(dataPrevistaRestituzione, LocalDate.parse(effettivaRestituzione.getEffettivaRestituzione()));
+        return (int) ChronoUnit.DAYS.between(dataPrevistaRestituzione, LocalDate.now());
     }
 
     /**
