@@ -2,6 +2,7 @@ package gruppo20.biblioteca.controller;
 
 import gruppo20.biblioteca.model.Libri.Libro;
 import gruppo20.biblioteca.model.Libri.Libreria;
+import gruppo20.biblioteca.model.Main;
 import javafx.scene.control.Dialog;
 import java.io.IOException;
 import java.net.URL;
@@ -35,7 +36,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
  */
 public class ControllerLibreria implements Initializable{
     
-    private Contesto co=new Contesto();
+    private Contesto co;
     
     @FXML private TableView<Libro> tabellaLibri;
     
@@ -64,15 +65,11 @@ public class ControllerLibreria implements Initializable{
     private ControllerLibreria controllerGenitore;
     private ObservableList<Libro> listaPerTabella;
     
-    public void setContesto(Contesto co){
-        this.co = co;
-    }
-    
-    
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+        this.co = Main.getContesto();
+        System.out.println("Contesto in Libreria: "+ co);
         String nomeFile = location.getFile();
         
         //Verifico di essere nella pagina Principale
@@ -218,7 +215,7 @@ public class ControllerLibreria implements Initializable{
                     Parent root = loader.load();
                     
                     ControllerUtenti controller =  loader.getController();
-                    controller.setContesto(co);
+                    //controller.setContesto(co);
                     Stage stage = (Stage)((Node)elimina).getScene().getWindow();
                     Scene scene = new Scene(root);
                     stage.setScene(scene);
@@ -383,7 +380,7 @@ public class ControllerLibreria implements Initializable{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pageUtenti.fxml"));
         Parent root = loader.load();
         ControllerUtenti controller = loader.getController();
-        controller.setContesto(co);
+        //controller.setContesto(co);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
         stage.setScene(scene);

@@ -32,6 +32,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
  */
 public class ControllerUtenti implements Initializable {
 
+    private Contesto co;
     
     @FXML
     private TableView<Utente> tabellaUtenti;
@@ -71,7 +72,7 @@ public class ControllerUtenti implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.co = Main.getContesto();
-        System.out.println("Contesto in Utentio: "+co);
+        System.out.println("Contesto in Utenti: "+ co);
         String nomeFile = location.getFile();
 
         //Verifico di essere nella pagina Principale
@@ -201,7 +202,7 @@ public class ControllerUtenti implements Initializable {
                             Parent root = loader.load();
 
                             ControllerUtenti controller = loader.getController();
-                            controller.setContesto(co);
+                            //controller.setContesto(co);
                             Stage stage = (Stage) ((Node) elimina).getScene().getWindow();
                             Scene scene = new Scene(root);
                             stage.setScene(scene);
@@ -317,7 +318,7 @@ public class ControllerUtenti implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pageLibreria.fxml"));
         Parent root = loader.load();
         ControllerLibreria controller = loader.getController();
-        controller.setContesto(co);
+        //controller.setContesto(co);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
         stage.setScene(scene);

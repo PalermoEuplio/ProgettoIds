@@ -208,11 +208,11 @@ public class Prestiti extends GestioneDB<Prestito> {
      */
     @Override
     public final void carica() throws SQLException {
-        String sql = "SELECT dataPrestito, dataPrevistaRestituzione, effettivaRestituzione, titoloLibro, isbn, matricola, periodoPrestito FROM prestiti";
+        String sql = "SELECT dataPrestito, dataPrevistaRestituzione, effettivaRestituzione, titoloLibro, isbn, matricola FROM prestiti";
         try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                setPrestiti.add(new Prestito(LocalDate.parse(rs.getString("dataPrestito")),LocalDate.parse(rs.getString("dataPrevistaPrestito")), rs.getString("effettivaRestituzione"), rs.getString("titoloLibro"), rs.getString("isbn"), rs.getString("matricola")));
+                setPrestiti.add(new Prestito(LocalDate.parse(rs.getString("dataPrestito")),LocalDate.parse(rs.getString("dataPrevistaRestituzione")), rs.getString("effettivaRestituzione"), rs.getString("titoloLibro"), rs.getString("isbn"), rs.getString("matricola")));
             }
         }
     }
