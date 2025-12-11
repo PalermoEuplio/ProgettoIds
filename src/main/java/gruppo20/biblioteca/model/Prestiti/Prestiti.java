@@ -88,7 +88,7 @@ public class Prestiti extends GestioneDB<Prestito>{
                 if(p.equals(pAp)){
                     p.setRestituzione(dataRestituzione);
                     gestLibreria.setRestituzione(p.getIsbn());
-                    gestUtenti.setRestituzione(p.getMatricola());
+                    gestUtenti.addRestituzione(p.getMatricola());
                     try{return modifica(pAp, p);}
                     catch(SQLException e) {return false;}
                 }
@@ -152,7 +152,7 @@ public class Prestiti extends GestioneDB<Prestito>{
         catch(SQLException e){return false;}
         setPrestiti.remove(p);
         gestLibreria.setRestituzione(p.getIsbn());
-        gestUtenti.setRestituzione(p.getMatricola());
+        gestUtenti.addRestituzione(p.getMatricola());
         return true;
         
     }
@@ -185,7 +185,7 @@ public class Prestiti extends GestioneDB<Prestito>{
             gestLibreria.addPrestito(p2.getIsbn());
         }
         if(!p1.getMatricola().equals(p2.getMatricola())){
-            gestUtenti.setRestituzione(p1.getMatricola());
+            gestUtenti.addRestituzione(p1.getMatricola());
             gestUtenti.addPrestito(p2.getMatricola());
         }
         return status;

@@ -20,14 +20,14 @@ import javafx.collections.ObservableSet;
 public class Utenti extends GestioneDB<Utente>{
     /**
      * @brief Insieme degli utenti presenti nel sistema.
-     * Si utilizza un HashSet per garantire l'unicità degli utenti.
+     * Si utilizza un ObservableSet per garantire l'unicità degli utenti e l'osservabilità dei cambiamenti.
      */
-    private ObservableSet<Utente> setUtenti;
+    private final ObservableSet<Utente> setUtenti;
     
     /**
      * @brief Connessione per la gestione del database locale.
      */
-    private Connection conn;
+    private final Connection conn;
     
     public Utenti(String DBPath) throws SQLException{
         this.setUtenti = FXCollections.observableSet(new HashSet<>());
@@ -51,7 +51,10 @@ public class Utenti extends GestioneDB<Utente>{
             carica();
         }
     }
-
+    
+    /**
+     * @return Restituisce l'ObservableSet relativo alla classe utenti.
+     */
     public ObservableSet<Utente> getSetUtenti() {
         return setUtenti;
     }
@@ -61,12 +64,12 @@ public class Utenti extends GestioneDB<Utente>{
     /**
     *Aggiunge un utente all'anagrafica.
     * 
-    * Parametro in ingresso:
-    *   @param u utente da aggiungere all'setUtenti.
+    *   @param u utente da aggiungere al setUtenti.
     * 
     *   @return restituisce true se l'utente è stato inserito. 
            false se invece non è stato inserito o è già presente in setUtenti. 
     */  
+    @Override
     public boolean aggiungi(Utente u){
         String sql = "INSERT INTO utenti (nome, cognome, matricola, email, prestiti) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -86,12 +89,12 @@ public class Utenti extends GestioneDB<Utente>{
      * @brief Elimina l'utente.
      * Se l'utente è presente effettua l'eliminazione.
      * 
-     * Parametro in ingresso:
      *  @param u utente da eliminare
      * 
-     *  @return restituisce true se elimina l'utente. false se non è già presente.
+     *  @return restituisce true se elimina l'utente. false ses l'operazione fallisce.
      */
     
+    @Override
     public boolean elimina(Utente u){
     String sql = "DELETE FROM utenti WHERE matricola = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -105,16 +108,17 @@ public class Utenti extends GestioneDB<Utente>{
     }
     
      /**
+     * @throws java.sql.SQLException
      * @brief Modifica l'utente.
      * Se l'utente è presente effettua la modifica di uno o più suoi dati.
      * 
-     * Parametro in ingresso:
      *  @param u1 utente da modificare
      *  @param u2 utente con modifiche
      * 
      *  @return restituisce true se la modifica dell'utente è avvenuta correttamente.
-     *          false se l'utente non è presente.
+     *          false se fallisce.
      */
+    @Override
     public boolean modifica(Utente u1,Utente u2) throws SQLException{
         conn.setAutoCommit(false); // inizio transazione
         boolean status;
@@ -130,8 +134,12 @@ public class Utenti extends GestioneDB<Utente>{
         return status;
     }
     
+    /**
+     * @throws java.sql.SQLException
+     * @brief Implementazione del metodo carica di GestioneDB.
+     */
     @Override
-    public void carica() throws SQLException{
+    public final void carica() throws SQLException{
         String sql = "SELECT nome, cognome, matricola, email, prestiti FROM utenti";
         try (PreparedStatement ps = conn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery()) {
@@ -140,9 +148,18 @@ public class Utenti extends GestioneDB<Utente>{
                 setUtenti.add(new Utente(rs.getString("nome"),rs.getString("cognome"),rs.getString("matricola"),rs.getString("email"),rs.getInt("prestiti")));
             }
         }
+        catch(SQLException e) { throw new RuntimeException(e.getMessage());}
     }
-    
-    public boolean setRestituzione(String matricola){
+
+    /**
+     * @brief Decrementa il numero di prestiti attivi dell' utente collegato alla matricola.
+     * Non c'è controllo del numero di prestiti attivi prima della modifica.
+     * 
+     * @param matricola matricola relativa all'utente oggetto della restituzione.
+     * 
+     * @return true se ha successo, false se fallisce.
+     */
+    public boolean addRestituzione(String matricola){
     Iterator<Utente> it = setUtenti.iterator();
     Utente u1;
         while(it.hasNext()){
@@ -155,7 +172,15 @@ public class Utenti extends GestioneDB<Utente>{
         }
     return true;
     }
-    
+
+    /**
+     * @brief Aumenta il numero di prestiti attivi dell' utente collegato alla matricola.
+     * Non c'è controllo del numero di prestiti attivi prima della modifica.
+     * 
+     * @param matricola matricola relativa all'utente oggetto del prestito.
+     * 
+     * @return true se ha successo, false se fallisce.
+     */
     public boolean addPrestito(String matricola){
     Iterator<Utente> it = setUtenti.iterator();
     Utente u1;
