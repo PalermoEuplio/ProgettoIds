@@ -1,6 +1,5 @@
 package gruppo20.biblioteca.controller;
 
-import com.sun.javafx.scene.control.behavior.TwoLevelFocusComboBehavior;
 import gruppo20.biblioteca.model.Utenti.*;
 import javafx.scene.control.Dialog;
 import java.io.IOException;
@@ -19,8 +18,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.DialogPane;
 import javafx.scene.input.MouseEvent;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.control.TableView;
@@ -38,12 +35,13 @@ public class ControllerUtenti implements Initializable{
     
     private Contesto co =new Contesto();
     @FXML private TableView<Utente> tabellaUtenti;
+    
     @FXML private TextField nomeUtente;
     @FXML private TextField cognomeUtente;
     @FXML private TextField matricola;
     @FXML private TextField email;
-    @FXML private Button cercaUtenti;
     @FXML private TextField barraCercaUtenti;
+    @FXML private Button aggiungiUtenteButton;
     
     
     @FXML private TableColumn<Utente, String> nome;
@@ -53,8 +51,6 @@ public class ControllerUtenti implements Initializable{
     @FXML private TableColumn<Utente, Integer> nPrestiti;
     @FXML private TableColumn<Utente, Void> operazioni;
     
-    @FXML private Button btnYes;
-    @FXML private Button btnNo;
     
     
     private ControllerUtenti controllerGenitore;
@@ -94,35 +90,32 @@ public class ControllerUtenti implements Initializable{
                     
                     //Comportamento bottone modifica
                     modifica.setOnAction(e0 -> {
-                        // 1. Recupero l'utente dalla riga corrente
                         Utente uVecchio = getTableView().getItems().get(getIndex());
 
                         try {
-                            // 2. Carico la vista del Dialog
+                            
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/aggiuntaUtente.fxml"));
                             DialogPane root = loader.load();
 
                             ControllerUtenti controllerDialog = loader.getController();
-
-                            // 3. PRE-COMPILO i campi con i dati attuali
-                            // Nota: Poiché siamo nella stessa classe, possiamo accedere ai campi privati dell'istanza controllerDialog
+                            
                             controllerDialog.nomeUtente.setText(uVecchio.getNome());
                             controllerDialog.cognomeUtente.setText(uVecchio.getCognome());
                             controllerDialog.matricola.setText(uVecchio.getMatricola());
                             controllerDialog.email.setText(uVecchio.getMail());
 
-                            // Setup del Dialog
+                            
                             Dialog<ButtonType> dialog = new Dialog<>();
                             dialog.setDialogPane(root);
                             dialog.setTitle("Modifica Utente");
 
-                            // Gestione abilitazione tasto OK (copiata dalla tua logica aggiuntaUtente)
+                            
                             TextField tNome = controllerDialog.nomeUtente;
                             TextField tCognome = controllerDialog.cognomeUtente;
                             TextField tMatr = controllerDialog.matricola;
                             TextField tMail = controllerDialog.email;
 
-                            // Logica di validazione binding
+                            
                             dialog.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(
                                 tNome.textProperty().isEmpty()
                                 .or(tCognome.textProperty().isEmpty())
@@ -130,26 +123,24 @@ public class ControllerUtenti implements Initializable{
                                 .or(tMail.textProperty().isEmpty())
                             );
 
-                            // 4. Attendo la risposta
+                            
                             dialog.showAndWait().ifPresent(response -> {
                                 if (response == ButtonType.OK) {
-                                    // Recupero i nuovi dati
+                                    
                                     String nuovoNome = tNome.getText();
                                     String nuovoCognome = tCognome.getText();
                                     String nuovaMatricola = tMatr.getText();
                                     String nuovaMail = tMail.getText();
 
-                                    // Mantengo il numero di prestiti invariato
+                                    
                                     Utente uNuovo = new Utente(nuovoNome, nuovoCognome, nuovaMatricola, nuovaMail, uVecchio.getNPrestiti());
 
-                                    // CHIAMATA AL MODELLO (PRE e POST modifica)
-                                    // Assumo che il metodo nel gestore si chiami "aggiorna" o "modifica"
+                                    
                                     Utenti u = co.getGestUtenti();
                                     try{
                                     u.modifica(uVecchio, uNuovo);
                                     }catch(Exception a){}
-                                    // 5. Aggiorno la tabella visivamente
-                                    // Trovo l'indice nella lista osservabile e sostituisco l'elemento
+                                    
                                     int index = listaPerTabella.indexOf(uVecchio);
                                     if(index >= 0){
                                         listaPerTabella.set(index, uNuovo);
@@ -167,8 +158,7 @@ public class ControllerUtenti implements Initializable{
                 //Comportamento Bottone eliminazione
                 elimina.setOnAction(e1 -> {
                     Utente u = getTableView().getItems().get(getIndex());
-                    Utenti u1 = co.getGestUtenti();
-                    
+                    Utenti u1 = co.getGestUtenti();    
                     
                     
                     try{
@@ -184,17 +174,18 @@ public class ControllerUtenti implements Initializable{
                     //Handler della pagina in sovrapposizione
                     a.setOnShown(e -> {
                             
-                       
+                       Button pulsanteSi = (Button) rooot.lookup("#btnYes");
+                       Button pulsanteNo = (Button) rooot.lookup("#btnNo");
 
                         // Logica dei bottoni (chiudere la finestra)
-                        btnYes.setOnAction(ered -> {
+                        pulsanteSi.setOnAction(ered -> {
                             u1.elimina(u);
                             // Chiudi la finestra prendendo lo Stage dal bottone stesso
-                            ((Stage) btnYes.getScene().getWindow()).close();
+                            ((Stage) pulsanteSi.getScene().getWindow()).close();
                         });
 
-                        btnNo.setOnAction(efds -> {
-                            ((Stage) btnNo.getScene().getWindow()).close();
+                        pulsanteNo.setOnAction(efds -> {
+                            ((Stage) pulsanteNo.getScene().getWindow()).close();
                         });
 
                         
@@ -268,6 +259,47 @@ public class ControllerUtenti implements Initializable{
             
             tabellaUtenti.setItems(datiFiltrati);
             
+            
+            
+            aggiungiUtenteButton.setOnAction(ds ->{
+                                try {
+                                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/aggiuntaUtente.fxml"));
+                        DialogPane root = loader.load();
+
+                        ControllerUtenti controllerDialog = loader.getController();
+                        controllerDialog.setGenitore(this);
+
+                        Dialog<ButtonType> a = new Dialog<>();
+                        a.setDialogPane(root);
+                        a.setTitle("Inserire nuovo Utente");
+
+                        //Handler della pagina in sovrapposizione
+                        a.setOnShown(e -> {
+
+                                TextField nomeUtente = controllerDialog.nomeUtente;
+                                TextField cognomeUtente = controllerDialog.cognomeUtente;
+                                TextField matricola = controllerDialog.matricola;
+                                TextField email = controllerDialog.email;
+
+
+                                cognomeUtente.disableProperty().bind(nomeUtente.textProperty().isEmpty());
+                                matricola.disableProperty().bind(cognomeUtente.textProperty().isEmpty());
+                                email.disableProperty().bind(matricola.textProperty().isEmpty());
+                                a.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(email.textProperty().isEmpty());
+
+                                a.setResultConverter(dialogButton -> {
+                                     if (dialogButton == ButtonType.OK) {
+                                            Utente x = controllerDialog.azioneConferma();
+                                            listaPerTabella.add(x); 
+                                        return dialogButton;
+                                    }
+                                    return null;
+                                });   
+                        });    
+
+                        a.showAndWait();
+                } catch (Exception e) {}
+            });   
         }
         else if(nomeFile.endsWith("aggiuntaUtente.fxml")){}
     }
@@ -317,53 +349,12 @@ public class ControllerUtenti implements Initializable{
         
     }
     
-    
-    
-    
-    public void aggiuntaUtente(MouseEvent event) throws IOException{
-        
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/aggiuntaUtente.fxml"));
-        DialogPane root = loader.load();
-    
-        ControllerUtenti controllerDialog = loader.getController();
-        controllerDialog.setGenitore(this);
-
-        Dialog<ButtonType> a = new Dialog<>();
-        a.setDialogPane(root);
-        a.setTitle("Inserire nuovo Utente");
-
-        //Handler della pagina in sovrapposizione
-        a.setOnShown(e -> {
-
-                TextField nomeUtente = controllerDialog.nomeUtente;
-                TextField cognomeUtente = controllerDialog.cognomeUtente;
-                TextField matricola = controllerDialog.matricola;
-                TextField email = controllerDialog.email;
-        
-        
-                cognomeUtente.disableProperty().bind(nomeUtente.textProperty().isEmpty());
-                matricola.disableProperty().bind(cognomeUtente.textProperty().isEmpty());
-                email.disableProperty().bind(matricola.textProperty().isEmpty());
-                a.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(email.textProperty().isEmpty());
-                
-                a.setResultConverter(dialogButton -> {
-                     if (dialogButton == ButtonType.OK) {
-                            controllerDialog.azioneConferma();
-                        return dialogButton;
-                    }
-                    return null;
-                });   
-        });    
-        
-        a.showAndWait();
-    }
-    
     public void setGenitore(ControllerUtenti genitore) {
         this.controllerGenitore = genitore;
     }
     
     @FXML
-    public void azioneConferma() {
+    public Utente azioneConferma() {
         if (controllerGenitore != null) {
             // 1. Prendiamo il testo dall'input della Pagina 2
             String nome = nomeUtente.getText();
@@ -372,8 +363,10 @@ public class ControllerUtenti implements Initializable{
             String mail = email.getText();
            
             Utenti u1 = co.getGestUtenti();
-            u1.aggiungi(new Utente(nome,cognome,matricola,mail,0));
-            
+            Utente temp = new Utente(nome,cognome,matricola,mail,0);
+            u1.aggiungi(temp);
+            return temp;
         }
+        return null;
     }  
 }
