@@ -26,8 +26,6 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Dashboard.fxml"));
         Parent root = loader.load();
-        ControllerDashboard controller =  loader.getController();
-        controller.setContesto(co);
         Scene scene = new Scene(root);
         stage.setTitle("Biblioteca Universitaria");
         stage.setScene(scene);
