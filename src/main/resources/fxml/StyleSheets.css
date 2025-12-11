@@ -114,7 +114,3 @@ and open the template in the editor.
     -fx-background-color: linear-gradient(from 45% 50% to 100% 100%, #fbdc9d, #f7ead1);
     -fx-background-width: 5px;
 }
-.bottone-elimina{
-    -fx-background-color: #ead5d5;
-    -fx-effect: dropshadow(three-pass-box, #ea6969, 5, 0, 1, 1);
-}

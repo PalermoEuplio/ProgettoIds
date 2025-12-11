@@ -23,15 +23,12 @@
    <content>
       <HBox alignment="CENTER" prefHeight="105.0" prefWidth="480.0" spacing="60.0">
          <children>
-            <Button fx:id="btnYes" mnemonicParsing="false" prefHeight="47.0" prefWidth="108.0" styleClass="bottone-elimina" text="SI">
+            <Button fx:id="btnYes" mnemonicParsing="false" prefHeight="47.0" prefWidth="108.0" text="SI">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
             </Button>
-            <Button fx:id="btnNo" alignment="CENTER" mnemonicParsing="false" prefHeight="47.0" prefWidth="108.0" styleClass="bottoni" text="NO, Annulla">
+            <Button fx:id="btnNo" alignment="CENTER" mnemonicParsing="false" prefHeight="47.0" prefWidth="108.0" text="NO, Annulla">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

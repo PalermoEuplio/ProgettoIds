@@ -1,27 +1,26 @@
 package gruppo20.biblioteca.controller;
 
 import gruppo20.biblioteca.model.*;
-import gruppo20.biblioteca.model.Utenti.Utente;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static javafx.beans.binding.Bindings.bindBidirectional;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
 import javafx.util.converter.NumberStringConverter;
 
 
@@ -32,32 +31,6 @@ import javafx.util.converter.NumberStringConverter;
 public class ControllerLibreria {
     
     private Contesto co;
-    
-    @FXML private TableView<Utente> tabellaLibri;
-    
-    @FXML private TextField nomeUtente;
-    @FXML private TextField cognomeUtente;
-    @FXML private TextField matricola;
-    @FXML private TextField email;
-    @FXML private TextField barraCercaUtenti;
-    @FXML private Button aggiungiUtenteButton;
-    
-    
-    @FXML private TableColumn<Utente, String> titolo;
-    @FXML private TableColumn<Utente, String> autori;
-    @FXML private TableColumn<Utente, String> annoPublicazione;
-    @FXML private TableColumn<Utente, String> isbn;
-    @FXML private TableColumn<Utente, Integer> copie;
-    @FXML private TableColumn<Utente, Void> operazioni;
-    
-    
-    
-    private ControllerUtenti controllerGenitore;
-    private ObservableList<Utente> listaPerTabella;
-    
-    
-    
-    
     
     public void setContesto(Contesto co){
         this.co = co;
