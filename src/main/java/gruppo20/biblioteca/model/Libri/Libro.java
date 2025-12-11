@@ -3,43 +3,35 @@ package gruppo20.biblioteca.model.Libri;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-
 /**
  * @brief Questo file contiene l'implementazione della classe Libro.
  * @author Gruppo20
  */
-public class Libro{
-    
-    
-    private String titolo; ///< Titolo del libro.
-    private ArrayList<Autore> autori; ///< Autrori del libro.
-    private LocalDate annoPublicazione; ///< Anno di publicazione del libro.
-    private int nCopie; ///< Numero copie del libro disponibili in biblioteca.
-    private String isbn; ///< Codice identificativo ISBN del libro.
+public class Libro {
+
+    private String titolo;///< Titolo del libro.
+    private ArrayList<Autore> autori;///< Autrori del libro.
+    private LocalDate annoPublicazione;///< Anno di publicazione del libro.
+    private int nCopie;///< Numero copie del libro disponibili in biblioteca.
+    private String isbn;///< Codice identificativo ISBN del libro.
 
     public Libro(String titolo, String autori, LocalDate annoPublicazione, int nCopie, String isbn) {
         this.autori = new ArrayList<>();
-        this.setAutori(autori);        
+        this.setAutori(autori);
         this.titolo = titolo;
         this.annoPublicazione = annoPublicazione;
         this.nCopie = nCopie;
-        this.isbn = isbn;    
-    }
-    
-    //ma i metodi setter vengono effettivamente usati?, ho usato solo setAutori per comodità
-    public void setTitolo(String titolo) {
-        this.titolo = titolo;
+        this.isbn = isbn;
     }
 
     /**
-     * @brief Imposta la lista degli autori.
-     * Ogni elemento della stringa degli autori è convertito in un oggetto Autore.
-     * 
+     * @brief Imposta la lista degli autori. Ogni elemento della stringa degli
+     * autori è convertito in un oggetto Autore e viene aggiungo all'ArrayList autori.
+     *
      * @param autori Stringa contenente gli autori, separati da virgola.
      */
     public void setAutori(String autori) {
-        if(autori == null) ;
-        else {
+        if (autori == null) ; else {
             this.autori.clear();
 
             String[] buffer = autori.split(",");
@@ -50,19 +42,9 @@ public class Libro{
         }
     }
 
-    public void setAnno(LocalDate anno) {
-        this.annoPublicazione = anno;
-    }
-
     public void setNCopie(int nCopie) {
         this.nCopie = nCopie;
     }
-
-    public void setIsbn(String isbn) {
-        this.isbn=isbn;
-    }
-    
-    
 
     public String getTitolo() {
         return titolo;
@@ -83,28 +65,29 @@ public class Libro{
     public String getIsbn() {
         return isbn;
     }
-    
-     /**
-     * @brief Verifica l'uguaglianza tra due libri.
-     * Due libri sono considerati uguali se hanno lo stesso titolo, 
-     * lo stesso anno di pubblicazione,
-     * lo stesso ISBN e la stessa lista di autori.
-     * 
+
+    /**
+     * @brief Verifica l'uguaglianza tra due libri. Due libri sono considerati
+     * uguali se hanno ISBN.
+     *
      * @param o Oggetto da confrontare.
      * @return true se i libri sono uguali, false in caso contrario.
      */
     @Override
-    public boolean equals(Object o){
-        if(!(o instanceof Libro) || o==null)
+    public boolean equals(Object o) {
+        if (!(o instanceof Libro) || o == null) {
             return false;
-        
+        }
+
         Libro l = (Libro) o;
-        
-        return  this.isbn.equals(l.getIsbn());
+
+        return this.isbn.equals(l.getIsbn());
     }
-    
+    /**
+     * @brief IMplementazione del metodo hashCode.
+     */
     @Override
-    public int hashCode(){
+    public int hashCode() {
         int h = 17;
         h = h * 31 + titolo.hashCode();
         h = h * 31 + annoPublicazione.hashCode();
@@ -112,5 +95,5 @@ public class Libro{
         h = h * 31 + autori.hashCode();
         return h;
     }
-    
+
 }

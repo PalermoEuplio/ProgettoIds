@@ -24,67 +24,67 @@ import gruppo20.biblioteca.model.Main;
  * @author euppa
  */
 public class ControllerDashboard {
-    
+
     private Contesto co;
-    
-    public void setContesto(Contesto co){
+
+    public void setContesto(Contesto co) {
         this.co = co;
     }
-    
-    
+
     @FXML
-    public void pageDashboard(MouseEvent event) throws IOException{}
-    
+    public void pageDashboard(MouseEvent event) throws IOException {
+    }
+
     @FXML
-    public void pageUtenti(MouseEvent event) throws IOException{ 
-        
+    public void pageUtenti(MouseEvent event) throws IOException {
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pageUtenti.fxml"));
         Parent root = loader.load();
-        ControllerUtenti controller =  loader.getController();
+        ControllerUtenti controller = loader.getController();
         controller.setContesto(co);
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root,stage.getScene().getWidth(),stage.getScene().getHeight());
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
         stage.setScene(scene);
         stage.show();
-        
+
     }
-    
+
     @FXML
-    public void pageLibreria(MouseEvent event) throws IOException{   
-        
+    public void pageLibreria(MouseEvent event) throws IOException {
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pageLibreria.fxml"));
         Parent root = loader.load();
-        ControllerLibreria controller =  loader.getController();
+        ControllerLibreria controller = loader.getController();
         controller.setContesto(co);
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root,stage.getScene().getWidth(),stage.getScene().getHeight());
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
         stage.setScene(scene);
         stage.show();
-        
+
     }
-    
+
     @FXML
-    public void pagePrestiti(MouseEvent event) throws IOException{ 
-       
+    public void pagePrestiti(MouseEvent event) throws IOException {
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pagePrestiti.fxml"));
         Parent root = loader.load();
-        ControllerPrestiti controller =  loader.getController();
+        ControllerPrestiti controller = loader.getController();
         controller.setContesto(co);
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root,stage.getScene().getWidth(),stage.getScene().getHeight());
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
         stage.setScene(scene);
         stage.show();
-        
+
     }
-    
+
     @FXML
-    public void aggiuntaLibro(MouseEvent event) throws IOException{
+    public void aggiuntaLibro(MouseEvent event) throws IOException {
         new ControllerLibreria();
     }
-    
+
     @FXML
-    public void aggiuntaPrestito(MouseEvent event) throws IOException{
+    public void aggiuntaPrestito(MouseEvent event) throws IOException {
         new ControllerPrestiti();
     }
-    
+
 }

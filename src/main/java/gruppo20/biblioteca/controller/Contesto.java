@@ -4,50 +4,56 @@ import gruppo20.biblioteca.model.Libri.Libreria;
 import gruppo20.biblioteca.model.Prestiti.Prestiti;
 import gruppo20.biblioteca.model.Utenti.Utenti;
 import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- *
- * @author Osv
+ * @brief Classe contesto, contiene tutti i dati necessari durante l'esecuzione.
+ * @author Gruppo20
  */
-//Classe contesto del programma, contiene tutti i dati per non avere un overhead inutile
 public class Contesto {
+
     private Libreria gestLibreria;
     private Prestiti gestPrestiti;
     private Utenti gestUtenti;
-    
-    
-    public Contesto(){
-        String userHome = System.getProperty("user.home");
-        String documents;
 
-        // Individua nome corretto della cartella Documents
-        if (System.getProperty("os.name").toLowerCase().contains("win")) {
-            documents = userHome + File.separator + "Documents";
-        } else {
-            // Linux e macOS usano normalmente "Documents"
-            documents = userHome + File.separator + "Documents";
-        }
+    public Contesto() {
+        String userHome = System.getProperty("user.home"); //ricerca la home relativa al sistema operativo
+        String documents;
+        Connection conn;
+
+        documents = userHome + File.separator + "Documents"; //cerca la cartella documents
+
+        File Dir = new File(documents + File.separator + "Biblioteca" + File.separator); //genera il path 
         
-        File Dir = new File(documents + File.separator + "Biblioteca");
-        
-        // Creazione della directory (anche annidata)
+        //verifica se esiste già, in caso lo crea
         if (!Dir.exists()) {
-            boolean ok = Dir.mkdirs();
-            if (!ok) {
+            boolean status = Dir.mkdirs();
+            if (!status) {
                 System.out.println("Impossibile creare la directory: " + Dir.getAbsolutePath());
             }
         }
         
-        try{
-        this.gestLibreria = new Libreria(Dir.getAbsolutePath()+"/Biblioteca.db");
-        this.gestUtenti = new Utenti(Dir.getAbsolutePath()+"/Biblioteca.db");
-        this.gestPrestiti = new Prestiti(Dir.getAbsolutePath()+"/Biblioteca.db", gestUtenti,gestLibreria);
+        //prova ad aprire il database 
+        try {
+            conn = DriverManager.getConnection("jdbc:sqlite:" + Dir.getAbsolutePath()+File.separator+"Biblioteca.db");
+        } catch (SQLException ex) {
+            throw new RuntimeException("Impossibile connettersi al database : "+Dir.getAbsolutePath()+File.separator+"Biblioteca.db");
         }
-        catch(SQLException e ) { throw new RuntimeException("Errore fatale nel caricamento del database", e);}
+        
+        //inizializza i gestori
+        try {
+            this.gestLibreria = new Libreria(conn);
+            this.gestUtenti = new Utenti(conn);
+            this.gestPrestiti = new Prestiti(conn, gestUtenti, gestLibreria);
+        } catch (SQLException e) {
+            throw new RuntimeException("Errore fatale nel caricamento del database");
+        }
     }
-
-    public Libreria getGestLibreria(){
+    
+    
+    public Libreria getGestLibreria() {
         return gestLibreria;
     }
 
@@ -58,7 +64,5 @@ public class Contesto {
     public Utenti getGestUtenti() {
         return gestUtenti;
     }
-    
-    
-    
+
 }
