@@ -1,14 +1,17 @@
 
 package gruppo20.biblioteca.model.Utility;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
 /**
- * @brief Questo file contiene l'implementazione della superclasse GestioneSet.
+ * @brief Questo file contiene l'implementazione della superclasse GestioneDB.
+ * Tutte le classi che estendono questa garantiranno la presenza delle operazioni per la gestione del DB.
+ * 
+ * @param <T> tipo dell'oggetto gestito dal DB.
+ * 
  * @author Gruppo20
  */
 public abstract class GestioneDB<T> {
@@ -19,12 +22,10 @@ public abstract class GestioneDB<T> {
      * Se non è presente lo aggiuge.
      * 
      * Parametro in ingresso:
-     *  @param file controller del file in cui aggiungere l'oggetto.
-     *  @param set HashSet in cui aggiungere l'oggetto.
      *  @param o oggetto da aggiungere.
      * 
      *  @return restituisce true se l'aggiunta è avvenuta correttamente.
-     *          false se l'oggetto è già contenuto.
+     *          false se fallisce o l'oggetto è già presente.
      */
     public abstract boolean aggiungi(T o);
     
@@ -33,22 +34,18 @@ public abstract class GestioneDB<T> {
      * Se l'oggetto è presente lo elimina.
      * 
      * Parametro in ingresso:
-     *  @param file controller del file in cui eliminare l'oggetto.
-     *  @param set HashSet in cui eliminare l'oggetto.
      *  @param o oggetto da eliminare.
      * 
      *  @return restituisce true se l'eliminazione è avvenuta correttamente.
-     *          false se l'oggetto non è già contenuto.
+     *          false se fallisce.
      */
     public abstract boolean elimina(T o);
     
     /**
+     * @throws java.sql.SQLException
      * @brief Modifica oggetto.
-     * Se l'oggetto è presente lo elimina.
      * 
      * Parametro in ingresso:
-     *  @param file controller del file in cui modificare l'oggetto.
-     *  @param set HashSet in cui modificare l'oggetto.
      *  @param o1 oggetto pre-modifica.
      *  @param o2 oggetto post-modifica.
      * 
@@ -57,9 +54,22 @@ public abstract class GestioneDB<T> {
      */
     public abstract boolean modifica(T o1,T o2) throws SQLException;
     
+    /**
+     * @throws java.sql.SQLException
+     * @brief Se il database è già presente in memoria, lo carica nelle strutture interne del programma.
+     * Se fallisce il programma viene chiuso forzatamente.
+     */
     public abstract void carica() throws SQLException;
     
-    
+    /**
+     * @throws java.sql.SQLException
+     * @brief Ccontrolla se nel database esiste la relativa tabella.
+     * 
+     * @param  conn connessione al database.
+     * @param tableName nome della tabella da controllare.
+     * 
+     * @return true se esiste, false se non esiste.
+     */
     public boolean tableExists(Connection conn, String tableName) throws SQLException {
     String sql = "SELECT name FROM sqlite_master WHERE type='table' AND name=?";
 

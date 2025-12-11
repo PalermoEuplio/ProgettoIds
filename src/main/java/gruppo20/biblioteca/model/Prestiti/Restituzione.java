@@ -20,6 +20,12 @@ public class Restituzione {
      */
     private LocalDate dataRestituzione;
     
+    /**
+     * @brief Costruttore dell'oggetto restituzione.
+     * 
+     * @param s stringa che indica la data effettiva di restituzione.
+     * Se s è false il libro non è stato restituito.
+     */
     public Restituzione(String s){
         if(s.equals("false")) dataRestituzione = null;
         else {
@@ -28,6 +34,11 @@ public class Restituzione {
         }
     }
     
+    /**
+     * @brief Indica se il libro è stato restituito
+     * 
+     * @return true se il libro 
+     */
     public boolean isRestituito() {
         return restituito;
     }
