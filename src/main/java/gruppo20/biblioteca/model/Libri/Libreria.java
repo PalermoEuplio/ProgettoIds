@@ -154,7 +154,7 @@ public class Libreria extends GestioneDB<Libro> {
     
     @Override
     public void carica() throws SQLException{
-        String sql = "SELECT titolo, aurtori, anno, copie, isbn FROM libri";
+        String sql = "SELECT titolo, autori, anno, copie, isbn FROM libri";
         try (PreparedStatement ps = conn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery()) {
 
@@ -193,22 +193,4 @@ public class Libreria extends GestioneDB<Libro> {
         return true;
     }
     
-    
-    /**
-     * @brief Restituisce una rappresentazione testuale della libreria.
-     * Il metodo crea una stringa contenente la lista di tutti i libri della libreria.
-     * Ogni elemento su una nuova linea.
-     * Per ogni elemento viene utilizzato il metodo toString() della classe Libro.
-     * 
-     * @return Stringa che contiene tutti i libri della setLibreria.
-     */
-    @Override
-    public String toString(){
-        StringBuilder builder = new StringBuilder();
-        
-        for(Libro l : setLibreria){
-            builder.append(l+"\n");
-        }
-        return builder.toString();
-    }
 }

@@ -9,31 +9,36 @@ import java.time.temporal.ChronoUnit;
 public class Prestito{
     /**
      * @brief Data in cui è stato effettuato il prestito.
-     * Il valore è immutabile e viene impostato con la data al momento della creazione del prestito.
      */
     private final LocalDate dataPrestito; 
+    
     /**
      * @brief Durata del prestito.
-     * Indica per quanto tempo il prestito rimane attivo.
-     * Il valore di default è di 1 mese.
+     * Indica per quanto tempo il prestito non è in ritardo.
      */
-    private int periodoPrestito;
+    private final int periodoPrestito;
+    
     /**
      * @brief Oggetto che rappresenta lo stato della restituzione del prestito.
      * Informazioni sulla data di restituzione, se è già avvenuta o meno.
      */
-    private Restituzione restituzione;
+    private final Restituzione restituzione;
+    
     /**
-     * @brief Isbn e titolo del libro oggetto del prestito.
+     * @brief Isbn del libro oggetto del prestito.
      * Ogni prestito è associato ad un unico libro.
-     * Il libro non può essere modificato dopo la creazione dell'oggetto Prestito.
      */
     private final String isbn;
-    private String titoloLibro;
+    
+    /**
+     * @brief titolo del libro oggetto del prestito.
+     * Ogni prestito è associato ad un unico libro.
+     */
+    private final String titoloLibro;
+    
     /**
      * @brief Matricola utente che effettua il prestito.
      * Ogni prestito è associato ad un unico utente.
-     * la matricola non può essere modificata dopo la creazione dell'oggetto Prestito.
      */
     private final String matricola;
     
@@ -45,6 +50,7 @@ public class Prestito{
         this.matricola = matricola;
         this.periodoPrestito = periodoPrestito;
     }
+    
     //set per inserire la data di restituzione effettiva
     public void setRestituzione(LocalDate dataRestituzione) {
         restituzione.setRestituzione(dataRestituzione);
@@ -58,8 +64,6 @@ public class Prestito{
         return periodoPrestito;
     }
     
-    
-
     public String getRestituzione(){
         return restituzione.getRestituzione();
 
@@ -78,12 +82,24 @@ public class Prestito{
     }
     
 
-    //restituisce se è in ritardo
+    /**
+     * @brief Restituisce se il prestito è in ritardo.
+     * 
+     * @return true se è in ritardo.
+     * false altrimenti.
+     */
     public boolean isRitardo(){
         return dataPrestito.plusDays(periodoPrestito).isBefore(LocalDate.now());
     }
-    //restituisce di quanto è in ritardo, da richiamare solo dopo aver certificato il ritardo con isRitardo
+    
+    /**
+     * @brief Se è in ritardo restituisce quanti giorni il prestito è in ritardo.
+     * 
+     * @return numero di giorni di ritardo.
+     * 0 se non in ritardo.
+     */
     public int calcRitardo(){
+        if(!isRitardo()) return 0;
         return (int) ChronoUnit.DAYS.between(dataPrestito.plusDays(periodoPrestito),LocalDate.now());
     }
     
@@ -102,6 +118,9 @@ public class Prestito{
         return dataPrestito.equals(p.getDataPrestito()) && isbn.equals(p.getIsbn()) && matricola.equals(p.getMatricola());
     }
     
+    /**
+     * @brief implementazione del metodo hashCode
+     */
     @Override
     public int hashCode(){
         int h = 17;

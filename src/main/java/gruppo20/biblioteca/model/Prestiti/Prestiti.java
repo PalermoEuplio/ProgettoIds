@@ -18,22 +18,17 @@ import javafx.collections.ObservableSet;
  * @brief Questo file contiene l'implementazione della classe Prestiti.
  * @author Gruppo20
  */
-public class Prestiti extends GestioneDB<Prestito>{
-    /**
-     * @brief Numero massimo di prestiti attivi che un utente può avere contemporaneamente.
-     */
-    private static final int maxPrestiti = 3; 
-    
+public class Prestiti extends GestioneDB<Prestito>{   
     /**
      * @brief Insieme dei prestiti attivi.
-     * Si utilizza un HashSet per garantire l'unicità dei prestiti.
+     * Si utilizza un ObservableSet per garantire l'unicità dei prestiti e l'osservabilità.
      */
-    private ObservableSet<Prestito> setPrestiti;
+    private final ObservableSet<Prestito> setPrestiti;
 
-    private Utenti gestUtenti;
-    private Libreria gestLibreria;
+    private final Utenti gestUtenti;
+    private final Libreria gestLibreria;
 
-   private Connection conn;
+   private final Connection conn;
     
     public Prestiti(String DBPath,Utenti gestUtenti,Libreria gestLibreria) throws SQLException{
         this.setPrestiti = FXCollections.observableSet(new HashSet<>());
@@ -192,7 +187,7 @@ public class Prestiti extends GestioneDB<Prestito>{
     }
     
     @Override
-    public void carica() throws SQLException{
+    public final void carica() throws SQLException{
         String sql = "SELECT dataPrestito, restituzione, titoloLibro, isbn, matricola, periodoPrestito FROM prestiti";
         try (PreparedStatement ps = conn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery()) {

@@ -35,23 +35,36 @@ public class Restituzione {
     }
     
     /**
+     * @brief Setter della data di restituzione.
+     * Aggiorna anche lo stato restituito -> true.
+     * 
+     * @param dataRestituzione data effettiva della restituzione.
+     */    
+    public void setRestituzione(LocalDate dataRestituzione) {
+        restituito = true;
+        this.dataRestituzione = dataRestituzione;
+    }   
+    
+    /**
      * @brief Indica se il libro è stato restituito
      * 
-     * @return true se il libro 
+     * @return true se il libro è stato restituito. 
+     * false altrimenti.
      */
     public boolean isRestituito() {
         return restituito;
     }
-
-    public String getRestituzione() throws IllegalStateException{
+    
+    /**
+     * @return Resrtituisce la data di restituzione.
+     * La stringa false se non è stato restiituiro
+     */
+    public String getRestituzione(){
         if(restituito)
         return dataRestituzione.toString();
         else return "false";
     }
+    
 
-    public void setRestituzione(LocalDate dataRestituzione) {
-        restituito = true;
-        this.dataRestituzione = dataRestituzione;
-    }
     
 }
