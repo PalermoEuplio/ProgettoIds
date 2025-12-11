@@ -19,6 +19,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.DialogPane;
 import javafx.scene.input.MouseEvent;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.control.TableView;
@@ -50,6 +52,9 @@ public class ControllerUtenti implements Initializable{
     @FXML private TableColumn<Utente, String> mail;
     @FXML private TableColumn<Utente, Integer> nPrestiti;
     @FXML private TableColumn<Utente, Void> operazioni;
+    
+    @FXML private Button btnYes;
+    @FXML private Button btnNo;
     
     
     private ControllerUtenti controllerGenitore;
@@ -163,7 +168,47 @@ public class ControllerUtenti implements Initializable{
                 elimina.setOnAction(e1 -> {
                     Utente u = getTableView().getItems().get(getIndex());
                     Utenti u1 = co.getGestUtenti();
-                    u1.elimina(u);
+                    
+                    
+                    
+                    try{
+                    FXMLLoader carica = new FXMLLoader(getClass().getResource("/fxml/ConfermaCancellazione.fxml"));
+                    DialogPane rooot = carica.load();
+
+                    ControllerUtenti controllerDialog = carica.getController();
+
+                    Dialog<ButtonType> a = new Dialog<>();
+                    a.setDialogPane(rooot);
+                    a.setTitle("ATTENZIONE");
+
+                    //Handler della pagina in sovrapposizione
+                    a.setOnShown(e -> {
+                            
+                       
+
+                        // Logica dei bottoni (chiudere la finestra)
+                        btnYes.setOnAction(ered -> {
+                            u1.elimina(u);
+                            // Chiudi la finestra prendendo lo Stage dal bottone stesso
+                            ((Stage) btnYes.getScene().getWindow()).close();
+                        });
+
+                        btnNo.setOnAction(efds -> {
+                            ((Stage) btnNo.getScene().getWindow()).close();
+                        });
+
+                        
+  
+                    });    
+
+                    a.showAndWait();
+                    
+                    }catch (IOException a){}
+                    
+
+                    
+                    
+                    
                     
                     //Ricarico la pagina ed Aggiorno il contesto
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pageUtenti.fxml"));
