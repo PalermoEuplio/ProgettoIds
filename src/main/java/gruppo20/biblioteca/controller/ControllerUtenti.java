@@ -1,5 +1,6 @@
 package gruppo20.biblioteca.controller;
 
+import com.sun.javafx.scene.control.behavior.TwoLevelFocusComboBehavior;
 import gruppo20.biblioteca.model.Utenti.*;
 import javafx.scene.control.Dialog;
 import java.io.IOException;
@@ -8,6 +9,7 @@ import java.util.ResourceBundle;
 import javafx.collections.*;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -39,6 +41,7 @@ public class ControllerUtenti implements Initializable{
     @FXML private TextField matricola;
     @FXML private TextField email;
     @FXML private Button cercaUtenti;
+    @FXML private TextField barraCercaUtenti;
     
     
     @FXML private TableColumn<Utente, String> nome;
@@ -70,10 +73,6 @@ public class ControllerUtenti implements Initializable{
             Utenti u = co.getGestUtenti();
             ObservableSet<Utente> setUtenti = u.getSetUtenti();
             tabellaUtenti.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-            
-             
-            
-            
             
             operazioni.setCellFactory(col -> new TableCell<Utente, Void>() {
             
@@ -203,9 +202,26 @@ public class ControllerUtenti implements Initializable{
         }
             
             
-            
+            //Lista Osservabile dalla Tabella
             listaPerTabella = FXCollections.observableArrayList(setUtenti);
-            tabellaUtenti.setItems(listaPerTabella);
+            
+            
+            
+            //Filtraggio per Cognome o Matricola
+            FilteredList<Utente> datiFiltrati = new FilteredList<>(listaPerTabella, p -> true);
+            
+            
+            barraCercaUtenti.textProperty().addListener((osservabile, vecchio, nuovo) ->{
+                datiFiltrati.setPredicate(utente ->{
+                    if(nuovo==null || nuovo.isEmpty())
+                        return true;
+                     String lowerCaseFilter = nuovo.toLowerCase();
+                     
+                     return utente.getCognome().toLowerCase().contains(lowerCaseFilter) || utente.getMatricola().toLowerCase().contains(lowerCaseFilter);
+                });
+            });
+            
+            tabellaUtenti.setItems(datiFiltrati);
             
         }
         else if(nomeFile.endsWith("aggiuntaUtente.fxml")){}

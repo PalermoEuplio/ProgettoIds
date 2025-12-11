@@ -78,6 +78,11 @@ and open the template in the editor.
 .barraRicerca{
     -fx-background-radius: 20px;
     -fx-effect: dropshadow(three-pass-box, #000000, 10, 0, 0, 0);
+    -fx-background-image: url('../lente-ricerca.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 7px center;
+    -fx-background-size: 25px 25px;
+    -fx-padding: 5px 5px 5px 40px; 
 }
 
 .bottoni{

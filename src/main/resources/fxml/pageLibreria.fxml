@@ -109,7 +109,7 @@
    <center>
       <AnchorPane fx:id="libreria" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#pageLibreria" prefHeight="800.0" prefWidth="771.0" stylesheets="@StyleSheets.css" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="tabellaUtenti" layoutX="20.0" layoutY="259.0" prefHeight="388.0" prefWidth="731.0" styleClass="table" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+            <TableView fx:id="tabellaUtenti" layoutX="20.0" layoutY="259.0" prefHeight="388.0" prefWidth="731.0" styleClass="table" AnchorPane.bottomAnchor="153.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="259.0">
                <columns>
                   <TableColumn editable="false" maxWidth="1.7976931348623157E308" prefWidth="79.0" text="Titolo" />
                   <TableColumn editable="false" prefWidth="114.0" text="Autori" />
@@ -122,11 +122,11 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <TextField fx:id="barraCercaUtenti" layoutX="20.0" layoutY="215.0" prefHeight="32.0" prefWidth="519.0" promptText="Ricerca per Titolo, Autore o Isbn." styleClass="barraRicerca" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="232.0">
+            <TextField fx:id="barraCercaLibri" layoutX="20.0" layoutY="215.0" prefHeight="32.0" prefWidth="519.0" promptText="Ricerca per Titolo, Autore o Isbn." styleClass="barraRicerca" AnchorPane.bottomAnchor="553.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="207.0" AnchorPane.topAnchor="215.0">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor></TextField>
-            <Button fx:id="aggiungiUtente" alignment="CENTER_RIGHT" layoutX="612.0" layoutY="215.0" mnemonicParsing="false" onMouseClicked="#aggiuntaLibro" prefHeight="32.0" prefWidth="139.0" styleClass="bottoni" text="Aggiungi Libro" AnchorPane.leftAnchor="612.0" AnchorPane.rightAnchor="20.0">
+            <Button fx:id="aggiungilibro" alignment="CENTER_RIGHT" layoutX="612.0" layoutY="215.0" mnemonicParsing="false" onMouseClicked="#aggiuntaLibro" prefHeight="32.0" prefWidth="139.0" styleClass="bottoni" text="Aggiungi Libro" AnchorPane.bottomAnchor="553.0" AnchorPane.leftAnchor="612.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="215.0">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
@@ -134,24 +134,13 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="cercaUtenti" layoutX="546.0" layoutY="215.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="45.0" styleClass="bottoni" AnchorPane.leftAnchor="546.0" AnchorPane.rightAnchor="180.0">
-               <graphic>
-
-               </graphic>
-               <graphic>
-                  <FontIcon iconLiteral="fa-search" iconSize="20" />
-               </graphic>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
             
-            <Label alignment="TOP_CENTER" layoutX="176.0" layoutY="74.0" prefHeight="59.0" prefWidth="419.0" styleClass="intestazine" text="Sezione Libreria">
+            <Label alignment="TOP_CENTER" layoutX="176.0" layoutY="74.0" prefHeight="59.0" prefWidth="419.0" styleClass="intestazine" text="Sezione Libreria" AnchorPane.bottomAnchor="667.0" AnchorPane.leftAnchor="176.0" AnchorPane.rightAnchor="176.0" AnchorPane.topAnchor="74.0">
                <font>
                   <Font name="System Bold" size="34.0" />
                </font>
             </Label>
-            <FontIcon iconLiteral="fa-plus" iconSize="18" layoutX="624.0" layoutY="238.0" />
+            <FontIcon iconLiteral="fa-plus" iconSize="18" layoutX="624.0" layoutY="238.0" AnchorPane.bottomAnchor="559.0" AnchorPane.leftAnchor="623.0" AnchorPane.rightAnchor="132.8571424484253" AnchorPane.topAnchor="222.5714282989502" />
          </children>
       </AnchorPane>
    </center>
