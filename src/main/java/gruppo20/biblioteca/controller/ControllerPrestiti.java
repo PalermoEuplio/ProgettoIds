@@ -23,95 +23,95 @@ import javafx.util.converter.NumberStringConverter;
  * @author Osv
  */
 public class ControllerPrestiti {
-    
+
     private Contesto co;
-    
-    public void setContesto(Contesto co){
+
+    public void setContesto(Contesto co) {
         this.co = co;
     }
-    
+
     @FXML
-    public void pageDashboard(MouseEvent event) throws IOException{
-        
+    public void pageDashboard(MouseEvent event) throws IOException {
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Dashboard.fxml"));
         Parent root = loader.load();
-        ControllerDashboard controller =  loader.getController();
+        ControllerDashboard controller = loader.getController();
         controller.setContesto(co);
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        
+
     }
-    
+
     @FXML
-    public void pageUtenti(MouseEvent event) throws IOException{ 
+    public void pageUtenti(MouseEvent event) throws IOException {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pageUtenti.fxml"));
         Parent root = loader.load();
-        ControllerUtenti controller =  loader.getController();
+        ControllerUtenti controller = loader.getController();
         controller.setContesto(co);
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        
+
     }
-    
+
     @FXML
-    public void pageLibreria(MouseEvent event) throws IOException{   
-        
+    public void pageLibreria(MouseEvent event) throws IOException {
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pageLibreria.fxml"));
         Parent root = loader.load();
-        ControllerLibreria controller =  loader.getController();
+        ControllerLibreria controller = loader.getController();
         controller.setContesto(co);
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        
+
     }
-    
+
     @FXML
-    public void pagePrestiti(MouseEvent event) throws IOException{}
-    
-    
-    
-    
-    @FXML private TextField nomeUtente;
-    @FXML private TextField isbn;
-    @FXML private DatePicker annoP;
-    @FXML private DatePicker annoR;
-    
-    public void aggiuntaPrestito(MouseEvent event) throws IOException{
-        
+    public void pagePrestiti(MouseEvent event) throws IOException {
+    }
+
+    @FXML
+    private TextField nomeUtente;
+    @FXML
+    private TextField isbn;
+    @FXML
+    private DatePicker annoP;
+    @FXML
+    private DatePicker annoR;
+
+    public void aggiuntaPrestito(MouseEvent event) throws IOException {
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/aggiuntaPrestito.fxml"));
         DialogPane root = loader.load();
-    
+
         ControllerPrestiti controllerDialog = loader.getController();
 
         Dialog<ButtonType> a = new Dialog<>();
         a.setDialogPane(root);
         a.setTitle("Inserire nuovo Prestito");
-            
-            
-            a.setOnShown(e -> {
-                
-                TextField nomeUtente = controllerDialog.nomeUtente;
-                TextField isbn = controllerDialog.isbn;
-                
-                DatePicker annoP = controllerDialog.annoP;
-                annoP.setValue(LocalDate.now());
-                
-                DatePicker annoR = controllerDialog.annoR;
-                annoR.setValue(LocalDate.now().plusDays(30));
-        
-                isbn.disableProperty().bind(nomeUtente.textProperty().isEmpty());
-                a.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(isbn.textProperty().isEmpty());
-                
-            });   
-            a.showAndWait();
+
+        a.setOnShown(e -> {
+
+            TextField nomeUtente = controllerDialog.nomeUtente;
+            TextField isbn = controllerDialog.isbn;
+
+            DatePicker annoP = controllerDialog.annoP;
+            annoP.setValue(LocalDate.now());
+
+            DatePicker annoR = controllerDialog.annoR;
+            annoR.setValue(LocalDate.now().plusDays(30));
+
+            isbn.disableProperty().bind(nomeUtente.textProperty().isEmpty());
+            a.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(isbn.textProperty().isEmpty());
+
+        });
+        a.showAndWait();
     }
-    
-    
+
 }

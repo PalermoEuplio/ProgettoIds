@@ -23,107 +23,106 @@ import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 import javafx.util.converter.NumberStringConverter;
 
-
 /**
  *
  * @author euppa
  */
 public class ControllerLibreria {
-    
+
     private Contesto co;
-    
-    public void setContesto(Contesto co){
+
+    public void setContesto(Contesto co) {
         this.co = co;
     }
-    
+
     @FXML
-    public void pageDashboard(MouseEvent event) throws IOException{
-        
+    public void pageDashboard(MouseEvent event) throws IOException {
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Dashboard.fxml"));
         Parent root = loader.load();
-        ControllerDashboard controller =  loader.getController();
+        ControllerDashboard controller = loader.getController();
         controller.setContesto(co);
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root,stage.getScene().getWidth(),stage.getScene().getHeight());
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
         stage.setScene(scene);
         stage.show();
-        
+
     }
-    
+
     @FXML
-    public void pageUtenti(MouseEvent event) throws IOException{ 
-        
+    public void pageUtenti(MouseEvent event) throws IOException {
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pageUtenti.fxml"));
         Parent root = loader.load();
-        ControllerUtenti controller =  loader.getController();
+        ControllerUtenti controller = loader.getController();
         controller.setContesto(co);
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root,stage.getScene().getWidth(),stage.getScene().getHeight());
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
         stage.setScene(scene);
         stage.show();
-        
+
     }
-    
+
     @FXML
-    public void pageLibreria(MouseEvent event) throws IOException{}
-    
+    public void pageLibreria(MouseEvent event) throws IOException {
+    }
+
     @FXML
-    public void pagePrestiti(MouseEvent event) throws IOException{ 
-        
+    public void pagePrestiti(MouseEvent event) throws IOException {
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pagePrestiti.fxml"));
         Parent root = loader.load();
-        ControllerPrestiti controller =  loader.getController();
+        ControllerPrestiti controller = loader.getController();
         controller.setContesto(co);
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root,stage.getScene().getWidth(),stage.getScene().getHeight());
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
         stage.setScene(scene);
         stage.show();
-        
+
     }
-    
-    
-    @FXML private TextField titoloLibro;
-    @FXML private TextField listaAutori;
-    @FXML private TextField isbn;
-    @FXML private DatePicker annoP;
-    @FXML private TextField NCopie;
-    
+
+    @FXML
+    private TextField titoloLibro;
+    @FXML
+    private TextField listaAutori;
+    @FXML
+    private TextField isbn;
+    @FXML
+    private DatePicker annoP;
+    @FXML
+    private TextField NCopie;
+
     public void aggiuntaLibro(MouseEvent event) throws IOException {
 
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/aggiuntaLibro.fxml"));
-    DialogPane root = loader.load();
-    
-    ControllerLibreria controllerDialog = loader.getController();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/aggiuntaLibro.fxml"));
+        DialogPane root = loader.load();
 
-    Dialog<ButtonType> a = new Dialog<>();
-    a.setDialogPane(root);
-    a.setTitle("Inserire nuovo Libro");
+        ControllerLibreria controllerDialog = loader.getController();
 
-    a.setOnShown(e -> {
+        Dialog<ButtonType> a = new Dialog<>();
+        a.setDialogPane(root);
+        a.setTitle("Inserire nuovo Libro");
 
-        TextField titoloLibro = controllerDialog.titoloLibro;
-        TextField listaAutori = controllerDialog.listaAutori;
-        TextField isbn = controllerDialog.isbn;
-        DatePicker annoP = controllerDialog.annoP;
-        annoP.setValue(LocalDate.now());
-        TextField NCopie = controllerDialog.NCopie;
-        
-        IntegerProperty numero = new SimpleIntegerProperty(0);
-        NCopie.textProperty().bindBidirectional(numero, new NumberStringConverter());
-        
-        
-        listaAutori.disableProperty().bind(titoloLibro.textProperty().isEmpty());
-        isbn.disableProperty().bind(listaAutori.textProperty().isEmpty());
-        NCopie.disableProperty().bind(isbn.textProperty().isEmpty());
-        a.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(numero.isEqualTo(0));
-        
-        
-        
-        
-        
-    });
+        a.setOnShown(e -> {
 
-    a.showAndWait();
-}
+            TextField titoloLibro = controllerDialog.titoloLibro;
+            TextField listaAutori = controllerDialog.listaAutori;
+            TextField isbn = controllerDialog.isbn;
+            DatePicker annoP = controllerDialog.annoP;
+            annoP.setValue(LocalDate.now());
+            TextField NCopie = controllerDialog.NCopie;
+
+            IntegerProperty numero = new SimpleIntegerProperty(0);
+            NCopie.textProperty().bindBidirectional(numero, new NumberStringConverter());
+
+            listaAutori.disableProperty().bind(titoloLibro.textProperty().isEmpty());
+            isbn.disableProperty().bind(listaAutori.textProperty().isEmpty());
+            NCopie.disableProperty().bind(isbn.textProperty().isEmpty());
+            a.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(numero.isEqualTo(0));
+
+        });
+
+        a.showAndWait();
+    }
 
 }
