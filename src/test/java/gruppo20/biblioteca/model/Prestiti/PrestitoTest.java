@@ -80,7 +80,6 @@ public class PrestitoTest {
 
     @Test
     public void testGetEffettivaRestituzione() {
-        //WTF?
         System.out.println("getEffettivaRestituzione");
         Prestito instance = null;
         String expResult = "";
