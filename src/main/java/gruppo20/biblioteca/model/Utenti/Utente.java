@@ -69,5 +69,13 @@ public class Utente {
         h = h * 31 + cognome.hashCode();
         return h;
     }
+    
+    @Override
+    public String toString(){
+        return nome+"; "+cognome+"; "+matricola;
+    }
+    
+    
+    
 
 }
