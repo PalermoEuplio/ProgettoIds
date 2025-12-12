@@ -133,10 +133,8 @@ public class Prestiti extends GestioneDB<Prestito> {
         } catch (SQLException e) {
             return false;
         }
-        setPrestiti.add(p);
-        gestLibreria.addPrestito(p.getIsbn());
-        gestUtenti.addPrestito(p.getMatricola());
-        return true;
+        return setPrestiti.add(p) && gestLibreria.addPrestito(p.getIsbn())&& gestUtenti.addPrestito(p.getMatricola());
+
     }
 
     /**
@@ -160,10 +158,7 @@ public class Prestiti extends GestioneDB<Prestito> {
         } catch (SQLException e) {
             return false;
         }
-        setPrestiti.remove(p);
-        gestLibreria.addRestituzione(p.getIsbn());
-        gestUtenti.addRestituzione(p.getMatricola());
-        return true;
+        return setPrestiti.remove(p) && gestLibreria.addRestituzione(p.getIsbn()) && gestUtenti.addRestituzione(p.getMatricola());
     }
 
     /**
@@ -192,12 +187,10 @@ public class Prestiti extends GestioneDB<Prestito> {
         }
         conn.setAutoCommit(true);
         if (!p1.getIsbn().equals(p2.getIsbn())) {
-            gestLibreria.addRestituzione(p1.getIsbn());
-            gestLibreria.addPrestito(p2.getIsbn());
+            status = gestLibreria.addRestituzione(p1.getIsbn()) && gestLibreria.addPrestito(p2.getIsbn());
         }
         if (!p1.getMatricola().equals(p2.getMatricola())) {
-            gestUtenti.addRestituzione(p1.getMatricola());
-            gestUtenti.addPrestito(p2.getMatricola());
+            status = gestUtenti.addRestituzione(p1.getMatricola()) && gestUtenti.addPrestito(p2.getMatricola());
         }
         return status;
     }
