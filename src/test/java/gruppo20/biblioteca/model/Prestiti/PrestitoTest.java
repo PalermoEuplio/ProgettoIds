@@ -80,10 +80,11 @@ public class PrestitoTest {
 
     @Test
     public void testGetEffettivaRestituzione() {
+        //WTF?
         System.out.println("getEffettivaRestituzione");
         Prestito instance = null;
         String expResult = "";
-        String result = instance.getEffettivaRestituzione();
+        EffettivaRestituzione result = instance.getEffettivaRestituzione();
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }
@@ -133,7 +134,7 @@ public class PrestitoTest {
         System.out.println("calcRitardo");
         Prestito instance = null;
         int expResult = 0;
-        int result = instance.calcRitardo();
+        int result = instance.getRitardo();
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }
