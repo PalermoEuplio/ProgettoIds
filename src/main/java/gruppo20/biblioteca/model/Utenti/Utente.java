@@ -74,8 +74,4 @@ public class Utente {
     public String toString(){
         return nome+"; "+cognome+"; "+matricola;
     }
-    
-    
-    
-
 }
