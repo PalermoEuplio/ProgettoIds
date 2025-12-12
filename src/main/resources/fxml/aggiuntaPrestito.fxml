@@ -28,7 +28,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label alignment="CENTER" prefHeight="77.0" prefWidth="240.0" text="Nome Utente:">
+                  <Label alignment="CENTER" prefHeight="77.0" prefWidth="240.0" text="Matricola Utente:">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
@@ -56,8 +56,14 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></DatePicker>
-                  <ComboBox fx:id="nomeUtente" prefHeight="26.0" prefWidth="326.0" promptText="Inserire Nome Utente.." styleClass="campiComparsa" GridPane.columnIndex="1" />
-                  <ComboBox fx:id="isbnBox" prefHeight="26.0" prefWidth="326.0" promptText="Inserire L'ISBN del Libro.." styleClass="campiComparsa" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="matricolaUtenteBox" blendMode="DARKEN" editable="true" prefHeight="26.0" prefWidth="326.0" promptText="Inserire Nome Utente.." styleClass="campiComparsa" GridPane.columnIndex="1">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor></ComboBox>
+                  <ComboBox fx:id="isbnBox" blendMode="DARKEN" editable="true" prefHeight="26.0" prefWidth="326.0" promptText="Inserire L'ISBN del Libro.." styleClass="campiComparsa" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor></ComboBox>
                </children>
             </GridPane>
          </children>
