@@ -23,9 +23,15 @@ import gruppo20.biblioteca.model.Main;
  *
  * @author euppa
  */
-public class ControllerDashboard {
+public class ControllerDashboard implements Initializable {
 
     private Contesto co;
+    
+    public void initialize(URL location, ResourceBundle resources) {
+        
+    }
+    
+    
 
     @FXML
     public void pageDashboard(MouseEvent event) throws IOException {

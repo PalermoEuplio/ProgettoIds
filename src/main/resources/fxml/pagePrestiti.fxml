@@ -108,31 +108,55 @@
    <center>
       <AnchorPane fx:id="prestiti" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#pagePrestiti" prefHeight="800.0" prefWidth="771.0" stylesheets="@StyleSheets.css" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="tabellaUtenti" layoutX="20.0" layoutY="271.0" prefHeight="388.0" prefWidth="731.0" styleClass="table" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="259.0">
+            <TableView fx:id="tabellaPrestitiRitardo" layoutX="20.0" layoutY="550.0" prefHeight="194.0" prefWidth="731.0" styleClass="table" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="550.0">
                <columns>
-                  <TableColumn editable="false" maxWidth="1.7976931348623157E308" prefWidth="119.0" text="Data Prestito" />
-                  <TableColumn editable="false" prefWidth="147.0" text="Data Scadenza" />
-                  <TableColumn editable="false" prefWidth="133.0" sortType="DESCENDING" text="Giorni Ritardo" />
-                  <TableColumn editable="false" prefWidth="117.0" sortable="false" text="Matricola" />
-                  <TableColumn editable="false" prefWidth="108.0" sortable="false" text="ISBN" />
-                  <TableColumn editable="false" prefWidth="106.0" resizable="false" sortable="false" text="Operazioni" />
+                  <TableColumn fx:id="dataPrestitoR" editable="false" maxWidth="1.7976931348623157E308" prefWidth="119.0" text="Data Prestito" />
+                  <TableColumn fx:id="dataScadenzaR" editable="false" prefWidth="147.0" text="Data Scadenza" />
+                  <TableColumn fx:id="giorniRitardo" editable="false" prefWidth="133.0" sortType="DESCENDING" text="Giorni Ritardo" />
+                  <TableColumn fx:id="matricolaR" editable="false" prefWidth="117.0" sortable="false" text="Matricola" />
+                  <TableColumn fx:id="isbnR" editable="false" prefWidth="108.0" sortable="false" text="ISBN" />
+                  <TableColumn fx:id="operazioniR" editable="false" prefWidth="106.0" resizable="false" sortable="false" text="Operazioni" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <Button fx:id="aggiuntaPrestito" alignment="CENTER_RIGHT" layoutX="602.0" layoutY="227.0" mnemonicParsing="false" onMouseClicked="#aggiuntaPrestito" prefHeight="32.0" prefWidth="149.0" styleClass="bottoni" text="Aggiungi Prestito" AnchorPane.leftAnchor="602.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="215.0">
+            <Button fx:id="aggiuntaPrestito" alignment="CENTER_RIGHT" graphicTextGap="11.0" layoutX="580.8" layoutY="227.0" mnemonicParsing="false" onMouseClicked="#aggiuntaPrestito" prefHeight="32.0" prefWidth="170.0" styleClass="bottoni" text="Aggiungi Prestito" AnchorPane.leftAnchor="581.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="215.0">
                <font>
-                  <Font name="System Bold" size="13.0" />
+                  <Font name="System Bold" size="15.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <graphic>
+                  <FontIcon iconLiteral="fa-plus" iconSize="18" />
+               </graphic>
             </Button>
-            <FontIcon iconLiteral="fa-plus" iconSize="18" layoutX="614.0" layoutY="238.0" />
             <Label alignment="TOP_CENTER" layoutX="176.0" layoutY="71.0" prefHeight="59.0" prefWidth="419.0" styleClass="intestazine" text="Sezione Prestiti" AnchorPane.topAnchor="74.0">
                <font>
                   <Font name="System Bold" size="34.0" />
+               </font>
+            </Label>
+            <Label layoutX="35.0" layoutY="514.0" prefHeight="36.0" prefWidth="294.0" text="Tabella Prestiti in Ritardo">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <TableView fx:id="tabellaPrestitiAttivi" layoutX="20.0" layoutY="259.0" prefHeight="194.0" prefWidth="731.0" styleClass="table" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="259.0">
+               <columns>
+                  <TableColumn fx:id="dataPrestitoA" editable="false" maxWidth="1.7976931348623157E308" prefWidth="206.39999771118164" text="Data Prestito" />
+                  <TableColumn fx:id="dataScadenzaA" editable="false" prefWidth="138.40000915527344" text="Data Scadenza" />
+                  <TableColumn fx:id="matricolaA" editable="false" prefWidth="153.60003662109375" sortable="false" text="Matricola" />
+                  <TableColumn fx:id="isbnA" editable="false" prefWidth="104.0" sortable="false" text="ISBN" />
+                  <TableColumn fx:id="operazioniA" editable="false" prefWidth="129.60003662109375" resizable="false" sortable="false" text="Operazioni" />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <Label layoutX="35.0" layoutY="223.0" prefHeight="36.0" prefWidth="294.0" text="Tabella Prestiti Attivi">
+               <font>
+                  <Font size="22.0" />
                </font>
             </Label>
          </children>

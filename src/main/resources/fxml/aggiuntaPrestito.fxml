@@ -2,10 +2,10 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -33,10 +33,6 @@
                         <Font name="System Bold" size="22.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="nomeUtente" blendMode="DARKEN" prefHeight="25.0" prefWidth="163.0" promptText="Inserire Nome Utente.." styleClass="campiComparsa" GridPane.columnIndex="1">
-                     <cursor>
-                        <Cursor fx:constant="TEXT" />
-                     </cursor></TextField>
                   <Label alignment="CENTER" layoutX="10.0" layoutY="22.0" prefHeight="77.0" prefWidth="240.0" text="ISBN Libro:" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="22.0" />
@@ -52,10 +48,6 @@
                         <Font name="System Bold" size="22.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="isbn" blendMode="DARKEN" promptText="Inserire L'ISBN del Libro.." styleClass="campiComparsa" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <cursor>
-                        <Cursor fx:constant="TEXT" />
-                     </cursor></TextField>
                   <DatePicker fx:id="annoP" blendMode="DARKEN" prefHeight="25.0" prefWidth="329.0" showWeekNumbers="false" styleClass="campiComparsa" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -64,6 +56,8 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></DatePicker>
+                  <ComboBox fx:id="nomeUtenteBox" prefHeight="26.0" prefWidth="326.0" promptText="Inserire Nome Utente.." styleClass="campiComparsa" GridPane.columnIndex="1" />
+                  <ComboBox fx:id="isbnBox" prefHeight="26.0" prefWidth="326.0" promptText="Inserire L'ISBN del Libro.." styleClass="campiComparsa" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
          </children>

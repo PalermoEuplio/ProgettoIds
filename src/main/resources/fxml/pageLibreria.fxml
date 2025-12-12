@@ -126,13 +126,16 @@
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor></TextField>
-            <Button fx:id="aggiungiLibroButton" alignment="CENTER_RIGHT" layoutX="612.0" layoutY="215.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="139.0" styleClass="bottoni" text="Aggiungi Libro" AnchorPane.bottomAnchor="553.0" AnchorPane.leftAnchor="612.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="215.0">
+            <Button fx:id="aggiungiLibroButton" alignment="CENTER_RIGHT" graphicTextGap="13.0" layoutX="596.8" layoutY="215.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="154.0" styleClass="bottoni" text="Aggiungi Libro" AnchorPane.bottomAnchor="553.0" AnchorPane.leftAnchor="597.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="215.0">
                <font>
-                  <Font name="System Bold" size="13.0" />
+                  <Font name="System Bold" size="15.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <graphic>
+                  <FontIcon iconLiteral="fa-plus" iconSize="18" />
+               </graphic>
             </Button>
             
             <Label alignment="TOP_CENTER" layoutX="176.0" layoutY="74.0" prefHeight="59.0" prefWidth="419.0" styleClass="intestazine" text="Sezione Libreria" AnchorPane.bottomAnchor="667.0" AnchorPane.leftAnchor="176.0" AnchorPane.rightAnchor="176.0" AnchorPane.topAnchor="74.0">
@@ -140,7 +143,6 @@
                   <Font name="System Bold" size="34.0" />
                </font>
             </Label>
-            <FontIcon iconLiteral="fa-plus" iconSize="18" layoutX="624.0" layoutY="238.0" AnchorPane.bottomAnchor="559.0" AnchorPane.leftAnchor="623.0" AnchorPane.rightAnchor="132.8571424484253" AnchorPane.topAnchor="222.5714282989502" />
          </children>
       </AnchorPane>
    </center>
