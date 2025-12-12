@@ -125,7 +125,7 @@ public class Prestiti extends GestioneDB<Prestito> {
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, p.getDataPrestito().toString());
             ps.setString(2, p.getDataPrevistaRestituzione().toString());
-            ps.setString(3, p.getEffettivaRestituzione());
+            ps.setString(3, p.getEffettivaRestituzione().getEffettivaRestituzione());
             ps.setString(4, p.getTitoloLibro());
             ps.setString(5, p.getIsbn());
             ps.setString(6, p.getMatricola());
