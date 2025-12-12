@@ -97,8 +97,7 @@ public class Libreria extends GestioneDB<Libro> {
         } catch (SQLException e) {
             return false;
         }
-        setLibreria.add(l2);
-        return true;
+        return setLibreria.add(l2);
 
     }
 
@@ -122,8 +121,7 @@ public class Libreria extends GestioneDB<Libro> {
         } catch (SQLException e) {
             return false;
         }
-        setLibreria.remove(l);
-        return true;
+        return setLibreria.remove(l);
     }
 
     /**

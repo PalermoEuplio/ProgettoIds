@@ -79,8 +79,7 @@ public class Utenti extends GestioneDB<Utente> {
         } catch (SQLException e) {
             return false;
         }
-        setUtenti.add(u);
-        return true;
+        return setUtenti.add(u);
     }
 
     /**
@@ -101,8 +100,7 @@ public class Utenti extends GestioneDB<Utente> {
         } catch (SQLException e) {
             return false;
         }
-        setUtenti.remove(u);
-        return true;
+        return setUtenti.remove(u);
     }
 
     /**
