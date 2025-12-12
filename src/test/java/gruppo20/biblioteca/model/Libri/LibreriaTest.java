@@ -76,8 +76,8 @@ public class LibreriaTest {
         Libro l = new Libro("Good Omens","Neil Gaiman,Terry Pratchett",LocalDate.of(1990,5,10),2,"9780060853969");
         libreria.aggiungi(l);
         
-        assertTrue(libreria.elimina(l)); //controllo che libro sia stato eliminato.
-        assertEquals(0, libreria.getSetLibreria().size()); //controllo che dimensione libreria sia 0 dopo l'eliminazione.
+        assertTrue(libreria.elimina(l)); //controllo che l'operazione sia avvenuta.
+        assertTrue(libreria.getSetLibreria().isEmpty()); //controllo che l'elemento sia eliminato.
     }
 
     /**
