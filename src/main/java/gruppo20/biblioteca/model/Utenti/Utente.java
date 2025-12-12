@@ -1,17 +1,17 @@
 package gruppo20.biblioteca.model.Utenti;
 
 /**
- * @brief Questo file contiene l'implementazione dell'oggetto Utente.
- * Identifica l'entità utente e i suoi attributi
+ * @brief Questo file contiene l'implementazione dell'oggetto Utente. Identifica
+ * l'entità utente e i suoi attributi
  * @author Gruppo20
  */
-public class Utente{
-    
-    private final String nome; ///< Nome dell'utente.
-    private final String cognome; ///< Cognome dell'utente.
-    private final String matricola; ///< Matricola dell'utente.
-    private final String mail; ///< E-mail istituzionale dell'utente.
-    private final int nPrestiti; ///< Numero dei prestiti attivi dell'utente.
+public class Utente {
+
+    private final String nome;///< Nome dell'utente.
+    private final String cognome;///< Cognome dell'utente.
+    private final String matricola;///< Matricola dell'utente.
+    private final String mail;///< E-mail istituzionale dell'utente.
+    private final int nPrestiti;///< Numero dei prestiti attivi dell'utente.
 
     public Utente(String nome, String cognome, String matricola, String mail, int nPrestiti) {
         this.nome = nome;
@@ -40,32 +40,34 @@ public class Utente{
 
     public String getMail() {
         return mail;
-    } 
-    
+    }
+
     /**
      * @brief Implementazione del metodo equals.
-     * 
+     *
      * @param o oggetto su cui controllare l'uguaglianza.
      */
     @Override
-    public boolean equals(Object o){
-        if(!(o instanceof Utente) || o==null)
+    public boolean equals(Object o) {
+        if (!(o instanceof Utente) || o == null) {
             return false;
-        
+        }
+
         Utente u = (Utente) o;
-        
+
         return this.nome.equals(u.getNome()) && this.cognome.equals(u.getCognome()) && this.matricola.equals(u.getMatricola());
     }
+
     /**
      * @brief Implementazione del metodo hashCode
      */
     @Override
-    public int hashCode(){
+    public int hashCode() {
         int h = 17;
         h = h * 31 + matricola.hashCode();
         h = h * 31 + nome.hashCode();
         h = h * 31 + cognome.hashCode();
         return h;
     }
-    
+
 }

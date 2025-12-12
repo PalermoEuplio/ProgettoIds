@@ -16,14 +16,16 @@ import javafx.fxml.FXMLLoader;
 
 public class Main extends Application {
     
-    private Contesto co = new Contesto();
+    private static final Contesto co = new Contesto();
+    
+    public static Contesto getContesto(){
+        return co;
+    }
     
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Dashboard.fxml"));
         Parent root = loader.load();
-        ControllerDashboard controller =  loader.getController();
-        controller.setContesto(co);
         Scene scene = new Scene(root);
         stage.setTitle("Biblioteca Universitaria");
         stage.setScene(scene);
