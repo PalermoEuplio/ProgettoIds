@@ -95,5 +95,15 @@ public class Libro {
         h = h * 31 + autori.hashCode();
         return h;
     }
+    @Override
+    public String toString(){
+        StringBuilder builder = new StringBuilder();
+        builder.append(titolo);
+        for(Autore x : autori){
+            builder.append("; "+x);
+        }
+        builder.append("; "+isbn);
+        return builder.toString();
+    }
 
 }
