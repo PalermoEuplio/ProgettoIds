@@ -38,27 +38,41 @@ public class ControllerLibreria implements Initializable{
     
     private Contesto co;
     
-    @FXML private TableView<Libro> tabellaLibri;
+    @FXML 
+    private TableView<Libro> tabellaLibri;
     
     
-    @FXML private TextField titoloLibro;
-    @FXML private TextField listaAutori;
-    @FXML private TextField isbn;
-    @FXML private DatePicker annoP;
-    @FXML private TextField NCopie;
-    @FXML private TextField barraCercaLibri;
-    @FXML private Button aggiungiLibroButton;
+    @FXML 
+    private TextField titoloLibro;
+    @FXML 
+    private TextField listaAutori;
+    @FXML 
+    private TextField isbn;
+    @FXML 
+    private DatePicker annoP;
+    @FXML 
+    private TextField NCopie;
+    @FXML 
+    private TextField barraCercaLibri;
+    @FXML 
+    private Button aggiungiLibroButton;
     
     
     
     
     
-    @FXML private TableColumn<Libro, String> titolo;
-    @FXML private TableColumn<Libro, String> autori;
-    @FXML private TableColumn<Libro, LocalDate> annoPublicazione;
-    @FXML private TableColumn<Libro, String> isbn0;
-    @FXML private TableColumn<Libro, Integer> nCopie;
-    @FXML private TableColumn<Libro, Void> operazioni;
+    @FXML 
+    private TableColumn<Libro, String> titolo;
+    @FXML 
+    private TableColumn<Libro, String> autori;
+    @FXML 
+    private TableColumn<Libro, LocalDate> annoPublicazione;
+    @FXML 
+    private TableColumn<Libro, String> isbn0;
+    @FXML 
+    private TableColumn<Libro, Integer> nCopie;
+    @FXML 
+    private TableColumn<Libro, Void> operazioni;
     
     
     
@@ -172,8 +186,6 @@ public class ControllerLibreria implements Initializable{
                         FXMLLoader carica = new FXMLLoader(getClass().getResource("/fxml/ConfermaCancellazione.fxml"));
                         DialogPane rooot = carica.load();
 
-                        ControllerUtenti controllerDialog = carica.getController();
-
                         Dialog<ButtonType> a = new Dialog<>();
                         a.setDialogPane(rooot);
                         a.setTitle("ATTENZIONE");
@@ -213,9 +225,6 @@ public class ControllerLibreria implements Initializable{
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pageLibreria.fxml"));
                     try{
                     Parent root = loader.load();
-                    
-                    ControllerUtenti controller =  loader.getController();
-                    //controller.setContesto(co);
                     Stage stage = (Stage)((Node)elimina).getScene().getWindow();
                     Scene scene = new Scene(root);
                     stage.setScene(scene);
@@ -325,19 +334,13 @@ public class ControllerLibreria implements Initializable{
                             } catch (NumberFormatException ex) { 
                                 nuoveCopie = 1; 
                             }
-
-                            // 2. CREIAMO IL LIBRO
+                            
                             Libro nuovoLibro = new Libro(nuovoTitolo, nuoviAutori, nuovoAnno, nuoveCopie, nuovoIsbn);
-
-                            // 3. AGGIUNGIAMO AL CONTESTO "VERO" (this.co)
-                            // Usiamo 'this.co' perché siamo nel controller principale, non nel dialog
+                            
                             this.co.getGestLibreria().aggiungi(nuovoLibro);
-
-                            // 4. AGGIUNGIAMO ALLA TABELLA
+                            
                             listaPerTabella.add(nuovoLibro);
-
-                            // Aggiorniamo la vista se necessario
-                            tabellaLibri.refresh();
+                            
                         }
                     });
 
