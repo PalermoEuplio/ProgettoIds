@@ -141,14 +141,6 @@ public class ControllerPrestiti implements Initializable{
     public void pagePrestiti(MouseEvent event) throws IOException {
     }
 
-    @FXML
-    private TextField nomeUtente;
-    @FXML
-    private TextField isbn;
-    @FXML
-    private DatePicker annoP;
-    @FXML
-    private DatePicker annoR;
 
     public void aggiuntaPrestito(MouseEvent event) throws IOException {
 
