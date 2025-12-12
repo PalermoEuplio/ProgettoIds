@@ -60,9 +60,9 @@ public class Autore {
             return false;
         }
         Autore a = (Autore) o;
-        return this.nome.equals(a.getCognome()) && this.cognome.equals(a.getNome());
+        return this.nome.equals(a.getNome()) && this.cognome.equals(a.getCognome());
     }
-
+    
     /**
      * @brief Restituisce una rappresentazione testuale dell'autore.
      * @return Stringa nel formato "nome cognome".

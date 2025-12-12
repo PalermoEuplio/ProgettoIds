@@ -75,7 +75,7 @@ public class Libro {
      */
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Libro) || o == null) {
+        if (o == null || !(o instanceof Libro) ) {
             return false;
         }
 
