@@ -155,9 +155,7 @@ public class ControllerLibreria implements Initializable{
                                     Integer nuovoNCopie = Integer.parseInt(tNCopie.getText());
                                     
                                     Libro lNuovo = new Libro(nuovoTitolo, nuovoListaAutori, nuovaAnnoP, nuovoNCopie, nuovaIsbn);
-
                                     
-                                    Libreria l = co.getGestLibreria();
                                     try{
                                     l.modifica(lVecchio, lNuovo);
                                     }catch(Exception a){}
@@ -178,8 +176,7 @@ public class ControllerLibreria implements Initializable{
                 
                 //Comportamento Bottone eliminazione
                 elimina.setOnAction(e1 -> {
-                    Libro l = getTableView().getItems().get(getIndex());
-                    Libreria l1 = co.getGestLibreria();    
+                    Libro l0 = getTableView().getItems().get(getIndex());    
                     
                     
                     try{
@@ -198,8 +195,8 @@ public class ControllerLibreria implements Initializable{
 
                             // Logica dei bottoni (chiudere la finestra)
                             pulsanteSi.setOnAction(ered -> {
-                                l1.elimina(l);
-                                listaPerTabella.remove(l);
+                                l.elimina(l0);
+                                listaPerTabella.remove(l0);
                                 // Chiudi la finestra prendendo lo Stage dal bottone stesso
                                 ((Stage) pulsanteSi.getScene().getWindow()).close();
                             });
@@ -215,21 +212,6 @@ public class ControllerLibreria implements Initializable{
                         a.showAndWait();
                     
                     }catch (IOException a){}
-                    
-
-                    
-                    
-                    
-                    
-                    //Ricarico la pagina ed Aggiorno il contesto
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pageLibreria.fxml"));
-                    try{
-                    Parent root = loader.load();
-                    Stage stage = (Stage)((Node)elimina).getScene().getWindow();
-                    Scene scene = new Scene(root);
-                    stage.setScene(scene);
-                    stage.show();
-                    }catch (Exception eccezione){}
                 });
             }
 
@@ -250,7 +232,7 @@ public class ControllerLibreria implements Initializable{
             titolo.setCellValueFactory(new PropertyValueFactory<>("titolo"));
             autori.setCellValueFactory(new PropertyValueFactory<>("autori"));
             annoPublicazione.setCellValueFactory(new PropertyValueFactory<>("anno"));
-            isbn0.setCellValueFactory(new PropertyValueFactory<>("isbn")); // getter: getMail()
+            isbn0.setCellValueFactory(new PropertyValueFactory<>("isbn")); 
             nCopie.setCellValueFactory(new PropertyValueFactory<>("NCopie")); 
             
         }
@@ -322,7 +304,7 @@ public class ControllerLibreria implements Initializable{
                     // Attesa chiusura finestra e gestione salvataggio
                     dialog.showAndWait().ifPresent(response -> {
                         if (response == ButtonType.OK) {
-                            // 1. PRENDIAMO I DATI DAI CAMPI DEL DIALOG
+                            
                             String nuovoTitolo = controllerDialog.titoloLibro.getText();
                             String nuoviAutori = controllerDialog.listaAutori.getText();
                             String nuovoIsbn = controllerDialog.isbn.getText();
@@ -337,7 +319,7 @@ public class ControllerLibreria implements Initializable{
                             
                             Libro nuovoLibro = new Libro(nuovoTitolo, nuoviAutori, nuovoAnno, nuoveCopie, nuovoIsbn);
                             
-                            this.co.getGestLibreria().aggiungi(nuovoLibro);
+                            setLibri.add(nuovoLibro);
                             
                             listaPerTabella.add(nuovoLibro);
                             
@@ -354,9 +336,6 @@ public class ControllerLibreria implements Initializable{
             
         }
         else if(nomeFile.endsWith("aggiuntaLibro.fxml")){}
-        
-    
-    
     }
     
     
@@ -401,27 +380,5 @@ public class ControllerLibreria implements Initializable{
         stage.setScene(scene);
         stage.show();
 
-    }
-    
-    public void setGenitore(ControllerLibreria genitore) {
-        this.controllerGenitore = genitore;
-    }
-    
-    @FXML
-    public Libro azioneConferma() {
-        if (controllerGenitore != null) {
-            // 1. Prendiamo il testo dall'input della Pagina 2
-            String titolo = titoloLibro.getText();
-            String autori = listaAutori.getText();
-            LocalDate data = annoP.getValue();
-            String copie = nCopie.getText();
-            String isbn = this.isbn.getText();
-           
-            Libreria l1 = co.getGestLibreria();
-            Libro temp = new Libro(titolo, autori, data, Integer.parseInt(copie), isbn);
-            l1.aggiungi(temp);
-            return temp;
-        }
-        return null;
     }
 }
