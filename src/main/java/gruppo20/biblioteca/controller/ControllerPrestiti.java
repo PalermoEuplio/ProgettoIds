@@ -110,7 +110,8 @@ public class ControllerPrestiti implements Initializable{
             
             Prestiti p = co.getGestPrestiti();
             ObservableSet<Prestito> set = p.getSetPrestiti();
-            
+            ArrayList<Prestito> listaAttivi = new ArrayList<>();
+            ArrayList<Prestito> listaRestituiti = new ArrayList<>();
             
             //  Creazione e Gestione della tabella dei Prestiti Attivi
             tabellaPrestitiAttivi.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -124,6 +125,8 @@ public class ControllerPrestiti implements Initializable{
                 Button modifica = new Button("",mod);
                 Button elimina = new Button("",del);
                 Button conferma = new Button("",ok);
+                
+                
                 
                 HBox bottoni = new HBox(3.5);
                 {
@@ -140,6 +143,9 @@ public class ControllerPrestiti implements Initializable{
                             DialogPane root = loader.load();
 
                             ControllerPrestiti controllerDialog = loader.getController();
+                            
+                            
+                            
                             
                             controllerDialog.matricolaUtenteBox.setValue(pVecchio.getMatricola());
                             controllerDialog.isbnBox.setValue(pVecchio.getIsbn());
@@ -201,6 +207,7 @@ public class ControllerPrestiti implements Initializable{
                                     int index = listaPerTabellaAttivi.indexOf(pVecchio);
                                     if(index >= 0){
                                         listaPerTabellaAttivi.set(index, pNuovo);
+                                        listaAttivi.add(pNuovo);
                                     }
                                     tabellaPrestitiAttivi.refresh();
                                 }
@@ -235,6 +242,7 @@ public class ControllerPrestiti implements Initializable{
                                 pulsanteSi.setOnAction(erese -> {
                                     p.elimina(preso);
                                     listaPerTabellaAttivi.remove(preso);
+                                    listaAttivi.remove(preso);
                                     // Chiudi la finestra prendendo lo Stage dal bottone stesso
                                     ((Stage) pulsanteSi.getScene().getWindow()).close();
                                 });
@@ -256,8 +264,11 @@ public class ControllerPrestiti implements Initializable{
                        
                         Prestito preso = getTableView().getItems().get(getIndex());
                         preso.setEffettivaRestituzione(LocalDate.now());
+                        
                         listaPerTabellaRitardi.add(preso);
                         listaPerTabellaAttivi.remove(preso);
+                        
+                        p.restituisci(preso, LocalDate.MIN);
                         
    
                     });
@@ -307,7 +318,7 @@ public class ControllerPrestiti implements Initializable{
                                 // Logica dei bottoni (chiudere la finestra)
                                 pulsanteSi.setOnAction(erese -> {
                                     p.elimina(preso);
-                                    listaPerTabellaAttivi.remove(preso);
+                                    listaPerTabellaRitardi.remove(preso);
                                     // Chiudi la finestra prendendo lo Stage dal bottone stesso
                                     ((Stage) pulsanteSi.getScene().getWindow()).close();
                                 });
@@ -356,19 +367,26 @@ public class ControllerPrestiti implements Initializable{
             }
             
             
-            //Lista Osservabile dalla Tabella
-            listaPerTabellaAttivi = FXCollections.observableArrayList(set);
+            //Ciclo per filtrare gli elementi non restituiti
             
-            //Ciclo per elementi in Tabella Restituzione
-            ArrayList<Prestito> listaInterna = new ArrayList<>();
-            for(Prestito b : listaPerTabellaAttivi){
+            for(Prestito b: set){
+                if(!b.getEffettivaRestituzione().isRestituito())
+                    listaAttivi.add(b);
+            }
+            listaPerTabellaAttivi = FXCollections.observableArrayList(listaAttivi);
+            
+            
+            
+            
+            //Ciclo per elementi restituiti
+            
+            for(Prestito b : set){
                 if(b.getEffettivaRestituzione().isRestituito()){
                     
-                    listaInterna.add(b);
+                    listaRestituiti.add(b);
                 }
             }
-            
-            listaPerTabellaRitardi = FXCollections.observableArrayList(listaInterna);
+            listaPerTabellaRitardi = FXCollections.observableArrayList(listaRestituiti);
             
             
             tabellaPrestitiAttivi.setItems(listaPerTabellaAttivi);
@@ -421,8 +439,9 @@ public class ControllerPrestiti implements Initializable{
                                                 
                                                 Prestito x = new Prestito((LocalDate)tAnnoP.getValue(),(LocalDate)tAnnoR.getValue(),
                                                         "false",temp.getTitolo(),campiIsbn[campiIsbn.length-1],campiMat[campiMat.length-1]);
+                                                listaAttivi.add(x);
                                                 listaPerTabellaAttivi.add(x);
-                                                set.add(x);
+                                                p.aggiungi(x);
                                                 break;
                                             }
                                     }
