@@ -1,11 +1,13 @@
 package gruppo20.biblioteca.controller;
 
+import gruppo20.biblioteca.model.Libri.Libro;
 import gruppo20.biblioteca.model.Main;
 import gruppo20.biblioteca.model.Prestiti.Prestito;
 import gruppo20.biblioteca.model.Prestiti.Prestiti;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,7 +28,6 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -48,26 +49,26 @@ public class ControllerPrestiti implements Initializable{
     @FXML
     private TableView<Prestito> tabellaPrestitiRitardo;
 
-    
+    //      Campi finestra a comparsa
     @FXML
-    private ComboBox nomeUtente;
+    private ComboBox matricolaUtenteBox;
     @FXML
     private ComboBox isbnBox;
-    @FXML
-    private TextField matricola;
     @FXML
     private DatePicker annoP;
     @FXML
     private DatePicker annoR;
+    @FXML
+    private Button aggiuntaPrestitoButton;
     
-    //private Button aggiuntaPrestitoButton;
     
-    
-    //Per tabella Prestiti Attivi
+    //      Per tabella Prestiti Attivi
     @FXML
     private TableColumn<Prestito, String> dataPrestitoA;
     @FXML
     private TableColumn<Prestito, String> dataScadenzaA;
+    @FXML
+    private TableColumn<Prestito, Integer> giorniRitardoA;
     @FXML
     private TableColumn<Prestito, String> matricolaA;
     @FXML
@@ -75,13 +76,13 @@ public class ControllerPrestiti implements Initializable{
     @FXML
     private TableColumn<Prestito, Void> operazioniA;
     
-    //Per tabella Prestiti Ritardo
+    
     @FXML
     private TableColumn<Prestito, String> dataPrestitoR;
     @FXML
     private TableColumn<Prestito, String> dataScadenzaR;
     @FXML
-    private TableColumn<Prestito, Integer> giorniRitardo;
+    private TableColumn<Prestito, Integer> giorniRitardoR;
     @FXML
     private TableColumn<Prestito, String> matricolaR;
     @FXML
@@ -92,7 +93,6 @@ public class ControllerPrestiti implements Initializable{
     
     
 
-    private ControllerPrestiti controllerGenitore;
     private ObservableList<Prestito> listaPerTabellaAttivi;
     private ObservableList<Prestito> listaPerTabellaRitardi;
     
@@ -104,87 +104,105 @@ public class ControllerPrestiti implements Initializable{
     
     public void initialize(URL location, ResourceBundle resources) {
         this.co = Main.getContesto();
-        System.out.println("Contesto in Libreria: "+ co);/*
+        System.out.println("Contesto in Libreria: "+ co);
         String nomeFile = location.getFile();
         if(nomeFile.endsWith("pagePrestiti.fxml")){
-            Libreria l = co.getGestLibreria();
-            ObservableSet<Libro> setLibri = l.getSetLibreria();
-            tabellaLibri.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
             
-            operazioni.setCellFactory(col -> new TableCell<Libro, Void>() {
+            Prestiti p = co.getGestPrestiti();
+            ObservableSet<Prestito> set = p.getSetPrestiti();
+            
+            
+            //  Creazione e Gestione della tabella dei Prestiti Attivi
+            tabellaPrestitiAttivi.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+            
+            operazioniA.setCellFactory(col -> new TableCell<Prestito, Void>() {
             
                 FontIcon mod = new FontIcon("fa-pencil");
                 FontIcon del = new FontIcon("fa-remove");
+                FontIcon ok = new FontIcon("fa-check");
                 
                 Button modifica = new Button("",mod);
                 Button elimina = new Button("",del);
+                Button conferma = new Button("",ok);
                 
-                HBox bottoni = new HBox(5);
+                HBox bottoni = new HBox(3.5);
                 {
                 
-                    bottoni.getChildren().addAll(modifica,elimina);
+                    bottoni.getChildren().addAll(modifica,elimina,conferma);
                     
                     //Comportamento bottone modifica
                     modifica.setOnAction(e0 -> {
-                        Libro lVecchio = getTableView().getItems().get(getIndex());
+                        Prestito pVecchio = getTableView().getItems().get(getIndex());
 
                         try {
                             
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/aggiuntaLibro.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/aggiuntaPrestito.fxml"));
                             DialogPane root = loader.load();
 
-                            ControllerLibreria controllerDialog = loader.getController();
+                            ControllerPrestiti controllerDialog = loader.getController();
                             
-                            controllerDialog.titoloLibro.setText(lVecchio.getTitolo());
-                            controllerDialog.listaAutori.setText(lVecchio.getAutori());
-                            controllerDialog.isbn.setText(lVecchio.getIsbn());
-                            controllerDialog.annoP.setValue(lVecchio.getAnno());
-                            controllerDialog.NCopie.setText(String.valueOf(lVecchio.getNCopie()));
+                            controllerDialog.matricolaUtenteBox.setValue(pVecchio.getMatricola());
+                            controllerDialog.isbnBox.setValue(pVecchio.getIsbn());
+                            controllerDialog.annoP.setValue(pVecchio.getDataPrestito());
+                            controllerDialog.annoR.setValue(pVecchio.getDataPrevistaRestituzione());
 
                             
                             Dialog<ButtonType> dialog = new Dialog<>();
                             dialog.setDialogPane(root);
-                            dialog.setTitle("Modifica Libro");
+                            dialog.setTitle("Modifica Prestito");
 
                             
-                            TextField tTitoloLibro = controllerDialog.titoloLibro;
-                            TextField tListaAutori = controllerDialog.listaAutori;
-                            TextField tIsbn = controllerDialog.isbn;
+                            ComboBox bmatricolaUtente = controllerDialog.matricolaUtenteBox;
+                            bmatricolaUtente.setItems(FXCollections.observableArrayList(co.getGestUtenti().getSetUtenti()));
+                            
+                            ComboBox bIsbn = controllerDialog.isbnBox;
+                            bIsbn.setItems(FXCollections.observableArrayList(co.getGestLibreria().getSetLibreria()));
+                            
                             DatePicker tAnnoP = controllerDialog.annoP;
-                            TextField tNCopie = controllerDialog.NCopie;
+                            DatePicker tAnnoR = controllerDialog.annoR;
 
                             
                             dialog.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(
-                                tTitoloLibro.textProperty().isEmpty()
-                                .or(tListaAutori.textProperty().isEmpty())
-                                .or(tIsbn.textProperty().isEmpty())
+                                bmatricolaUtente.valueProperty().isNull()
+                                .or(bIsbn.valueProperty().isNull())
                                 .or(tAnnoP.valueProperty().isNull())
-                                    .or(tNCopie.textProperty().isEmpty())
-                            );
+                                .or(tAnnoR.valueProperty().isNull())
+                            ); 
 
                             
                             dialog.showAndWait().ifPresent(response -> {
                                 if (response == ButtonType.OK) {
                                     
-                                    String nuovoTitolo = tTitoloLibro.getText();
-                                    String nuovoListaAutori = tListaAutori.getText();
-                                    String nuovaIsbn = tIsbn.getText();
+                                    String[] campiIsbn = ((String)bIsbn.getValue()).split("; ");
+                                    String[] campiMat = ((String)bmatricolaUtente.getValue()).split("; ");
                                     LocalDate nuovaAnnoP= tAnnoP.getValue();
-                                    Integer nuovoNCopie = Integer.parseInt(tNCopie.getText());
+                                    LocalDate nuovaAnnoR= tAnnoR.getValue();
                                     
-                                    Libro lNuovo = new Libro(nuovoTitolo, nuovoListaAutori, nuovaAnnoP, nuovoNCopie, nuovaIsbn);
-
+                                    ObservableSet<Libro> setLibro = co.getGestLibreria().getSetLibreria();
                                     
-                                    Libreria l = co.getGestLibreria();
+                                    
+                                    
+                                    Prestito pNuovo=null;
+                                    
+                                    // Cerco il Titolo dall'Isbn
+                                    for(Libro x: setLibro){
+                                        if(x.equals(new Libro(null,null,null,0,campiIsbn[campiIsbn.length-1]))){
+                                            
+                                             pNuovo = new Prestito(nuovaAnnoP,nuovaAnnoR,"false",x.getTitolo(),campiIsbn[campiIsbn.length-1],campiMat[campiMat.length-1]);
+                                             break;
+                                        }
+                                        // ----------- Possibile Messaggio d'Errore per modifica del Prestito -----------
+                                    }
+                                    
                                     try{
-                                    l.modifica(lVecchio, lNuovo);
+                                        p.modifica(pVecchio, pNuovo);
                                     }catch(Exception a){}
                                     
-                                    int index = listaPerTabella.indexOf(lVecchio);
+                                    int index = listaPerTabellaAttivi.indexOf(pVecchio);
                                     if(index >= 0){
-                                        listaPerTabella.set(index, lNuovo);
+                                        listaPerTabellaAttivi.set(index, pNuovo);
                                     }
-                                    tabellaLibri.refresh();
+                                    tabellaPrestitiAttivi.refresh();
                                 }
                             });
 
@@ -195,65 +213,52 @@ public class ControllerPrestiti implements Initializable{
                 
                 
                 //Comportamento Bottone eliminazione
-                elimina.setOnAction(e1 -> {
-                    Libro l = getTableView().getItems().get(getIndex());
-                    Libreria l1 = co.getGestLibreria();    
+                    elimina.setOnAction(e1 -> {
+                        Prestito preso = getTableView().getItems().get(getIndex());    
+
+
+                        try{
+                            FXMLLoader carica = new FXMLLoader(getClass().getResource("/fxml/ConfermaCancellazione.fxml"));
+                            DialogPane rooot = carica.load();
+
+                            Dialog<ButtonType> a = new Dialog<>();
+                            a.setDialogPane(rooot);
+                            a.setTitle("ATTENZIONE");
+
+                            //Handler della pagina in sovrapposizione
+                            a.setOnShown(e -> {
+
+                               Button pulsanteSi = (Button) rooot.lookup("#btnYes");
+                               Button pulsanteNo = (Button) rooot.lookup("#btnNo");
+
+                                // Logica dei bottoni (chiudere la finestra)
+                                pulsanteSi.setOnAction(erese -> {
+                                    p.elimina(preso);
+                                    listaPerTabellaAttivi.remove(preso);
+                                    // Chiudi la finestra prendendo lo Stage dal bottone stesso
+                                    ((Stage) pulsanteSi.getScene().getWindow()).close();
+                                });
+
+                                pulsanteNo.setOnAction(efds -> {
+                                    ((Stage) pulsanteNo.getScene().getWindow()).close();
+                                });
+
+
+
+                            });    
+
+                            a.showAndWait();
+
+                        }catch (IOException a){}
+                    });
                     
-                    
-                    try{
-                        FXMLLoader carica = new FXMLLoader(getClass().getResource("/fxml/ConfermaCancellazione.fxml"));
-                        DialogPane rooot = carica.load();
-
-                        ControllerUtenti controllerDialog = carica.getController();
-
-                        Dialog<ButtonType> a = new Dialog<>();
-                        a.setDialogPane(rooot);
-                        a.setTitle("ATTENZIONE");
-
-                        //Handler della pagina in sovrapposizione
-                        a.setOnShown(e -> {
-
-                           Button pulsanteSi = (Button) rooot.lookup("#btnYes");
-                           Button pulsanteNo = (Button) rooot.lookup("#btnNo");
-
-                            // Logica dei bottoni (chiudere la finestra)
-                            pulsanteSi.setOnAction(ered -> {
-                                l1.elimina(l);
-                                listaPerTabella.remove(l);
-                                // Chiudi la finestra prendendo lo Stage dal bottone stesso
-                                ((Stage) pulsanteSi.getScene().getWindow()).close();
-                            });
-
-                            pulsanteNo.setOnAction(efds -> {
-                                ((Stage) pulsanteNo.getScene().getWindow()).close();
-                            });
-
-
-
-                        });    
-
-                        a.showAndWait();
-                    
-                    }catch (IOException a){}
-                    
-
-                    
-                    
-                    
-                    
-                    //Ricarico la pagina ed Aggiorno il contesto
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pageLibreria.fxml"));
-                    try{
-                    Parent root = loader.load();
-                    
-                    ControllerUtenti controller =  loader.getController();
-                    //controller.setContesto(co);
-                    Stage stage = (Stage)((Node)elimina).getScene().getWindow();
-                    Scene scene = new Scene(root);
-                    stage.setScene(scene);
-                    stage.show();
-                    }catch (Exception eccezione){}
-                });
+                    conferma.setOnAction(dsa ->{
+                       
+                        Prestito preso = getTableView().getItems().get(getIndex());
+                        listaPerTabellaRitardi.add(preso);
+                        listaPerTabellaAttivi.remove(preso);
+   
+                    });
             }
 
             //Aggiunta bottoni a tabella
@@ -269,40 +274,169 @@ public class ControllerPrestiti implements Initializable{
         });   
             
             
-            if(titolo != null) { // Controllo null per evitare errori in altre view che usano questo controller
-            titolo.setCellValueFactory(new PropertyValueFactory<>("titolo"));
-            autori.setCellValueFactory(new PropertyValueFactory<>("autori"));
-            annoPublicazione.setCellValueFactory(new PropertyValueFactory<>("anno"));
-            isbn0.setCellValueFactory(new PropertyValueFactory<>("isbn")); // getter: getMail()
-            nCopie.setCellValueFactory(new PropertyValueFactory<>("NCopie")); 
+            operazioniR.setCellFactory(col -> new TableCell<Prestito, Void>() {
+                
+                FontIcon del = new FontIcon("fa-remove");
+                
+                Button elimina = new Button("",del);
+                
+                
+                {
+    
+                //Comportamento Bottone eliminazione
+                    elimina.setOnAction(e1 -> {
+                        Prestito preso = getTableView().getItems().get(getIndex());    
+
+
+                        try{
+                            FXMLLoader carica = new FXMLLoader(getClass().getResource("/fxml/ConfermaCancellazione.fxml"));
+                            DialogPane rooot = carica.load();
+
+                            Dialog<ButtonType> a = new Dialog<>();
+                            a.setDialogPane(rooot);
+                            a.setTitle("ATTENZIONE");
+
+                            //Handler della pagina in sovrapposizione
+                            a.setOnShown(e -> {
+
+                               Button pulsanteSi = (Button) rooot.lookup("#btnYes");
+                               Button pulsanteNo = (Button) rooot.lookup("#btnNo");
+
+                                // Logica dei bottoni (chiudere la finestra)
+                                pulsanteSi.setOnAction(erese -> {
+                                    p.elimina(preso);
+                                    listaPerTabellaAttivi.remove(preso);
+                                    // Chiudi la finestra prendendo lo Stage dal bottone stesso
+                                    ((Stage) pulsanteSi.getScene().getWindow()).close();
+                                });
+
+                                pulsanteNo.setOnAction(efds -> {
+                                    ((Stage) pulsanteNo.getScene().getWindow()).close();
+                                });
+
+
+
+                            });    
+
+                            a.showAndWait();
+
+                        }catch (IOException a){}
+                    });
+            }
+
+                //Aggiunta bottone a tabella
+                @Override
+                protected void updateItem(Void item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setGraphic(null);
+                    } else {
+                        setGraphic(elimina);
+                    }
+                }
+            });
             
-        }
+            
+            if(dataPrestitoA != null) { // Controllo null per evitare errori in altre view che usano questo controller
+                dataPrestitoA.setCellValueFactory(new PropertyValueFactory<>("dataPrestito"));
+                dataScadenzaA.setCellValueFactory(new PropertyValueFactory<>("dataPrevistaRestituzione"));
+                matricolaA.setCellValueFactory(new PropertyValueFactory<>("matricola"));
+                giorniRitardoA.setCellValueFactory(new PropertyValueFactory<>("ritardo"));
+                isbnA.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+            }
+            
+            if(dataPrestitoR != null) { // Controllo null per evitare errori in altre view che usano questo controller
+                dataPrestitoR.setCellValueFactory(new PropertyValueFactory<>("dataPrestito"));
+                dataScadenzaR.setCellValueFactory(new PropertyValueFactory<>("dataPrevistaRestituzione"));
+                matricolaR.setCellValueFactory(new PropertyValueFactory<>("matricola"));
+                giorniRitardoR.setCellValueFactory(new PropertyValueFactory<>("ritardo"));
+                isbnR.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+            }
             
             
             //Lista Osservabile dalla Tabella
-            listaPerTabella = FXCollections.observableArrayList(setLibri);
+            listaPerTabellaAttivi = FXCollections.observableArrayList(set);
+            
+            //Ciclo per elementi in Tabella Restituzione
+            ArrayList<Prestito> listaInterna = new ArrayList<>();
+            for(Prestito b : listaPerTabellaAttivi){
+                if(b.getEffettivaRestituzione().isRestituito()){
+                    
+                    listaInterna.add(b);
+                }
+            }
+            
+            listaPerTabellaRitardi = FXCollections.observableArrayList(listaInterna);
             
             
+            tabellaPrestitiAttivi.setItems(listaPerTabellaAttivi);
+            tabellaPrestitiRitardo.setItems(listaPerTabellaRitardi);
             
-            //Filtraggio per Cognome o Matricola
-            FilteredList<Libro> datiFiltrati = new FilteredList<>(listaPerTabella, p -> true);
-            
-            
-            barraCercaLibri.textProperty().addListener((osservabile, vecchio, nuovo) ->{
-                datiFiltrati.setPredicate(libro ->{
-                    if(nuovo==null || nuovo.isEmpty())
-                        return true;
-                     String lowerCaseFilter = nuovo.toLowerCase();
-                     
-                     return libro.getTitolo().toLowerCase().contains(lowerCaseFilter) || libro.getIsbn().toLowerCase().contains(lowerCaseFilter)
-                             || libro.getAutori().toLowerCase().contains(lowerCaseFilter);
-                });
+                aggiuntaPrestitoButton.setOnAction(ds -> {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/aggiuntaPrestito.fxml"));
+                        DialogPane root = loader.load();
+
+                        ControllerPrestiti controllerDialog = loader.getController();
+
+                        Dialog<ButtonType> a = new Dialog<>();
+                        a.setDialogPane(root);
+                        a.setTitle("Inserire nuovo Prestito");
+
+                        //Handler della pagina in sovrapposizione
+                        a.setOnShown(e -> {
+                            
+                            ComboBox bmatricolaUtente = controllerDialog.matricolaUtenteBox;
+                            bmatricolaUtente.setItems(FXCollections.observableArrayList(co.getGestUtenti().getSetUtenti()));
+                            
+                            
+                            ComboBox bIsbn = controllerDialog.isbnBox;
+                            bIsbn.setItems(FXCollections.observableArrayList(co.getGestLibreria().getSetLibreria()));
+                            
+                            DatePicker tAnnoP = controllerDialog.annoP;
+                            tAnnoP.setValue(LocalDate.now());
+                            DatePicker tAnnoR = controllerDialog.annoR;
+
+                            a.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(
+                                bmatricolaUtente.valueProperty().isNull()
+                                .or(bIsbn.valueProperty().isNull())
+                                .or(tAnnoP.valueProperty().isNull())
+                                .or(tAnnoR.valueProperty().isNull())
+                            );
+                            
+                            
+
+                            a.setResultConverter(dialogButton -> {
+                                if (dialogButton == ButtonType.OK) {
+                                    ObservableSet<Libro> setLibro = co.getGestLibreria().getSetLibreria();
+                                
+                                    String[] campiIsbn = ((String)bIsbn.getValue()).split("; ");
+                                    String[] campiMat = ((String)bmatricolaUtente.getValue()).split("; ");
+                                    
+                                    
+                                    for(Libro temp : setLibro){
+                                            if(temp.equals(new Libro(null,null,null,0,campiIsbn[campiIsbn.length-1]))){
+                                                
+                                                Prestito x = new Prestito((LocalDate)tAnnoP.getValue(),(LocalDate)tAnnoR.getValue(),
+                                                        "false",temp.getTitolo(),campiIsbn[campiIsbn.length-1],campiMat[campiMat.length-1]);
+                                                listaPerTabellaAttivi.add(x);
+                                                set.add(x);
+                                                break;
+                                            }
+                                    }
+                                    
+                                    return dialogButton;
+                                     
+                                }
+                                return null;
+                            });
+                        });
+
+                        a.showAndWait();
+                    } catch (Exception e) {
+                }
             });
-            
-            tabellaLibri.setItems(datiFiltrati);
-            
         }
-     */   
     }
     
     
@@ -345,35 +479,5 @@ public class ControllerPrestiti implements Initializable{
 
     @FXML
     public void pagePrestiti(MouseEvent event) throws IOException {}
-
-
-    public void aggiuntaPrestito(MouseEvent event) throws IOException {
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/aggiuntaPrestito.fxml"));
-        DialogPane root = loader.load();
-
-        ControllerPrestiti controllerDialog = loader.getController();
-
-        Dialog<ButtonType> a = new Dialog<>();
-        a.setDialogPane(root);
-        a.setTitle("Inserire nuovo Prestito");
-
-        a.setOnShown(e -> {
-
-            ComboBox nomeUtente = controllerDialog.nomeUtente;
-            ComboBox isbn = controllerDialog.isbnBox;
-
-            DatePicker annoP = controllerDialog.annoP;
-            annoP.setValue(LocalDate.now());
-
-            DatePicker annoR = controllerDialog.annoR;
-            annoR.setValue(LocalDate.now().plusDays(30));
-
-            isbn.disableProperty().bind(nomeUtente.valueProperty().isNull());
-            a.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(isbn.valueProperty().isNull());
-
-        });
-        a.showAndWait();
-    }
 
 }
