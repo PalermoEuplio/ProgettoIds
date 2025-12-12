@@ -255,8 +255,10 @@ public class ControllerPrestiti implements Initializable{
                     conferma.setOnAction(dsa ->{
                        
                         Prestito preso = getTableView().getItems().get(getIndex());
+                        preso.setEffettivaRestituzione(LocalDate.now());
                         listaPerTabellaRitardi.add(preso);
                         listaPerTabellaAttivi.remove(preso);
+                        
    
                     });
             }
