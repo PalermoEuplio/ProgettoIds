@@ -42,6 +42,12 @@ public class Prestito {
      * associato ad un unico utente.
      */
     private final String matricola;
+    
+    /*
+    * @brief ritardo che esprime il numero di giorni passati dalla data del
+    * prestito a quella di avvenuta restituzione
+    */
+    private final int ritardo;
 
     public Prestito(LocalDate dataPrestito, LocalDate dataPrevistaRestituzione, String effettivaRestituzione, String titoloLibro, String isbn, String matricola) {
         this.effettivaRestituzione = new EffettivaRestituzione(effettivaRestituzione);
@@ -50,6 +56,7 @@ public class Prestito {
         this.titoloLibro = titoloLibro;
         this.isbn = isbn;
         this.matricola = matricola;
+        this.ritardo=setRitardo();
     }
 
     //set per inserire la data di effettiva EffettivaRestituzione
@@ -65,8 +72,8 @@ public class Prestito {
         return dataPrestito;
     }
 
-    public String getEffettivaRestituzione() {
-        return effettivaRestituzione.getEffettivaRestituzione();
+    public EffettivaRestituzione getEffettivaRestituzione() {
+        return effettivaRestituzione;
 
     }
 
@@ -80,6 +87,10 @@ public class Prestito {
 
     public String getMatricola() {
         return matricola;
+    }
+    
+    public int getRitardo(){
+        return ritardo;
     }
 
     /**
@@ -99,7 +110,7 @@ public class Prestito {
      * Se è restituito restituisce il numero di giorni di ritardo
      * tra la data di 
      */
-    public int calcRitardo() {
+    public int setRitardo() {
         if (!isRitardo()) {
             return 0;
         }
