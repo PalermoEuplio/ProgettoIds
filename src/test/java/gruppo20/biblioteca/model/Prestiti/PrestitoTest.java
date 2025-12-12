@@ -37,6 +37,18 @@ public class PrestitoTest {
         assertEquals(ritorno, instance.getEffettivaRestituzione());
         //fail("The test case is a prototype.");
     }
+    @Test
+    public void testSetEffettivaRestituzione2(){
+        LocalDate input = LocalDate.of(2025,12,12);
+        String ritorno = input.toString();
+        System.out.println("setEffettivaRestituzione2");
+        
+        LocalDate dataRestituzione = LocalDate.now();
+        Prestito instance = new Prestito(LocalDate.MIN, LocalDate.MIN, ritorno, "Analisi1", "0000000000000","0612700000");       
+        instance.setEffettivaRestituzione(input);
+        assertEquals(ritorno, instance.getEffettivaRestituzione());
+    }
+    
 
     @Test
     public void testGetDataPrevistaRestituzione() {
