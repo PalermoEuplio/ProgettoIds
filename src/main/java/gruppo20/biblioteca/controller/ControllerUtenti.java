@@ -1,5 +1,6 @@
 package gruppo20.biblioteca.controller;
 
+import com.sun.prism.shader.Solid_TextureYV12_Loader;
 import gruppo20.biblioteca.model.Main;
 import gruppo20.biblioteca.model.Utenti.*;
 import javafx.scene.control.Dialog;
@@ -63,7 +64,6 @@ public class ControllerUtenti implements Initializable {
     @FXML
     private TableColumn<Utente, Void> operazioni;
 
-    private ControllerUtenti controllerGenitore;
     private ObservableList<Utente> listaPerTabella;
 
 
@@ -137,8 +137,7 @@ public class ControllerUtenti implements Initializable {
                                     String nuovaMail = tMail.getText();
 
                                     Utente uNuovo = new Utente(nuovoNome, nuovoCognome, nuovaMatricola, nuovaMail, uVecchio.getNPrestiti());
-
-                                    Utenti u = co.getGestUtenti();
+                                    
                                     try {
                                         u.modifica(uVecchio, uNuovo);
                                     } catch (Exception a) {
@@ -159,14 +158,11 @@ public class ControllerUtenti implements Initializable {
 
                     //Comportamento Bottone eliminazione
                     elimina.setOnAction(e1 -> {
-                        Utente u = getTableView().getItems().get(getIndex());
-                        Utenti u1 = co.getGestUtenti();
+                        Utente u0 = getTableView().getItems().get(getIndex());
 
                         try {
                             FXMLLoader carica = new FXMLLoader(getClass().getResource("/fxml/ConfermaCancellazione.fxml"));
                             DialogPane rooot = carica.load();
-
-                            ControllerUtenti controllerDialog = carica.getController();
 
                             Dialog<ButtonType> a = new Dialog<>();
                             a.setDialogPane(rooot);
@@ -178,10 +174,10 @@ public class ControllerUtenti implements Initializable {
                                 Button pulsanteSi = (Button) rooot.lookup("#btnYes");
                                 Button pulsanteNo = (Button) rooot.lookup("#btnNo");
 
-                                // Logica dei bottoni (chiudere la finestra)
+                                // Logica dei bottoni 
                                 pulsanteSi.setOnAction(ered -> {
-                                    u1.elimina(u);
-                                    // Chiudi la finestra prendendo lo Stage dal bottone stesso
+                                    u.elimina(u0);
+                                    listaPerTabella.remove(u0);
                                     ((Stage) pulsanteSi.getScene().getWindow()).close();
                                 });
 
@@ -194,20 +190,6 @@ public class ControllerUtenti implements Initializable {
                             a.showAndWait();
 
                         } catch (IOException a) {
-                        }
-
-                        //Ricarico la pagina ed Aggiorno il contesto
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pageUtenti.fxml"));
-                        try {
-                            Parent root = loader.load();
-
-                            ControllerUtenti controller = loader.getController();
-                            //controller.setContesto(co);
-                            Stage stage = (Stage) ((Node) elimina).getScene().getWindow();
-                            Scene scene = new Scene(root);
-                            stage.setScene(scene);
-                            stage.show();
-                        } catch (Exception eccezione) {
                         }
                     });
                 }
@@ -228,7 +210,7 @@ public class ControllerUtenti implements Initializable {
                 nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
                 cognome.setCellValueFactory(new PropertyValueFactory<>("cognome"));
                 matricola0.setCellValueFactory(new PropertyValueFactory<>("matricola"));
-                mail.setCellValueFactory(new PropertyValueFactory<>("mail")); // getter: getMail()
+                mail.setCellValueFactory(new PropertyValueFactory<>("mail")); 
                 nPrestiti.setCellValueFactory(new PropertyValueFactory<>("nPrestiti"));
             }
 
@@ -257,7 +239,6 @@ public class ControllerUtenti implements Initializable {
                     DialogPane root = loader.load();
 
                     ControllerUtenti controllerDialog = loader.getController();
-                    controllerDialog.setGenitore(this);
 
                     Dialog<ButtonType> a = new Dialog<>();
                     a.setDialogPane(root);
@@ -271,15 +252,19 @@ public class ControllerUtenti implements Initializable {
                         TextField matricola = controllerDialog.matricola;
                         TextField email = controllerDialog.email;
 
-                        cognomeUtente.disableProperty().bind(nomeUtente.textProperty().isEmpty());
-                        matricola.disableProperty().bind(cognomeUtente.textProperty().isEmpty());
-                        email.disableProperty().bind(matricola.textProperty().isEmpty());
-                        a.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(email.textProperty().isEmpty());
+                        a.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(
+                                    nomeUtente.textProperty().isEmpty()
+                                            .or(cognomeUtente.textProperty().isEmpty())
+                                            .or(matricola.textProperty().isEmpty())
+                                            .or(email.textProperty().isEmpty())
+                            );
 
                         a.setResultConverter(dialogButton -> {
                             if (dialogButton == ButtonType.OK) {
-                                Utente x = controllerDialog.azioneConferma();
+                                Utente x = new Utente(nomeUtente.getText(),cognomeUtente.getText(),
+                                                        matricola.getText(),email.getText(),0);
                                 listaPerTabella.add(x);
+                                setUtenti.add(x);
                                 return dialogButton;
                             }
                             return null;
@@ -290,8 +275,7 @@ public class ControllerUtenti implements Initializable {
                 } catch (Exception e) {
                 }
             });
-        } else if (nomeFile.endsWith("aggiuntaUtente.fxml")) {
-        }
+        } else if (nomeFile.endsWith("aggiuntaUtente.fxml")) {}
     }
 
     @FXML
@@ -332,26 +316,5 @@ public class ControllerUtenti implements Initializable {
         stage.setScene(scene);
         stage.show();
 
-    }
-
-    public void setGenitore(ControllerUtenti genitore) {
-        this.controllerGenitore = genitore;
-    }
-
-    @FXML
-    public Utente azioneConferma() {
-        if (controllerGenitore != null) {
-            // 1. Prendiamo il testo dall'input della Pagina 2
-            String nome = nomeUtente.getText();
-            String cognome = cognomeUtente.getText();
-            String matricola = this.matricola.getText();
-            String mail = email.getText();
-
-            Utenti u1 = co.getGestUtenti();
-            Utente temp = new Utente(nome, cognome, matricola, mail, 0);
-            u1.aggiungi(temp);
-            return temp;
-        }
-        return null;
     }
 }
