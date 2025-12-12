@@ -10,6 +10,8 @@ import java.sql.SQLException;
 
 /**
  * @brief Classe contesto, contiene tutti i dati necessari durante l'esecuzione.
+ * Per avere persistenza dei dati in memoria durante tutta l'esecuzione, altrimenti
+ * ricaricherebbe il database ogni volta che cambia schermata.
  * @author Gruppo20
  */
 public class Contesto {
@@ -20,12 +22,9 @@ public class Contesto {
 
     public Contesto() {
         String userHome = System.getProperty("user.home"); //ricerca la home relativa al sistema operativo
-        String documents;
         Connection conn;
 
-        documents = userHome + File.separator + "Documents"; //cerca la cartella documents
-
-        File Dir = new File(documents + File.separator + "Biblioteca" + File.separator); //genera il path 
+        File Dir = new File(userHome + File.separator + "Documents" + File.separator + "Biblioteca"); //genera il path 
         
         //verifica se esiste già, in caso lo crea
         if (!Dir.exists()) {
@@ -35,7 +34,7 @@ public class Contesto {
             }
         }
         
-        //prova ad aprire il database 
+        //prova a connettersi al database 
         try {
             conn = DriverManager.getConnection("jdbc:sqlite:" + Dir.getAbsolutePath()+File.separator+"Biblioteca.db");
         } catch (SQLException ex) {

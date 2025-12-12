@@ -63,7 +63,8 @@ public class EffettivaRestituzione {
     public String getEffettivaRestituzione() {
         if (restituito) {
             return dataEffettivaRestituzione.toString();
-        } else {
+        } 
+        else {
             return "false";
         }
     }
