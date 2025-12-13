@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<BorderPane id="AnchorPane" fx:id="bp" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="800.0" prefWidth="1100.0" styleClass="parent" stylesheets="@StyleSheets.css" xmlns="http://javafx.com/javafx/21.0.3" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gruppo20.biblioteca.controller.ControllerPrestiti">
+<BorderPane id="AnchorPane" fx:id="bp" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="800.0" prefWidth="1100.0" styleClass="parent" stylesheets="@StyleSheets.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gruppo20.biblioteca.controller.ControllerPrestiti">
    <left>
       <AnchorPane prefHeight="800.0" prefWidth="375.0" styleClass="side" BorderPane.alignment="CENTER">
          <children>
@@ -139,12 +139,12 @@
             </TableView>
             <Label layoutX="43.0" layoutY="223.0" prefHeight="36.0" prefWidth="294.0" text="Tabella Prestiti Attivi">
                <font>
-                  <Font size="22.0" />
+                  <Font name="System Bold" size="24.0" />
                </font>
             </Label>
             <Label layoutX="43.0" layoutY="487.0" prefHeight="36.0" prefWidth="294.0" text="Tabella Prestiti Restituiti">
                <font>
-                  <Font size="22.0" />
+                  <Font name="System Bold" size="24.0" />
                </font>
             </Label>
             <TableView fx:id="tabellaPrestitiRitardo" layoutX="28.0" layoutY="523.0" prefHeight="194.0" prefWidth="731.0" styleClass="table">

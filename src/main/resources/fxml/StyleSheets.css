@@ -246,6 +246,28 @@ and open the template in the editor.
     -fx-prompt-text-fill:#000000;
 }
 
+
+.date-picker:errato {
+    -fx-border-radius:20px;
+    -fx-background-color: #e67474;
+    -fx-border-color: #ff4c4c;
+    -fx-effect: dropshadow(three-pass-box, #cf8888, 10, 0, 0, 0);
+    -fx-text-fill:#000000;
+    -fx-prompt-text-fill:#000000; 
+}
+
+.date-picker:errato > .text-field {
+    -fx-background-color: #ffdddd;
+    -fx-text-fill: darkred;
+}
+
+
+
+
+
+
+
+
 .campiComparsa > .text-field {
     -fx-background-radius: 20px 0 0 20px;
     -fx-padding: 0.5em 0.5em 0.5em 1.0em;

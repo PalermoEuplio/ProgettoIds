@@ -38,6 +38,7 @@ import javafx.stage.Stage;
 import org.kordamp.ikonli.javafx.FontIcon;
 import javafx.css.PseudoClass;
 import javafx.geometry.Pos;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.TableRow;
 
 /**
@@ -462,15 +463,30 @@ public class ControllerPrestiti implements Initializable{
                             tAnnoP.setValue(LocalDate.now());
                             DatePicker tAnnoR = controllerDialog.annoR;
                             
-                            
+                            BooleanBinding datanonValida = Bindings.createBooleanBinding(
+                                () -> tAnnoR.getValue().isBefore(tAnnoP.getValue()),
+                                tAnnoR.valueProperty()
+                            );
 
                             a.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(
                                 bmatricolaUtente.valueProperty().isNull()
                                 .or(bIsbn.valueProperty().isNull())
                                 .or(tAnnoP.valueProperty().isNull())
-                                .or(tAnnoR.valueProperty().isNull())
+                                .or(datanonValida)
                             ); 
                             
+                            PseudoClass evidenziataClass = PseudoClass.getPseudoClass("errato");
+                            
+                            tAnnoR.valueProperty().addListener((obs, oldV, newV) -> {
+                                LocalDate fine = tAnnoP.getValue();
+
+                                boolean nonValida =
+                                        newV != null &&
+                                        fine != null &&
+                                        newV.isBefore(fine);
+
+                                tAnnoR.pseudoClassStateChanged(evidenziataClass, nonValida);
+                            }); 
 
                             a.setResultConverter(dialogButton -> {
                                 if (dialogButton == ButtonType.OK) {
