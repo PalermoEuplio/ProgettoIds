@@ -19,8 +19,9 @@ public class PrestitoTest {
     private final int n = 50;
     
     public PrestitoTest() {
-        System.out.println("inizio prestito test");
-        Prestito notRest = new Prestito(LocalDate.MIN, LocalDate.MIN, "false", "Analisi1", "0000000000000","0612700000");
+        
+        Prestito p1 = new Prestito(LocalDate.now(), LocalDate.now(), "false", "Analisi1", "0000000000000","0612700000");
+       
     }   
     
     
