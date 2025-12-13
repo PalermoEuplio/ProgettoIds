@@ -39,15 +39,34 @@ public class EffettivaRestituzioneTest {
 
     /**
      * Test of isRestituito method, of class EffettivaRestituzione.
+     * Imposta la data di restituzione e verifica se è restituito
+     * @param in data di restituzione
      */
-    @Test
-    public void testIsRestituito() {
+    @ParameterizedTest
+    @MethodSource("dateGen")
+    public void testIsRestituito(LocalDate in) {
         System.out.println("isRestituito");
-        EffettivaRestituzione instance = null;
+        EffettivaRestituzione instance = new EffettivaRestituzione(in.toString());
+        boolean expResult = true;
+        boolean result = instance.isRestituito();
+        assertEquals(expResult, result);
+        
+    }
+    
+    /**
+     * Test of isRestituito method, of class EffettivaRestituzione.
+     * Non imposta la data e verifica che non è restituito
+     * @param in data di restituzione
+     */
+    @ParameterizedTest
+    @MethodSource("dateGen")
+    public void testIsRestituito2(LocalDate in) {
+        System.out.println("isRestituito");
+        EffettivaRestituzione instance = new EffettivaRestituzione("false");
         boolean expResult = false;
         boolean result = instance.isRestituito();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        
     }
 
     /**
