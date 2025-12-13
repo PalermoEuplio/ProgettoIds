@@ -128,14 +128,27 @@ public class PrestitoTest {
         
     }
 
-    @Test
-    public void testGetTitoloLibro() {
+    
+    /**
+     * Test per GetTitoloLibro
+     * parametri CSV
+     * @param in 
+     */
+    @ParameterizedTest
+    @CsvSource({
+        "Analisi 1,Analisi 1",
+        "Fisica 2,Fisica 2",
+        "Analisi 2,Analisi 2"
+    })
+    public void testGetTitoloLibro(String in) {
         System.out.println("getTitoloLibro");
-        Prestito instance = null;
-        String expResult = "";
+        //String in = "Analisi 1";
+        Prestito instance = new Prestito(LocalDate.now(), LocalDate.now(), "false", in, "0000000000000","0612700000");
+        
+        String expResult = in;
         String result = instance.getTitoloLibro();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        
     }
 
     @Test
