@@ -15,7 +15,7 @@
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <BorderPane id="AnchorPane" fx:id="bp" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" 
-            prefHeight="800.0" prefWidth="1100.0" styleClass="parent" stylesheets="@StyleSheets.css" xmlns="http://javafx.com/javafx/25" 
+            prefHeight="800.0" prefWidth="1100.0" styleClass="parent" stylesheets="@StyleSheets.css" xmlns="http://javafx.com/javafx/21.0.3" 
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="gruppo20.biblioteca.controller.ControllerDashboard">
    <center>
       <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="789.0" prefWidth="802.0">

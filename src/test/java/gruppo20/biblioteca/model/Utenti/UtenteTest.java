@@ -56,16 +56,32 @@ public class UtenteTest {
     /**
      * Test del metodo equals della classe Utente.
      * Per il caso in cui l'oggetto è NULL.
+     * Testaimo questa condizione per verificare che il metodo non fallisca.
+     * Ma termini con un return false.
      */
     @Test
     public void testEqualsNull() {
         Utente u1 = new Utente("Andrea", "Esposito", "123456", "andrea.esposito@unisa.it", 0);
         assertFalse(u1.equals(null));
     }
-
+    
     /**
      * Test del metodo equals della classe Utente.
-     * Nel caso in cui i dati degli utenti sono uguali.
+     * Per il caso in cui l'oggetto è diverso da Utente.
+     * Testaimo questa condizione per verificare che il metodo non fallisca.
+     * Ma termini con un return false.
+     */
+    
+    @Test
+    void testEqualsNonUtente(){
+        String s = "123456";
+        Utente u1 = new Utente("Andrea", "Esposito", "123456", "andrea.esposito@unisa.it", 0);
+        assertFalse(u1.equals(s));
+    }
+    
+    /**
+     * Test del metodo equals della classe Utente.
+     * Nel caso in cui i dati da confrontare, degli utenti, sono uguali.
      */
     @Test
     public void testEqualsUguali() {
@@ -84,6 +100,7 @@ public class UtenteTest {
         Utente u2 = new Utente("Anna", "Esposito", "198765", "andrea.esposito@unisa.it", 0);
         assertFalse(u1.equals(u2));
     }
+    
     /**
      * Test del metodo hashCode della classe Utente.
      */

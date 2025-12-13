@@ -97,13 +97,7 @@ public class Libro {
     }
     @Override
     public String toString(){
-        StringBuilder builder = new StringBuilder();
-        builder.append(titolo);
-        for(Autore x : autori){
-            builder.append("; "+x);
-        }
-        builder.append("; "+isbn);
-        return builder.toString();
+        return titolo+" "+isbn;
     }
 
 }
