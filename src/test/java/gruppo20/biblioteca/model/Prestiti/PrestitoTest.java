@@ -151,14 +151,24 @@ public class PrestitoTest {
         
     }
 
-    @Test
-    public void testGetMatricola() {
+    /**
+     * test per getMatricola
+     * @param in 
+     */
+    @ParameterizedTest
+    @CsvSource({
+        "0612700000,0612700000",
+        "0612700010,0612700010",
+        "0612700009,0612700009",
+            
+    })
+    public void testGetMatricola(String in) {
         System.out.println("getMatricola");
-        Prestito instance = null;
-        String expResult = "";
+        Prestito instance = new Prestito(LocalDate.now(), LocalDate.now(), "false", "Analisi1", "0000000000000",in);
+        String expResult = in;
         String result = instance.getMatricola();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        
     }
 
     @Test
