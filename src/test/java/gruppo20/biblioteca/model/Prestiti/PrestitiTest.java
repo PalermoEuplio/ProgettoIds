@@ -137,17 +137,75 @@ public class PrestitiTest {
 
     /**
      * Test of modifica method, of class Prestiti.
+     * Caso di modifica prestito presente in db, modifica isbn
+     * @throws java.lang.Exception
      */
     @Test
     public void testModifica() throws Exception {
         System.out.println("modifica");
-        Prestito p1 = null;
-        Prestito p2 = null;
-        Prestiti instance = null;
-        boolean expResult = false;
-        boolean result = instance.modifica(p1, p2);
+        Prestito pi = new Prestito(LocalDate.now(), LocalDate.now(), "false", "Analisi1", "0000000000000","0612700000");       
+        Prestito pf = new Prestito(LocalDate.now(), LocalDate.now(), "false", "Analisi1", "0000000000001","0612700000");       
+
+                
+        Prestiti instance = prestiti;
+        assertTrue(prestiti.aggiungi(pi));//verifica che l'utente iniziale venga aggiunto
+        assertTrue(prestiti.getSetPrestiti().contains(pi));//verifica che l'utente iniziale sia inserito
+        
+
+        
+        boolean expResult = true;
+        boolean result = instance.modifica(pi, pf);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertTrue(prestiti.getSetPrestiti().contains(pf)); //verifica che sia presente l'utente modificato
+        
+        
+    }
+    /**
+     * Test of modifica method, of class Prestiti.
+     * Caso di modifica prestito presente in db, modifica matricola
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testModifica2() throws Exception {
+        System.out.println("modifica");
+        Prestito pi = new Prestito(LocalDate.now(), LocalDate.now(), "false", "Analisi1", "0000000000000","0612700000");       
+        Prestito pf = new Prestito(LocalDate.now(), LocalDate.now(), "false", "Analisi1", "0000000000000","0612700001");       
+
+                
+        Prestiti instance = prestiti;
+        assertTrue(prestiti.aggiungi(pi));//verifica che l'utente iniziale venga aggiunto
+        assertTrue(prestiti.getSetPrestiti().contains(pi));//verifica che l'utente iniziale sia inserito
+        
+
+        boolean expResult = true;
+        boolean result = instance.modifica(pi, pf);
+        assertEquals(expResult, result);
+        assertTrue(prestiti.getSetPrestiti().contains(pf)); //verifica che sia presente l'utente modificato
+
+        
+    }
+    /**
+     * Test of modifica method, of class Prestiti.
+     * Caso di modifica prestito non presente in db, modifica isbn
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testModifica3() throws Exception {
+        System.out.println("modifica");
+        Prestito pi = new Prestito(LocalDate.now(), LocalDate.now(), "false", "Analisi1", "0000000000000","0612700000");       
+        Prestito pf = new Prestito(LocalDate.now(), LocalDate.now(), "false", "Analisi1", "0000000000001","0612700000");       
+
+                
+        Prestiti instance = prestiti;        
+        assertFalse(prestiti.getSetPrestiti().contains(pi));//verifica che l'utente iniziale NON sia inserito
+        //assertEquals(0,prestiti.getSetPrestiti().size());//veririfica nessun utente presente in db
+        
+        boolean expResult = false;
+        boolean result = instance.modifica(pi, pf);
+        assertEquals(expResult, result);
+        //assertTrue(prestiti.getSetPrestiti().contains(pf)); //verifica che sia presente l'utente modificato
+
+        
     }
 
     /**
