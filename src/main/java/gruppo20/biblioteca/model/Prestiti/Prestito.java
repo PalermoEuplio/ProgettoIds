@@ -44,8 +44,9 @@ public class Prestito {
     private final String matricola;
     
     /*
-    * @brief ritardo che esprime il numero di giorni passati dalla data del
-    * prestito a quella di avvenuta restituzione
+    * @brief ritardo che esprime il numero di giorni passati dalla data di
+    * prevista prevista restituzione a quella attuale, se è stato restituito
+    * esprime la differenza in giorni tra prevista ed effettiva restituzione.
     */
     private final int ritardo;
 
@@ -107,10 +108,12 @@ public class Prestito {
      * ritardo.
      *
      * @return numero di giorni di ritardo. 0 se non in ritardo.
-     * Se è restituito restituisce il numero di giorni di ritardo
-     * tra la data di 
+     * Se non è restituito calcola la differenza in giorni tra
+     * prevista restituzione e data attuale.
+     * Se è restituito calcola la differenza tra la data di 
+     * prevista ed effettiva restituzione.
      */
-    public int setRitardo() {
+    public final int setRitardo() {
         if (!isRitardo()) {
             return 0;
         }
