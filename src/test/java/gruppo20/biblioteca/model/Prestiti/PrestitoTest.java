@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 import java.util.Random;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -186,14 +187,13 @@ public class PrestitoTest {
     /**
      * Funzione test per il calcolo del ritardo
      * ritardo max 50 days
-     * @param in 
+     * 
      */
-    @ParameterizedTest
-    @MethodSource("dateGen")
-    public void testCalcRitardo(LocalDate in) {
-        
+    @RepeatedTest(50)
+    public void testgetRitardo() {
+        LocalDate in = LocalDate.now();        
         Random rand = new Random();
-        int ritardo= rand.nextInt(50); 
+        int ritardo= rand.nextInt(50);
         //System.out.println("calcRitardo");
         
         LocalDate datRest = in.minusDays(ritardo);
