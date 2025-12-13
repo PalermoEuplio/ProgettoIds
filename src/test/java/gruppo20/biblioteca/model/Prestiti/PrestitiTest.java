@@ -56,45 +56,83 @@ public class PrestitiTest {
 
     /**
      * Test of restituisci method, of class Prestiti.
+     * Viene aggiunto il prestito p1
+     * Caso in cui il prestito viene restituito
      */
     @Test
     public void testRestituisci() {
         System.out.println("restituisci");
-        Prestito p = null;
-        LocalDate dataRestituzione = null;
-        Prestiti instance = null;
-        boolean expResult = false;
-        boolean result = instance.restituisci(p, dataRestituzione);
+        prestiti.aggiungi(p1);
+        LocalDate dataRestituzione = LocalDate.now();
+        Prestiti instance = prestiti;
+        boolean expResult = true;
+        boolean result = instance.restituisci(p1, dataRestituzione);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        
     }
 
     /**
      * Test of aggiungi method, of class Prestiti.
+     * Caso in cui il prestito viene aggiunto
      */
     @Test
     public void testAggiungi() {
         System.out.println("aggiungi");
-        Prestito p = null;
-        Prestiti instance = null;
-        boolean expResult = false;
+        Prestito p = p1;
+        Prestiti instance = prestiti;        
+        boolean expResult = true;
         boolean result = instance.aggiungi(p);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        
+    }
+    /**
+     * Test of aggiungi method, of class Prestiti.
+     * Caso in cui il prestito non viene aggiunto
+     */
+    @Test
+    public void testAggiungi2() {
+        System.out.println("aggiungi");
+        Prestito p = p1;
+        Prestiti instance = prestiti;        
+        boolean expResult =false;
+        instance.aggiungi(p);
+        boolean result = instance.aggiungi(p);
+        assertEquals(expResult, result);
+        
     }
 
     /**
      * Test of elimina method, of class Prestiti.
+     * Caso di eliminazione di un prestito inserito
      */
     @Test
     public void testElimina() {
         System.out.println("elimina");
-        Prestito p = null;
-        Prestiti instance = null;
+        Prestito p = p1;
+        Prestiti instance = prestiti;
+        assertTrue(instance.aggiungi(p1));
+        
+        boolean expResult = true;
+        boolean result = instance.elimina(p1);
+        assertEquals(expResult, result);        
+        assertTrue(prestiti.getSetPrestiti().isEmpty());
+        
+    }
+    /**
+     * Test of elimina method, of class Prestiti.
+     * Caso di eliminazione di un prestito non presente
+     */
+    @Test
+    public void testElimina2() {
+        System.out.println("elimina");
+        Prestito p = p1;
+        Prestiti instance = prestiti;        
+        
         boolean expResult = false;
-        boolean result = instance.elimina(p);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        boolean result = instance.elimina(p1);
+        assertEquals(expResult, result);        
+        assertTrue(prestiti.getSetPrestiti().isEmpty());
+        
     }
 
     /**
