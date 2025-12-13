@@ -48,12 +48,50 @@ public class AutoreTest {
 
     /**
      * Test del metodo equals della classe Autore.
+     * Per il caso in cui l'oggetto è NULL.
+     * Testaimo questa condizione per verificare che il metodo non fallisca.
+     * Ma termini con un return false.
      */
     @Test
-    public void testEquals() {
+    public void testEqualsNull() {
+        Autore a1 = new Autore("Ernest", "Hemingway");
+        assertFalse(a1.equals(null));
+    }
+    
+    /**
+     * Test del metodo equals della classe Autore.
+     * Per il caso in cui l'oggetto è diverso da Autore.
+     * Testaimo questa condizione per verificare che il metodo non fallisca.
+     * Ma termini con un return false.
+     */
+    
+    @Test
+    void testEqualsNonAutore(){
+        String s = "123456";
+        Autore a1 = new Autore("Ernest", "Hemingway");
+        assertFalse(a1.equals(s));
+    }
+    
+    /**
+     * Test del metodo equals della classe Autore.
+     * Nel caso in cui sono uguali.
+     */
+    @Test
+    public void testEqualsUguali() {
         Autore a1 = new Autore("Ernest", "Hemingway");
         Autore a2 = new Autore("Ernest", "Hemingway");
         assertTrue(a1.equals(a2));
+    }
+    
+     /**
+     * Test del metodo equals della classe Autore.
+     * Nel caso in cui NON sono uguali.
+     */
+    @Test
+    public void testEqualsDiverso() {
+        Autore a1 = new Autore("Ernest", "Hemingway");
+        Autore a2 = new Autore("Ernest", "Renan");
+        assertFalse(a1.equals(a2));
     }
 
     /**

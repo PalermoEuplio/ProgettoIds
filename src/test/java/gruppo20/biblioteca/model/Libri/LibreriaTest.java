@@ -6,17 +6,24 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- *
- * @author giuli
+ * @brief Questo file contiene l'implementazione della classe LibreriaTest, per il test della classe Libreria.
+ * @author Gruppo20
  */
 public class LibreriaTest {
-    
-    private Contesto co = new Contesto();
-    private Libreria libreria = co.getGestLibreria();
-    
-
     /**
-     * Pulisce la libreria prima di ogni test.
+     * Creazione del Contesto dell'applicazione, dove avverrà l'esecuzione del test.
+     */
+    private final Contesto co = new Contesto();
+    /**
+     * Dal contesto ottengo il gestore Libreria.
+     * Libreria gestisce una collezione di Libro, con un ObservableSet.
+     */
+    private final Libreria libreria = co.getGestLibreria();
+    
+    /**
+     * Fase di setup.
+     * Restituisce la collazione che contiene tutti i libri.
+     * La svuota prima di ogni test.
      */
     @BeforeEach
     void resetLibreria(){
@@ -31,11 +38,11 @@ public class LibreriaTest {
         assertNotNull(libreria.getSetLibreria()); //controllo che il set non sia null.
         assertEquals(0,libreria.getSetLibreria().size()); //controllo se inizialmente la libreria risulta vuota.
         
-        //aggiunfgo un libro
+        //aggiungo un libro.
         Libro l = new Libro("Good Omens","Neil Gaiman,Terry Pratchett",LocalDate.of(1990,5,10),2,"9780060853969");
         libreria.aggiungi(l);
         
-        //verifico che il set contenga il libro
+        //verifico che il set contenga il libro.
         assertTrue(libreria.getSetLibreria().contains(l));
         assertEquals(1, libreria.getSetLibreria().size());
     }
@@ -60,7 +67,6 @@ public class LibreriaTest {
     public void testAggiungiIncrementoCopie() {
         Libro l1 = new Libro("Good Omens","Neil Gaiman,Terry Pratchett",LocalDate.of(1990,5,10),2,"9780060853969");
         libreria.aggiungi(l1);
-        
         Libro l2 = new Libro("Good Omens","Neil Gaiman,Terry Pratchett",LocalDate.of(1990,5,10),4,"9780060853969");
         libreria.aggiungi(l2);
         
@@ -129,6 +135,7 @@ public class LibreriaTest {
         assertEquals("Good Omens", l1.getTitolo());
         assertEquals("Neil Gaiman,Terry Pratchett", l1.getAutori());
     }
+    
     /**
      * Test del metodo addPrestito della classe Libreria.
      * Controlla che il numero di copie venga decrementato all'aggiunta di un prestito.

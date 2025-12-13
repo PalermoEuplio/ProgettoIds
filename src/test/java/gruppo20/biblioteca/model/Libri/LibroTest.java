@@ -89,6 +89,33 @@ public class LibroTest {
         Libro l = new Libro("Good Omens","Neil Gaiman,Terry Pratchett",LocalDate.of(1990,5,10),2,"9780060853969");
         assertEquals("9780060853969", l.getIsbn());
     }
+    
+    /**
+     * Test del metodo equals della classe Libro.
+     * Per il caso in cui l'oggetto è NULL.
+     * Testaimo questa condizione per verificare che il metodo non fallisca.
+     * Ma termini con un return false.
+     */
+    @Test
+    public void testEqualsObjectNull() {
+        Libro l1 = new Libro("Good Omens","Neil Gaiman,Terry Pratchett",LocalDate.of(1990,5,10),2,"9780060853969");
+        assertFalse(l1.equals(null));
+    }
+    
+    /**
+     * Test del metodo equals della classe Libro.
+     * Per il caso in cui l'oggetto è diverso da Libro.
+     * Testaimo questa condizione per verificare che il metodo non fallisca.
+     * Ma termini con un return false.
+     */
+    
+    @Test
+    void testEqualsNonLibro(){
+        String s = "123456";
+        Libro l = new Libro("Good Omens","Neil Gaiman,Terry Pratchett",LocalDate.of(1990,5,10),2,"9780060853969");
+        assertFalse(l.equals(s));
+    }
+    
 
     /**
      * Test del metodo equals della classe Libro.
@@ -110,16 +137,6 @@ public class LibroTest {
         Libro l1 = new Libro("Buona Apocalisse","Terry Pratchett",LocalDate.of(1990,5,10),2,"9780060853969");
         Libro l2 = new Libro("Good Omens","Neil Gaiman",LocalDate.of(1990,5,10),12,"9781160853969");
         assertFalse(l1.equals(l2));
-    }
-
-    /**
-     * Test del metodo equals della classe Libro.
-     * Nel caso in cui l'oggetto passato è NULL.
-     */
-    @Test
-    public void testEqualsObjectNull() {
-        Libro l1 = new Libro("Good Omens","Neil Gaiman,Terry Pratchett",LocalDate.of(1990,5,10),2,"9780060853969");
-        assertFalse(l1.equals(null));
     }
     
     /**

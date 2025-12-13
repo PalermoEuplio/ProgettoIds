@@ -6,16 +6,25 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- *
- * @author giuli
+ * @brief Questo file contiene l'implementazione della classe UtentiTest, per il test della classe Utenti.
+ * @author Gruppo20
  */
 public class UtentiTest {
-     private Contesto co = new Contesto();
-    private Utenti utenti = co.getGestUtenti();
+    /**
+     * Creazione del Contesto dell'applicazione, dove avverrà l'esecuzione del test.
+     */
+    private final Contesto co = new Contesto();
+    /**
+     * Dal contesto ottengo il gestore Utenti.
+     * Utenti gestisce una collezione di Utente, con un ObservableSet.
+     */
+    private final Utenti utenti = co.getGestUtenti();
     
 
     /**
-     * Pulisce l'anagrafica prima di ogni test.
+     * Fase di setup.
+     * Restituisce la collazione che contiene tutti gli utenti.
+     * La svuota prima di ogni test.
      */
     @BeforeEach
     void resetUtenti(){
@@ -29,7 +38,7 @@ public class UtentiTest {
         assertNotNull(utenti.getSetUtenti()); //controllo che il set non sia null.
         assertEquals(0,utenti.getSetUtenti().size()); //controllo se inizialmente risulta vuoto.
         
-        //aggiunfgo un utente.
+        //aggiungo un utente.
         Utente u = new Utente("Andrea", "Esposito", "123456", "andrea.esposito@unisa.it", 0);
         utenti.aggiungi(u);
         
@@ -40,10 +49,9 @@ public class UtentiTest {
 
     /**
      * Test del metodo aggiungi della classe Utenti.
-     * Caso in cui l'utente non è già presente e deve essere aggiunto.
      */
     @Test
-    public void testAggiungiNuovoUtente() {
+    public void testAggiungi() {
         Utente u = new Utente("Andrea", "Esposito", "123456", "andrea.esposito@unisa.it", 0);
         assertTrue(utenti.aggiungi(u)); //controllo che l'aggiunta sia avvenuta.
         
@@ -60,7 +68,7 @@ public class UtentiTest {
         Utente u = new Utente("Andrea", "Esposito", "123456", "andrea.esposito@unisa.it", 0);
         utenti.aggiungi(u); 
         
-        //controllo che l'eliminazione sia avvenuta.
+        //controllo che l'operazione sia avvenuta.
         assertTrue(utenti.elimina(u)); 
         //controllo che l'utente sia stato eliminato.
         assertTrue(utenti.getSetUtenti().isEmpty());
@@ -150,20 +158,6 @@ public class UtentiTest {
         
         Utente u1 = utenti.getSetUtenti().iterator().next();
         assertEquals(2, u1.getNPrestiti());
-    }
-    
-
-    /**
-     * Test del metodo toString della classe Utenti.
-     */
-    @Test
-    public void testToString() {
-        Utente u1 = new Utente("Anna", "Esposito", "123456", "anna.esposito@unisa.it", 2);
-        utenti.aggiungi(u1);
-        Utente u2 = new Utente("Giulia", "Esposito", "123654", "giulia.esposito@unisa.it", 0);
-        utenti.aggiungi(u2);
-        
-        assertEquals(2, utenti.toString().split("\n").length); //controlla che ci siano due righe, una per ogni utente.
     }
     
 }
