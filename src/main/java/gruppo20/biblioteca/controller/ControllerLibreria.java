@@ -287,10 +287,6 @@ public class ControllerLibreria implements Initializable{
                              tCopie.textProperty().bindBidirectional(numero, new NumberStringConverter());
                         } catch (Exception ex) {}
 
-                        tAutori.disableProperty().bind(tTitolo.textProperty().isEmpty());
-                        tIsbn.disableProperty().bind(tAutori.textProperty().isEmpty());
-                        tCopie.disableProperty().bind(tIsbn.textProperty().isEmpty());
-
                         dialog.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(
                                 tTitolo.textProperty().isEmpty()
                                 .or(tAutori.textProperty().isEmpty())

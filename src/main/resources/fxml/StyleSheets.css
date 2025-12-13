@@ -42,36 +42,158 @@ and open the template in the editor.
     -fx-border-radius:20px;
 }
 
-.table {
-    -fx-background-radius: 20;
-    -fx-border-radius: 20;
+/* 1. Il contenitore principale */
+.table-view {
+    /* Sfondo base */
+    -fx-base: #e8b370;
+    -fx-background-color: #e8b370;
+    -fx-border-color:#91908e;
+    
+    /* Arrotondamento deciso */
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    
+    /* TRUCCO VISIVO: Un bordo dello stesso colore dello sfondo
+       o un'ombra interna per coprire gli spigoli delle righe */
+    -fx-padding: 5px; /* Crea un margine interno "sicuro" */
+    
+    /* Ombra esterna morbida per l'effetto "sollevato" */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 15, 0, 0, 5);
+}
+
+/* 2. L'area interna dove scorrono i dati */
+.table-view .virtual-flow {
+    /* Arrotondamento interno */
+    -fx-background-radius: 15px;
+    -fx-background-color: white; /* Sfondo delle righe vuote */
+}
+
+/* 3. L'Intestazione (Header) */
+.table-view .column-header-background {
+    -fx-background-color: transparent; /* Rimuovi lo sfondo grigio default */
+    -fx-background-radius: 15px 15px 0 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-size: 45px; /* Altezza header più ariosa */
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: #c0a878; /* Linea sottile sotto l'header */
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #343333;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER-LEFT;
+}
+
+/* 4. Le Righe e le Celle */
+.table-view .table-cell {
+    -fx-alignment: CENTER-LEFT;
+    -fx-border-width: 0; /* Via le linee verticali brutte */
+    -fx-padding: 10px;   /* Più spazio per il testo */
+    -fx-text-fill: #555555;
+}
+
+.table-view .table-row-cell {
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 1px 0; /* Solo linea orizzontale sottile */
+    -fx-border-color: #eeeeee;
+}
+
+/* Effetto al passaggio del mouse sulla riga */
+.table-view .table-row-cell:hover {
+    -fx-background-color: #f0e6d2; /* Un colore leggermente più scuro dello sfondo righe */
+    -fx-cursor: hand;
+}
+
+/* Riga selezionata */
+.table-view .table-row-cell:selected {
+    -fx-background-color: #d1b988;
+    -fx-background-insets: 0;
+    -fx-background-radius: 5px; /* Leggero round sulla selezione */
+}
+.table-view .table-row-cell:selected .text {
+    -fx-fill: white; /* Testo bianco su selezione */
+}
+
+/* 5. FIX PERFETTO: Nascondere gli angoli in basso con un'ombra interna
+   Questo crea una "vignettatura" che nasconde il fatto che le righe sono quadrate */
+.table-view:focused, .table-view {
+    /* L'innershadow "mangia" i bordi vivi interni */
+    -fx-background-insets: 0;
+}
+
+/* 6. Stilizzazione Scrollbar (Essenziale per il look moderno) */
+.table-view .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-padding: 0 5px 0 0;
+}
+.table-view .scroll-bar:vertical .thumb {
+    -fx-background-color: #c0a878;
+    -fx-background-radius: 10px;
+}
+.table-view .corner {
+    -fx-background-color: transparent;
+}
+
+.table-view .table-row-cell:evidenziata {
+    -fx-background-color: #f57777; /* Esempio: Rosso chiaro */
+    -fx-text-fill: #990000;       /* Opzionale: testo rosso scuro */
+}
+
+/* IMPORTANTE: Assicurati che l'hover funzioni ancora sopra la riga evidenziata */
+.table-view .table-row-cell:evidenziata:hover {
+    -fx-background-color: #bf5f5f; /* Rosso leggermente più scuro al passaggio */
+}
+
+/* IMPORTANTE: La selezione deve vincere sull'evidenziazione */
+.table-view .table-row-cell:evidenziata:selected {
+    -fx-background-color: #d1b988; /* Il tuo colore di selezione originale */
+    -fx-text-fill: white;
+}
+
+
+
+
+
+.table-view .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    /* Aggiungi un po' di padding in alto/basso per non farla toccare i bordi curvi */
+    -fx-padding: 5px 0 5px 0; 
+}
+
+/* 2. Nascondi il binario grigio (la parte fissa che arriva fino all'header) */
+.table-view .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0;
+}
+
+/* 3. Stilizza il cursore (la parte che si muove) */
+.table-view .scroll-bar:vertical .thumb {
+    -fx-background-color: #c0a878; /* Il tuo colore dorato scuro */
+    -fx-background-radius: 10px;
+    
+    /* TRUCCO: riduci la larghezza del cursore usando gli insets */
+    /* Top, Right, Bottom, Left */
+    -fx-background-insets: 0 4px 0 0; 
+}
+
+
+.table-view .scroll-bar:vertical .increment-button,
+.table-view .scroll-bar:vertical .decrement-button {
+    /* Rimuovi ogni padding interno */
     -fx-padding: 0;
-    -fx-background-insets: 0;
-    -fx-effect: dropshadow(three-pass-box, #000000, 10, 0, 1, 1);
-}
-
-.table .column-header-background {
-    -fx-background-radius: 20 20 0 0;
-    -fx-background-insets: 0;
-}
-
-.table .column-header, 
-.table .filler {
+    
+    /* Forza l'altezza a zero per non occupare spazio */
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+    -fx-min-height: 0;
+    
+    /* Rendili trasparenti e invisibili */
     -fx-background-color: transparent;
-}
-
-.table .corner {
-    -fx-background-color: transparent;
-}
-.table .table-row-cell {
-    -fx-background-color: transparent;
-}
-
-.table .table-cell {
-    -fx-background-color: transparent;
-}
-.table .filler {
-    -fx-background-color: transparent;
+    -fx-opacity: 0; 
 }
 
 
@@ -103,14 +225,58 @@ and open the template in the editor.
     -fx-text-color:#000000;
 }
 
-.campiComparsa{
+
+
+.campiComparsa {
     -fx-background-radius: 20px;
-    -fx-background-color:#d1b988;
+    -fx-background-color: #d1b988;
     -fx-effect: dropshadow(three-pass-box, #000000, 10, 0, 0, 0);
-    -fx-prompt-text-fill:#343333;
+    -fx-background-insets: 0;
+    -fx-text-fill: #000000;
+    -fx-prompt-text-fill: #000000;
 }
+
+.text-field:errati{
+    -fx-border-radius:20px;
+    -fx-background-radius:20px;
+    -fx-background-color: #e67474;
+    -fx-border-color: #ff4c4c;
+    -fx-effect: dropshadow(three-pass-box, #cf8888, 10, 0, 0, 0);
+    -fx-text-fill:#000000;
+    -fx-prompt-text-fill:#000000;
+}
+
+.campiComparsa > .text-field {
+    -fx-background-radius: 20px 0 0 20px;
+    -fx-padding: 0.5em 0.5em 0.5em 1.0em;
+    -fx-text-fill: #000000;
+    -fx-prompt-text-fill: #000000;
+}
+.campiComparsa > .arrow-button {
+    -fx-background-radius: 0 20px 20px 0;
+    -fx-background-color: transparent;
+    -fx-padding: 0.5em 1em;
+}
+.campiComparsa > .arrow-button > .arrow {
+    -fx-background-color: #343333;
+}
+
 
 .pannelloElimina{
     -fx-background-color: linear-gradient(from 45% 50% to 100% 100%, #fbdc9d, #f7ead1);
     -fx-background-width: 5px;
+}
+
+.confermaElimina{
+    -fx-border-radius:15px;
+    -fx-background-radius:15px;
+    -fx-background-color: #ffcece;
+    -fx-border-color: #cf8888;
+    -fx-effect: dropshadow(three-pass-box, #cf8888, 10, 0, 0, 0);
+}
+
+.annullaElimina{
+    -fx-border-radius:15px;
+    -fx-background-radius:15px;
+    -fx-effect: dropshadow(three-pass-box, #000000, 10, 0, 0, 0);
 }

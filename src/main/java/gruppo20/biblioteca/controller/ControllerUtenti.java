@@ -7,10 +7,12 @@ import javafx.scene.control.Dialog;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
 import javafx.collections.*;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.collections.transformation.FilteredList;
+import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -25,6 +27,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.beans.binding.BooleanBinding;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 /**
@@ -106,11 +109,15 @@ public class ControllerUtenti implements Initializable {
                             DialogPane root = loader.load();
 
                             ControllerUtenti controllerDialog = loader.getController();
+                            
+                            String testoOriginale = uVecchio.getMail();
+                            testoOriginale = testoOriginale.substring(0,testoOriginale.length()-18);
+                            
 
                             controllerDialog.nomeUtente.setText(uVecchio.getNome());
                             controllerDialog.cognomeUtente.setText(uVecchio.getCognome());
                             controllerDialog.matricola.setText(uVecchio.getMatricola());
-                            controllerDialog.email.setText(uVecchio.getMail());
+                            controllerDialog.email.setText(testoOriginale);
 
                             Dialog<ButtonType> dialog = new Dialog<>();
                             dialog.setDialogPane(root);
@@ -121,12 +128,31 @@ public class ControllerUtenti implements Initializable {
                             TextField tMatr = controllerDialog.matricola;
                             TextField tMail = controllerDialog.email;
 
-                            dialog.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(
-                                    tNome.textProperty().isEmpty()
-                                            .or(tCognome.textProperty().isEmpty())
-                                            .or(tMatr.textProperty().isEmpty())
-                                            .or(tMail.textProperty().isEmpty())
+                            BooleanBinding matricolaNonValida = Bindings.createBooleanBinding(
+                                () -> !tMatr.getText().matches("[0-9]{10}"), 
+                                tMatr.textProperty()
                             );
+
+
+                            dialog.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(
+                                tNome.textProperty().isEmpty()
+                                .or(tCognome.textProperty().isEmpty())
+                                .or(tMail.textProperty().isEmpty())
+                                .or(matricolaNonValida) 
+                            ); 
+
+
+
+                            PseudoClass evidenziataClass = PseudoClass.getPseudoClass("errati");
+
+                            tMatr.textProperty().addListener((obs, vecchioValore, nuovoValore) -> {
+
+                                boolean isError = !nuovoValore.matches("[0-9]{10}");
+
+                                boolean mostraRosso = isError && !nuovoValore.isEmpty(); 
+                                tMatr.pseudoClassStateChanged(evidenziataClass, mostraRosso);
+                            });
+                            
 
                             dialog.showAndWait().ifPresent(response -> {
                                 if (response == ButtonType.OK) {
@@ -136,7 +162,7 @@ public class ControllerUtenti implements Initializable {
                                     String nuovaMatricola = tMatr.getText();
                                     String nuovaMail = tMail.getText();
 
-                                    Utente uNuovo = new Utente(nuovoNome, nuovoCognome, nuovaMatricola, nuovaMail, uVecchio.getNPrestiti());
+                                    Utente uNuovo = new Utente(nuovoNome, nuovoCognome, nuovaMatricola, nuovaMail+"@studenti.unisa.it", uVecchio.getNPrestiti());
                                     
                                     try {
                                         u.modifica(uVecchio, uNuovo);
@@ -251,18 +277,42 @@ public class ControllerUtenti implements Initializable {
                         TextField cognomeUtente = controllerDialog.cognomeUtente;
                         TextField matricola = controllerDialog.matricola;
                         TextField email = controllerDialog.email;
+                        
+                        
+                        
+                        BooleanBinding matricolaNonValida = Bindings.createBooleanBinding(
+                            () -> !matricola.getText().matches("[0-9]{10}"), 
+                            matricola.textProperty()
+                        );
 
+                        
                         a.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(
-                                    nomeUtente.textProperty().isEmpty()
-                                            .or(cognomeUtente.textProperty().isEmpty())
-                                            .or(matricola.textProperty().isEmpty())
-                                            .or(email.textProperty().isEmpty())
-                            );
+                            nomeUtente.textProperty().isEmpty()
+                            .or(cognomeUtente.textProperty().isEmpty())
+                            .or(email.textProperty().isEmpty())
+                            .or(matricolaNonValida) 
+                        ); 
+                        
+                        
+                        
+                        PseudoClass evidenziataClass = PseudoClass.getPseudoClass("errati");
+                
+                        matricola.textProperty().addListener((obs, vecchioValore, nuovoValore) -> {
+                            
+                            boolean isError = !nuovoValore.matches("[0-9]{10}");
+                            
+                            boolean mostraRosso = isError && !nuovoValore.isEmpty(); 
+                            matricola.pseudoClassStateChanged(evidenziataClass, mostraRosso);
+                        });
 
                         a.setResultConverter(dialogButton -> {
                             if (dialogButton == ButtonType.OK) {
+                                
+                                
+                                
+                                
                                 Utente x = new Utente(nomeUtente.getText(),cognomeUtente.getText(),
-                                                        matricola.getText(),email.getText(),0);
+                                                        matricola.getText(),email.getText()+"@studenti.unisa.it",0);
                                 listaPerTabella.add(x);
                                 setUtenti.add(x);
                                 return dialogButton;

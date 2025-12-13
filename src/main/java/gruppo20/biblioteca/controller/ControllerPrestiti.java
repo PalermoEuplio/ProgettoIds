@@ -1,5 +1,6 @@
 package gruppo20.biblioteca.controller;
 
+import com.sun.javafx.binding.BindingHelperObserver;
 import gruppo20.biblioteca.model.Libri.Libro;
 import gruppo20.biblioteca.model.Main;
 import gruppo20.biblioteca.model.Prestiti.Prestito;
@@ -33,6 +34,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.kordamp.ikonli.javafx.FontIcon;
+import javafx.css.PseudoClass;
+import javafx.geometry.Pos;
+import javafx.scene.control.TableRow;
 
 /**
  *
@@ -210,6 +214,7 @@ public class ControllerPrestiti implements Initializable{
                                         listaAttivi.add(pNuovo);
                                     }
                                     tabellaPrestitiAttivi.refresh();
+                                    tabellaPrestitiAttivi.sort();
                                 }
                             });
 
@@ -269,6 +274,7 @@ public class ControllerPrestiti implements Initializable{
                         listaPerTabellaAttivi.remove(preso);
                         
                         p.restituisci(preso, LocalDate.MIN);
+                        tabellaPrestitiRitardo.sort();
                         
    
                     });
@@ -356,6 +362,30 @@ public class ControllerPrestiti implements Initializable{
                 matricolaA.setCellValueFactory(new PropertyValueFactory<>("matricola"));
                 giorniRitardoA.setCellValueFactory(new PropertyValueFactory<>("ritardo"));
                 isbnA.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+                
+                
+                PseudoClass evidenziataClass = PseudoClass.getPseudoClass("evidenziata");
+                
+                tabellaPrestitiAttivi.setRowFactory(dsa -> {
+                    TableRow<Prestito> row = new TableRow<>();
+                    
+                    row.itemProperty().addListener((obs,vecchio,nuovo)->{
+                        if(nuovo==null)
+                            row.pseudoClassStateChanged(evidenziataClass, false);
+                        else {
+                            boolean condizione = nuovo.getRitardo()>3;
+                            row.pseudoClassStateChanged(evidenziataClass, condizione);
+                        }
+                    });
+                    
+                    return row;
+                });
+                
+                
+                
+                
+                
+                
             }
             
             if(dataPrestitoR != null) { // Controllo null per evitare errori in altre view che usano questo controller
@@ -390,7 +420,20 @@ public class ControllerPrestiti implements Initializable{
             
             
             tabellaPrestitiAttivi.setItems(listaPerTabellaAttivi);
+            
+            //Comando l'ordinamento della tabella. I Prestiti con più giorni di ritardo stanno in cima (Per entrambe)
+            giorniRitardoA.setSortType(TableColumn.SortType.DESCENDING);
+            tabellaPrestitiAttivi.getSortOrder().clear();
+            tabellaPrestitiAttivi.getSortOrder().add(giorniRitardoA);
+            tabellaPrestitiAttivi.sort();
+            
             tabellaPrestitiRitardo.setItems(listaPerTabellaRitardi);
+            
+            giorniRitardoR.setSortType(TableColumn.SortType.DESCENDING);
+            tabellaPrestitiRitardo.getSortOrder().clear();
+            tabellaPrestitiRitardo.getSortOrder().add(giorniRitardoR);
+            tabellaPrestitiRitardo.sort();
+            
             
                 aggiuntaPrestitoButton.setOnAction(ds -> {
                     try {
@@ -416,6 +459,8 @@ public class ControllerPrestiti implements Initializable{
                             DatePicker tAnnoP = controllerDialog.annoP;
                             tAnnoP.setValue(LocalDate.now());
                             DatePicker tAnnoR = controllerDialog.annoR;
+                            
+                            
 
                             a.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(
                                 bmatricolaUtente.valueProperty().isNull()
@@ -441,6 +486,7 @@ public class ControllerPrestiti implements Initializable{
                                                         "false",temp.getTitolo(),campiIsbn[campiIsbn.length-1],campiMat[campiMat.length-1]);
                                                 listaAttivi.add(x);
                                                 listaPerTabellaAttivi.add(x);
+                                                tabellaPrestitiAttivi.sort();
                                                 p.aggiungi(x);
                                                 break;
                                             }
@@ -452,7 +498,7 @@ public class ControllerPrestiti implements Initializable{
                                 return null;
                             });
                         });
-
+                        
                         a.showAndWait();
                     } catch (Exception e) {
                 }
