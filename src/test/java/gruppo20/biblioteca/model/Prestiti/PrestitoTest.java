@@ -209,15 +209,34 @@ public class PrestitoTest {
         
     }
 
+    /**
+     * test equals con prestito uguale
+     */
     @Test
     public void testEquals() {
         System.out.println("equals");
-        Object o = null;
-        Prestito instance = null;
-        boolean expResult = false;
-        boolean result = instance.equals(o);
+        Prestito instance1 = new Prestito(LocalDate.now(), LocalDate.now().plusDays(10), "false", "Analisi1", "0000000000000","0612700000");
+        Prestito instance2 = new Prestito(LocalDate.now(), LocalDate.now().plusDays(10), "false", "Analisi1", "0000000000000","0612700000");
+
+        boolean expResult = true;
+        boolean result = instance1.equals(instance2);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+      
+    }
+    
+    /**
+     * test equals con prestito differente
+     */
+    @Test
+    public void testEquals2() {
+        System.out.println("equals");
+        Prestito instance1 = new Prestito(LocalDate.now(), LocalDate.now().plusDays(10), "false", "Analisi1", "0000000000000","0612700000");
+        Prestito instance2 = new Prestito(LocalDate.now(), LocalDate.now().plusDays(10), "false", "Fisica 2", "0000000000001","0612700000");
+
+        boolean expResult = false;
+        boolean result = instance1.equals(instance2);
+        assertEquals(expResult, result);
+      
     }
 
     @Test
