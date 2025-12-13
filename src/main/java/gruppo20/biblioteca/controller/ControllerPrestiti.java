@@ -4,16 +4,19 @@ import gruppo20.biblioteca.model.Libri.Libro;
 import gruppo20.biblioteca.model.Main;
 import gruppo20.biblioteca.model.Prestiti.Prestito;
 import gruppo20.biblioteca.model.Prestiti.Prestiti;
+import gruppo20.biblioteca.model.Utenti.Utente;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -36,6 +39,7 @@ import javafx.stage.Stage;
 import org.kordamp.ikonli.javafx.FontIcon;
 import javafx.css.PseudoClass;
 import javafx.scene.control.TableRow;
+import javafx.scene.control.TextField;
 
 /**
  *
@@ -197,7 +201,7 @@ public class ControllerPrestiti implements Initializable{
                                     for(Libro x: setLibro){
                                         if(x.equals(new Libro(null,null,null,0,campiIsbn[campiIsbn.length-1]))){
                                             
-                                             pNuovo = new Prestito(nuovaAnnoP,nuovaAnnoR,"false",x.getTitolo(),campiIsbn[campiIsbn.length-1],campiMat[campiMat.length-1]);
+                                             pNuovo = new Prestito(nuovaAnnoP,nuovaAnnoR,"false",x.getTitolo(),campiIsbn[campiIsbn.length-1],campiMat[campiMat.length-1].replace("-", ""));
                                              break;
                                         }
                                         // ----------- Possibile Messaggio d'Errore per modifica del Prestito -----------
@@ -448,12 +452,86 @@ public class ControllerPrestiti implements Initializable{
                         //Handler della pagina in sovrapposizione
                         a.setOnShown(e -> {
                             
+                            //  Gestione del primo comboBox (Utente)
                             ComboBox bmatricolaUtente = controllerDialog.matricolaUtenteBox;
-                            bmatricolaUtente.setItems(FXCollections.observableArrayList(co.getGestUtenti().getSetUtenti()));
                             
                             
+                                                       
+                            ObservableList<Utente> temp0 = FXCollections.observableArrayList(new ArrayList<Utente>());
+                            
+                            for(Utente u4 : co.getGestUtenti().getSetUtenti()){
+                                if(u4.getNPrestiti()<3 && u4.getNPrestiti()>=0)
+                                    temp0.add(u4);
+                            }
+                            
+                            
+                            FilteredList<Utente> filteredItems = new FilteredList<>(temp0, posd -> true);
+                            bmatricolaUtente.setItems(temp0);
+                            
+                            
+                            
+                            
+                            TextField editor = bmatricolaUtente.getEditor();
+                            
+                            editor.textProperty().addListener((obs, oldValue, newValue) -> {
+                                Platform.runLater(() -> {
+                                    
+                                    if (bmatricolaUtente.getSelectionModel().getSelectedItem() == null || 
+                                       !bmatricolaUtente.getSelectionModel().getSelectedItem().equals(newValue)) {
+
+                                        
+                                        filteredItems.setPredicate(item -> {
+                                            
+                                            if (newValue == null || newValue.isEmpty()) {
+                                                return true;
+                                            }
+                                            
+                                            return item.getMatricola().toLowerCase().contains(newValue.toLowerCase())
+                                                    || item.getNome().toLowerCase().contains(newValue.toLowerCase())
+                                                    || item.getCognome().toLowerCase().contains(newValue.toLowerCase());
+                                        });
+                                    }
+                                });         
+                                
+                                if (!bmatricolaUtente.isShowing()) {
+                                    bmatricolaUtente.show();
+                                }
+                            });
+                            
+                            
+                            
+                            //  Gestione del secondo comboBox (Libro)
                             ComboBox bIsbn = controllerDialog.isbnBox;
                             bIsbn.setItems(FXCollections.observableArrayList(co.getGestLibreria().getSetLibreria()));
+                            
+                            FilteredList<Libro> filteredOggetti = new FilteredList<>(FXCollections.observableArrayList(co.getGestLibreria().getSetLibreria()), podsd -> true);
+                            TextField editore = bIsbn.getEditor();
+                            
+                            editore.textProperty().addListener((obs, oldValue, newValue) -> {
+                                Platform.runLater(() -> {
+                                    
+                                    if (bIsbn.getSelectionModel().getSelectedItem() == null || 
+                                       !bIsbn.getSelectionModel().getSelectedItem().equals(newValue)) {
+
+                                        
+                                        filteredOggetti.setPredicate(item -> {
+                                            
+                                            if (newValue == null || newValue.isEmpty()) {
+                                                return true;
+                                            }
+                                            
+                                            return item.getTitolo().toLowerCase().contains(newValue.toLowerCase())
+                                                    || item.getIsbn().toLowerCase().contains(newValue.toLowerCase());
+                                        });
+                                    }
+                                });
+
+                                // Trucco per tenere aperto il popup mentre si scrive e filtra
+                                if (!bIsbn.isShowing()) {
+                                    bIsbn.show();
+                                }
+                            });
+                            
                             
                             DatePicker tAnnoP = controllerDialog.annoP;
                             tAnnoP.setValue(LocalDate.now());
@@ -496,7 +574,7 @@ public class ControllerPrestiti implements Initializable{
                                             if(temp.equals(new Libro(null,null,null,0,campiIsbn[campiIsbn.length-1]))){
                                                 
                                                 Prestito x = new Prestito((LocalDate)tAnnoP.getValue(),(LocalDate)tAnnoR.getValue(),
-                                                        "false",temp.getTitolo(),campiIsbn[campiIsbn.length-1],campiMat[campiMat.length-1]);
+                                                        "false",temp.getTitolo(),campiIsbn[campiIsbn.length-1],campiMat[campiMat.length-1].replace("-", ""));
                                                 listaAttivi.add(x);
                                                 listaPerTabellaAttivi.add(x);
                                                 tabellaPrestitiAttivi.sort();

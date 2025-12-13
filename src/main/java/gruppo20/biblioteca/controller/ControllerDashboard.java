@@ -118,8 +118,6 @@ public class ControllerDashboard implements Initializable {
             tabellaPrestitiAttivi.getSortOrder().clear();
             tabellaPrestitiAttivi.getSortOrder().add(giorniRitardoA);
             tabellaPrestitiAttivi.sort();
-        
-        
             }
 
     }

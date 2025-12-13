@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<BorderPane id="AnchorPane" fx:id="bp" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="800.0" prefWidth="1100.0" styleClass="parent" stylesheets="@StyleSheets.css" xmlns="http://javafx.com/javafx/21.0.3" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gruppo20.biblioteca.controller.ControllerLibreria">
+<BorderPane id="AnchorPane" fx:id="bp" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="800.0" prefWidth="1100.0" styleClass="parent" stylesheets="@StyleSheets.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gruppo20.biblioteca.controller.ControllerLibreria">
    <left>
       <AnchorPane prefHeight="800.0" prefWidth="375.0" styleClass="side" BorderPane.alignment="CENTER">
          <children>
@@ -107,9 +107,9 @@
       </AnchorPane>
    </left>
    <center>
-      <AnchorPane fx:id="libreria" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#pageLibreria" prefHeight="800.0" prefWidth="771.0" stylesheets="@StyleSheets.css" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="libreria" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#pageLibreria" prefHeight="800.0" prefWidth="771.0" stylesheets="@StyleSheets.css" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="tabellaLibri" layoutX="20.0" layoutY="259.0" prefHeight="388.0" prefWidth="731.0" styleClass="table" AnchorPane.bottomAnchor="153.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="259.0">
+            <TableView fx:id="tabellaLibri" layoutX="20.0" layoutY="259.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="563.0" prefWidth="731.0" styleClass="table" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="203.0">
                <columns>
                   <TableColumn fx:id="titolo" editable="false" maxWidth="1.7976931348623157E308" prefWidth="79.0" text="Titolo" />
                   <TableColumn fx:id="autori" editable="false" prefWidth="114.0" text="Autori" />
@@ -122,11 +122,11 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <TextField fx:id="barraCercaLibri" layoutX="20.0" layoutY="215.0" prefHeight="32.0" prefWidth="519.0" promptText="Ricerca per Titolo, Autore o Isbn." styleClass="barraRicerca" AnchorPane.bottomAnchor="553.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="207.0" AnchorPane.topAnchor="215.0">
+            <TextField fx:id="barraCercaLibri" layoutX="20.0" layoutY="159.0" prefHeight="32.0" prefWidth="558.0" promptText="Ricerca per Titolo, Autore o Isbn." styleClass="barraRicerca" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="193.0" AnchorPane.topAnchor="159.0">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor></TextField>
-            <Button fx:id="aggiungiLibroButton" alignment="CENTER_RIGHT" graphicTextGap="13.0" layoutX="596.8" layoutY="215.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="154.0" styleClass="bottoni" text="Aggiungi Libro" AnchorPane.bottomAnchor="553.0" AnchorPane.leftAnchor="597.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="215.0">
+            <Button fx:id="aggiungiLibroButton" alignment="CENTER_RIGHT" graphicTextGap="13.0" layoutX="595.0" layoutY="159.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="154.0" styleClass="bottoni" text="Aggiungi Libro" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="159.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -138,7 +138,7 @@
                </graphic>
             </Button>
             
-            <Label alignment="TOP_CENTER" layoutX="176.0" layoutY="74.0" prefHeight="59.0" prefWidth="419.0" styleClass="intestazine" text="Sezione Libreria" AnchorPane.bottomAnchor="667.0" AnchorPane.leftAnchor="176.0" AnchorPane.rightAnchor="176.0" AnchorPane.topAnchor="74.0">
+            <Label alignment="TOP_CENTER" layoutX="176.0" layoutY="43.0" prefHeight="59.0" prefWidth="419.0" styleClass="intestazine" text="Sezione Libreria" AnchorPane.rightAnchor="176.0" AnchorPane.topAnchor="43.0">
                <font>
                   <Font name="System Bold" size="34.0" />
                </font>
