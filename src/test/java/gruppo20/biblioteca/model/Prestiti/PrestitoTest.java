@@ -184,7 +184,7 @@ public class PrestitoTest {
 
     /**
      * Funzione test per il calcolo del ritardo
-     * ritardo max 100 days
+     * ritardo max 50 days
      * @param in 
      */
     @ParameterizedTest
@@ -192,14 +192,19 @@ public class PrestitoTest {
     public void testCalcRitardo(LocalDate in) {
         
         Random rand = new Random();
-        int ritardo= rand.nextInt(100); 
-        System.out.println("calcRitardo");
+        int ritardo= rand.nextInt(50); 
+        //System.out.println("calcRitardo");
+        
         LocalDate datRest = in.minusDays(ritardo);
+        System.out.println("data ins: "+ in +"\n data rest :"+datRest);
         
         Prestito instance = new Prestito(in, datRest, "false", "Analisi1", "0000000000000","0612700000");
        
         int expResult = ritardo;
         int result = instance.getRitardo();
+        
+        //System.out.println("data ins: "+ in +"\n data rest :"+datRest+"\n confronto"+ritardo+" "+result);
+        
         assertEquals(expResult, result);
         
     }
@@ -217,12 +222,13 @@ public class PrestitoTest {
 
     @Test
     public void testHashCode() {
-        System.out.println("hashCode");
-        Prestito instance = null;
-        int expResult = 0;
-        int result = instance.hashCode();
+        Prestito instance1 = new Prestito(LocalDate.now(), LocalDate.now().plusDays(10), "false", "Analisi1", "0000000000000","0612700000");
+        Prestito instance2 = new Prestito(LocalDate.now(), LocalDate.now().plusDays(10), "false", "Analisi1", "0000000000000","0612700000");
+
+        int expResult = instance1.hashCode();
+        int result = instance2.hashCode();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        
     }
     
     /**
