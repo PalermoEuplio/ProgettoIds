@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit4TestClass.java to edit this template
- */
 package gruppo20.biblioteca.model.Prestiti;
 
 import java.time.LocalDate;
@@ -20,6 +16,7 @@ import org.junit.jupiter.params.provider.MethodSource;
  * @author Gruppo20
  */
 public class PrestitoTest {
+    private final int n = 50;
     
     public PrestitoTest() {
         System.out.println("inizio prestito test");
@@ -171,24 +168,40 @@ public class PrestitoTest {
         
     }
 
-    @Test
-    public void testIsRitardo() {
+    @ParameterizedTest
+    @MethodSource("dateGen")
+    public void testIsRitardo(LocalDate in) {        
         System.out.println("isRitardo");
-        Prestito instance = null;
-        boolean expResult = false;
+        LocalDate datRest = in.minusDays(n);
+        Prestito instance = new Prestito(in, datRest, "false", "Analisi1", "0000000000000","0612700000");
+       
+        boolean expResult = true;
         boolean result = instance.isRitardo();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result);        
+        
+        
     }
 
-    @Test
-    public void testCalcRitardo() {
+    /**
+     * Funzione test per il calcolo del ritardo
+     * ritardo max 100 days
+     * @param in 
+     */
+    @ParameterizedTest
+    @MethodSource("dateGen")
+    public void testCalcRitardo(LocalDate in) {
+        
+        Random rand = new Random();
+        int ritardo= rand.nextInt(100); 
         System.out.println("calcRitardo");
-        Prestito instance = null;
-        int expResult = 0;
+        LocalDate datRest = in.minusDays(ritardo);
+        
+        Prestito instance = new Prestito(in, datRest, "false", "Analisi1", "0000000000000","0612700000");
+       
+        int expResult = ritardo;
         int result = instance.getRitardo();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        
     }
 
     @Test
