@@ -1,13 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit4TestClass.java to edit this template
- */
 package gruppo20.biblioteca.model.Prestiti;
 
 import java.time.LocalDate;
 import java.util.Random;
 import java.util.stream.Stream;
-import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -71,16 +66,35 @@ public class EffettivaRestituzioneTest {
 
     /**
      * Test of getEffettivaRestituzione method, of class EffettivaRestituzione.
+     * Caso in cui viene inserita la restituzione, deve resitutire la data di restituzione
+     * @param in
      */
-    @Test
-    public void testGetEffettivaRestituzione() {
+    @ParameterizedTest
+    @MethodSource("dateGen")
+    public void testGetEffettivaRestituzione(LocalDate in) {
         System.out.println("getEffettivaRestituzione");
-        EffettivaRestituzione instance = null;
-        String expResult = "";
+        EffettivaRestituzione instance = new EffettivaRestituzione(in.toString());
+        String expResult = in.toString();
         String result = instance.getEffettivaRestituzione();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        
     }
+    /**
+     * Test of getEffettivaRestituzione method, of class EffettivaRestituzione.
+     * Caso in cui la restituzione non è avvenuta, deve resitutire false
+     * @param in
+     */
+    @ParameterizedTest
+    @MethodSource("dateGen")
+    public void testGetEffettivaRestituzione2(LocalDate in) {
+        System.out.println("getEffettivaRestituzione");
+        EffettivaRestituzione instance = new EffettivaRestituzione("false");
+        String expResult = "false";
+        String result = instance.getEffettivaRestituzione();
+        assertEquals(expResult, result);
+        
+    }
+    
     
     /**
      * generatore di date random
