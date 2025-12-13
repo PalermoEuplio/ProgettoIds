@@ -1,6 +1,5 @@
 package gruppo20.biblioteca.controller;
 
-import com.sun.javafx.binding.BindingHelperObserver;
 import gruppo20.biblioteca.model.Libri.Libro;
 import gruppo20.biblioteca.model.Main;
 import gruppo20.biblioteca.model.Prestiti.Prestito;
@@ -15,7 +14,6 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
-import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -37,8 +35,6 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.kordamp.ikonli.javafx.FontIcon;
 import javafx.css.PseudoClass;
-import javafx.geometry.Pos;
-import javafx.scene.control.DateCell;
 import javafx.scene.control.TableRow;
 
 /**
