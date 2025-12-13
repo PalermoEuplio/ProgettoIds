@@ -26,31 +26,39 @@ public class PrestitoTest {
     }   
     
     
-    @Test
+    /*
+    Test Parametrizzato per il metodo SetEffettivaRestituzione con date valide da stato false
+    */
+    @ParameterizedTest
+    @MethodSource("dateGen")
     public void testSetEffettivaRestituzione() {
         LocalDate input = LocalDate.of(2025,12,12);
-        String ritorno = input.toString();
-        //System.out.println("setEffettivaRestituzione");        
-        LocalDate dataRestituzione = LocalDate.now();
-        
+        String ExpRitorno = input.toString();
+        System.out.println("setEffettivaRestituzione");        
+                
         Prestito instance = new Prestito(LocalDate.MIN, LocalDate.MIN, "false", "Analisi1", "0000000000000","0612700000");       
         instance.setEffettivaRestituzione(input);
-        assertEquals(ritorno, instance.getEffettivaRestituzione());
-        //fail("The test case is a prototype.");
-    }
-    @Test    
-    public void testSetEffettivaRestituzione2(){
+        assertEquals(ExpRitorno, instance.getEffettivaRestituzione().getEffettivaRestituzione());
         
-        LocalDate input = LocalDate.of(2025,12,12);
+    }
+    
+    /*
+    Test Parametrizzato per il metodo SetEffettivaRestituzione da data valida
+    */
+    @ParameterizedTest
+    @MethodSource("dateGen")
+    public void testSetEffettivaRestituzione2(LocalDate input){
+        
         LocalDate dataRestituzione = input.plusDays(30);
-        String ritorno = dataRestituzione.toString();        
+        String ritorno = dataRestituzione.toString();   
+        String dataAdd = input.plusDays(15).toString();
         System.out.println("setEffettivaRestituzione2");
-        Prestito instance = new Prestito(input, null, ritorno, "Analisi_1", "0000000000000","0612700000");       
+        Prestito instance = new Prestito(input, input, ritorno, "Analisi_1", "0000000000000","0612700000");       
 
         
        
-        instance.setEffettivaRestituzione(dataRestituzione);
-        assertEquals(ritorno, instance.getEffettivaRestituzione());
+        instance.setEffettivaRestituzione(input.plusDays(15));
+        assertEquals(dataAdd, instance.getEffettivaRestituzione().getEffettivaRestituzione());
     }
     
 
@@ -80,12 +88,27 @@ public class PrestitoTest {
 
     @Test
     public void testGetEffettivaRestituzione() {
+        LocalDate in = LocalDate.now();
         System.out.println("getEffettivaRestituzione");
-        Prestito instance = null;
-        String expResult = "";
-        EffettivaRestituzione result = instance.getEffettivaRestituzione();
+        Prestito instance = new Prestito(LocalDate.now(), in.plusDays(30), "false", "Analisi1", "0000000000000","0612700000");
+
+        String expResult = "false";
+        String result = instance.getEffettivaRestituzione().getEffettivaRestituzione();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        
+    }
+    
+    @ParameterizedTest
+    @MethodSource("dateGen")
+    public void testGetEffettivaRestituzione2(LocalDate in) {
+        
+        System.out.println("getEffettivaRestituzione");
+        Prestito instance = new Prestito(LocalDate.now(), in.plusDays(30), in.toString(), "Analisi1", "0000000000000","0612700000");
+
+        String expResult = in.toString();
+        String result = instance.getEffettivaRestituzione().getEffettivaRestituzione();
+        assertEquals(expResult, result);
+        
     }
 
     @Test
