@@ -6,6 +6,7 @@ package gruppo20.biblioteca.model.Prestiti;
 
 import java.time.LocalDate;
 import java.util.stream.Stream;
+import java.util.Random;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
@@ -111,14 +112,20 @@ public class PrestitoTest {
         
     }
 
-    @Test
-    public void testGetIsbn() {
+    /**
+     * test getIsbn
+     * @param in 
+     */
+    @ParameterizedTest
+    @MethodSource("isbnGen")
+    public void testGetIsbn(String in) {
         System.out.println("getIsbn");
-        Prestito instance = null;
-        String expResult = "";
+        Prestito instance = new Prestito(LocalDate.now(), LocalDate.now(), "false", "Analisi1", in,"0612700000");
+
+        String expResult = in;
         String result = instance.getIsbn();
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        
     }
 
     @Test
@@ -181,10 +188,34 @@ public class PrestitoTest {
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }
+    
+    /**
+     * generatore di date
+     * 50
+     * @brief
+     * Metodi di supporto per i test
+    
+    */
     static Stream<LocalDate> dateGen() {
         LocalDate oggi = LocalDate.now();        
         return Stream.iterate(oggi, data -> data.plusDays(1)).limit(50);
                      
+    }
+    /**
+     * generatore di isbn 
+     * 50
+     * @return 
+     */
+    static Stream<String> isbnGen() {
+        Random random = new Random();   
+        
+        return Stream.generate(() -> {
+            StringBuilder sb = new StringBuilder("978");            
+            for (int i = 0; i < 10; i++) {
+                sb.append(random.nextInt(10));
+            }
+            return sb.toString();
+        }).limit(50);
     }
     
 }
