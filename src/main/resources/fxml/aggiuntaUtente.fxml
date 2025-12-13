@@ -59,10 +59,20 @@
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor></TextField>
-                  <TextField fx:id="email" blendMode="DARKEN" promptText="Inserire Mail Istituzionale.." styleClass="campiComparsa" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                     <cursor>
-                        <Cursor fx:constant="TEXT" />
-                     </cursor></TextField>
+                  <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <children>
+                        <TextField fx:id="email" blendMode="DARKEN" layoutY="32.0" prefHeight="25.0" prefWidth="185.0" promptText="Inserire Mail Istituzionale.." styleClass="campiComparsa">
+                           <cursor>
+                              <Cursor fx:constant="TEXT" />
+                           </cursor>
+                        </TextField>
+                        <Label layoutX="197.0" layoutY="32.0" prefHeight="25.0" prefWidth="153.0" text="\@studenti.unisa.it">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
                </children>
             </GridPane>
          </children>
