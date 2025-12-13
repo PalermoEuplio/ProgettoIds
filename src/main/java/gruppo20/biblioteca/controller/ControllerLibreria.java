@@ -8,11 +8,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
 import javafx.collections.*;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.collections.transformation.FilteredList;
+import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -75,8 +78,6 @@ public class ControllerLibreria implements Initializable{
     private TableColumn<Libro, Void> operazioni;
     
     
-    
-    private ControllerLibreria controllerGenitore;
     private ObservableList<Libro> listaPerTabella;
     
     
@@ -134,15 +135,32 @@ public class ControllerLibreria implements Initializable{
                             TextField tIsbn = controllerDialog.isbn;
                             DatePicker tAnnoP = controllerDialog.annoP;
                             TextField tNCopie = controllerDialog.NCopie;
-
+                            SimpleIntegerProperty x = new SimpleIntegerProperty(Integer.valueOf(tNCopie.getText()));
                             
+                            BooleanBinding isbnNonValido = Bindings.createBooleanBinding(
+                                () -> !tIsbn.getText().matches("[0-9]{3}[-]{1}[0-9]{2}[-]{1}[0-9]{5}[-]{1}[0-9]{2}[-]{1}[0-9]{1}"), 
+                                tIsbn.textProperty()
+                            );
+
                             dialog.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(
                                 tTitoloLibro.textProperty().isEmpty()
-                                .or(tListaAutori.textProperty().isEmpty())
-                                .or(tIsbn.textProperty().isEmpty())
-                                .or(tAnnoP.valueProperty().isNull())
-                                    .or(tNCopie.textProperty().isEmpty())
-                            );
+                                    .or(tListaAutori.textProperty().isEmpty())
+                                    .or(tAnnoP.valueProperty().isNull())
+                                    .or(x.isEqualTo(0))
+                                    .or(isbnNonValido) 
+                            ); 
+
+
+
+                            PseudoClass evidenziataClass = PseudoClass.getPseudoClass("errati");
+
+                            tIsbn.textProperty().addListener((obs, vecchioValore, nuovoValore) -> {
+
+                                boolean isError = !nuovoValore.matches("[0-9]{3}[-]{1}[0-9]{2}[-]{1}[0-9]{5}[-]{1}[0-9]{2}[-]{1}[0-9]{1}");
+
+                                boolean mostraRosso = isError && !nuovoValore.isEmpty(); 
+                                tIsbn.pseudoClassStateChanged(evidenziataClass, mostraRosso);
+                            });
 
                             
                             dialog.showAndWait().ifPresent(response -> {
@@ -267,13 +285,14 @@ public class ControllerLibreria implements Initializable{
 
                     ControllerLibreria controllerDialog = loader.getController();
 
-                    Dialog<ButtonType> dialog = new Dialog<>();
-                    dialog.setDialogPane(root);
-                    dialog.setTitle("Inserire nuovo Libro");
+                    Dialog<ButtonType> a = new Dialog<>();
+                    a.setDialogPane(root);
+                    a.setTitle("Inserire nuovo Libro");
 
                     // --- INIZIO CONFIGURAZIONE UI DIALOG ---
                     // (Questa parte serve solo per validare i campi, come avevi fatto tu)
-                    dialog.setOnShown(e -> {
+                    a.setOnShown(e -> {
+                        
                         TextField tTitolo = controllerDialog.titoloLibro;
                         TextField tAutori = controllerDialog.listaAutori;
                         TextField tIsbn = controllerDialog.isbn;
@@ -287,49 +306,61 @@ public class ControllerLibreria implements Initializable{
                              tCopie.textProperty().bindBidirectional(numero, new NumberStringConverter());
                         } catch (Exception ex) {}
 
-                        dialog.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(
-                                tTitolo.textProperty().isEmpty()
+                        BooleanBinding isbnNonValido = Bindings.createBooleanBinding(
+                            () -> !tIsbn.getText().matches("[0-9]{3}[-]{1}[0-9]{2}[-]{1}[0-9]{5}[-]{1}[0-9]{2}[-]{1}[0-9]{1}"), 
+                            tIsbn.textProperty()
+                        );
+                        
+                        a.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(
+                            tTitolo.textProperty().isEmpty()
                                 .or(tAutori.textProperty().isEmpty())
-                                .or(tIsbn.textProperty().isEmpty())
                                 .or(tAnno.valueProperty().isNull())
                                 .or(numero.isEqualTo(0))
-                        );
-                    });
+                                .or(isbnNonValido) 
+                        ); 
+                        
+                        
+                        
+                        PseudoClass evidenziataClass = PseudoClass.getPseudoClass("errati");
+                
+                        tIsbn.textProperty().addListener((obs, vecchioValore, nuovoValore) -> {
+                            
+                            boolean isError = !nuovoValore.matches("[0-9]{3}[-]{1}[0-9]{2}[-]{1}[0-9]{5}[-]{1}[0-9]{2}[-]{1}[0-9]{1}");
+                            
+                            boolean mostraRosso = isError && !nuovoValore.isEmpty(); 
+                            tIsbn.pseudoClassStateChanged(evidenziataClass, mostraRosso);
+                        });
+                        
+                    
                     // --- FINE CONFIGURAZIONE UI ---
 
                     // Attesa chiusura finestra e gestione salvataggio
-                    dialog.showAndWait().ifPresent(response -> {
-                        if (response == ButtonType.OK) {
-                            
-                            String nuovoTitolo = controllerDialog.titoloLibro.getText();
-                            String nuoviAutori = controllerDialog.listaAutori.getText();
-                            String nuovoIsbn = controllerDialog.isbn.getText();
-                            LocalDate nuovoAnno = controllerDialog.annoP.getValue();
+                        a.setResultConverter(response -> {
+                            if (response == ButtonType.OK) {
+                                int nuoveCopie = 1;
+                                try {
+                                    nuoveCopie = Integer.parseInt(controllerDialog.NCopie.getText());
+                                } catch (NumberFormatException ex) { 
+                                    nuoveCopie = 1; 
+                                }
 
-                            int nuoveCopie = 1;
-                            try {
-                                nuoveCopie = Integer.parseInt(controllerDialog.NCopie.getText());
-                            } catch (NumberFormatException ex) { 
-                                nuoveCopie = 1; 
+                                Libro nuovoLibro = new Libro(tTitolo.getText(), tAutori.getText(), 
+                                        tAnno.getValue(), nuoveCopie, tIsbn.getText().replace("-", ""));
+
+                                setLibri.add(nuovoLibro);
+                                listaPerTabella.add(nuovoLibro);
+                                l.aggiungi(nuovoLibro);
+                                return response;
+
                             }
-                            
-                            Libro nuovoLibro = new Libro(nuovoTitolo, nuoviAutori, nuovoAnno, nuoveCopie, nuovoIsbn);
-                            
-                            setLibri.add(nuovoLibro);
-                            
-                            listaPerTabella.add(nuovoLibro);
-                            
-                        }
+                            return null;
+                        });
                     });
-
+                    a.showAndWait();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             });
-           
-                
-            
-            
         }
         else if(nomeFile.endsWith("aggiuntaLibro.fxml")){}
     }

@@ -72,6 +72,6 @@ public class Utente {
     
     @Override
     public String toString(){
-        return nome+" "+cognome+" "+matricola;
+        return nome+" "+cognome+"; "+matricola;
     }
 }

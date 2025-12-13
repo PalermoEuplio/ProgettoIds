@@ -10,6 +10,8 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
@@ -467,8 +469,7 @@ public class ControllerPrestiti implements Initializable{
                                 .or(bIsbn.valueProperty().isNull())
                                 .or(tAnnoP.valueProperty().isNull())
                                 .or(tAnnoR.valueProperty().isNull())
-                            );
-                            
+                            ); 
                             
 
                             a.setResultConverter(dialogButton -> {

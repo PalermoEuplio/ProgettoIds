@@ -308,13 +308,11 @@ public class ControllerUtenti implements Initializable {
                         a.setResultConverter(dialogButton -> {
                             if (dialogButton == ButtonType.OK) {
                                 
-                                
-                                
-                                
                                 Utente x = new Utente(nomeUtente.getText(),cognomeUtente.getText(),
                                                         matricola.getText(),email.getText()+"@studenti.unisa.it",0);
                                 listaPerTabella.add(x);
                                 setUtenti.add(x);
+                                u.aggiungi(x);
                                 return dialogButton;
                             }
                             return null;
