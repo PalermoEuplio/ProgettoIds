@@ -29,6 +29,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.util.converter.NumberStringConverter;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -41,6 +42,10 @@ public class ControllerLibreria implements Initializable{
     
     private Contesto co;
     
+    @FXML
+    private AnchorPane libreria;
+    @FXML
+    private Label intestazione;
     @FXML 
     private TableView<Libro> tabellaLibri;
     

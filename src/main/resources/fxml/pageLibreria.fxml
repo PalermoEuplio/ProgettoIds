@@ -11,6 +11,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
@@ -82,7 +83,7 @@
             </VBox>
             <AnchorPane layoutX="32.0" layoutY="710.0" prefHeight="68.0" prefWidth="312.0" AnchorPane.bottomAnchor="22.0">
                <children>
-                  <FontIcon iconLiteral="fa-copyright" iconSize="25" layoutX="12.0" layoutY="44.0" text="" />
+                  <FontIcon iconLiteral="fa-copyright" iconSize="25" layoutX="11.0" layoutY="44.0" text="" />
                   <Separator layoutX="34.0" layoutY="14.0" orientation="VERTICAL" prefHeight="40.0" prefWidth="17.0" />
                   <Label layoutX="52.0" layoutY="20.0" styleClass="copyright" text="2025">
                      <font>
@@ -109,40 +110,57 @@
    <center>
       <AnchorPane fx:id="libreria" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#pageLibreria" prefHeight="800.0" prefWidth="771.0" stylesheets="@StyleSheets.css" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="tabellaLibri" layoutX="66.0" layoutY="259.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="525.0" prefWidth="640.0" styleClass="table" AnchorPane.bottomAnchor="72.0" AnchorPane.leftAnchor="66.0" AnchorPane.rightAnchor="66.0" AnchorPane.topAnchor="203.0">
-               <columns>
-                  <TableColumn fx:id="titolo" editable="false" maxWidth="1.7976931348623157E308" prefWidth="79.0" text="Titolo" />
-                  <TableColumn fx:id="autori" editable="false" prefWidth="114.0" text="Autori" />
-                  <TableColumn fx:id="annoPublicazione" editable="false" prefWidth="156.0" sortable="false" text="Anno Publicazione" />
-                  <TableColumn fx:id="isbn0" editable="false" prefWidth="167.0" text="ISBN" />
-                  <TableColumn fx:id="nCopie" editable="false" prefWidth="108.0" sortable="false" text="Copie Disponibili" />
-                  <TableColumn fx:id="operazioni" editable="false" prefWidth="106.0" resizable="false" sortable="false" text="Operazioni" />
-               </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-            </TableView>
-            <TextField fx:id="barraCercaLibri" layoutX="66.0" layoutY="159.0" prefHeight="32.0" prefWidth="440.0" promptText="Ricerca per Titolo, Autore o Isbn." styleClass="barraRicerca" AnchorPane.leftAnchor="66.0" AnchorPane.rightAnchor="265.0" AnchorPane.topAnchor="159.0">
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor></TextField>
-            <Button fx:id="aggiungiLibroButton" alignment="CENTER_RIGHT" graphicTextGap="13.0" layoutX="551.0" layoutY="159.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="154.0" styleClass="bottoni" text="Aggiungi Libro" AnchorPane.rightAnchor="66.0" AnchorPane.topAnchor="159.0">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <graphic>
-                  <FontIcon iconLiteral="fa-plus" iconSize="18" />
-               </graphic>
-            </Button>
-            
-            <Label alignment="TOP_CENTER" layoutX="176.0" layoutY="43.0" prefHeight="59.0" prefWidth="419.0" styleClass="intestazine" text="Sezione Libreria" AnchorPane.rightAnchor="176.0" AnchorPane.topAnchor="43.0">
-               <font>
-                  <Font name="System Bold" size="34.0" />
-               </font>
-            </Label>
+            <StackPane layoutX="66.0" layoutY="215.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="66.0" AnchorPane.rightAnchor="66.0" AnchorPane.topAnchor="215.0">
+               <children>
+                  <TableView fx:id="tabellaLibri" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="525.0" prefWidth="640.0" styleClass="table">
+                     <columns>
+                        <TableColumn fx:id="titolo" editable="false" maxWidth="1.7976931348623157E308" prefWidth="79.0" text="Titolo" />
+                        <TableColumn fx:id="autori" editable="false" prefWidth="114.0" text="Autori" />
+                        <TableColumn fx:id="annoPublicazione" editable="false" prefWidth="156.0" sortable="false" text="Anno Publicazione" />
+                        <TableColumn fx:id="isbn0" editable="false" prefWidth="167.0" text="ISBN" />
+                        <TableColumn fx:id="nCopie" editable="false" prefWidth="108.0" sortable="false" text="Copie Disponibili" />
+                        <TableColumn fx:id="operazioni" editable="false" prefWidth="106.0" resizable="false" sortable="false" text="Operazioni" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </children>
+            </StackPane>
+            <StackPane alignment="CENTER_LEFT" layoutX="66.0" layoutY="171.0" AnchorPane.leftAnchor="66.0" AnchorPane.rightAnchor="265.0" AnchorPane.topAnchor="171.0">
+               <children>
+                  <TextField fx:id="barraCercaLibri" maxWidth="800.0" prefHeight="32.0" prefWidth="440.0" promptText="Ricerca per Titolo, Autore o Isbn." styleClass="barraRicerca">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor>
+                  </TextField>
+               </children>
+            </StackPane>
+            <StackPane layoutX="551.0" layoutY="171.0" AnchorPane.rightAnchor="68.0" AnchorPane.topAnchor="171.0">
+               <children>
+                  <Button fx:id="aggiungiLibroButton" alignment="CENTER_RIGHT" graphicTextGap="13.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="154.0" styleClass="bottoni" text="Aggiungi Libro">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <FontIcon iconLiteral="fa-plus" iconSize="18" />
+                     </graphic>
+                  </Button>
+               </children>
+            </StackPane>
+            <StackPane layoutY="49.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="49.0">
+               <children>
+                  
+                        <Label fx:id="intestazione" alignment="TOP_CENTER" maxWidth="585.0" prefHeight="59.0" prefWidth="419.0" styleClass="intestazine" text="Sezione Libreria">
+                     <font>
+                        <Font name="System Bold" size="34.0" />
+                     </font>
+                  </Label>
+               </children>
+            </StackPane>
          </children>
       </AnchorPane>
    </center>

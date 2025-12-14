@@ -39,6 +39,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.kordamp.ikonli.javafx.FontIcon;
 import javafx.css.PseudoClass;
+import javafx.geometry.Pos;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
@@ -124,6 +125,7 @@ public class ControllerPrestiti implements Initializable{
             
             //  Creazione e Gestione della tabella dei Prestiti Attivi
             tabellaPrestitiAttivi.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+            
             
             operazioniA.setCellFactory(col -> new TableCell<Prestito, Void>() {
             
@@ -466,8 +468,10 @@ public class ControllerPrestiti implements Initializable{
                 
                 Button elimina = new Button("",del);
                 
-                
+                HBox f = new HBox();
                 {
+                    f.setAlignment(Pos.CENTER);
+                    f.getChildren().add(elimina);
     
                 //Comportamento Bottone eliminazione
                     elimina.setOnAction(e1 -> {
@@ -517,7 +521,7 @@ public class ControllerPrestiti implements Initializable{
                     if (empty) {
                         setGraphic(null);
                     } else {
-                        setGraphic(elimina);
+                        setGraphic(f);
                     }
                 }
             });

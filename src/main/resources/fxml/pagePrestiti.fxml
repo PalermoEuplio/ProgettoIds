@@ -10,6 +10,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
@@ -106,60 +107,84 @@
       </AnchorPane>
    </left>
    <center>
-      <AnchorPane fx:id="prestiti" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#pagePrestiti" prefHeight="800.0" prefWidth="775.0" stylesheets="@StyleSheets.css" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="prestiti" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#pagePrestiti" prefHeight="800.0" prefWidth="771.0" stylesheets="@StyleSheets.css" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="aggiuntaPrestitoButton" alignment="CENTER_RIGHT" graphicTextGap="11.0" layoutX="580.8" layoutY="227.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="170.0" styleClass="bottoni" text="Aggiungi Prestito" AnchorPane.leftAnchor="581.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="215.0">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <graphic>
-                  <FontIcon iconLiteral="fa-plus" iconSize="18" />
-               </graphic>
-            </Button>
-            <Label alignment="TOP_CENTER" layoutX="176.0" layoutY="71.0" prefHeight="59.0" prefWidth="419.0" styleClass="intestazine" text="Sezione Prestiti" AnchorPane.topAnchor="74.0">
-               <font>
-                  <Font name="System Bold" size="34.0" />
-               </font>
-            </Label>
-            <TableView fx:id="tabellaPrestitiAttivi" layoutX="26.0" layoutY="259.0" prefHeight="194.0" prefWidth="731.0" styleClass="table" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="259.0">
-               <columns>
-                  <TableColumn fx:id="dataPrestitoA" editable="false" maxWidth="1.7976931348623157E308" prefWidth="123.0" sortable="false" text="Data Prestito" />
-                  <TableColumn fx:id="dataScadenzaA" editable="false" prefWidth="123.0" sortable="false" text="Data Scadenza" />
-                  <TableColumn fx:id="giorniRitardoA" editable="false" prefWidth="90.0" sortType="DESCENDING" text="Giorni Ritardo" />
-                  <TableColumn fx:id="matricolaA" editable="false" prefWidth="155.0" sortable="false" text="Matricola" />
-                  <TableColumn fx:id="isbnA" editable="false" prefWidth="127.0" sortable="false" text="ISBN" />
-                  <TableColumn fx:id="operazioniA" editable="false" prefWidth="103.0" resizable="false" sortable="false" text="Operazioni" />
-               </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-            </TableView>
-            <Label layoutX="43.0" layoutY="223.0" prefHeight="36.0" prefWidth="294.0" text="Tabella Prestiti Attivi">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-            </Label>
-            <Label layoutX="43.0" layoutY="487.0" prefHeight="36.0" prefWidth="294.0" text="Tabella Prestiti Restituiti">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-            </Label>
-            <TableView fx:id="tabellaPrestitiRitardo" layoutX="28.0" layoutY="523.0" prefHeight="194.0" prefWidth="731.0" styleClass="table">
-               <columns>
-                  <TableColumn fx:id="dataPrestitoR" editable="false" maxWidth="1.7976931348623157E308" prefWidth="123.0" sortable="false" text="Data Prestito" />
-                  <TableColumn fx:id="dataScadenzaR" editable="false" prefWidth="123.0" sortable="false" text="Data Scadenza" />
-                  <TableColumn fx:id="giorniRitardoR" editable="false" prefWidth="90.0" sortType="DESCENDING" text="Giorni Ritardo" />
-                  <TableColumn fx:id="matricolaR" editable="false" prefWidth="155.0" sortable="false" text="Matricola" />
-                  <TableColumn fx:id="isbnR" editable="false" prefWidth="127.0" sortable="false" text="ISBN" />
-                  <TableColumn fx:id="operazioniR" editable="false" prefWidth="102.0" resizable="false" sortable="false" text="Operazioni" />
-               </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-            </TableView>
+            <StackPane layoutX="577.0" layoutY="211.0" AnchorPane.rightAnchor="68.0" AnchorPane.topAnchor="171.0">
+               <children>
+                  <Button fx:id="aggiuntaPrestitoButton" alignment="CENTER_RIGHT" graphicTextGap="11.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="170.0" styleClass="bottoni" text="Aggiungi Prestito">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <FontIcon iconLiteral="fa-plus" iconSize="18" />
+                     </graphic>
+                  </Button>
+               </children>
+            </StackPane>
+            <StackPane layoutX="172.0" layoutY="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="49.0">
+               <children>
+                  <Label alignment="TOP_CENTER" maxWidth="585.0" prefHeight="59.0" prefWidth="419.0" styleClass="intestazine" text="Sezione Prestiti">
+                     <font>
+                        <Font name="System Bold" size="34.0" />
+                     </font>
+                  </Label>
+               </children>
+            </StackPane>
+            <StackPane layoutX="20.0" layoutY="259.0" AnchorPane.bottomAnchor="391.0" AnchorPane.leftAnchor="66.0" AnchorPane.rightAnchor="66.0" AnchorPane.topAnchor="215.0">
+               <children>
+                  <TableView fx:id="tabellaPrestitiAttivi" maxHeight="400.0" prefHeight="194.0" prefWidth="731.0" styleClass="table">
+                     <columns>
+                        <TableColumn fx:id="dataPrestitoA" editable="false" maxWidth="1.7976931348623157E308" prefWidth="123.0" sortable="false" text="Data Prestito" />
+                        <TableColumn fx:id="dataScadenzaA" editable="false" prefWidth="123.0" sortable="false" text="Data Scadenza" />
+                        <TableColumn fx:id="giorniRitardoA" editable="false" prefWidth="108.0" sortType="DESCENDING" text="Giorni Ritardo" />
+                        <TableColumn fx:id="matricolaA" editable="false" prefWidth="108.0" sortable="false" text="Matricola" />
+                        <TableColumn fx:id="isbnA" editable="false" prefWidth="79.0" sortable="false" text="ISBN" />
+                        <TableColumn fx:id="operazioniA" editable="false" maxWidth="111.0" prefWidth="111.0" resizable="false" sortable="false" text="Operazioni" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </children>
+            </StackPane>
+            <StackPane layoutX="11.0" layoutY="206.0" AnchorPane.leftAnchor="84.0" AnchorPane.topAnchor="171.0">
+               <children>
+                  <Label prefHeight="36.0" prefWidth="294.0" text="Tabella Prestiti Attivi">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </StackPane>
+            <StackPane layoutX="84.0" layoutY="478.0" AnchorPane.bottomAnchor="286.0" AnchorPane.leftAnchor="84.0">
+               <children>
+                  <Label prefHeight="36.0" prefWidth="294.0" text="Tabella Prestiti Restituiti">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </StackPane>
+            <StackPane layoutX="20.0" layoutY="523.0" AnchorPane.bottomAnchor="83.0" AnchorPane.leftAnchor="66.0" AnchorPane.rightAnchor="66.0">
+               <children>
+                  <TableView fx:id="tabellaPrestitiRitardo" maxHeight="350.0" prefHeight="194.0" prefWidth="731.0" styleClass="table">
+                     <columns>
+                        <TableColumn fx:id="dataPrestitoR" editable="false" maxWidth="1.7976931348623157E308" prefWidth="123.0" sortable="false" text="Data Prestito" />
+                        <TableColumn fx:id="dataScadenzaR" editable="false" prefWidth="123.0" sortable="false" text="Data Scadenza" />
+                        <TableColumn fx:id="giorniRitardoR" editable="false" prefWidth="107.0" sortType="DESCENDING" text="Giorni Ritardo" />
+                        <TableColumn fx:id="matricolaR" editable="false" prefWidth="112.0" sortable="false" text="Matricola" />
+                        <TableColumn fx:id="isbnR" editable="false" prefWidth="79.0" sortable="false" text="ISBN" />
+                        <TableColumn fx:id="operazioniR" editable="false" maxWidth="110.0" prefWidth="104.0" resizable="false" sortable="false" text="Operazioni" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </children>
+            </StackPane>
          </children>
       </AnchorPane>
    </center>

@@ -72,7 +72,7 @@ and open the template in the editor.
 .table-view .column-header .label {
     -fx-text-fill: #343333;
     -fx-font-weight: bold;
-    -fx-alignment: CENTER-LEFT;
+    -fx-alignment: center;
 }
 
 .table-view .table-cell {
