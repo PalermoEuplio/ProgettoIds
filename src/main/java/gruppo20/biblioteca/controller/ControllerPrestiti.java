@@ -319,8 +319,8 @@ public class ControllerPrestiti implements Initializable{
                             
                             DatePicker tAnnoP = controllerDialog.annoP;
                             DatePicker tAnnoR = controllerDialog.annoR;
-   
-                            BooleanBinding datanonValida = Bindings.createBooleanBinding(
+                            
+                            BooleanBinding datanonValidaR = Bindings.createBooleanBinding(
                                 () -> tAnnoR.getValue().isBefore(tAnnoP.getValue()),
                                 tAnnoR.valueProperty()
                             );
@@ -329,7 +329,8 @@ public class ControllerPrestiti implements Initializable{
                                 bmatricolaUtente.valueProperty().isNull()
                                 .or(bIsbn.valueProperty().isNull())
                                 .or(tAnnoP.valueProperty().isNull())
-                                .or(datanonValida)
+                                .or(datanonValidaR)
+                                .or(tAnnoR.valueProperty().isNull())
                             ); 
                             
                             PseudoClass evidenziataClass = PseudoClass.getPseudoClass("errato");
@@ -766,7 +767,12 @@ public class ControllerPrestiti implements Initializable{
                             DatePicker tAnnoR = controllerDialog.annoR;
                             tAnnoR.setValue(LocalDate.now().plusDays(5));
                             
-                            BooleanBinding datanonValida = Bindings.createBooleanBinding(
+                            BooleanBinding datanonValidaP = Bindings.createBooleanBinding(
+                                () -> tAnnoR.getValue().isBefore(LocalDate.now()),
+                                tAnnoR.valueProperty()
+                            );
+                            
+                            BooleanBinding datanonValidaR = Bindings.createBooleanBinding(
                                 () -> tAnnoR.getValue().isBefore(tAnnoP.getValue()),
                                 tAnnoR.valueProperty()
                             );
@@ -775,10 +781,23 @@ public class ControllerPrestiti implements Initializable{
                                 bmatricolaUtente.valueProperty().isNull()
                                 .or(bIsbn.valueProperty().isNull())
                                 .or(tAnnoP.valueProperty().isNull())
-                                .or(datanonValida)
+                                .or(tAnnoR.valueProperty().isNull())
+                                .or(datanonValidaP)
+                                .or(datanonValidaR)
                             ); 
                             
                             PseudoClass evidenziataClass = PseudoClass.getPseudoClass("errato");
+                            
+                            tAnnoP.valueProperty().addListener((obs, oldV, newV) -> {
+                                LocalDate fine = LocalDate.now();
+
+                                boolean nonValida =
+                                        newV != null &&
+                                        fine != null &&
+                                        newV.isBefore(fine);
+
+                                tAnnoP.pseudoClassStateChanged(evidenziataClass, nonValida);
+                            });
                             
                             tAnnoR.valueProperty().addListener((obs, oldV, newV) -> {
                                 LocalDate fine = tAnnoP.getValue();
