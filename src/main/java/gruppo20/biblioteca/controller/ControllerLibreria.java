@@ -137,6 +137,10 @@ public class ControllerLibreria implements Initializable{
                             TextField tNCopie = controllerDialog.NCopie;
                             SimpleIntegerProperty x = new SimpleIntegerProperty(Integer.valueOf(tNCopie.getText()));
                             
+                            try {
+                             tNCopie.textProperty().bindBidirectional(x, new NumberStringConverter());
+                             } catch (Exception ex) {}
+                            
                             BooleanBinding isbnNonValido = Bindings.createBooleanBinding(
                                 () -> !tIsbn.getText().matches("[0-9]{3}[-]{1}[0-9]{2}[-]{1}[0-9]{5}[-]{1}[0-9]{2}[-]{1}[0-9]{1}"), 
                                 tIsbn.textProperty()

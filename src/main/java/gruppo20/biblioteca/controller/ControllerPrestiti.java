@@ -10,6 +10,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicReference;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
@@ -40,6 +41,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import javafx.css.PseudoClass;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TextField;
+import javafx.util.StringConverter;
 
 /**
  *
@@ -154,8 +156,8 @@ public class ControllerPrestiti implements Initializable{
                             
                             
                             
-                            controllerDialog.matricolaUtenteBox.setValue(pVecchio.getMatricola());
-                            controllerDialog.isbnBox.setValue(pVecchio.getIsbn());
+                            controllerDialog.matricolaUtenteBox.setPromptText(pVecchio.getMatricola());
+                            controllerDialog.isbnBox.setPromptText(pVecchio.getIsbn());
                             controllerDialog.annoP.setValue(pVecchio.getDataPrestito());
                             controllerDialog.annoR.setValue(pVecchio.getDataPrevistaRestituzione());
 
@@ -163,31 +165,192 @@ public class ControllerPrestiti implements Initializable{
                             Dialog<ButtonType> dialog = new Dialog<>();
                             dialog.setDialogPane(root);
                             dialog.setTitle("Modifica Prestito");
+                                         
+                            
+                            
+                            //  Gestione del primo comboBox (Utente)
+                            ComboBox<Utente> bmatricolaUtente = (ComboBox<Utente>) controllerDialog.matricolaUtenteBox;
+                            ObservableList<Utente> temp0 = FXCollections.observableArrayList();
+                            for(Utente u4 : co.getGestUtenti().getSetUtenti()){
+                                if(u4.getNPrestiti() < 3 && u4.getNPrestiti() >= 0)
+                                    temp0.add(u4);
+                            }
+                            FilteredList<Utente> filteredItems = new FilteredList<>(temp0, posd -> true);
+                            
+                            bmatricolaUtente.setConverter((StringConverter) new StringConverter() {
+                                @Override
+                                public String toString(Object object) {
+                                    if (object == null) return null;
+                                    
+                                    if (object instanceof Utente) {
+                                        return object.toString();
+                                    }
+                                    
+                                    return object.toString();
+                                }
 
+                                @Override
+                                public Object fromString(String string) {
+                                    return filteredItems.stream()
+                                            .filter(item -> item.toString().equals(string))
+                                            .findFirst()
+                                            .orElse(null);
+                                }
+                            });
+
+                            bmatricolaUtente.setItems(filteredItems);
+                            TextField editor = bmatricolaUtente.getEditor();
+                            AtomicReference<String> lastTypedText = new AtomicReference<>("");
+
+                            editor.textProperty().addListener((obs, oldValue, newValue) -> {
+                                if (newValue == null) return;
+
+                                Utente selected = bmatricolaUtente.getSelectionModel().getSelectedItem();
+                                if (selected != null && newValue.equals(bmatricolaUtente.getConverter().toString(selected))) {
+                                    return;
+                                }
+
+                                lastTypedText.set(newValue);
+
+                                Platform.runLater(() -> {
+                                    if (!newValue.equals(lastTypedText.get())) {
+                                        return;
+                                    }
+
+                                    if (newValue.isEmpty()) {
+                                        filteredItems.setPredicate(null);
+                                        bmatricolaUtente.getSelectionModel().clearSelection();
+                                    } else {
+                                        filteredItems.setPredicate(item -> {
+                                            String lowerVal = newValue.toLowerCase();
+                                            String m = item.getMatricola() != null ? item.getMatricola().toLowerCase() : "";
+                                            String n = item.getNome() != null ? item.getNome().toLowerCase() : "";
+                                            String c = item.getCognome() != null ? item.getCognome().toLowerCase() : "";
+                                            return m.contains(lowerVal) || n.contains(lowerVal) || c.contains(lowerVal);
+                                        });
+                                    }
+
+                                    if (!editor.getText().equals(newValue)) {
+                                        editor.setText(newValue);
+                                        editor.positionCaret(newValue.length());
+                                    }
+                                    
+                                    if (!filteredItems.isEmpty()) {
+                                        bmatricolaUtente.show(); 
+                                    } else {
+                                        bmatricolaUtente.hide();
+                                    }
+                                });
+                            });
                             
-                            ComboBox bmatricolaUtente = controllerDialog.matricolaUtenteBox;
-                            bmatricolaUtente.setItems(FXCollections.observableArrayList(co.getGestUtenti().getSetUtenti()));
                             
-                            ComboBox bIsbn = controllerDialog.isbnBox;
-                            bIsbn.setItems(FXCollections.observableArrayList(co.getGestLibreria().getSetLibreria()));
+                            //  Gestione del secondo comboBox (Libro) 
+                            ComboBox<Libro> bIsbn = (ComboBox<Libro>)controllerDialog.isbnBox;
+                            ObservableList<Libro> temp1 = FXCollections.observableArrayList();
+                            for(Libro l4 : co.getGestLibreria().getSetLibreria()){
+                                if(l4.getNCopie()>0)
+                                    temp1.add(l4);
+                            }
+  
+                            FilteredList<Libro> filteredOggetti = new FilteredList<>(temp1, podsd -> true);
+                            
+                            bIsbn.setConverter((StringConverter)new StringConverter() {
+                                @Override
+                                public String toString(Object object) {
+                                    if (object == null) return null;
+                                    
+                                    if(object instanceof  Libro){
+                                        return object.toString();
+                                    }
+                                    return object.toString();
+                                }
+
+                                @Override
+                                public Object fromString(String string) {
+                                    return filteredOggetti.stream()
+                                            .filter(item -> item.toString().equals(string))
+                                            .findFirst().orElse(null);
+                                }
+                            });
+                            
+                            bIsbn.setItems(filteredOggetti);
+                            TextField editore = bIsbn.getEditor();
+                            AtomicReference<String> ultimoTypedText = new AtomicReference<>("");
+
+                            editore.textProperty().addListener((obs, oldValue, newValue) -> {
+                                if (newValue == null) return;
+
+                                Libro selected = bIsbn.getSelectionModel().getSelectedItem();
+                                if (selected != null && newValue.equals(bIsbn.getConverter().toString(selected))) {
+                                    return;
+                                }
+
+                                ultimoTypedText.set(newValue);
+                                
+                                Platform.runLater(() -> {
+                                    if (!newValue.equals(ultimoTypedText.get())) {
+                                        return; 
+                                    }
+
+                                    if (newValue.isEmpty()) {
+                                        filteredOggetti.setPredicate(null);
+                                        bIsbn.getSelectionModel().clearSelection();
+                                    } else {
+                                        filteredOggetti.setPredicate(item -> {
+                                            String lowerVal = newValue.toLowerCase();
+                                            String m = item.getTitolo()!= null ? item.getTitolo().toLowerCase() : "";
+                                            String n = item.getIsbn()!= null ? item.getIsbn().toLowerCase() : "";
+                                            return m.contains(lowerVal) || n.contains(lowerVal);
+                                        });
+                                    }
+
+                                    if (!editore.getText().equals(newValue)) {
+                                        editore.setText(newValue);
+                                        editore.positionCaret(newValue.length());
+                                    }
+                                    if (!filteredOggetti.isEmpty()) {
+                                        bIsbn.show();
+                                    } else {
+                                        bIsbn.hide();
+                                    }
+                                });
+                            });
+
                             
                             DatePicker tAnnoP = controllerDialog.annoP;
                             DatePicker tAnnoR = controllerDialog.annoR;
+   
+                            BooleanBinding datanonValida = Bindings.createBooleanBinding(
+                                () -> tAnnoR.getValue().isBefore(tAnnoP.getValue()),
+                                tAnnoR.valueProperty()
+                            );
 
-                            
                             dialog.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(
                                 bmatricolaUtente.valueProperty().isNull()
                                 .or(bIsbn.valueProperty().isNull())
                                 .or(tAnnoP.valueProperty().isNull())
-                                .or(tAnnoR.valueProperty().isNull())
+                                .or(datanonValida)
                             ); 
+                            
+                            PseudoClass evidenziataClass = PseudoClass.getPseudoClass("errato");
+                            
+                            tAnnoR.valueProperty().addListener((obs, oldV, newV) -> {
+                                LocalDate fine = tAnnoP.getValue();
 
+                                boolean nonValida =
+                                        newV != null &&
+                                        fine != null &&
+                                        newV.isBefore(fine);
+
+                                tAnnoR.pseudoClassStateChanged(evidenziataClass, nonValida);
+                            });
+                            
                             
                             dialog.showAndWait().ifPresent(response -> {
                                 if (response == ButtonType.OK) {
                                     
-                                    String[] campiIsbn = ((String)bIsbn.getValue()).split("; ");
-                                    String[] campiMat = ((String)bmatricolaUtente.getValue()).split("; ");
+                                    String[] campiIsbn = (bIsbn.getValue()).toString().split("; ");
+                                    String[] campiMat = (bmatricolaUtente.getValue()).toString().split("; ");
                                     LocalDate nuovaAnnoP= tAnnoP.getValue();
                                     LocalDate nuovaAnnoR= tAnnoR.getValue();
                                     
@@ -201,7 +364,7 @@ public class ControllerPrestiti implements Initializable{
                                     for(Libro x: setLibro){
                                         if(x.equals(new Libro(null,null,null,0,campiIsbn[campiIsbn.length-1]))){
                                             
-                                             pNuovo = new Prestito(nuovaAnnoP,nuovaAnnoR,"false",x.getTitolo(),campiIsbn[campiIsbn.length-1],campiMat[campiMat.length-1].replace("-", ""));
+                                             pNuovo = new Prestito(nuovaAnnoP,nuovaAnnoR,"false",x.getTitolo(),campiIsbn[campiIsbn.length-1].replace("-", ""),campiMat[campiMat.length-1]);
                                              break;
                                         }
                                         // ----------- Possibile Messaggio d'Errore per modifica del Prestito -----------
@@ -453,89 +616,155 @@ public class ControllerPrestiti implements Initializable{
                         a.setOnShown(e -> {
                             
                             //  Gestione del primo comboBox (Utente)
-                            ComboBox bmatricolaUtente = controllerDialog.matricolaUtenteBox;
-                            
-                            
-                                                       
-                            ObservableList<Utente> temp0 = FXCollections.observableArrayList(new ArrayList<Utente>());
-                            
+                            ComboBox<Utente> bmatricolaUtente = (ComboBox<Utente>) controllerDialog.matricolaUtenteBox;
+                            ObservableList<Utente> temp0 = FXCollections.observableArrayList();
                             for(Utente u4 : co.getGestUtenti().getSetUtenti()){
-                                if(u4.getNPrestiti()<3 && u4.getNPrestiti()>=0)
+                                if(u4.getNPrestiti() < 3 && u4.getNPrestiti() >= 0)
                                     temp0.add(u4);
                             }
-                            
-                            
                             FilteredList<Utente> filteredItems = new FilteredList<>(temp0, posd -> true);
-                            bmatricolaUtente.setItems(temp0);
                             
-                            
-                            
-                            
-                            TextField editor = bmatricolaUtente.getEditor();
-                            
-                            editor.textProperty().addListener((obs, oldValue, newValue) -> {
-                                Platform.runLater(() -> {
-                                    
-                                    if (bmatricolaUtente.getSelectionModel().getSelectedItem() == null || 
-                                       !bmatricolaUtente.getSelectionModel().getSelectedItem().equals(newValue)) {
+                            bmatricolaUtente.setConverter(new StringConverter<Utente>() {
+                                @Override
+                                public String toString(Utente object) {
+                                    if (object == null) return null;
+                                    return object.toString(); 
+                                }
 
-                                        
+                                @Override
+                                public Utente fromString(String string) {
+                                    return filteredItems.stream()
+                                            .filter(item -> item.toString().equals(string))
+                                            .findFirst().orElse(null);
+                                }
+                            });
+
+                            bmatricolaUtente.setItems(filteredItems);
+                            TextField editor = bmatricolaUtente.getEditor();
+                            AtomicReference<String> lastTypedText = new AtomicReference<>("");
+
+                            editor.textProperty().addListener((obs, oldValue, newValue) -> {
+                                if (newValue == null) return;
+
+                                
+                                Utente selected = bmatricolaUtente.getSelectionModel().getSelectedItem();
+                                if (selected != null && newValue.equals(bmatricolaUtente.getConverter().toString(selected))) {
+                                    return;
+                                }
+
+                                
+                                lastTypedText.set(newValue);
+
+                                Platform.runLater(() -> {
+                                    if (!newValue.equals(lastTypedText.get())) {
+                                        return; 
+                                    }
+
+                                    if (newValue.isEmpty()) {
+                                        filteredItems.setPredicate(null);
+                                        bmatricolaUtente.getSelectionModel().clearSelection();
+                                    } else {
                                         filteredItems.setPredicate(item -> {
-                                            
-                                            if (newValue == null || newValue.isEmpty()) {
-                                                return true;
-                                            }
-                                            
-                                            return item.getMatricola().toLowerCase().contains(newValue.toLowerCase())
-                                                    || item.getNome().toLowerCase().contains(newValue.toLowerCase())
-                                                    || item.getCognome().toLowerCase().contains(newValue.toLowerCase());
+                                            String lowerVal = newValue.toLowerCase();
+                                            String m = item.getMatricola() != null ? item.getMatricola().toLowerCase() : "";
+                                            String n = item.getNome() != null ? item.getNome().toLowerCase() : "";
+                                            String c = item.getCognome() != null ? item.getCognome().toLowerCase() : "";
+                                            return m.contains(lowerVal) || n.contains(lowerVal) || c.contains(lowerVal);
                                         });
                                     }
-                                });         
-                                
-                                if (!bmatricolaUtente.isShowing()) {
-                                    bmatricolaUtente.show();
-                                }
+                                    
+                                    if (!editor.getText().equals(newValue)) {
+                                        editor.setText(newValue);
+                                        editor.positionCaret(newValue.length());
+                                    }
+
+                                    if (!filteredItems.isEmpty() && !bmatricolaUtente.isShowing()) {
+                                        bmatricolaUtente.show();
+                                    }
+                                });
                             });
                             
                             
+                            //  Gestione del secondo comboBox (Libro) 
+                            ComboBox<Libro> bIsbn = (ComboBox<Libro>)controllerDialog.isbnBox;
+                            ObservableList<Libro> temp1 = FXCollections.observableArrayList();
+                            for(Libro l4 : co.getGestLibreria().getSetLibreria()){
+                                if(l4.getNCopie()>0)
+                                    temp1.add(l4);
+                            }
+  
+                            FilteredList<Libro> filteredOggetti = new FilteredList<>(temp1, podsd -> true);
                             
-                            //  Gestione del secondo comboBox (Libro)
-                            ComboBox bIsbn = controllerDialog.isbnBox;
-                            bIsbn.setItems(FXCollections.observableArrayList(co.getGestLibreria().getSetLibreria()));
+                            bIsbn.setConverter(new StringConverter<Libro>() {
+                                @Override
+                                public String toString(Libro object) {
+                                    if (object == null) return null;
+                                    return object.toString(); 
+                                }
+
+                                @Override
+                                public Libro fromString(String string) {
+                                    return filteredOggetti.stream()
+                                            .filter(item -> item.toString().equals(string))
+                                            .findFirst().orElse(null);
+                                }
+                            });
                             
-                            FilteredList<Libro> filteredOggetti = new FilteredList<>(FXCollections.observableArrayList(co.getGestLibreria().getSetLibreria()), podsd -> true);
+                            bIsbn.setItems(filteredOggetti);
                             TextField editore = bIsbn.getEditor();
-                            
+                            AtomicReference<String> ultimoTypedText = new AtomicReference<>("");
                             editore.textProperty().addListener((obs, oldValue, newValue) -> {
+                                
+                                if (newValue == null) return;
+
+                                
+                                Libro selected = bIsbn.getSelectionModel().getSelectedItem();
+                                if (selected != null && newValue.equals(bIsbn.getConverter().toString(selected))) {
+                                    return;
+                                }
+                                
+                                ultimoTypedText.set(newValue);
+                                
                                 Platform.runLater(() -> {
                                     
-                                    if (bIsbn.getSelectionModel().getSelectedItem() == null || 
-                                       !bIsbn.getSelectionModel().getSelectedItem().equals(newValue)) {
-
-                                        
-                                        filteredOggetti.setPredicate(item -> {
-                                            
-                                            if (newValue == null || newValue.isEmpty()) {
-                                                return true;
-                                            }
-                                            
-                                            return item.getTitolo().toLowerCase().contains(newValue.toLowerCase())
-                                                    || item.getIsbn().toLowerCase().contains(newValue.toLowerCase());
-                                        });
+                                    if (selected != null && newValue.equals(selected.toString())) {
+                                    return;
                                     }
-                                });
+                                    
+                                    Platform.runLater(() -> {
+                                        if (!newValue.equals(ultimoTypedText.get())) {
+                                            return; 
+                                        }
 
-                                // Trucco per tenere aperto il popup mentre si scrive e filtra
-                                if (!bIsbn.isShowing()) {
-                                    bIsbn.show();
-                                }
+                                        if (newValue.isEmpty()) {
+                                            filteredOggetti.setPredicate(null);
+                                            bIsbn.getSelectionModel().clearSelection();
+                                        } else {
+                                            filteredOggetti.setPredicate(item -> {
+                                                String lowerVal = newValue.toLowerCase();
+                                                String m = item.getTitolo()!= null ? item.getTitolo().toLowerCase() : "";
+                                                String n = item.getIsbn()!= null ? item.getIsbn().toLowerCase() : "";
+                                                return m.contains(lowerVal) || n.contains(lowerVal);
+                                            });
+                                        }
+
+                                        if (!editore.getText().equals(newValue)) {
+                                            editore.setText(newValue);
+                                            editore.positionCaret(newValue.length());
+                                        }
+
+                                        if (!filteredOggetti.isEmpty() && !bIsbn.isShowing()) {
+                                            bIsbn.show();
+                                        }
+                                    });
+                                });
                             });
                             
                             
                             DatePicker tAnnoP = controllerDialog.annoP;
                             tAnnoP.setValue(LocalDate.now());
                             DatePicker tAnnoR = controllerDialog.annoR;
+                            tAnnoR.setValue(LocalDate.now().plusDays(5));
                             
                             BooleanBinding datanonValida = Bindings.createBooleanBinding(
                                 () -> tAnnoR.getValue().isBefore(tAnnoP.getValue()),
@@ -566,15 +795,15 @@ public class ControllerPrestiti implements Initializable{
                                 if (dialogButton == ButtonType.OK) {
                                     ObservableSet<Libro> setLibro = co.getGestLibreria().getSetLibreria();
                                 
-                                    String[] campiIsbn = ((String)bIsbn.getValue()).split("; ");
-                                    String[] campiMat = ((String)bmatricolaUtente.getValue()).split("; ");
+                                    String[] campiIsbn = (bIsbn.getValue()).toString().split("; ");
+                                    String[] campiMat = (bmatricolaUtente.getValue()).toString().split("; ");
                                     
                                     
                                     for(Libro temp : setLibro){
                                             if(temp.equals(new Libro(null,null,null,0,campiIsbn[campiIsbn.length-1]))){
                                                 
                                                 Prestito x = new Prestito((LocalDate)tAnnoP.getValue(),(LocalDate)tAnnoR.getValue(),
-                                                        "false",temp.getTitolo(),campiIsbn[campiIsbn.length-1],campiMat[campiMat.length-1].replace("-", ""));
+                                                        "false",temp.getTitolo(),campiIsbn[campiIsbn.length-1].replace("-", ""),campiMat[campiMat.length-1]);
                                                 listaAttivi.add(x);
                                                 listaPerTabellaAttivi.add(x);
                                                 tabellaPrestitiAttivi.sort();
