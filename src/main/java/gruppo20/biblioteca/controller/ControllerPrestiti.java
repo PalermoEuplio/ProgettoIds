@@ -47,7 +47,7 @@ import javafx.util.StringConverter;
 
 /**
  *
- * @author Osv
+ * @author gruppo 20
  */
 
 
