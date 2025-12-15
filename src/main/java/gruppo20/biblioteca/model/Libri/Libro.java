@@ -90,6 +90,8 @@ public class Libro {
     public int hashCode() {
         int h = 17;
         h = h * 31 + isbn.hashCode();
+        h = h * 31 +titolo.hashCode();
+        h = h * 31 +autori.hashCode();
         return h;
     }
     @Override

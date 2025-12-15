@@ -159,8 +159,6 @@ public class ControllerLibreria implements Initializable{
                                     .or(isbnNonValido) 
                             ); 
 
-
-
                             PseudoClass evidenziataClass = PseudoClass.getPseudoClass("errati");
 
                             tIsbn.textProperty().addListener((obs, vecchioValore, nuovoValore) -> {
@@ -179,15 +177,14 @@ public class ControllerLibreria implements Initializable{
                                     event.consume();
                                     tListaAutori.pseudoClassStateChanged(evidenziataClass, true);
                                 }else{
-                                Libro xN = new Libro(tTitoloLibro.getText(), tListaAutori.getText(), 
-                                            tAnnoP.getValue(), x.get(), tIsbn.getText());
-
-                                if(setLibri.contains(xN) && !xN.getIsbn().equals(lVecchio.getIsbn())){
-
-                                        event.consume();
-                                        tIsbn.setText("");
-                                        tIsbn.pseudoClassStateChanged(evidenziataClass, true);
-                                        tIsbn.setPromptText("Libro già esistente in libreria!");
+                                    for(Libro temp : setLibri){
+                                        if((!temp.getTitolo().equals(tTitoloLibro.getText()) || !temp.getAutori().equals(tListaAutori.getText())) && temp.getIsbn().equals(tIsbn.getText())){
+                                                event.consume();
+                                                tIsbn.setText("");
+                                                tIsbn.pseudoClassStateChanged(evidenziataClass, true);
+                                                tIsbn.setPromptText("ISbn già esistente in libreria!");
+                                                break;
+                                        }
                                     }
                                 }
                             });
@@ -361,40 +358,46 @@ public class ControllerLibreria implements Initializable{
                             tIsbn.pseudoClassStateChanged(evidenziataClass, mostraRosso);
                         });
                         
-                        
+                       
                         a.getDialogPane().lookupButton(ButtonType.OK).addEventFilter(ActionEvent.ACTION, event ->{
-                            
-                            
                             if(tAutori.getText().indexOf(" ")==-1){
                                     event.consume();
                                     tAutori.pseudoClassStateChanged(evidenziataClass, true);
                             }else{
-                            
-                            
-                            Libro x = new Libro(tTitolo.getText(), tAutori.getText(), 
-                                        tAnno.getValue(), numero.get(), tIsbn.getText());
-                            
-                            if(setLibri.contains(x)){
-                            
-                                    event.consume();
-                                    tIsbn.setText("");
-                                    tIsbn.pseudoClassStateChanged(evidenziataClass, true);
-                                    tIsbn.setPromptText("Libro già esistente in libreria!");
-                            }
-                            
+                                for(Libro temp : setLibri){
+                                    if((!temp.getTitolo().equals(tTitolo.getText()) || !temp.getAutori().equals(tAutori.getText())) && temp.getIsbn().equals(tIsbn.getText())){
+                                            event.consume();
+                                            tIsbn.setText("");
+                                            tIsbn.pseudoClassStateChanged(evidenziataClass, true);
+                                            tIsbn.setPromptText("ISbn già esistente in libreria!");
+                                            break;
+                                    }
+                                }
                             }
                         });
 
-                    
+                         
                         a.setResultConverter(response -> {
                             if (response == ButtonType.OK) {
-
+                                boolean flag = false;
                                 Libro nuovoLibro = new Libro(tTitolo.getText(), tAutori.getText(), 
                                         tAnno.getValue(), numero.get(), tIsbn.getText());
-
                                 
-                                listaPerTabella.add(nuovoLibro);
-                                l.aggiungi(nuovoLibro);
+                                for(Libro temp : setLibri){
+                                    if(temp.getTitolo().equals(tTitolo.getText()) && temp.getAutori().equals(tAutori.getText()) && temp.getIsbn().equals(tIsbn.getText())){
+                                        int x = nuovoLibro.getNCopie()+temp.getNCopie();
+                                        l.aggiungi(nuovoLibro);
+                                        listaPerTabella.remove(temp);
+                                        nuovoLibro.setNCopie(x);
+                                        listaPerTabella.add(nuovoLibro);
+                                        flag=true;
+                                        break;
+                                    }
+                                }
+                                if(flag==false){
+                                    listaPerTabella.add(nuovoLibro);
+                                    l.aggiungi(nuovoLibro);
+                                }
                                 return response;
 
                             }
