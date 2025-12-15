@@ -141,10 +141,8 @@ public class ControllerLibreria implements Initializable{
                             DatePicker tAnnoP = controllerDialog.annoP;
                             TextField tNCopie = controllerDialog.NCopie;
                             SimpleIntegerProperty x = new SimpleIntegerProperty(Integer.valueOf(tNCopie.getText()));
-                            
-                            try {
-                             tNCopie.textProperty().bindBidirectional(x, new NumberStringConverter());
-                             } catch (Exception ex) {}
+                            tNCopie.textProperty().bindBidirectional(x, new NumberStringConverter());
+                             
                             
                             BooleanBinding isbnNonValido = Bindings.createBooleanBinding(
                                 () -> !tIsbn.getText().matches("[0-9]{3}[-]{1}[0-9]{2}[-]{1}[0-9]{5}[-]{1}[0-9]{2}[-]{1}[0-9]{1}"), 
@@ -171,7 +169,6 @@ public class ControllerLibreria implements Initializable{
                             
                             
                             dialog.getDialogPane().lookupButton(ButtonType.OK).addEventFilter(ActionEvent.ACTION, event ->{
-                            
                                 
                                 if(!tListaAutori.getText().contains(" ")){
                                     event.consume();
