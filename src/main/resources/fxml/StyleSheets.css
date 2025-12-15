@@ -76,7 +76,7 @@ and open the template in the editor.
 }
 
 .table-view .table-cell {
-    -fx-alignment: CENTER-LEFT;
+    -fx-alignment: center;
     -fx-border-width: 0; 
     -fx-padding: 10px;   
     -fx-text-fill: #555555;
