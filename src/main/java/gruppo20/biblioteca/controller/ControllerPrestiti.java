@@ -160,7 +160,7 @@ public class ControllerPrestiti implements Initializable{
                             
                             
                             
-                            
+                            Label avvertimento = controllerDialog.avverti;
                             controllerDialog.matricolaUtenteBox.setPromptText(pVecchio.getMatricola());
                             controllerDialog.isbnBox.setPromptText(pVecchio.getIsbn());
                             controllerDialog.annoP.setValue(pVecchio.getDataPrestito());
@@ -350,6 +350,32 @@ public class ControllerPrestiti implements Initializable{
 
                                 tAnnoR.pseudoClassStateChanged(evidenziataClass, nonValida);
                             });
+                            
+                            
+                            dialog.getDialogPane().lookupButton(ButtonType.OK).addEventFilter(ActionEvent.ACTION, event ->{
+                                
+                                String[] campiIsbn = (bIsbn.getValue()).toString().split("; ");
+                                String[] campiMat = (bmatricolaUtente.getValue()).toString().split("; ");
+                            
+                                
+                                for(Libro temp : co.getGestLibreria().getSetLibreria()){
+                                            if(temp.equals(new Libro(null,null,null,0,campiIsbn[campiIsbn.length-1]))){
+                                                
+                                                Prestito x = new Prestito((LocalDate)tAnnoP.getValue(),(LocalDate)tAnnoR.getValue(),
+                                                        "false",temp.getTitolo(),campiIsbn[campiIsbn.length-1],campiMat[campiMat.length-1]);
+                                                
+                                               if(p.aggiungi(x)==false){
+                                                   event.consume();
+                                                   avvertimento.setVisible(true);
+                                                   bmatricolaUtente.setValue(null);
+                                                   bIsbn.setValue(null);
+                                               }
+                                                
+                                                break;
+                                            }
+                                    }
+                                
+                             });
                             
                             
                             dialog.showAndWait().ifPresent(response -> {
