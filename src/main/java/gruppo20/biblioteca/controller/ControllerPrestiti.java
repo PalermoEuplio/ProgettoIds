@@ -47,7 +47,7 @@ import javafx.util.StringConverter;
 
 /**
  *
- * @author gruppo 20
+ * @author Gruppo20
  */
 
 
@@ -117,7 +117,6 @@ public class ControllerPrestiti implements Initializable{
     
     public void initialize(URL location, ResourceBundle resources) {
         this.co = Main.getContesto();
-        System.out.println("Contesto in Libreria: "+ co);
         String nomeFile = location.getFile();
         if(nomeFile.endsWith("pagePrestiti.fxml")){
             

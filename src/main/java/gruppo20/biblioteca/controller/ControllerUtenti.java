@@ -1,6 +1,5 @@
 package gruppo20.biblioteca.controller;
 
-import com.sun.prism.shader.Solid_TextureYV12_Loader;
 import gruppo20.biblioteca.model.Main;
 import gruppo20.biblioteca.model.Utenti.*;
 import javafx.scene.control.Dialog;
@@ -17,7 +16,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.DialogPane;
 import javafx.scene.input.MouseEvent;
@@ -33,7 +31,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 
 /**
  *
- * @author Osv
+ * @author Gruppo20
  */
 public class ControllerUtenti implements Initializable {
 
@@ -76,7 +74,6 @@ public class ControllerUtenti implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.co = Main.getContesto();
-        System.out.println("Contesto in Utenti: "+ co);
         String nomeFile = location.getFile();
 
         //Verifico di essere nella pagina Principale

@@ -36,7 +36,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 
 /**
  *
- * @author euppa
+ * @author Gruppo20
  */
 public class ControllerLibreria implements Initializable{
     
@@ -89,7 +89,6 @@ public class ControllerLibreria implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.co = Main.getContesto();
-        System.out.println("Contesto in Libreria: "+ co);
         String nomeFile = location.getFile();
         
         //Verifico di essere nella pagina Principale

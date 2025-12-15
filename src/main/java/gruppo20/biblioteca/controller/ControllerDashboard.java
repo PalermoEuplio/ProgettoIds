@@ -15,9 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.*;
-import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -36,7 +34,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  *
- * @author euppa
+ * @author Gruppo20
  */
 public class ControllerDashboard implements Initializable {
 
@@ -59,7 +57,6 @@ public class ControllerDashboard implements Initializable {
     
     public void initialize(URL location, ResourceBundle resources) {
         this.co = Main.getContesto();
-        System.out.println("Contesto in Libreria: "+ co);
         ObjectProperty<LocalDateTime> dataOraProperty =
         new SimpleObjectProperty<>();
         DateTimeFormatter formatter =
