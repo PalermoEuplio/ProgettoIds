@@ -23,7 +23,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -39,7 +38,9 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.kordamp.ikonli.javafx.FontIcon;
 import javafx.css.PseudoClass;
+import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
@@ -70,6 +71,8 @@ public class ControllerPrestiti implements Initializable{
     private DatePicker annoR;
     @FXML
     private Button aggiuntaPrestitoButton;
+    @FXML
+    private Label avverti;
     
     
     //      Per tabella Prestiti Attivi
@@ -367,7 +370,7 @@ public class ControllerPrestiti implements Initializable{
                                     for(Libro x: setLibro){
                                         if(x.equals(new Libro(null,null,null,0,campiIsbn[campiIsbn.length-1]))){
                                             
-                                             pNuovo = new Prestito(nuovaAnnoP,nuovaAnnoR,"false",x.getTitolo(),campiIsbn[campiIsbn.length-1].replace("-", ""),campiMat[campiMat.length-1]);
+                                             pNuovo = new Prestito(nuovaAnnoP,nuovaAnnoR,"false",x.getTitolo(),campiIsbn[campiIsbn.length-1],campiMat[campiMat.length-1]);
                                              break;
                                         }
                                         // ----------- Possibile Messaggio d'Errore per modifica del Prestito -----------
@@ -494,7 +497,7 @@ public class ControllerPrestiti implements Initializable{
 
                                 // Logica dei bottoni (chiudere la finestra)
                                 pulsanteSi.setOnAction(erese -> {
-                                    p.elimina(preso);
+                                    p.giaEliminato(preso);
                                     listaPerTabellaRitardi.remove(preso);
                                     // Chiudi la finestra prendendo lo Stage dal bottone stesso
                                     ((Stage) pulsanteSi.getScene().getWindow()).close();
@@ -621,6 +624,7 @@ public class ControllerPrestiti implements Initializable{
                         a.setOnShown(e -> {
                             
                             //  Gestione del primo comboBox (Utente)
+                            Label avvertimento = controllerDialog.avverti;
                             ComboBox<Utente> bmatricolaUtente = (ComboBox<Utente>) controllerDialog.matricolaUtenteBox;
                             ObservableList<Utente> temp0 = FXCollections.observableArrayList();
                             for(Utente u4 : co.getGestUtenti().getSetUtenti()){
@@ -813,6 +817,33 @@ public class ControllerPrestiti implements Initializable{
 
                                 tAnnoR.pseudoClassStateChanged(evidenziataClass, nonValida);
                             }); 
+                            
+                            
+                            
+                            a.getDialogPane().lookupButton(ButtonType.OK).addEventFilter(ActionEvent.ACTION, event ->{
+                                
+                                String[] campiIsbn = (bIsbn.getValue()).toString().split("; ");
+                                String[] campiMat = (bmatricolaUtente.getValue()).toString().split("; ");
+                            
+                                
+                                for(Libro temp : co.getGestLibreria().getSetLibreria()){
+                                            if(temp.equals(new Libro(null,null,null,0,campiIsbn[campiIsbn.length-1]))){
+                                                
+                                                Prestito x = new Prestito((LocalDate)tAnnoP.getValue(),(LocalDate)tAnnoR.getValue(),
+                                                        "false",temp.getTitolo(),campiIsbn[campiIsbn.length-1],campiMat[campiMat.length-1]);
+                                                
+                                               if(p.aggiungi(x)==false){
+                                                   event.consume();
+                                                   avvertimento.setVisible(true);
+                                                   bmatricolaUtente.setValue(null);
+                                                   bIsbn.setValue(null);
+                                               }
+                                                
+                                                break;
+                                            }
+                                    }
+                                
+                             });
 
                             a.setResultConverter(dialogButton -> {
                                 if (dialogButton == ButtonType.OK) {
@@ -826,11 +857,13 @@ public class ControllerPrestiti implements Initializable{
                                             if(temp.equals(new Libro(null,null,null,0,campiIsbn[campiIsbn.length-1]))){
                                                 
                                                 Prestito x = new Prestito((LocalDate)tAnnoP.getValue(),(LocalDate)tAnnoR.getValue(),
-                                                        "false",temp.getTitolo(),campiIsbn[campiIsbn.length-1].replace("-", ""),campiMat[campiMat.length-1]);
+                                                        "false",temp.getTitolo(),campiIsbn[campiIsbn.length-1],campiMat[campiMat.length-1]);
+                                                
                                                 listaAttivi.add(x);
                                                 listaPerTabellaAttivi.add(x);
                                                 tabellaPrestitiAttivi.sort();
                                                 p.aggiungi(x);
+                                                
                                                 break;
                                             }
                                     }

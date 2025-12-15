@@ -160,6 +160,29 @@ public class Prestiti extends GestioneDB<Prestito> {
         }
         return setPrestiti.remove(p) && gestLibreria.addRestituzione(p.getIsbn()) && gestUtenti.addRestituzione(p.getMatricola());
     }
+    
+    /**
+     * @brief elimina un prestito di libro già riconsegnato. Se il prestito esiste, ne effettua
+     * l'eliminazione.
+     *
+     * Parametro in ingresso:
+     * @param p prestito da dover eliminare.
+     *
+     * @return restituisce true se il prestito è stato eliminato. false se
+     * fallisce.
+     */
+    public boolean giaEliminato(Prestito p) {
+        String sql = "DELETE FROM prestiti WHERE dataPrestito = ? AND isbn = ? AND matricola = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, p.getDataPrestito().toString());
+            ps.setString(2, p.getIsbn());
+            ps.setString(3, p.getMatricola());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            return false;
+        }
+        return setPrestiti.remove(p) && gestLibreria.addRestituzione(p.getIsbn());
+    }
 
     /**
      * @brief Modifica del prestito. Se il prestito è presente effettua la

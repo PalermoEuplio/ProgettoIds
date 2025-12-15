@@ -117,8 +117,8 @@
                         <TableColumn fx:id="titolo" editable="false" maxWidth="1.7976931348623157E308" prefWidth="79.0" text="Titolo" />
                         <TableColumn fx:id="autori" editable="false" prefWidth="85.0" text="Autori" />
                         <TableColumn fx:id="annoPublicazione" editable="false" prefWidth="133.0" sortable="false" text="Anno Publicazione" />
-                        <TableColumn fx:id="isbn0" editable="false" prefWidth="52.0" text="ISBN" />
-                        <TableColumn fx:id="nCopie" editable="false" prefWidth="173.0" sortable="false" text="Copie Disponibili" />
+                        <TableColumn fx:id="isbn0" editable="false" prefWidth="123.0" text="ISBN" />
+                        <TableColumn fx:id="nCopie" editable="false" prefWidth="102.0" sortable="false" text="Copie Disponibili" />
                         <TableColumn fx:id="operazioni" editable="false" maxWidth="80.0" resizable="false" sortable="false" text="Operazioni" />
                      </columns>
                      <columnResizePolicy>

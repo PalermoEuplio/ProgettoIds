@@ -205,7 +205,7 @@ public class ControllerLibreria implements Initializable{
                                     Libro lNuovo = new Libro(nuovoTitolo, nuovoListaAutori, nuovaAnnoP, nuovoNCopie, nuovaIsbn);
                                     
                                     try{
-                                    l.modifica(lVecchio, lNuovo);
+                                        l.modifica(lVecchio, lNuovo);
                                     }catch(Exception a){}
                                     
                                     int index = listaPerTabella.indexOf(lVecchio);
