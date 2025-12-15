@@ -133,13 +133,18 @@ public class ControllerUtenti implements Initializable {
                                 () -> !tMatr.getText().matches("[0-9]{10}"), 
                                 tMatr.textProperty()
                             );
-
+                            
+                            BooleanBinding mailNonValida = Bindings.createBooleanBinding(
+                            () -> tMail.getText().contains("@"), 
+                            tMail.textProperty()
+                            );
 
                             dialog.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(
                                 tNome.textProperty().isEmpty()
                                 .or(tCognome.textProperty().isEmpty())
                                 .or(tMail.textProperty().isEmpty())
                                 .or(matricolaNonValida) 
+                                .or(mailNonValida)
                             ); 
 
 
@@ -154,7 +159,13 @@ public class ControllerUtenti implements Initializable {
                                 tMatr.pseudoClassStateChanged(evidenziataClass, mostraRosso);
                             });
                             
+                            tMail.textProperty().addListener((obs, vecchioValore, nuovoValore) -> {
                             
+                                boolean isError = nuovoValore.contains("@");
+
+                                boolean mostraRosso = isError && !nuovoValore.isEmpty(); 
+                                tMail.pseudoClassStateChanged(evidenziataClass, mostraRosso);
+                            }); 
                             
                             dialog.getDialogPane().lookupButton(ButtonType.OK).addEventFilter(ActionEvent.ACTION, event ->{
                             
@@ -304,7 +315,7 @@ public class ControllerUtenti implements Initializable {
                         );
                         BooleanBinding mailNonValida = Bindings.createBooleanBinding(
                             () -> email.getText().contains("@"), 
-                            matricola.textProperty()
+                            email.textProperty()
                         );
 
                         
