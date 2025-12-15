@@ -133,10 +133,7 @@ public class ControllerDashboard implements Initializable {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pageUtenti.fxml"));
         Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
-        stage.setScene(scene);
-        stage.show();
+        ((Node)event.getSource()).getScene().setRoot(root);
 
     }
 
@@ -145,10 +142,7 @@ public class ControllerDashboard implements Initializable {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pageLibreria.fxml"));
         Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
-        stage.setScene(scene);
-        stage.show();
+        ((Node)event.getSource()).getScene().setRoot(root);
 
     }
 
@@ -157,21 +151,7 @@ public class ControllerDashboard implements Initializable {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pagePrestiti.fxml"));
         Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
-        stage.setScene(scene);
-        stage.show();
+        ((Node)event.getSource()).getScene().setRoot(root);
 
     }
-
-    @FXML
-    public void aggiuntaLibro(MouseEvent event) throws IOException {
-        new ControllerLibreria();
-    }
-
-    @FXML
-    public void aggiuntaPrestito(MouseEvent event) throws IOException {
-        new ControllerPrestiti();
-    }
-
 }

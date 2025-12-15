@@ -16,11 +16,11 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.collections.transformation.FilteredList;
 import javafx.css.PseudoClass;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.DialogPane;
 import javafx.scene.input.MouseEvent;
@@ -170,6 +170,27 @@ public class ControllerLibreria implements Initializable{
                                 boolean mostraRosso = isError && !nuovoValore.isEmpty(); 
                                 tIsbn.pseudoClassStateChanged(evidenziataClass, mostraRosso);
                             });
+                            
+                            
+                            dialog.getDialogPane().lookupButton(ButtonType.OK).addEventFilter(ActionEvent.ACTION, event ->{
+                            
+                                
+                                if(!tListaAutori.getText().contains(" ")){
+                                    event.consume();
+                                    tListaAutori.pseudoClassStateChanged(evidenziataClass, true);
+                                }else{
+                                Libro xN = new Libro(tTitoloLibro.getText(), tListaAutori.getText(), 
+                                            tAnnoP.getValue(), x.get(), tIsbn.getText());
+
+                                if(setLibri.contains(xN) && !xN.getIsbn().equals(lVecchio.getIsbn())){
+
+                                        event.consume();
+                                        tIsbn.setText("");
+                                        tIsbn.pseudoClassStateChanged(evidenziataClass, true);
+                                        tIsbn.setPromptText("Libro già esistente in libreria!");
+                                    }
+                                }
+                            });
 
                             
                             dialog.showAndWait().ifPresent(response -> {
@@ -310,7 +331,7 @@ public class ControllerLibreria implements Initializable{
                         TextField tCopie = controllerDialog.NCopie;
 
                         // Binding per validazione
-                        IntegerProperty numero = new SimpleIntegerProperty(1);
+                        SimpleIntegerProperty numero = new SimpleIntegerProperty(1);
                         try {
                              tCopie.textProperty().bindBidirectional(numero, new NumberStringConverter());
                         } catch (Exception ex) {}
@@ -340,23 +361,38 @@ public class ControllerLibreria implements Initializable{
                             tIsbn.pseudoClassStateChanged(evidenziataClass, mostraRosso);
                         });
                         
-                    
-                    // --- FINE CONFIGURAZIONE UI ---
+                        
+                        a.getDialogPane().lookupButton(ButtonType.OK).addEventFilter(ActionEvent.ACTION, event ->{
+                            
+                            
+                            if(tAutori.getText().indexOf(" ")==-1){
+                                    event.consume();
+                                    tAutori.pseudoClassStateChanged(evidenziataClass, true);
+                            }else{
+                            
+                            
+                            Libro x = new Libro(tTitolo.getText(), tAutori.getText(), 
+                                        tAnno.getValue(), numero.get(), tIsbn.getText());
+                            
+                            if(setLibri.contains(x)){
+                            
+                                    event.consume();
+                                    tIsbn.setText("");
+                                    tIsbn.pseudoClassStateChanged(evidenziataClass, true);
+                                    tIsbn.setPromptText("Libro già esistente in libreria!");
+                            }
+                            
+                            }
+                        });
 
-                    // Attesa chiusura finestra e gestione salvataggio
+                    
                         a.setResultConverter(response -> {
                             if (response == ButtonType.OK) {
-                                int nuoveCopie = 1;
-                                try {
-                                    nuoveCopie = Integer.parseInt(controllerDialog.NCopie.getText());
-                                } catch (NumberFormatException ex) { 
-                                    nuoveCopie = 1; 
-                                }
 
                                 Libro nuovoLibro = new Libro(tTitolo.getText(), tAutori.getText(), 
-                                        tAnno.getValue(), nuoveCopie, tIsbn.getText().replace("-", ""));
+                                        tAnno.getValue(), numero.get(), tIsbn.getText());
 
-                                setLibri.add(nuovoLibro);
+                                
                                 listaPerTabella.add(nuovoLibro);
                                 l.aggiungi(nuovoLibro);
                                 return response;
@@ -383,10 +419,7 @@ public class ControllerLibreria implements Initializable{
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Dashboard.fxml"));
         Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
-        stage.setScene(scene);
-        stage.show();
+        ((Node)event.getSource()).getScene().setRoot(root);
 
     }
 
@@ -395,10 +428,7 @@ public class ControllerLibreria implements Initializable{
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pageUtenti.fxml"));
         Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
-        stage.setScene(scene);
-        stage.show();
+        ((Node)event.getSource()).getScene().setRoot(root);
 
     }
 
@@ -411,10 +441,7 @@ public class ControllerLibreria implements Initializable{
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pagePrestiti.fxml"));
         Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
-        stage.setScene(scene);
-        stage.show();
+        ((Node)event.getSource()).getScene().setRoot(root);
 
     }
 }

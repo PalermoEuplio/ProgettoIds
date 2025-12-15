@@ -28,6 +28,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.beans.binding.BooleanBinding;
+import javafx.event.ActionEvent;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 /**
@@ -152,6 +153,23 @@ public class ControllerUtenti implements Initializable {
                                 boolean mostraRosso = isError && !nuovoValore.isEmpty(); 
                                 tMatr.pseudoClassStateChanged(evidenziataClass, mostraRosso);
                             });
+                            
+                            
+                            
+                            dialog.getDialogPane().lookupButton(ButtonType.OK).addEventFilter(ActionEvent.ACTION, event ->{
+                            
+                            Utente x = new Utente(tNome.getText(),tCognome.getText(),
+                                                        tMatr.getText(),tMail.getText()+"@studenti.unisa.it",0);
+                            
+                            if(setUtenti.contains(x) && !uVecchio.getMatricola().equals(tMatr.getText())){
+                                    event.consume();
+                                    tMatr.setText("");
+                                    tMatr.pseudoClassStateChanged(evidenziataClass, true);
+                                    tMatr.setPromptText("Matricola già esistente in database!");
+                                }
+                             });
+                            
+                            
                             
 
                             dialog.showAndWait().ifPresent(response -> {
@@ -284,13 +302,18 @@ public class ControllerUtenti implements Initializable {
                             () -> !matricola.getText().matches("[0-9]{10}"), 
                             matricola.textProperty()
                         );
+                        BooleanBinding mailNonValida = Bindings.createBooleanBinding(
+                            () -> email.getText().contains("@"), 
+                            matricola.textProperty()
+                        );
 
                         
                         a.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(
                             nomeUtente.textProperty().isEmpty()
                             .or(cognomeUtente.textProperty().isEmpty())
                             .or(email.textProperty().isEmpty())
-                            .or(matricolaNonValida) 
+                            .or(matricolaNonValida)
+                            .or(mailNonValida)
                         ); 
                         
                         
@@ -304,6 +327,29 @@ public class ControllerUtenti implements Initializable {
                             boolean mostraRosso = isError && !nuovoValore.isEmpty(); 
                             matricola.pseudoClassStateChanged(evidenziataClass, mostraRosso);
                         });
+                        
+                        email.textProperty().addListener((obs, vecchioValore, nuovoValore) -> {
+                            
+                            boolean isError = nuovoValore.contains("@");
+                            
+                            boolean mostraRosso = isError && !nuovoValore.isEmpty(); 
+                            email.pseudoClassStateChanged(evidenziataClass, mostraRosso);
+                        });
+                        
+                        
+                        a.getDialogPane().lookupButton(ButtonType.OK).addEventFilter(ActionEvent.ACTION, event ->{
+                            
+                            Utente x = new Utente(nomeUtente.getText(),cognomeUtente.getText(),
+                                                        matricola.getText(),email.getText()+"@studenti.unisa.it",0);
+                            
+                            if(setUtenti.contains(x)){
+                            
+                                    event.consume();
+                                    matricola.setText("");
+                                    matricola.pseudoClassStateChanged(evidenziataClass, true);
+                                    matricola.setPromptText("Matricola già esistente in database!");
+                                }
+                        }); 
 
                         a.setResultConverter(dialogButton -> {
                             if (dialogButton == ButtonType.OK) {
@@ -311,7 +357,6 @@ public class ControllerUtenti implements Initializable {
                                 Utente x = new Utente(nomeUtente.getText(),cognomeUtente.getText(),
                                                         matricola.getText(),email.getText()+"@studenti.unisa.it",0);
                                 listaPerTabella.add(x);
-                                setUtenti.add(x);
                                 u.aggiungi(x);
                                 return dialogButton;
                             }
@@ -331,10 +376,7 @@ public class ControllerUtenti implements Initializable {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Dashboard.fxml"));
         Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
-        stage.setScene(scene);
-        stage.show();
+        ((Node)event.getSource()).getScene().setRoot(root);
 
     }
 
@@ -347,10 +389,7 @@ public class ControllerUtenti implements Initializable {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pageLibreria.fxml"));
         Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
-        stage.setScene(scene);
-        stage.show();
+        ((Node)event.getSource()).getScene().setRoot(root);
 
     }
 
@@ -359,10 +398,7 @@ public class ControllerUtenti implements Initializable {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pagePrestiti.fxml"));
         Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
-        stage.setScene(scene);
-        stage.show();
+        ((Node)event.getSource()).getScene().setRoot(root);
 
     }
 }

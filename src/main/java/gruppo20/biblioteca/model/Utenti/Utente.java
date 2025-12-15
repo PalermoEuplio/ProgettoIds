@@ -55,7 +55,7 @@ public class Utente {
 
         Utente u = (Utente) o;
 
-        return this.nome.equals(u.getNome()) && this.cognome.equals(u.getCognome()) && this.matricola.equals(u.getMatricola());
+        return this.matricola.equals(u.getMatricola());
     }
 
     /**
@@ -65,8 +65,6 @@ public class Utente {
     public int hashCode() {
         int h = 17;
         h = h * 31 + matricola.hashCode();
-        h = h * 31 + nome.hashCode();
-        h = h * 31 + cognome.hashCode();
         return h;
     }
     

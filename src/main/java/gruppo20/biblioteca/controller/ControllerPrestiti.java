@@ -856,10 +856,7 @@ public class ControllerPrestiti implements Initializable{
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Dashboard.fxml"));
         Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        ((Node)event.getSource()).getScene().setRoot(root);
 
     }
 
@@ -868,11 +865,7 @@ public class ControllerPrestiti implements Initializable{
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pageUtenti.fxml"));
         Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
+        ((Node)event.getSource()).getScene().setRoot(root);
     }
 
     @FXML
@@ -880,11 +873,7 @@ public class ControllerPrestiti implements Initializable{
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pageLibreria.fxml"));
         Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
+        ((Node)event.getSource()).getScene().setRoot(root);
     }
 
     @FXML

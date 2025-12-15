@@ -38,14 +38,23 @@
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor></TextField>
-                  <Label alignment="CENTER" layoutX="10.0" layoutY="22.0" prefHeight="77.0" prefWidth="240.0" text="Autori:" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="System Bold" size="22.0" />
-                     </font>
-                  </Label>
+                  <AnchorPane GridPane.rowIndex="1">
+                     <children>
+                        <Label alignment="CENTER" layoutX="94.0" layoutY="9.0" text="Autori:">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="32.0" layoutY="36.0" text="(Formato: Nome Cognome, ...)">
+                           <font>
+                              <Font name="System Italic" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
                   <AnchorPane GridPane.rowIndex="2">
                      <children>
-                        <Label alignment="CENTER" layoutX="89.0" layoutY="12.0" prefHeight="35.0" prefWidth="68.0" text="ISBN :" textAlignment="CENTER" textOverrun="CLIP">
+                        <Label alignment="CENTER" layoutX="89.0" layoutY="12.0" prefHeight="35.0" prefWidth="68.0" text="ISBN:" textAlignment="CENTER" textOverrun="CLIP">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
