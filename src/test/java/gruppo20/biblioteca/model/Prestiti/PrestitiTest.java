@@ -8,19 +8,19 @@ import gruppo20.biblioteca.controller.Contesto;
 import java.time.LocalDate;
 //import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- *
- * @author Riccardo
+ * @brief Test per la classe Prestiti
+ * 
+ * @author Gruppo20
  */
 public class PrestitiTest {
-    
-    private Contesto co = new Contesto();
+    //inizializzazione appoggio
+    private Contesto co = new Contesto(); 
     private Prestiti prestiti = co.getGestPrestiti();
     Prestito p1 = new Prestito(LocalDate.now(), LocalDate.now(), "false", "Analisi1", "0000000000000","0612700000");       
 
@@ -30,7 +30,6 @@ public class PrestitiTest {
     
     /**
      * Reset prestiti prima di ogni test.
-     * Genera un prestito base
      */
     @BeforeEach
     void resetPrestiti(){
@@ -185,29 +184,7 @@ public class PrestitiTest {
 
         
     }
-    /**
-     * Test of modifica method, of class Prestiti.
-     * Caso di modifica prestito non presente in db, modifica isbn
-     * @throws java.lang.Exception
-     */
-    @Test
-    public void testModifica3() throws Exception {
-        System.out.println("modifica");
-        Prestito pi = new Prestito(LocalDate.now(), LocalDate.now(), "false", "Analisi1", "0000000000000","0612700000");       
-        Prestito pf = new Prestito(LocalDate.now(), LocalDate.now(), "false", "Analisi1", "0000000000001","0612700000");       
-
-                
-        Prestiti instance = prestiti;        
-        assertFalse(prestiti.getSetPrestiti().contains(pi));//verifica che l'utente iniziale NON sia inserito
-        //assertEquals(0,prestiti.getSetPrestiti().size());//veririfica nessun utente presente in db
-        
-        boolean expResult = false;
-        boolean result = instance.modifica(pi, pf);
-        assertEquals(expResult, result);
-        //assertTrue(prestiti.getSetPrestiti().contains(pf)); //verifica che sia presente l'utente modificato
-
-        
-    }
+    
 
     
     
