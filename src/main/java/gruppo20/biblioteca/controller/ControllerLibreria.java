@@ -3,6 +3,7 @@ package gruppo20.biblioteca.controller;
 import gruppo20.biblioteca.model.Libri.Libro;
 import gruppo20.biblioteca.model.Libri.Libreria;
 import gruppo20.biblioteca.model.Main;
+import gruppo20.biblioteca.model.Utenti.Utente;
 import javafx.scene.control.Dialog;
 import java.io.IOException;
 import java.net.URL;
@@ -15,6 +16,7 @@ import javafx.collections.*;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,7 +31,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.util.converter.NumberStringConverter;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -40,12 +41,8 @@ import org.kordamp.ikonli.javafx.FontIcon;
  */
 public class ControllerLibreria implements Initializable{
     
-    private Contesto co;
-    
-    @FXML
-    private AnchorPane libreria;
-    @FXML
-    private Label intestazione;
+    private Contesto co;   
+ 
     @FXML 
     private TableView<Libro> tabellaLibri;
     
@@ -64,9 +61,6 @@ public class ControllerLibreria implements Initializable{
     private TextField barraCercaLibri;
     @FXML 
     private Button aggiungiLibroButton;
-    
-    
-    
     
     
     @FXML 
@@ -287,6 +281,9 @@ public class ControllerLibreria implements Initializable{
             //Filtraggio per Cognome o Matricola
             FilteredList<Libro> datiFiltrati = new FilteredList<>(listaPerTabella, p -> true);
             
+            SortedList<Libro> datiOrdinati = new SortedList<>(datiFiltrati);
+            
+            datiOrdinati.comparatorProperty().bind(tabellaLibri.comparatorProperty());
             
             barraCercaLibri.textProperty().addListener((osservabile, vecchio, nuovo) ->{
                 datiFiltrati.setPredicate(libro ->{
@@ -299,7 +296,7 @@ public class ControllerLibreria implements Initializable{
                 });
             });
             
-            tabellaLibri.setItems(datiFiltrati);
+            tabellaLibri.setItems(datiOrdinati);
             
             aggiungiLibroButton.setOnAction(ds -> {
                 try {

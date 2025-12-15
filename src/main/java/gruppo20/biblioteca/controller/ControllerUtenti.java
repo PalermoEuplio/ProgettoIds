@@ -26,6 +26,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.beans.binding.BooleanBinding;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import org.kordamp.ikonli.javafx.FontIcon;
 
@@ -82,6 +83,7 @@ public class ControllerUtenti implements Initializable {
             Utenti u = co.getGestUtenti();
             ObservableSet<Utente> setUtenti = u.getSetUtenti();
             tabellaUtenti.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+            
 
             operazioni.setCellFactory(col -> new TableCell<Utente, Void>() {
 
@@ -270,7 +272,13 @@ public class ControllerUtenti implements Initializable {
             listaPerTabella = FXCollections.observableArrayList(setUtenti);
 
             //Filtraggio per Cognome o Matricola
-            FilteredList<Utente> datiFiltrati = new FilteredList<>(listaPerTabella, p -> true);
+            FilteredList<Utente> datiFiltrati =new FilteredList<>(listaPerTabella, p -> true);
+
+            SortedList<Utente> datiOrdinati = new SortedList<>(datiFiltrati);
+
+            // COLLEGAMENTO FONDAMENTALE
+            datiOrdinati.comparatorProperty()
+                    .bind(tabellaUtenti.comparatorProperty());
 
             barraCercaUtenti.textProperty().addListener((osservabile, vecchio, nuovo) -> {
                 datiFiltrati.setPredicate(utente -> {
@@ -278,12 +286,13 @@ public class ControllerUtenti implements Initializable {
                         return true;
                     }
                     String lowerCaseFilter = nuovo.toLowerCase();
-
-                    return utente.getCognome().toLowerCase().contains(lowerCaseFilter) || utente.getMatricola().toLowerCase().contains(lowerCaseFilter);
+                    return utente.getCognome().toLowerCase().contains(lowerCaseFilter)
+                        || utente.getMatricola().toLowerCase().contains(lowerCaseFilter);
                 });
             });
 
-            tabellaUtenti.setItems(datiFiltrati);
+            tabellaUtenti.setItems(datiOrdinati);
+
 
             aggiungiUtenteButton.setOnAction(ds -> {
                 try {
