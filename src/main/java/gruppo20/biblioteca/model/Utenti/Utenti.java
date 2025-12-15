@@ -33,16 +33,7 @@ public class Utenti extends GestioneDB<Utente> {
         this.setUtenti = FXCollections.observableSet(new HashSet<>());
         this.conn = conn;
         if (!super.tableExists(conn, "utenti")) {
-            String sqlUtenti = """
-            CREATE TABLE IF NOT EXISTS utenti (
-                nome TEXT,
-                cognome TEXT,
-                matricola TEXT NOT NULL,
-                email TEXT,     
-                prestiti INTEGER
-
-            );
-        """;
+            String sqlUtenti = "CREATE TABLE IF NOT EXISTS utenti (nome TEXT,cognome TEXT,matricola TEXT NOT NULL,email TEXT,     prestiti INTEGER);";
             try (Statement stmt = conn.createStatement()) {
                 stmt.execute(sqlUtenti);
             }

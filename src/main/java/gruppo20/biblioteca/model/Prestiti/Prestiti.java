@@ -50,17 +50,7 @@ public class Prestiti extends GestioneDB<Prestito> {
 
         this.conn = conn;
         if (!super.tableExists(conn, "prestiti")) {
-            String sqlPrestiti = """
-            CREATE TABLE IF NOT EXISTS prestiti (
-                dataPrestito TEXT,
-                dataPrevistaRestituzione TEXT,
-                effettivaRestituzione TEXT,
-                titoloLibro TEXT,
-                isbn TEXT,
-                matricola TEXT
-
-            );
-        """;
+            String sqlPrestiti = "CREATE TABLE IF NOT EXISTS prestiti (dataPrestito TEXT,dataPrevistaRestituzione TEXT,effettivaRestituzione TEXT,titoloLibro TEXT,isbn TEXT,matricola TEXT);";
             try (Statement stmt = conn.createStatement()) {
                 stmt.execute(sqlPrestiti);
             }

@@ -33,15 +33,7 @@ public class Libreria extends GestioneDB<Libro> {
         setLibreria = FXCollections.observableSet(new HashSet<>());
         this.conn = conn;
         if (!super.tableExists(conn, "libri")) {
-            String sqlLibri = """
-            CREATE TABLE IF NOT EXISTS libri (
-                titolo TEXT NOT NULL,
-                autori TEXT,
-                anno TEXT,
-                copie INTEGER,
-                isbn TEXT
-            );
-        """;
+            String sqlLibri ="CREATE TABLE IF NOT EXISTS libri (titolo TEXT NOT NULL,autori TEXT,anno TEXT,copie INTEGER,isbn TEXT);";
             try (Statement stmt = conn.createStatement()) {
                 stmt.execute(sqlLibri);
             }
