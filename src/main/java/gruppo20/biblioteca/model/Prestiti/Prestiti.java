@@ -133,6 +133,7 @@ public class Prestiti extends GestioneDB<Prestito> {
         } catch (SQLException e) {
             return false;
         }
+        if(p.getEffettivaRestituzione().isRestituito()) setPrestiti.add(p);
         return setPrestiti.add(p) && gestLibreria.addPrestito(p.getIsbn())&& gestUtenti.addPrestito(p.getMatricola());
 
     }
@@ -158,8 +159,7 @@ public class Prestiti extends GestioneDB<Prestito> {
         } catch (SQLException e) {
             return false;
         }
-        if(p.getEffettivaRestituzione().isRestituito()) return setPrestiti.remove(p);
-        return setPrestiti.remove(p) && gestLibreria.addRestituzione(p.getIsbn()) && gestUtenti.addRestituzione(p.getMatricola());
+        return setPrestiti.remove(p);
     }
 
     /**

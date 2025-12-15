@@ -119,7 +119,7 @@ public class Utenti extends GestioneDB<Utente> {
         conn.setAutoCommit(false); // inizio transazione
         boolean status;
         try {
-            status = elimina(u1) && aggiungi(u2);
+             status = elimina(u1) && aggiungi(u2);
             conn.commit(); // conferma tutte le modifiche
         } catch (SQLException e) {
             conn.rollback(); // annulla tutto se c’è un errore
