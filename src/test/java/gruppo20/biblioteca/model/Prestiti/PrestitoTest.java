@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.stream.Stream;
 import java.util.Random;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -13,6 +12,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 
 /**
+ * /**
+ * @brief Test per la classe Prestito
  *
  * @author Gruppo20
  */
@@ -113,6 +114,7 @@ public class PrestitoTest {
 
     /**
      * test getIsbn
+     * test parametrizzato con funzine isbnGen
      * @param in 
      */
     @ParameterizedTest
@@ -252,11 +254,9 @@ public class PrestitoTest {
     }
     
     /**
-     * generatore di date
+     * @brief generatore di date
      * 50
-     * @brief
-     * Metodi di supporto per i test
-    
+     * Metodo di supporto per i test    
     */
     static Stream<LocalDate> dateGen() {
         LocalDate oggi = LocalDate.now();        
@@ -264,9 +264,9 @@ public class PrestitoTest {
                      
     }
     /**
-     * generatore di isbn 
+     * @brief generatore di isbn random 
      * 50
-     * @return 
+     * Metodo di supporto per i test
      */
     static Stream<String> isbnGen() {
         Random random = new Random();   

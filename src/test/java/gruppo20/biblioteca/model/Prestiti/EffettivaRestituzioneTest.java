@@ -8,9 +8,12 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 /**
- *
- * @author Riccardo
+ * /**
+ * @brief Test per la classe EffettivaRestituzione
+ * 
+ * @author Gruppo20
  */
+ 
 public class EffettivaRestituzioneTest {
     
     public EffettivaRestituzioneTest() {
