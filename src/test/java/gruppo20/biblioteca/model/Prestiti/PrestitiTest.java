@@ -6,8 +6,9 @@ package gruppo20.biblioteca.model.Prestiti;
 
 import gruppo20.biblioteca.controller.Contesto;
 import java.time.LocalDate;
-import static org.junit.Assert.*;
+//import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
@@ -208,15 +209,6 @@ public class PrestitiTest {
         
     }
 
-    /**
-     * Test of carica method, of class Prestiti.
-     */
-    @Test
-    public void testCarica() throws Exception {
-        System.out.println("carica");
-        Prestiti instance = null;
-        instance.carica();
-        fail("The test case is a prototype.");
-    }
+    
     
 }
