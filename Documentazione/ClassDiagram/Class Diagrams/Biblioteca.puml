@@ -1,0 +1,313 @@
+@startuml ProgettoIds
+skinparam linetype ortho
+left to right direction
+
+' Classi
+class Contesto {
+    - gestLibreria : Libreria
+    - gestPrestiti : Prestiti
+    - gestUtenti : Utenti
+    + Contesto()
+    + getGestLibreria() : Libreria
+    + getGestPrestiti() : Prestiti
+    + getGestUtenti() : Utenti
+}
+
+class ControllerDashboard {
+    - co : Contesto
+    - clock : Label
+    - tabellaPrestitiAttivi : TableView<Prestito>
+    - dataPrestitoA : TableColumn<Prestito, String>
+    - matricolaA : TableColumn<Prestito, String>
+    - giorniRitardoA : TableColumn<Prestito, Integer>
+    - listaPerTabellaAttivi : ObservableList<Prestito>
+    + initialize(location : URL, resources : ResourceBundle) : void
+    + pageDashboard(event : MouseEvent) : void
+    + pageUtenti(event : MouseEvent) : void
+    + pageLibreria(event : MouseEvent) : void
+    + pagePrestiti(event : MouseEvent) : void
+}
+
+class ControllerLibreria {
+    - co : Contesto
+    - libreria : AnchorPane
+    - intestazione : Label
+    - tabellaLibri : TableView<Libro>
+    - titoloLibro : TextField
+    - listaAutori : TextField
+    - isbn : TextField
+    - annoP : DatePicker
+    - NCopie : TextField
+    - barraCercaLibri : TextField
+    - aggiungiLibroButton : Button
+    - titolo : TableColumn<Libro, String>
+    - autori : TableColumn<Libro, String>
+    - annoPublicazione : TableColumn<Libro, LocalDate>
+    - isbn0 : TableColumn<Libro, String>
+    - nCopie : TableColumn<Libro, Integer>
+    - operazioni : TableColumn<Libro, Void>
+    - listaPerTabella : ObservableList<Libro>
+    + initialize(location : URL, resources : ResourceBundle) : void
+    + pageDashboard(event : MouseEvent) : void
+    + pageUtenti(event : MouseEvent) : void
+    + pageLibreria(event : MouseEvent) : void
+    + pagePrestiti(event : MouseEvent) : void
+}
+
+class ControllerPrestiti {
+    - co : Contesto
+    - tabellaPrestitiAttivi : TableView<Prestito>
+    - tabellaPrestitiRitardo : TableView<Prestito>
+    - matricolaUtenteBox : ComboBox
+    - isbnBox : ComboBox
+    - annoP : DatePicker
+    - annoR : DatePicker
+    - aggiuntaPrestitoButton : Button
+    - avverti : Label
+    - dataPrestitoA : TableColumn<Prestito, String>
+    - dataScadenzaA : TableColumn<Prestito, String>
+    - giorniRitardoA : TableColumn<Prestito, Integer>
+    - matricolaA : TableColumn<Prestito, String>
+    - isbnA : TableColumn<Prestito, String>
+    - operazioniA : TableColumn<Prestito, Void>
+    - dataPrestitoR : TableColumn<Prestito, String>
+    - dataScadenzaR : TableColumn<Prestito, String>
+    - giorniRitardoR : TableColumn<Prestito, Integer>
+    - matricolaR : TableColumn<Prestito, String>
+    - isbnR : TableColumn<Prestito, String>
+    - operazioniR : TableColumn<Prestito, Void>
+    - listaPerTabellaAttivi : ObservableList<Prestito>
+    - listaPerTabellaRitardi : ObservableList<Prestito>
+    + initialize(location : URL, resources : ResourceBundle) : void
+    + pageDashboard(event : MouseEvent) : void
+    + pageUtenti(event : MouseEvent) : void
+    + pageLibreria(event : MouseEvent) : void
+    + pagePrestiti(event : MouseEvent) : void
+}
+
+class ControllerUtenti {
+    - co : Contesto
+    - tabellaUtenti : TableView<Utente>
+    - nomeUtente : TextField
+    - cognomeUtente : TextField
+    - matricola : TextField
+    - email : TextField
+    - barraCercaUtenti : TextField
+    - aggiungiUtenteButton : Button
+    - nome : TableColumn<Utente, String>
+    - cognome : TableColumn<Utente, String>
+    - matricola0 : TableColumn<Utente, String>
+    - mail : TableColumn<Utente, String>
+    - nPrestiti : TableColumn<Utente, Integer>
+    - operazioni : TableColumn<Utente, Void>
+    - listaPerTabella : ObservableList<Utente>
+    + initialize(location : URL, resources : ResourceBundle) : void
+    + pageDashboard(event : MouseEvent) : void
+    + pageUtenti(event : MouseEvent) : void
+    + pageLibreria(event : MouseEvent) : void
+    + pagePrestiti(event : MouseEvent) : void
+}
+
+class Main {
+    - co : Contesto {static, final}
+    + getContesto() : Contesto {static}
+    + main(args : String) : void {static}
+}
+
+class App {
+    + start(stage : Stage) : void
+}
+
+class Libreria {
+    - setLibreria : ObservableSet<Libro>
+    - conn : Connection
+    + Libreria(conn : Connection)
+    + getSetLibreria() : ObservableSet<Libro>
+    + aggiungi(l2 : Libro) : boolean
+    + elimina(l : Libro) : boolean
+    + modifica(l1 : Libro, l2 : Libro) : boolean
+    + carica() : void
+    + addRestituzione(isbn : String) : boolean
+    + addPrestito(isbn : String) : boolean
+}
+
+class Autore {
+    - nome : String {final}
+    - cognome : String {final}
+    + Autore(nome : String, cognome : String)
+    + getNome() : String
+    + getCognome() : String
+    + convert(s : String) : Autore {static}
+    + hashCode() : int
+    + equals(o : Object) : boolean
+    + toString() : String
+}
+
+class Libro {
+    - titolo : String
+    - autori : ArrayList<Autore>
+    - annoPublicazione : LocalDate
+    - nCopie : int
+    - isbn : String
+    + Libro(titolo : String, autori : String, annoPublicazione : LocalDate, nCopie : int, isbn : String)
+    + setAutori(autori : String) : void
+    + setNCopie(nCopie : int) : void
+    + getTitolo() : String
+    + getAutori() : String
+    + getAnno() : LocalDate
+    + getNCopie() : int
+    + getIsbn() : String
+    + equals(o : Object) : boolean
+    + hashCode() : int
+    + toString() : String
+}
+
+class EffettivaRestituzione {
+    - restituito : boolean
+    - dataEffettivaRestituzione : LocalDate
+    + EffettivaRestituzione(s : String)
+    + setEffettivaRestituzione(dataRestituzione : LocalDate) : void
+    + isRestituito() : boolean
+    + getEffettivaRestituzione() : String
+}
+
+class Prestito {
+    - dataPrestito : LocalDate {final}
+    - dataPrevistaRestituzione : LocalDate {final}
+    - effettivaRestituzione : EffettivaRestituzione {final}
+    - isbn : String {final}
+    - titoloLibro : String {final}
+    - matricola : String {final}
+    - ritardo : int {final}
+    + Prestito(dataPrestito : LocalDate, dataPrevistaRestituzione : LocalDate, effettivaRestituzione : String, titoloLibro : String, isbn : String, matricola : String)
+    + setEffettivaRestituzione(dataRestituzione : LocalDate) : void
+    + getDataPrevistaRestituzione() : LocalDate
+    + getDataPrestito() : LocalDate
+    + getEffettivaRestituzione() : EffettivaRestituzione
+    + getIsbn() : String
+    + getTitoloLibro() : String
+    + getMatricola() : String
+    + getRitardo() : int
+    + isRitardo() : boolean
+    + setRitardo() : int {final}
+    + equals(o : Object) : boolean
+    + hashCode() : int
+}
+
+class Prestiti {
+    - setPrestiti : ObservableSet<Prestito> {final}
+    - gestUtenti : Utenti {final}
+    - gestLibreria : Libreria {final}
+    - conn : Connection {final}
+    + Prestiti(conn : Connection, gestUtenti : Utenti, gestLibreria : Libreria)
+    + getSetPrestiti() : ObservableSet<Prestito>
+    + restituisci(p : Prestito, dataRestituzione : LocalDate) : boolean
+    + aggiungi(p : Prestito) : boolean
+    + elimina(p : Prestito) : boolean
+    + modifica(p1 : Prestito, p2 : Prestito) : boolean
+    + carica() : void {final}
+}
+
+class Utente {
+    - nome : String {final}
+    - cognome : String {final}
+    - matricola : String {final}
+    - mail : String {final}
+    - nPrestiti : int {final}
+    + Utente(nome : String, cognome : String, matricola : String, mail : String, nPrestiti : int)
+    + getNPrestiti() : int
+    + getNome() : String
+    + getCognome() : String
+    + getMatricola() : String
+    + getMail() : String
+    + equals(o : Object) : boolean
+    + hashCode() : int
+    + toString() : String
+}
+
+class Utenti {
+    - setUtenti : ObservableSet<Utente> {final}
+    - conn : Connection {final}
+    + Utenti(conn : Connection)
+    + getSetUtenti() : ObservableSet<Utente>
+    + aggiungi(u : Utente) : boolean
+    + elimina(u : Utente) : boolean
+    + modifica(u1 : Utente, u2 : Utente) : boolean
+    + carica() : void {final}
+    + addRestituzione(matricola : String) : boolean
+    + addPrestito(matricola : String) : boolean
+    + toString() : String
+}
+
+abstract class GestioneDB {
+    + aggiungi(o : T) : boolean {abstract}
+    + elimina(o : T) : boolean {abstract}
+    + modifica(o1 : T, o2 : T) : boolean {abstract}
+    + carica() : void {abstract}
+    + tableExists(conn : Connection, tableName : String) : boolean
+}
+
+' Relazioni
+Contesto --> Libreria : use
+Contesto --> Prestiti : use
+Contesto --> Utenti : use
+
+ControllerDashboard --> Contesto : co
+ControllerDashboard --> Prestito : dataPrestitoA
+ControllerDashboard --> Prestito : tabellaPrestitiAttivi
+ControllerDashboard --> Prestito : listaPerTabellaAttivi
+ControllerDashboard --> Prestito : matricolaA
+ControllerDashboard --> Prestito : giorniRitardoA
+
+ControllerLibreria --> Contesto : co
+ControllerLibreria --> Libro : tabellaLibri
+ControllerLibreria --> Libro : titolo
+ControllerLibreria --> Libro : autori
+ControllerLibreria --> Libro : annoPublicazione
+ControllerLibreria --> Libro : nCopie
+ControllerLibreria --> Libro : operazioni
+ControllerLibreria --> Libro : isbn0
+ControllerLibreria --> Libro : listaPerTabella
+
+ControllerPrestiti --> Contesto : co
+ControllerPrestiti --> Prestito : tabellaPrestitiAttivi
+ControllerPrestiti --> Prestito : tabellaPrestitiRitardo
+ControllerPrestiti --> Prestito : dataPrestitoA
+ControllerPrestiti --> Prestito : dataScadenzaA
+ControllerPrestiti --> Prestito : giorniRitardoA
+ControllerPrestiti --> Prestito : matricolaA
+ControllerPrestiti --> Prestito : isbnA
+ControllerPrestiti --> Prestito : operazioniA
+ControllerPrestiti --> Prestito : dataPrestitoR
+ControllerPrestiti --> Prestito : dataScadenzaR
+ControllerPrestiti --> Prestito : giorniRitardoR
+ControllerPrestiti --> Prestito : matricolaR
+ControllerPrestiti --> Prestito : isbnR
+ControllerPrestiti --> Prestito : operazioniR
+ControllerPrestiti --> Prestito : listaPerTabellaAttivi
+ControllerPrestiti --> Prestito : listaPerTabellaRitardi
+
+ControllerUtenti --> Contesto : co
+ControllerUtenti --> Utente : tabellaUtenti
+ControllerUtenti --> Utente : nome
+ControllerUtenti --> Utente : cognome
+ControllerUtenti --> Utente : matricola0
+ControllerUtenti --> Utente : mail
+ControllerUtenti --> Utente : nPrestiti
+ControllerUtenti --> Utente : operazioni
+ControllerUtenti --> Utente : listaPerTabella
+
+Main --> Contesto : co
+Libreria --> Libro : setLibreria
+Libreria --> GestioneDB : is
+Autore --> Autore : use
+Libro --> Autore : autori
+Prestito --> EffettivaRestituzione : effettivaRestituzione
+Prestiti --> Prestito : setPrestiti
+Prestiti --> Libreria : gestLibreria
+Prestiti --> Utenti : gestUtenti
+Prestiti --> GestioneDB : is
+Utenti --> Utente : setUtenti
+Utenti --> GestioneDB : is
+
+@enduml
