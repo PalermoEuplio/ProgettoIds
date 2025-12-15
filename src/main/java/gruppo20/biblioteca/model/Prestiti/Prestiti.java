@@ -133,7 +133,7 @@ public class Prestiti extends GestioneDB<Prestito> {
         } catch (SQLException e) {
             return false;
         }
-        if(p.getEffettivaRestituzione().isRestituito()) setPrestiti.add(p);
+        if(p.getEffettivaRestituzione().isRestituito()) return setPrestiti.add(p);
         return setPrestiti.add(p) && gestLibreria.addPrestito(p.getIsbn())&& gestUtenti.addPrestito(p.getMatricola());
 
     }
