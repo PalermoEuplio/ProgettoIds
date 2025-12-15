@@ -497,7 +497,7 @@ public class ControllerPrestiti implements Initializable{
 
                                 // Logica dei bottoni (chiudere la finestra)
                                 pulsanteSi.setOnAction(erese -> {
-                                    p.giaEliminato(preso);
+                                    p.elimina(preso);
                                     listaPerTabellaRitardi.remove(preso);
                                     // Chiudi la finestra prendendo lo Stage dal bottone stesso
                                     ((Stage) pulsanteSi.getScene().getWindow()).close();
